@@ -1,6 +1,6 @@
 project:
   type: website
-  output-dr: docs
+  output-dir: docs
 
 website:
   title: "Linear Mixed Models"

@@ -3,10 +3,6 @@ title: "Linear Mixed Models"
 subtitle: "AKA: many other names"
 author: "The Linear Mixed Modelers - Joshua J. Cook, TBD, TBD, TBD"
 date: '`r Sys.Date()`'
-course: STA 6257 - Advanced Statistical Modeling
-bibliography: references.bib # file contains bibtex for references
-#always_allow_html: true # this allows to get PDF with HTML features
-self-contained: true
 ---
 
 # Individual Literature Review
