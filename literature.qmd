@@ -1,8 +1,9 @@
 ---
 title: "Individual Literature Reviews"
+toc: TRUE
 ---
 
-# Joshua J. Cook, M.S., ACRP-PM, CCRC
+# Josh's Literature Review
 
 ## [An Introduction to Linear Mixed-Effects Modeling in R - Violet A. Brown, 2021 (uwf.edu)](https://journals-sagepub-com.ezproxy.lib.uwf.edu/doi/full/10.1177/2515245920960351)
 
@@ -40,7 +41,7 @@ The methodology includes a detailed examination of information theory and multi-
 
 While the article offers valuable insights into the use of LMMs in ecology, including data and code for practical application, it primarily serves as an introductory piece, potentially leaving out more advanced aspects of LMMs and multi-model inference.
 
-##  [Generalized linear mixed models: a practical guide for ecology and evolution - ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0169534709000196)
+## [Generalized linear mixed models: a practical guide for ecology and evolution - ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0169534709000196)
 
 What is the goal of the paper?
 
