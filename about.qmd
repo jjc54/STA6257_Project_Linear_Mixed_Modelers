@@ -5,7 +5,7 @@ title: "About"
 This is the directory for the UWF STA 6257 group: **The Linear Mixed Modelers**. Thank you for stopping by our page!
 
 ::: {layout-ncol="2"}
-![](images/josh.JPG)
+![](images/josh.JPG){.lightbox}
 
 ### Joshua J. Cook, M.S., ACRP-PM, CCRC
 

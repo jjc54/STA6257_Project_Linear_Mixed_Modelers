@@ -6,6 +6,6 @@ Linear mixed models (LMMs) are statistical models that account for both fixed an
 
 Here's a snapshot of the analysis process our team is currently going through:
 
-![](images/LMM%20Draft.png){.lightbox}
+![](images/LMM.png){.lightbox}
 
 Feel free to meet our team on the **About** tab and review our individual literature contributions on the **Literature** tab.
