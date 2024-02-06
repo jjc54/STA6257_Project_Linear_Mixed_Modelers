@@ -1,0 +1,5 @@
+---
+title: "About"
+---
+
+This is the directory for the UWF STA 6257 group: The Linear Mixed Modelers.
