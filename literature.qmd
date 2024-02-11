@@ -116,3 +116,98 @@ This JM was then evaluated using historical clinical trial data where a standard
 Results/limitations, if any.
 
 This paper showed that poor quality-of-life scores are associated with drop out. Therefore, LMMs should be avoided when analyzing this data in clinical trials. The LMMs in both the historical studies and in the simulations were overly optimistic in estimating the quality-of-life scores. Specifically, the LMM overestimates the slope governing the prediction trajectory in both treatment and control arms. The LMM is also more optimistic for the control arm than the experimental arm, despite the protective effect of treatment on the quality-of-life score.
+
+# Jacob's Literature Review
+
+## [INTRODUCTION TO LINEAR MIXED MODELS (oarc.ucla.edua)](https://stats.oarc.ucla.edu/other/mult-pkg/introduction-to-linear-mixed-models/#:~:text=Linear%20mixed%20models%20are%20an,or%20patients%20from%20within%20doctors)
+
+**What is the goal of the paper?**
+
+The goal of the paper is to show how linear mixed models can help analyze data sets with non independence. Non independence can happen when data is hierarchical in structure resulting in correlations within groups in the data sets resulting in the violation of the assumption of independence between observations. The example provided has a sample dataset with different patient observations belonging to multiple doctors.
+
+**Why is it important?**
+
+Going on the aforementioned example, data can be averaged on a doctor group level but his would result in less data. And you can not make inferences about an individual patient. You can also do multiple linear models for each doctor but the models themselve have less data resulting in more noise. 
+
+**How is it solved? – methods**
+
+Linear Mixed models find a trade off between both approaches where the random effects are still considered for each doctor but there is still an overall grand or fixed effect.
+
+**Results/limitations, if any.**
+
+There was no dataset or experiment analyzed in this paper. It is just a technical overview. 
+
+## [Linear Mixed Model for Analyzing Longitudinal Data: A Simulation Study of Children Growth Differences (sciencedirect.com)](https://www.sciencedirect.com/science/article/pii/S187705091732121X)
+
+**What is the goal of the paper?**
+
+The goal of the paper is to use Linear Mixed Models to analyze multilevel data of developmental growth rates in children. Different covariance structures were modeled within the LMM to capture correlated data through time. 
+
+**Why is it important?**
+
+Growth curves in children are usually represented as a 2 level data structure. At level 2 is the individual child and at the second level is each individual observation. Traditional linear models are not effective due to the non-independence of the data. 
+
+**How is it solved? – methods**
+
+The simulation study found that the UN covariance performed the best although it suffered from efficiency because of the high number of parameters leaving the ARH(1) as a solid alternative. The data was also not naturally collected but simulated 
+
+**Results/limitations, if any.**
+
+The simulation study found that the UN covariance performed the best although it suffered from efficiency because of the high number of parameters leaving the ARH(1) as a solid alternative. The data was also not naturally collected but simulated 
+
+## [A brief introduction to mixed effects modelling and multi-model inference in ecology (nih.gov)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5970551/pdf/peerj-06-4794.pdf)
+
+**What is the goal of the paper?**
+
+The goal of this paper is to serve as a guide on the end to end to end analysis from formulating a hypothesis to inference to explaining the model parameters as it regards to biological and ecological data. Advantages and disadvantages are discussed with the different options available at different parts of the linear mixed model analysis pipeline
+
+**Why is it important?**
+
+This article is relevant to our group especially, to those unfamiliar with Linear Mix Models like myself. As it regards to biological science, this paper helps the reader avoid common pitfalls when implementing LMMs  
+
+**How is it solved? – methods**
+
+The paper has a play by play on the different stages of LMM analysis with tangible example that include data, code and several graphs. 
+
+**Results/limitations, if any**
+
+There is no study or actual experiment being analyzed by linear mixed models. Although it does have references to plenty of academic research papers 
+
+
+## [LEVEL (Logical Explanations & Visualizations of Estimates in Linear mixed models): recommendations for reporting multilevel data and analyses](https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-019-0876-8)
+
+**What is the goal of the paper?**
+
+Researchers use LLMs to study hierarchical data and often report them under different names like mixed effects models, multilevel data, contextual analysis and hierarchical studies. There is no standardization across these papers for analyzing hierarchical data which leads to different aspects being reported. The goal of the paper is to make a standardized process for analyzing multilevel data 
+
+**Why is it important?**
+
+This is important so studies across different time periods can be compared more easily.
+
+**How is it solved? – methods**
+
+The paper suggests using the LEVEL (Logical Explanations & Visualizations of Estimates in Linear mixed models) as framework for conducting studies with reporting recommendations
+
+**Results/limitations, if any.**
+
+Lack of flexibility. Sticking to a framework can inhibit creative analysis since you’re always looking at the framework for guidance.
+
+## Estimation and selection in linear mixed models with missing data under compound symmetric structure (nih.gov)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9621253/)
+
+**What is the goal of the paper?**
+
+Missing values occur all the time in real data. Statisticians and scientists use linear mixed models as a way to circumvent this issue. This paper aims to examine the estimation and model selection performance when faced with different rates of missing data. The paper employs two types of missing data. Missing at random and not at random.
+
+**Why is it important?**
+
+Given the frequency of missing data it's important to know the impact it has on the model’s results. It's also important to be able to 
+
+**How is it solved? – methods**
+
+Missingness of data is recorded using an indicator based matrix and then a likelihood based estimator is made to capture the probability of distribution of the observed data given the model parameters. 
+
+**Results/limitations, if any.**
+
+There is adequate model performance when there is a moderate amount of missingness in the data. However, the paper focuses on compound symmetric structures which assumes equal variance among any given pair of observations. 
+
+
