@@ -1,5 +1,5 @@
 ---
-title: "Individual Literature Reviews"
+title: "Literature Reviews"
 toc: TRUE
 ---
 
