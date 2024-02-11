@@ -192,7 +192,7 @@ The paper suggests using the LEVEL (Logical Explanations & Visualizations of Est
 
 Lack of flexibility. Sticking to a framework can inhibit creative analysis since you’re always looking at the framework for guidance.
 
-## Estimation and selection in linear mixed models with missing data under compound symmetric structure (nih.gov)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9621253/)
+## [Estimation and selection in linear mixed models with missing data under compound symmetric structure (nih.gov)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9621253/)
 
 **What is the goal of the paper?**
 
