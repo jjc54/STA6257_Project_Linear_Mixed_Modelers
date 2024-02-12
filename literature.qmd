@@ -1,6 +1,8 @@
 ---
 title: "Literature Reviews"
 toc: TRUE
+bibliography: references.bib
+csl: asa.csl
 ---
 
 # Josh's Literature Review

@@ -1,5 +1,29 @@
 ---
 title: "Report"
+date: "today"
+bibliography: references.bib
+csl: asa.csl
 ---
 
-TBD
+# 1 Introduction
+
+Linear mixed-effects models (LMMs) have emerged as a powerful statistical tool for analyzing data that violate the assumptions of traditional ANOVA or regression methods, particularly in the presence of intra-subject differences, hierarchical data structures, and non-independence of observations. This introduction synthesizes the findings from a series of papers that explore the application, advantages, and limitations of LMMs across various fields including psychology, ecology, evolution, and medical research.
+
+One article by Brown Et. Al. underscores the utility of LMMs in handling complex data structures, such as those encountered in psychological research, by providing a detailed walkthrough of LME model syntax in R without delving deeply into the mathematical underpinnings of LMMs \[@brown_introduction_2021\]. The flexibility of LMMs with missing values and outliers is particularly emphasized, highlighting their suitability for psychological research where within-subject differences are prevalent.
+
+In the realm of ecology, the application of LMMs extends to addressing challenges related to error and model selection in ecological research. Harrison Et. Al. provide a comprehensive overview of LMMs in ecological data analysis, focusing on information theory and multi-model inference, thereby underscoring the broad applicability of LMMs in handling ecological datasets \[@harrison_brief_2018\].
+
+Generalized linear mixed models (GLMMs) further extend the utility of LMMs to nonnormal data types, such as counts or proportions, commonly encountered in ecology and evolution. Bolker Et. Al. highlight the limitations of traditional statistical methods and advocate for GLMMs as a more appropriate approach, emphasizing the need for researchers to match their statistical methods to their data \[@bolker_generalized_2009\].
+
+The introduction of user-friendly tools such as LMMgui further democratizes the use of LMMs among researchers with limited statistical expertise, such as medical doctors. Magezi presents LMMgui, a graphical user interface that facilitates the use of LMMs in analyzing data from within-participant psychology experiments, thereby enhancing the accessibility of advanced statistical methods \[@magezi_linear_2015\].
+
+In the context of medical research specifically, LMMs have been employed to estimate COVID-19-induced excess mortality, demonstrating their capability to model baseline mortality and account for year-specific trends and historical excess mortality events. Verbeeck Et. Al. underscore the adaptability of LMMs in modeling complex phenomena such as pandemic-induced mortality changes \[@verbeeck_linear_2023\].
+
+Furthermore, the comparison between LMMs and joint models in analyzing longitudinal health-related quality of life data in cancer clinical trials reveals the potential limitations of LMMs when data is not missing at random (MAR). Touraine Et. Al. highlight the importance of choosing the appropriate model based on the nature of the missing data, advocating for joint models in specific scenarios \[@touraine_when_2023\].
+
+The literature reviews collectively emphasize the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.
+
+### References
+
+::: {#refs}
+:::
