@@ -300,3 +300,90 @@ The study evaluates the impact of skewed, bimodal, and heteroscedastic random ef
 **Results/limitations, if any.**
 
 The results indicate that while violations of assumptions may lead to slight biases and decreased precision in estimates, the overall robustness of LMMs allows for accurate and unbiased estimation of fixed and random effects.
+
+# Sara's Literature Review
+
+## [Model selection in linear mixed effect models](https://www.sciencedirect.com/science/article/pii/S0047259X12000395)
+
+
+
+**What is the goal of the paper?**
+
+The goal of the paper is to improve variable selection and parameter estimation in linear mixed effect models, which are critical for analyzing longitudinal, panel, and cross-sectional data in various scientific domains.
+
+**Why is it important?**
+
+Improving variable selection and parameter estimation is crucial because it directly impacts the accuracy and reliability of data analysis across scientific fields. Efficiently identifying relevant variables and accurately estimating their effects are essential for drawing valid conclusions from complex data structures.
+
+**How is it solved? -- Methods**
+
+The authors introduce a simple, iterative procedure that employs the smoothly clipped absolute deviation (SCAD) penalty function to estimate and select both fixed and random effects in these models. This approach is highlighted for being a consistent variable selection method with some oracle properties, suggesting it can perform almost as well as if the true underlying model were known.
+
+**Results/limitations, if any.**
+
+The approach's effectiveness and efficiency are validated through simulation studies and real data analysis. Nevertheless, the paper also points out limitations, including the method's dependence on certain conditions for its asymptotic properties to hold and the potential computational challenges encountered with high-dimensional datasets.
+
+
+## [Random Effects Structure for Testing Interactions in Linear Mixed-Effects Models](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3672519/)
+
+
+**What is the goal of the paper?**
+
+The goal is to provide a more accurate method for testing interactions within linear mixed-effects models, critiquing existing guidelines and proposing new ones that emphasize the inclusion of random slopes for the highest-order combination of within-unit factors in interactions.
+
+**Why is it important?**
+
+This is important because accurately testing interactions in mixed-effects models is crucial for statistical analyses, especially in avoiding high Type I error rates. The paper aims to refine the approach to these models to ensure more reliable results.
+
+**How is it solved? -- Methods**
+
+The author employs Monte Carlo simulations to test the proposed guidelines, demonstrating that neglecting critical random slopes can significantly increase the chance of a false rejection of the null hypothesis. Including appropriate random slopes in the model is shown to ensure better performance.
+
+**Results/limitations, if any.**
+
+The findings highlight that including the correct random slopes in mixed-effects models greatly improves model performance, particularly in accurately testing interactions between categorical variables. However, the paper's limitations include its focus on interactions between categorical variables and the specific conditions of the simulations used.
+
+## [Pymer4: Connecting R and Python for Linear Mixed Modeling](https://joss.theoj.org/papers/10.21105/joss.00862)
+
+
+**What is the goal of the paper?**
+
+The goal is to develop Pymer4, a tool that bridges R and Python for linear mixed modeling, addressing the gap in Python for a package as flexible as R's lme4 for complex data analysis.
+
+
+**Why is it important?**
+
+Pymer4 is significant for providing Python users with an accessible, integrated tool for linear mixed modeling, which was previously lacking, enhancing the analytical capabilities within the Python ecosystem.
+
+**How is it solved? -- Methods**
+
+Pymer4 offers a solution by by leveraging the rpy2 library, as it connects to R's lme4 package, offering a Pythonic interface for mixed modeling that integrates well with scientific Python tools, simplifying the analysis process.
+
+**Results/limitations, if any.**
+
+Pymer4 successfully extends lme4's functionality to Python users, offering features like significance testing and data visualization integration, enhancing multilevel model analysis. The paper focuses on the tool's capabilities without detailing specific limitations.
+
+
+
+## [A powerful and flexible linear mixed model framework for the analysis of relative quantification RT-PCR data](https://pubmed.ncbi.nlm.nih.gov/19422910/)
+
+
+**What is the goal of the paper?**
+
+The paper introduces a novel linear mixed model framework for analyzing relative quantification RT-PCR data, aiming to overcome the limitations of existing statistical methods by providing more accurate and flexible analysis tools.
+
+
+**Why is it important?**
+
+This framework is crucial for its potential to enhance the statistical power and flexibility in analyzing RT-PCR data, enabling researchers to conduct more reliable and varied analyses of gene expression across different experimental conditions.
+
+**How is it solved? -- Methods**
+
+The method involves a sophisticated statistical approach that incorporates both fixed and random effects in a linear mixed model, allowing for a more nuanced analysis of RT-PCR data that accounts for various sources of variability.
+
+**Results/limitations, if any.**
+
+The framework has been shown to yield more accurate and statistically powerful results compared to traditional methods, facilitating better decision-making in biological research. The paper thoroughly evaluates the model's performance and discusses its applicability to a wide range of experimental designs.
+
+
+
