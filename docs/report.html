@@ -120,7 +120,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./literature.html"> 
-<span class="menu-text">Literature Reviews</span></a>
+<span class="menu-text">Literature</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./report.html" aria-current="page"> 
@@ -155,10 +155,14 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">1 Introduction</a>
+  <li><a href="#introduction-to-linear-mixed-effects-models-lmms" id="toc-introduction-to-linear-mixed-effects-models-lmms" class="nav-link active" data-scroll-target="#introduction-to-linear-mixed-effects-models-lmms"><strong>Introduction to Linear Mixed-Effects Models (LMMs)</strong></a>
   <ul class="collapse">
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#implementation-methods" id="toc-implementation-methods" class="nav-link" data-scroll-target="#implementation-methods"><strong>Implementation Methods</strong></a></li>
+  <li><a href="#industry-specific-uses" id="toc-industry-specific-uses" class="nav-link" data-scroll-target="#industry-specific-uses"><strong>Industry-Specific Uses</strong></a></li>
+  <li><a href="#strengths-and-weaknesses" id="toc-strengths-and-weaknesses" class="nav-link" data-scroll-target="#strengths-and-weaknesses"><strong>Strengths and Weaknesses</strong></a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose"><strong>Purpose</strong></a></li>
   </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><strong>References</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -190,19 +194,32 @@ div.csl-indent {
 </header>
 
 
-<section id="introduction" class="level1">
-<h1>1 Introduction</h1>
-<p>Linear mixed-effects models (LMMs) have emerged as a powerful statistical tool for analyzing data that violate the assumptions of traditional ANOVA or regression methods, particularly in the presence of intra-subject differences, hierarchical data structures, and non-independence of observations. This introduction synthesizes the findings from a series of papers that explore the application, advantages, and limitations of LMMs across various fields including psychology, ecology, evolution, and medical research.</p>
-<p>One article by Brown Et. Al. underscores the utility of LMMs in handling complex data structures, such as those encountered in psychological research, by providing a detailed walkthrough of LME model syntax in R without delving deeply into the mathematical underpinnings of LMMs [<span class="citation" data-cites="brown_introduction_2021">Brown (<a href="#ref-brown_introduction_2021" role="doc-biblioref">2021</a>)</span>]. The flexibility of LMMs with missing values and outliers is particularly emphasized, highlighting their suitability for psychological research where within-subject differences are prevalent.</p>
-<p>In the realm of ecology, the application of LMMs extends to addressing challenges related to error and model selection in ecological research. Harrison Et. Al. provide a comprehensive overview of LMMs in ecological data analysis, focusing on information theory and multi-model inference, thereby underscoring the broad applicability of LMMs in handling ecological datasets [<span class="citation" data-cites="harrison_brief_2018">Harrison et al. (<a href="#ref-harrison_brief_2018" role="doc-biblioref">2018</a>)</span>].</p>
-<p>Generalized linear mixed models (GLMMs) further extend the utility of LMMs to nonnormal data types, such as counts or proportions, commonly encountered in ecology and evolution. Bolker Et. Al. highlight the limitations of traditional statistical methods and advocate for GLMMs as a more appropriate approach, emphasizing the need for researchers to match their statistical methods to their data [<span class="citation" data-cites="bolker_generalized_2009">Bolker et al. (<a href="#ref-bolker_generalized_2009" role="doc-biblioref">2009</a>)</span>].</p>
-<p>The introduction of user-friendly tools such as LMMgui further democratizes the use of LMMs among researchers with limited statistical expertise, such as medical doctors. Magezi presents LMMgui, a graphical user interface that facilitates the use of LMMs in analyzing data from within-participant psychology experiments, thereby enhancing the accessibility of advanced statistical methods [<span class="citation" data-cites="magezi_linear_2015">Magezi (<a href="#ref-magezi_linear_2015" role="doc-biblioref">2015</a>)</span>].</p>
-<p>In the context of medical research specifically, LMMs have been employed to estimate COVID-19-induced excess mortality, demonstrating their capability to model baseline mortality and account for year-specific trends and historical excess mortality events. Verbeeck Et. Al. underscore the adaptability of LMMs in modeling complex phenomena such as pandemic-induced mortality changes [<span class="citation" data-cites="verbeeck_linear_2023">Verbeeck et al. (<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">2023</a>)</span>].</p>
-<p>Furthermore, the comparison between LMMs and joint models in analyzing longitudinal health-related quality of life data in cancer clinical trials reveals the potential limitations of LMMs when data is not missing at random (MAR). Touraine Et. Al. highlight the importance of choosing the appropriate model based on the nature of the missing data, advocating for joint models in specific scenarios [<span class="citation" data-cites="touraine_when_2023">Touraine et al. (<a href="#ref-touraine_when_2023" role="doc-biblioref">2023</a>)</span>].</p>
-<p>The literature reviews collectively emphasize the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.</p>
-<section id="references" class="level3">
-<h3 class="anchored" data-anchor-id="references">References</h3>
+<section id="introduction-to-linear-mixed-effects-models-lmms" class="level1">
+<h1><strong>Introduction to Linear Mixed-Effects Models (LMMs)</strong></h1>
+<p>Linear mixed-effects models (LMMs) are advanced statistical tools designed to analyze data that exhibit complex structures, such as hierarchical organization, repeated measures, and random effects. These models are particularly useful when data violate the assumptions of traditional ANOVA or regression methods, such as the independence of observations, homoscedasticity, and normality of residuals. LMMs accommodate intra-subject differences, allowing for both fixed effects, which are consistent across individuals, and random effects, which vary among subjects or groups.</p>
+<section id="implementation-methods" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-methods"><strong>Implementation Methods</strong></h2>
+<p>The implementation of LMMs has been facilitated by various software packages and programming languages. Brown <span class="citation" data-cites="brown_introduction_2021">(<a href="#ref-brown_introduction_2021" role="doc-biblioref">Brown 2021</a>)</span> provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, <code>Pymer4</code>, developed by Jolly <span class="citation" data-cites="jolly_pymer4_2018">(<a href="#ref-jolly_pymer4_2018" role="doc-biblioref">Jolly 2018</a>)</span>, bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R’s <code>lme4</code> package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.</p>
+</section>
+<section id="industry-specific-uses" class="level2">
+<h2 class="anchored" data-anchor-id="industry-specific-uses"><strong>Industry-Specific Uses</strong></h2>
+<p>LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. Magezi <span class="citation" data-cites="magezi_linear_2015">(<a href="#ref-magezi_linear_2015" role="doc-biblioref">Magezi 2015</a>)</span> highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison Et. A. <span class="citation" data-cites="harrison_brief_2018">(<a href="#ref-harrison_brief_2018" role="doc-biblioref">Harrison et al. 2018</a>)</span> and Bolker Et. Al. <span class="citation" data-cites="bolker_generalized_2009">(<a href="#ref-bolker_generalized_2009" role="doc-biblioref">Bolker et al. 2009</a>)</span> discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck Et. Al. <span class="citation" data-cites="verbeeck_linear_2023">(<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">Verbeeck et al. 2023</a>)</span>, and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine Et. Al. [<span class="citation" data-cites="touraine_when_2023">Touraine et al. (<a href="#ref-touraine_when_2023" role="doc-biblioref">2023</a>)</span>].</p>
+</section>
+<section id="strengths-and-weaknesses" class="level2">
+<h2 class="anchored" data-anchor-id="strengths-and-weaknesses"><strong>Strengths and Weaknesses</strong></h2>
+<p>The strengths of LMMs lie in their flexibility to model complex data structures and their ability to handle missing data, making them a powerful tool for a wide range of scientific inquiries. However, their application is not without challenges. Peng and Lu <span class="citation" data-cites="peng_model_2012">(<a href="#ref-peng_model_2012" role="doc-biblioref">Peng and Lu 2012</a>)</span> address the difficulty of variable selection and parameter estimation in LMMs, proposing an iterative procedure to improve model accuracy. Barr <span class="citation" data-cites="barr_random_2013">(<a href="#ref-barr_random_2013" role="doc-biblioref">Barr 2013</a>)</span> critiques existing guidelines for testing interactions within LMMs, proposing new guidelines to ensure more reliable results. Despite their robustness, as noted by Schielzeth Et. Al. [<span class="citation" data-cites="schielzeth_robustness_2020">Schielzeth et al. (<a href="#ref-schielzeth_robustness_2020" role="doc-biblioref">2020</a>)</span>], LMMs require careful evaluation of model assumptions and may present computational challenges, especially with high-dimensional datasets.</p>
+</section>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose"><strong>Purpose</strong></h2>
+<p>This literature review collectively emphasize the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.</p>
+</section>
+</section>
+<section id="references" class="level1">
+<h1><strong>References</strong></h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-barr_random_2013" class="csl-entry" role="listitem">
+Barr, D. J. (2013), <span>“Random effects structure for testing interactions in linear mixed-effects models,”</span> <em>Front Psychol</em>, 4, 328. <a href="https://doi.org/10.3389/fpsyg.2013.00328">https://doi.org/10.3389/fpsyg.2013.00328</a>.
+</div>
 <div id="ref-bolker_generalized_2009" class="csl-entry" role="listitem">
 Bolker, B. M., Brooks, M. E., Clark, C. J., Geange, S. W., Poulsen, J. R., Stevens, M. H. H., and White, J.-S. S. (2009), <span>“Generalized linear mixed models: A practical guide for ecology and evolution,”</span> <em>Trends in Ecology &amp; Evolution</em>, 24, 127–135. <a href="https://doi.org/10.1016/j.tree.2008.10.008">https://doi.org/10.1016/j.tree.2008.10.008</a>.
 </div>
@@ -212,8 +229,17 @@ Brown, V. A. (2021), <span>“An <span>Introduction</span> to <span>Linear</span
 <div id="ref-harrison_brief_2018" class="csl-entry" role="listitem">
 Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E. D., Robinson, B. S., Hodgson, D. J., and Inger, R. (2018), <span>“A brief introduction to mixed effects modelling and multi-model inference in ecology,”</span> <em>PeerJ</em>, 6, e4794. <a href="https://doi.org/10.7717/peerj.4794">https://doi.org/10.7717/peerj.4794</a>.
 </div>
+<div id="ref-jolly_pymer4_2018" class="csl-entry" role="listitem">
+Jolly, E. (2018), <span>“Pymer4: <span>Connecting</span> <span>R</span> and <span>Python</span> for <span>Linear</span> <span>Mixed</span> <span>Modeling</span>,”</span> <em>Journal of Open Source Software</em>, 3, 862. <a href="https://doi.org/10.21105/joss.00862">https://doi.org/10.21105/joss.00862</a>.
+</div>
 <div id="ref-magezi_linear_2015" class="csl-entry" role="listitem">
 Magezi, D. A. (2015), <span>“Linear mixed-effects models for within-participant psychology experiments: An introductory tutorial and free, graphical user interface (<span>LMMgui</span>),”</span> <em>Front Psychol</em>, 6, 2. <a href="https://doi.org/10.3389/fpsyg.2015.00002">https://doi.org/10.3389/fpsyg.2015.00002</a>.
+</div>
+<div id="ref-peng_model_2012" class="csl-entry" role="listitem">
+Peng, H., and Lu, Y. (2012), <span>“Model selection in linear mixed effect models,”</span> <em>Journal of Multivariate Analysis</em>, 109, 109–129. <a href="https://doi.org/10.1016/j.jmva.2012.02.005">https://doi.org/10.1016/j.jmva.2012.02.005</a>.
+</div>
+<div id="ref-schielzeth_robustness_2020" class="csl-entry" role="listitem">
+Schielzeth, H., Dingemanse, N. J., Nakagawa, S., Westneat, D. F., Allegue, H., Teplitsky, C., Réale, D., Dochtermann, N. A., Garamszegi, L. Z., and Araya-Ajoy, Y. G. (2020), <span>“Robustness of linear mixed-effects models to violations of distributional assumptions,”</span> <em>Methods in Ecology and Evolution</em>, 11, 1141–1152. https://doi.org/<a href="https://doi.org/10.1111/2041-210X.13434">https://doi.org/10.1111/2041-210X.13434</a>.
 </div>
 <div id="ref-touraine_when_2023" class="csl-entry" role="listitem">
 Touraine, C., Cuer, B., Conroy, T., Juzyna, B., Gourgou, S., and Mollevi, C. (2023), <span>“When a joint model should be preferred over a linear mixed model for analysis of longitudinal health-related quality of life data in cancer clinical trials,”</span> <em>BMC Med Res Methodol</em>, 23, 36. <a href="https://doi.org/10.1186/s12874-023-01846-3">https://doi.org/10.1186/s12874-023-01846-3</a>.
@@ -224,7 +250,6 @@ Verbeeck, J., Faes, C., Neyens, T., Hens, N., Verbeke, G., Deboosere, P., and Mo
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

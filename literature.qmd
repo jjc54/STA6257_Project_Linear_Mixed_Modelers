@@ -1,8 +1,6 @@
 ---
-title: "Literature Reviews"
+title: "Literature"
 toc: TRUE
-bibliography: references.bib
-csl: asa.csl
 ---
 
 # Josh's Literature Review
@@ -305,8 +303,6 @@ The results indicate that while violations of assumptions may lead to slight bia
 
 ## [Model selection in linear mixed effect models](https://www.sciencedirect.com/science/article/pii/S0047259X12000395)
 
-
-
 **What is the goal of the paper?**
 
 The goal of the paper is to improve variable selection and parameter estimation in linear mixed effect models, which are critical for analyzing longitudinal, panel, and cross-sectional data in various scientific domains.
@@ -323,9 +319,7 @@ The authors introduce a simple, iterative procedure that employs the smoothly cl
 
 The approach's effectiveness and efficiency are validated through simulation studies and real data analysis. Nevertheless, the paper also points out limitations, including the method's dependence on certain conditions for its asymptotic properties to hold and the potential computational challenges encountered with high-dimensional datasets.
 
-
 ## [Random Effects Structure for Testing Interactions in Linear Mixed-Effects Models](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3672519/)
-
 
 **What is the goal of the paper?**
 
@@ -345,11 +339,9 @@ The findings highlight that including the correct random slopes in mixed-effects
 
 ## [Pymer4: Connecting R and Python for Linear Mixed Modeling](https://joss.theoj.org/papers/10.21105/joss.00862)
 
-
 **What is the goal of the paper?**
 
 The goal is to develop Pymer4, a tool that bridges R and Python for linear mixed modeling, addressing the gap in Python for a package as flexible as R's lme4 for complex data analysis.
-
 
 **Why is it important?**
 
@@ -363,15 +355,11 @@ Pymer4 offers a solution by by leveraging the rpy2 library, as it connects to R'
 
 Pymer4 successfully extends lme4's functionality to Python users, offering features like significance testing and data visualization integration, enhancing multilevel model analysis. The paper focuses on the tool's capabilities without detailing specific limitations.
 
-
-
 ## [A powerful and flexible linear mixed model framework for the analysis of relative quantification RT-PCR data](https://pubmed.ncbi.nlm.nih.gov/19422910/)
-
 
 **What is the goal of the paper?**
 
 The paper introduces a novel linear mixed model framework for analyzing relative quantification RT-PCR data, aiming to overcome the limitations of existing statistical methods by providing more accurate and flexible analysis tools.
-
 
 **Why is it important?**
 
@@ -384,6 +372,3 @@ The method involves a sophisticated statistical approach that incorporates both 
 **Results/limitations, if any.**
 
 The framework has been shown to yield more accurate and statistically powerful results compared to traditional methods, facilitating better decision-making in biological research. The paper thoroughly evaluates the model's performance and discusses its applicability to a wide range of experimental designs.
-
-
-
