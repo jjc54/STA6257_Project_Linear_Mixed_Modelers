@@ -299,6 +299,42 @@ The study evaluates the impact of skewed, bimodal, and heteroscedastic random ef
 
 The results indicate that while violations of assumptions may lead to slight biases and decreased precision in estimates, the overall robustness of LMMs allows for accurate and unbiased estimation of fixed and random effects.
 
+## [To transform or not to transform: using generalized linear mixed models to analyse reaction time data](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.01171/full)
+
+**What is the goal of the paper?**
+
+The paper aims to challenge the common practice of transforming reaction time (RT) data to meet normality assumptions in statistical analyses within cognitive psychology research. It proposes generalized linear mixed-effect models (GLMMs) as a solution to accurately analyze RT data without the need for transformation, thus avoiding potential theoretical implications and misleading conclusions.
+
+**Why is it important?**
+
+It highlights the discrepancy between analyses of raw RT data and transformed RT data, as demonstrated by Balota et al. (2013), emphasizing the need for a more nuanced approach to analyzing RT data. By advocating for GLMMs, the paper aims to promote proper assessment of individual differences and enhance the testing of cognitive theories.
+
+**How is it solved? -- Methods**
+
+The study discusses the theoretical decisions involved in specifying a GLMM and provides reanalysis of datasets from Balota et al. (2013) to illustrate the application of GLMMs in RT data analysis. It emphasizes the importance of analyzing changes in RT distribution at a finer level to capture more accurate measures of group performance and effectively test cognitive theories.
+
+**Results/limitations, if any.**
+
+The paper suggests that GLMMs offer a more robust approach to analyzing RT data compared to traditional methods like linear mixed-effect models (LMMs) with transformed data. However, it acknowledges the complexities of addressing skewed dependent variables like RT in LMMs and the potential challenges in adopting GLMMs, such as the need for careful model specification.
+
+## [Analysing disease incidence data from designed experiments by generalized linear mixed models](https://bsppjournals-onlinelibrary-wiley-com.ezproxy.lib.uwf.edu/doi/abs/10.1046/j.1365-3059.1999.00383.x)
+
+**What is the goal of the paper?**
+
+The paper aims to introduce generalized linear mixed models (GLMMs) as a robust method for analyzing disease incidence data from designed experiments, specifically addressing overdispersion issues common in epidemiological research.
+
+**Why is it important?**
+
+It highlights the inadequacy of traditional methods like ANOVA for such data, underlining the need for alternative approaches like GLMMs to better capture the complexities of disease clustering and aggregation.
+
+**How is it solved? -- Methods**
+
+The study presents GLMMs as a versatile tool, capable of accommodating both fixed and random effects, thus offering a more flexible framework for analyzing disease incidence data. It illustrates the application of GLMMs using real-world data from an experiment on downy mildew incidence in grapevines.
+
+**Results/limitations, if any.**
+
+The analysis using GLMMs reveals significant treatment effects and provides parameter estimates. However, the approach is not without limitations, including assumptions made in modeling and the potential challenge of interpreting results accurately, particularly in complex experimental designs.
+
 # Sara's Literature Review
 
 ## [Model selection in linear mixed effect models](https://www.sciencedirect.com/science/article/pii/S0047259X12000395)
