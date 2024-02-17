@@ -6,9 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-02-12">
+<meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, B.S.">
+<meta name="dcterms.date" content="2024-02-17">
 
-<title>Linear Mixed Models - Report</title>
+<title>Linear Mixed Models - [PLACEHOLDER FOR BETTER TITLE]</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,6 +21,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -90,9 +125,38 @@ div.csl-indent {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Linear Mixed Models - Report">
+<meta property="og:title" content="Linear Mixed Models - [PLACEHOLDER FOR BETTER TITLE]">
 <meta property="og:description" content="">
 <meta property="og:site_name" content="Linear Mixed Models">
 </head>
@@ -124,7 +188,7 @@ div.csl-indent {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./report.html" aria-current="page"> 
-<span class="menu-text">Report</span></a>
+<span class="menu-text">[PLACEHOLDER FOR BETTER TITLE]</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./slides.html"> 
@@ -155,14 +219,29 @@ div.csl-indent {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction-to-linear-mixed-effects-models-lmms" id="toc-introduction-to-linear-mixed-effects-models-lmms" class="nav-link active" data-scroll-target="#introduction-to-linear-mixed-effects-models-lmms"><strong>Introduction to Linear Mixed-Effects Models (LMMs)</strong></a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><strong>1 Introduction</strong></a></li>
+  <li><a href="#methods" id="toc-methods" class="nav-link" data-scroll-target="#methods"><strong>2 Methods</strong></a>
   <ul class="collapse">
-  <li><a href="#implementation-methods" id="toc-implementation-methods" class="nav-link" data-scroll-target="#implementation-methods"><strong>Implementation Methods</strong></a></li>
-  <li><a href="#industry-specific-uses" id="toc-industry-specific-uses" class="nav-link" data-scroll-target="#industry-specific-uses"><strong>Industry-Specific Uses</strong></a></li>
-  <li><a href="#strengths-and-weaknesses" id="toc-strengths-and-weaknesses" class="nav-link" data-scroll-target="#strengths-and-weaknesses"><strong>Strengths and Weaknesses</strong></a></li>
-  <li><a href="#purpose" id="toc-purpose" class="nav-link" data-scroll-target="#purpose"><strong>Purpose</strong></a></li>
+  <li><a href="#mathematical-foundations" id="toc-mathematical-foundations" class="nav-link" data-scroll-target="#mathematical-foundations"><strong>2.1 Mathematical Foundations</strong></a></li>
+  <li><a href="#breakdown-of-mathematical-foundations" id="toc-breakdown-of-mathematical-foundations" class="nav-link" data-scroll-target="#breakdown-of-mathematical-foundations"><strong>2.2 Breakdown of Mathematical Foundations</strong></a></li>
+  <li><a href="#sample-data-structure" id="toc-sample-data-structure" class="nav-link" data-scroll-target="#sample-data-structure"><strong>2.3 Sample Data Structure</strong></a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><strong>References</strong></a></li>
+  <li><a href="#analysis-and-results" id="toc-analysis-and-results" class="nav-link" data-scroll-target="#analysis-and-results"><strong>3 Analysis and Results</strong></a>
+  <ul class="collapse">
+  <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><strong>3.1 Packages</strong></a></li>
+  <li><a href="#data-ingestion" id="toc-data-ingestion" class="nav-link" data-scroll-target="#data-ingestion"><strong>3.2 Data Ingestion</strong></a>
+  <ul class="collapse">
+  <li><a href="#sleepstudy-from-the-lme4-package" id="toc-sleepstudy-from-the-lme4-package" class="nav-link" data-scroll-target="#sleepstudy-from-the-lme4-package"><strong>1. <code>sleepstudy</code> from the <code>lme4</code> package</strong></a></li>
+  <li><a href="#orthodont-from-the-nlme-package" id="toc-orthodont-from-the-nlme-package" class="nav-link" data-scroll-target="#orthodont-from-the-nlme-package"><strong>2. <code>Orthodont</code> from the <code>nlme</code> package</strong></a></li>
+  <li><a href="#dyestuff-from-the-lme4-package" id="toc-dyestuff-from-the-lme4-package" class="nav-link" data-scroll-target="#dyestuff-from-the-lme4-package"><strong>4. <code>Dyestuff</code> from the <code>lme4</code> package</strong></a></li>
+  </ul></li>
+  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></a></li>
+  <li><a href="#linear-mixed-modeling" id="toc-linear-mixed-modeling" class="nav-link" data-scroll-target="#linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></a></li>
+  <li><a href="#model-comparisons-and-assessment" id="toc-model-comparisons-and-assessment" class="nav-link" data-scroll-target="#model-comparisons-and-assessment"><strong>3.4 Model Comparisons and Assessment</strong></a></li>
+  <li><a href="#simulation-possibly" id="toc-simulation-possibly" class="nav-link" data-scroll-target="#simulation-possibly"><strong>3.5 Simulation (POSSIBLY)</strong></a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><strong>4 Conclusion</strong></a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><strong>5 References</strong></a></li>
   </ul>
 </nav>
     </div>
@@ -171,18 +250,24 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Report</h1>
+<h1 class="title">[PLACEHOLDER FOR BETTER TITLE]</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, B.S. </p>
+          </div>
+  </div>
     
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 12, 2024</p>
+      <p class="date">February 17, 2024</p>
     </div>
   </div>
   
@@ -194,31 +279,195 @@ div.csl-indent {
 </header>
 
 
-<section id="introduction-to-linear-mixed-effects-models-lmms" class="level1">
-<h1><strong>Introduction to Linear Mixed-Effects Models (LMMs)</strong></h1>
+<section id="introduction" class="level1">
+<h1><strong>1 Introduction</strong></h1>
 <p>Linear mixed-effects models (LMMs) are advanced statistical tools designed to analyze data that exhibit complex structures, such as hierarchical organization, repeated measures, and random effects. These models are particularly useful when data violate the assumptions of traditional ANOVA or regression methods, such as the independence of observations, homoscedasticity, and normality of residuals. LMMs accommodate intra-subject differences, allowing for both fixed effects, which are consistent across individuals, and random effects, which vary among subjects or groups.</p>
-<section id="implementation-methods" class="level2">
-<h2 class="anchored" data-anchor-id="implementation-methods"><strong>Implementation Methods</strong></h2>
-<p>The implementation of LMMs has been facilitated by various software packages and programming languages. Brown <span class="citation" data-cites="brown_introduction_2021">(<a href="#ref-brown_introduction_2021" role="doc-biblioref">Brown 2021</a>)</span> provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, <code>Pymer4</code>, developed by Jolly <span class="citation" data-cites="jolly_pymer4_2018">(<a href="#ref-jolly_pymer4_2018" role="doc-biblioref">Jolly 2018</a>)</span>, bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R’s <code>lme4</code> package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.</p>
+<p><strong>[PLACEHOLDER FOR FIGURE OVERVIEWING LMM PROCESS]</strong></p>
+<p>The implementation of LMMs has been facilitated by various software packages and programming languages. Brown <span class="citation" data-cites="brown_introduction_2021">(<a href="#ref-brown_introduction_2021" role="doc-biblioref">Brown 2021</a>)</span> provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, the lme4 package, as detailed by Bates et al. <span class="citation" data-cites="bates_fitting_2015">(<a href="#ref-bates_fitting_2015" role="doc-biblioref">Bates et al. 2015</a>)</span>, represents a significant evolution in computational methods for fitting mixed models, offering efficient tools and simplified modeling processes for R users, especially for models with crossed random effects. Pymer4, developed by Jolly <span class="citation" data-cites="jolly_pymer4_2018">(<a href="#ref-jolly_pymer4_2018" role="doc-biblioref">Jolly 2018</a>)</span>, bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R’s lme4 package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.</p>
+<p>LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang <span class="citation" data-cites="lee_estimation_nodate">(<a href="#ref-lee_estimation_nodate" role="doc-biblioref">Lee and Shang n.d.</a>)</span> explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. <span class="citation" data-cites="wang_statistical_2022">(<a href="#ref-wang_statistical_2022" role="doc-biblioref">Wang et al. 2022</a>)</span> illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model’s ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Magezi <span class="citation" data-cites="magezi_linear_2015">(<a href="#ref-magezi_linear_2015" role="doc-biblioref">Magezi 2015</a>)</span> highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. <span class="citation" data-cites="harrison_brief_2018">(<a href="#ref-harrison_brief_2018" role="doc-biblioref">Harrison et al. 2018</a>)</span> and Bolker et al. <span class="citation" data-cites="bolker_generalized_2009">(<a href="#ref-bolker_generalized_2009" role="doc-biblioref">Bolker et al. 2009</a>)</span> discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. <span class="citation" data-cites="verbeeck_linear_2023">(<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">Verbeeck et al. 2023</a>)</span>, and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al.&nbsp;[<span class="citation" data-cites="touraine_when_2023">Touraine et al. (<a href="#ref-touraine_when_2023" role="doc-biblioref">2023</a>)</span>].</p>
+<p>The paper “To transform or not to transform: using generalized linear mixed models to analyse reaction time data” by Lo and Andrews <span class="citation" data-cites="lo_transform_2015">(<a href="#ref-lo_transform_2015" role="doc-biblioref">Lo and Andrews 2015</a>)</span> challenges the common practice of transforming reaction time data in cognitive psychology, advocating for GLMMs as a more robust alternative. The “LEVEL” guidelines proposed by Monsalves et al. <span class="citation" data-cites="monsalves_level_2020">(<a href="#ref-monsalves_level_2020" role="doc-biblioref">Monsalves et al. 2020</a>)</span> aim to standardize the reporting of multilevel data and analyses, enhancing comparability across studies. Piepho’s study <span class="citation" data-cites="piepho_analysing_1999">(<a href="#ref-piepho_analysing_1999" role="doc-biblioref">Piepho 1999</a>)</span> on analyzing disease incidence data with GLMMs underscores the inadequacy of traditional methods like ANOVA for such data, highlighting GLMMs’ flexibility. The simulation study by Pusponegoro et al. <span class="citation" data-cites="pusponegoro_linear_2017">(<a href="#ref-pusponegoro_linear_2017" role="doc-biblioref">Pusponegoro et al. 2017</a>)</span> on children’s growth differences emphasizes the importance of choosing the appropriate covariance structure in LMMs for longitudinal data. Lastly, the framework introduced by Steibel et al.&nbsp;[<span class="citation" data-cites="steibel_powerful_2009">Steibel et al. (<a href="#ref-steibel_powerful_2009" role="doc-biblioref">2009</a>)</span>] for analyzing RT-PCR data with LMMs showcases the method’s statistical power and flexibility, offering a significant advancement over traditional analysis methods.</p>
+<p><strong>[PLACEHOLDER FOR TABLE DESCRIBING WHEN TO USE LMM AND WHEN TO SEEK SIMPLER METHODS]</strong></p>
+<p>The strengths of LMMs lie in their flexibility to model complex data structures and their ability to handle missing data, making them a powerful tool for a wide range of scientific inquiries. However, their application is not without challenges. Peng and Lu <span class="citation" data-cites="peng_model_2012">(<a href="#ref-peng_model_2012" role="doc-biblioref">Peng and Lu 2012</a>)</span> address the difficulty of variable selection and parameter estimation in LMMs, proposing an iterative procedure to improve model accuracy. Barr <span class="citation" data-cites="barr_random_2013">(<a href="#ref-barr_random_2013" role="doc-biblioref">Barr 2013</a>)</span> critiques existing guidelines for testing interactions within LMMs,<br>
+proposing new guidelines to ensure more reliable results. Despite their robustness, as noted by Schielzeth et al.&nbsp;[@schielzeth_robustness_2020], LMMs require careful evaluation of model assumptions and may present computational challenges, especially with high-dimensional datasets.</p>
+<p><strong>[PLACEHOLDER FOR STRENGTHS &amp; WEAKNESSES TABLE]</strong></p>
+<p>The literature reviewed here collectively emphasizes the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes, such as the LEVEL framework [<span class="citation" data-cites="monsalves_level_2020">Monsalves et al. (<a href="#ref-monsalves_level_2020" role="doc-biblioref">2020</a>)</span>], and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.</p>
 </section>
-<section id="industry-specific-uses" class="level2">
-<h2 class="anchored" data-anchor-id="industry-specific-uses"><strong>Industry-Specific Uses</strong></h2>
-<p>LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. Magezi <span class="citation" data-cites="magezi_linear_2015">(<a href="#ref-magezi_linear_2015" role="doc-biblioref">Magezi 2015</a>)</span> highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison Et. A. <span class="citation" data-cites="harrison_brief_2018">(<a href="#ref-harrison_brief_2018" role="doc-biblioref">Harrison et al. 2018</a>)</span> and Bolker Et. Al. <span class="citation" data-cites="bolker_generalized_2009">(<a href="#ref-bolker_generalized_2009" role="doc-biblioref">Bolker et al. 2009</a>)</span> discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck Et. Al. <span class="citation" data-cites="verbeeck_linear_2023">(<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">Verbeeck et al. 2023</a>)</span>, and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine Et. Al. [<span class="citation" data-cites="touraine_when_2023">Touraine et al. (<a href="#ref-touraine_when_2023" role="doc-biblioref">2023</a>)</span>].</p>
+<section id="methods" class="level1">
+<h1><strong>2 Methods</strong></h1>
+<section id="mathematical-foundations" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-foundations"><strong>2.1 Mathematical Foundations</strong></h2>
+<p>LMMs can be defined as:</p>
+<p><span class="math inline">\(y=X\beta + Z\gamma + \epsilon\)</span></p>
+<p>where:</p>
+<ul>
+<li><p>Y is the response vector.</p></li>
+<li><p>X is the design matrix for fixed effects.</p></li>
+<li><p>β is the vector of fixed effects (parameters associated with the entire population or certain repeatable levels of experimental factors).</p></li>
+<li><p>Z is the design matrix for random effects.</p></li>
+<li><p>γ is the vector of random effects (represent random deviations from the population parameters (β ) for different subjects or experimental units; i.e., the variability not explained by the fixed effects).</p></li>
+<li><p>ϵ is the vector of residual errors.</p></li>
+</ul>
+<p>Although more flexible than other methods such as ANOVA, there are several assumptions for LMMs:</p>
+<ol type="1">
+<li><p>Random effects (γ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.</p>
+<p><span class="math inline">\(\gamma \sim N(0,G)\)</span></p></li>
+<li><p>Residual errors (ϵ ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix R.</p>
+<p><span class="math inline">\(\epsilon \sim N(0,R)\)</span></p></li>
+<li><p>Random effects (γ) and residual errors (ϵ ) are assumed to be independent.</p></li>
+</ol>
 </section>
-<section id="strengths-and-weaknesses" class="level2">
-<h2 class="anchored" data-anchor-id="strengths-and-weaknesses"><strong>Strengths and Weaknesses</strong></h2>
-<p>The strengths of LMMs lie in their flexibility to model complex data structures and their ability to handle missing data, making them a powerful tool for a wide range of scientific inquiries. However, their application is not without challenges. Peng and Lu <span class="citation" data-cites="peng_model_2012">(<a href="#ref-peng_model_2012" role="doc-biblioref">Peng and Lu 2012</a>)</span> address the difficulty of variable selection and parameter estimation in LMMs, proposing an iterative procedure to improve model accuracy. Barr <span class="citation" data-cites="barr_random_2013">(<a href="#ref-barr_random_2013" role="doc-biblioref">Barr 2013</a>)</span> critiques existing guidelines for testing interactions within LMMs, proposing new guidelines to ensure more reliable results. Despite their robustness, as noted by Schielzeth Et. Al. [<span class="citation" data-cites="schielzeth_robustness_2020">Schielzeth et al. (<a href="#ref-schielzeth_robustness_2020" role="doc-biblioref">2020</a>)</span>], LMMs require careful evaluation of model assumptions and may present computational challenges, especially with high-dimensional datasets.</p>
+<section id="breakdown-of-mathematical-foundations" class="level2">
+<h2 class="anchored" data-anchor-id="breakdown-of-mathematical-foundations"><strong>2.2 Breakdown of Mathematical Foundations</strong></h2>
+<p><strong>[PLACEHOLDER FOR LAYMANS TERMS EXPLANATIONS]</strong></p>
 </section>
-<section id="purpose" class="level2">
-<h2 class="anchored" data-anchor-id="purpose"><strong>Purpose</strong></h2>
-<p>This literature review collectively emphasize the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.</p>
+<section id="sample-data-structure" class="level2">
+<h2 class="anchored" data-anchor-id="sample-data-structure"><strong>2.3 Sample Data Structure</strong></h2>
+<p><strong>[PLACEHOLDER]</strong></p>
 </section>
+</section>
+<section id="analysis-and-results" class="level1">
+<h1><strong>3 Analysis and Results</strong></h1>
+<section id="packages" class="level2">
+<h2 class="anchored" data-anchor-id="packages"><strong>3.1 Packages</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix
+
+Attaching package: 'Matrix'
+
+The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'nlme'
+
+The following object is masked from 'package:lme4':
+
+    lmList
+
+The following object is masked from 'package:dplyr':
+
+    collapse</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li><p><code>tidyverse</code></p></li>
+<li><p><code>lme4</code></p></li>
+<li><p><code>nlme</code></p></li>
+<li><p><code>gt</code></p></li>
+</ul>
+</section>
+<section id="data-ingestion" class="level2">
+<h2 class="anchored" data-anchor-id="data-ingestion"><strong>3.2 Data Ingestion</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the datasets</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sleepstudy"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)  <span class="co"># From lme4</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Orthodont"</span>, <span class="at">package =</span> <span class="st">"nlme"</span>)   <span class="co"># From nlme</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Dyestuff"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)    <span class="co"># From lme4</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Reaction Days Subject
+1 249.5600    0     308
+2 258.7047    1     308
+3 250.8006    2     308
+4 321.4398    3     308
+5 356.8519    4     308
+6 414.6901    5     308</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Orthodont)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Grouped Data: distance ~ age | Subject
+  distance age Subject  Sex
+1     26.0   8     M01 Male
+2     25.0  10     M01 Male
+3     29.0  12     M01 Male
+4     31.0  14     M01 Male
+5     21.5   8     M02 Male
+6     22.5  10     M02 Male</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Dyestuff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Batch Yield
+1     A  1545
+2     A  1440
+3     A  1440
+4     A  1520
+5     A  1580
+6     B  1540</code></pre>
+</div>
+</div>
+<p><strong>[PLACEHOLDER TO DESCRIBE THE DATASET/VARIABLES/GROUPS]</strong></p>
+<section id="sleepstudy-from-the-lme4-package" class="level3">
+<h3 class="anchored" data-anchor-id="sleepstudy-from-the-lme4-package"><strong>1. <code>sleepstudy</code> from the <code>lme4</code> package</strong></h3>
+<ul>
+<li><p><strong>Description</strong>: This dataset contains the reaction times of subjects over several days of sleep deprivation.</p></li>
+<li><p><strong>Why suitable for LMMs</strong>: The <strong><code>sleepstudy</code></strong> data are ideal for LMMs because they include repeated measures for each subject, leading to correlated observations within subjects. An LMM can model the fixed effect of days of sleep deprivation on reaction time while accounting for random subject-specific intercepts and possibly slopes, capturing individual variability in reaction time and the effect of sleep deprivation.</p></li>
+</ul>
+</section>
+<section id="orthodont-from-the-nlme-package" class="level3">
+<h3 class="anchored" data-anchor-id="orthodont-from-the-nlme-package"><strong>2. <code>Orthodont</code> from the <code>nlme</code> package</strong></h3>
+<ul>
+<li><p><strong>Description</strong>: This dataset contains measurements of the distance from the pituitary to the pterygomaxillary fissure in 27 children, measured at ages 8, 10, 12, and 14.</p></li>
+<li><p><strong>Why suitable for LMMs</strong>: The repeated measurements for each child create a nested data structure (measurements within children), leading to non-independence of observations. An LMM can effectively model the growth curves by including child-specific random effects, allowing for individual variations in growth trajectories.</p></li>
+</ul>
+</section>
+<section id="dyestuff-from-the-lme4-package" class="level3">
+<h3 class="anchored" data-anchor-id="dyestuff-from-the-lme4-package"><strong>4. <code>Dyestuff</code> from the <code>lme4</code> package</strong></h3>
+<ul>
+<li><p><strong>Description</strong>: This dataset contains the yield from a dyeing process for different batches of dye.</p></li>
+<li><p><strong>Why suitable for LMMs</strong>: The dataset has a grouping factor (batches), and there may be batch-to-batch variability that affects the yield. An LMM can include random effects for batches to capture this variability, which simpler models like linear regression would not account for.</p></li>
+</ul>
+</section>
+</section>
+<section id="exploratory-data-analysis-eda" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></h2>
+<p><strong>[PLACEHOLDER FOR TABLES/VIS]</strong></p>
+</section>
+<section id="linear-mixed-modeling" class="level2">
+<h2 class="anchored" data-anchor-id="linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></h2>
+</section>
+<section id="model-comparisons-and-assessment" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparisons-and-assessment"><strong>3.4 Model Comparisons and Assessment</strong></h2>
+</section>
+<section id="simulation-possibly" class="level2">
+<h2 class="anchored" data-anchor-id="simulation-possibly"><strong>3.5 Simulation (POSSIBLY)</strong></h2>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1><strong>4 Conclusion</strong></h1>
+<p><strong>[PLACEHOLDER FOR CONCLUSION]</strong></p>
 </section>
 <section id="references" class="level1">
-<h1><strong>References</strong></h1>
+<h1><strong>5 References</strong></h1>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-barr_random_2013" class="csl-entry" role="listitem">
-Barr, D. J. (2013), <span>“Random effects structure for testing interactions in linear mixed-effects models,”</span> <em>Front Psychol</em>, 4, 328. <a href="https://doi.org/10.3389/fpsyg.2013.00328">https://doi.org/10.3389/fpsyg.2013.00328</a>.
+Barr, D. J. (2013), <span>“Random effects structure for testing interactions in linear mixed-effects models,”</span> <em>Frontiers in Psychology</em>, 4, 328. <a href="https://doi.org/10.3389/fpsyg.2013.00328">https://doi.org/10.3389/fpsyg.2013.00328</a>.
+</div>
+<div id="ref-bates_fitting_2015" class="csl-entry" role="listitem">
+Bates, D., Mächler, M., Bolker, B., and Walker, S. (2015), <span>“Fitting <span>Linear</span> <span>Mixed</span>-<span>Effects</span> <span>Models</span> <span>Using</span> lme4,”</span> <em>Journal of Statistical Software</em>, 67, 1–48. <a href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>.
 </div>
 <div id="ref-bolker_generalized_2009" class="csl-entry" role="listitem">
 Bolker, B. M., Brooks, M. E., Clark, C. J., Geange, S. W., Poulsen, J. R., Stevens, M. H. H., and White, J.-S. S. (2009), <span>“Generalized linear mixed models: A practical guide for ecology and evolution,”</span> <em>Trends in Ecology &amp; Evolution</em>, 24, 127–135. <a href="https://doi.org/10.1016/j.tree.2008.10.008">https://doi.org/10.1016/j.tree.2008.10.008</a>.
@@ -232,20 +481,38 @@ Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Go
 <div id="ref-jolly_pymer4_2018" class="csl-entry" role="listitem">
 Jolly, E. (2018), <span>“Pymer4: <span>Connecting</span> <span>R</span> and <span>Python</span> for <span>Linear</span> <span>Mixed</span> <span>Modeling</span>,”</span> <em>Journal of Open Source Software</em>, 3, 862. <a href="https://doi.org/10.21105/joss.00862">https://doi.org/10.21105/joss.00862</a>.
 </div>
+<div id="ref-lee_estimation_nodate" class="csl-entry" role="listitem">
+Lee, Y.-C., and Shang, J. (n.d.). <span>“Estimation and selection in linear mixed models with missing data under compound symmetric structure,”</span> <em>Journal of Applied Statistics</em>, 49, 4003–4027. <a href="https://doi.org/10.1080/02664763.2021.1969342">https://doi.org/10.1080/02664763.2021.1969342</a>.
+</div>
+<div id="ref-lo_transform_2015" class="csl-entry" role="listitem">
+Lo, S., and Andrews, S. (2015), <span>“<a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.01171">To transform or not to transform: Using generalized linear mixed models to analyse reaction time data</a>,”</span> <em>Frontiers in Psychology</em>, 6.
+</div>
 <div id="ref-magezi_linear_2015" class="csl-entry" role="listitem">
-Magezi, D. A. (2015), <span>“Linear mixed-effects models for within-participant psychology experiments: An introductory tutorial and free, graphical user interface (<span>LMMgui</span>),”</span> <em>Front Psychol</em>, 6, 2. <a href="https://doi.org/10.3389/fpsyg.2015.00002">https://doi.org/10.3389/fpsyg.2015.00002</a>.
+Magezi, D. A. (2015), <span>“Linear mixed-effects models for within-participant psychology experiments: An introductory tutorial and free, graphical user interface (<span>LMMgui</span>),”</span> <em>Frontiers in Psychology</em>, 6, 2. <a href="https://doi.org/10.3389/fpsyg.2015.00002">https://doi.org/10.3389/fpsyg.2015.00002</a>.
+</div>
+<div id="ref-monsalves_level_2020" class="csl-entry" role="listitem">
+Monsalves, M. J., Bangdiwala, A. S., Thabane, A., and Bangdiwala, S. I. (2020), <span>“<span>LEVEL</span> (<span>Logical</span> <span>Explanations</span> &amp; <span>Visualizations</span> of <span>Estimates</span> in <span>Linear</span> mixed models): Recommendations for reporting multilevel data and analyses,”</span> <em>BMC Medical Research Methodology</em>, 20, 3. <a href="https://doi.org/10.1186/s12874-019-0876-8">https://doi.org/10.1186/s12874-019-0876-8</a>.
 </div>
 <div id="ref-peng_model_2012" class="csl-entry" role="listitem">
 Peng, H., and Lu, Y. (2012), <span>“Model selection in linear mixed effect models,”</span> <em>Journal of Multivariate Analysis</em>, 109, 109–129. <a href="https://doi.org/10.1016/j.jmva.2012.02.005">https://doi.org/10.1016/j.jmva.2012.02.005</a>.
 </div>
-<div id="ref-schielzeth_robustness_2020" class="csl-entry" role="listitem">
-Schielzeth, H., Dingemanse, N. J., Nakagawa, S., Westneat, D. F., Allegue, H., Teplitsky, C., Réale, D., Dochtermann, N. A., Garamszegi, L. Z., and Araya-Ajoy, Y. G. (2020), <span>“Robustness of linear mixed-effects models to violations of distributional assumptions,”</span> <em>Methods in Ecology and Evolution</em>, 11, 1141–1152. https://doi.org/<a href="https://doi.org/10.1111/2041-210X.13434">https://doi.org/10.1111/2041-210X.13434</a>.
+<div id="ref-piepho_analysing_1999" class="csl-entry" role="listitem">
+Piepho (1999), <span>“Analysing disease incidence data from designed experiments by generalized linear mixed models,”</span> <em>Plant Pathology</em>, 48, 668–674. https://doi.org/<a href="https://doi.org/10.1046/j.1365-3059.1999.00383.x">https://doi.org/10.1046/j.1365-3059.1999.00383.x</a>.
+</div>
+<div id="ref-pusponegoro_linear_2017" class="csl-entry" role="listitem">
+Pusponegoro, N. H., Rachmawati, R. N., Notodiputro, K. A., and Sartono, B. (2017), <span>“Linear <span>Mixed</span> <span>Model</span> for <span>Analyzing</span> <span>Longitudinal</span> <span>Data</span>: <span>A</span> <span>Simulation</span> <span>Study</span> of <span>Children</span> <span>Growth</span> <span>Differences</span>,”</span> <em>Procedia Computer Science</em>, Discovery and innovation of computer science technology in artificial intelligence era: <span>The</span> 2nd <span>International</span> <span>Conference</span> on <span>Computer</span> <span>Science</span> and <span>Computational</span> <span>Intelligence</span> (<span>ICCSCI</span> 2017), 116, 284–291. <a href="https://doi.org/10.1016/j.procs.2017.10.071">https://doi.org/10.1016/j.procs.2017.10.071</a>.
+</div>
+<div id="ref-steibel_powerful_2009" class="csl-entry" role="listitem">
+Steibel, J. P., Poletto, R., Coussens, P. M., and Rosa, G. J. M. (2009), <span>“A powerful and flexible linear mixed model framework for the analysis of relative quantification <span>RT</span>-<span>PCR</span> data,”</span> <em>Genomics</em>, 94, 146–152. <a href="https://doi.org/10.1016/j.ygeno.2009.04.008">https://doi.org/10.1016/j.ygeno.2009.04.008</a>.
 </div>
 <div id="ref-touraine_when_2023" class="csl-entry" role="listitem">
-Touraine, C., Cuer, B., Conroy, T., Juzyna, B., Gourgou, S., and Mollevi, C. (2023), <span>“When a joint model should be preferred over a linear mixed model for analysis of longitudinal health-related quality of life data in cancer clinical trials,”</span> <em>BMC Med Res Methodol</em>, 23, 36. <a href="https://doi.org/10.1186/s12874-023-01846-3">https://doi.org/10.1186/s12874-023-01846-3</a>.
+Touraine, C., Cuer, B., Conroy, T., Juzyna, B., Gourgou, S., and Mollevi, C. (2023), <span>“When a joint model should be preferred over a linear mixed model for analysis of longitudinal health-related quality of life data in cancer clinical trials,”</span> <em>BMC medical research methodology</em>, 23, 36. <a href="https://doi.org/10.1186/s12874-023-01846-3">https://doi.org/10.1186/s12874-023-01846-3</a>.
 </div>
 <div id="ref-verbeeck_linear_2023" class="csl-entry" role="listitem">
 Verbeeck, J., Faes, C., Neyens, T., Hens, N., Verbeke, G., Deboosere, P., and Molenberghs, G. (2023), <span>“A linear mixed model to estimate <span>COVID</span>-19-induced excess mortality,”</span> <em>Biometrics</em>, 79, 417–425. <a href="https://doi.org/10.1111/biom.13578">https://doi.org/10.1111/biom.13578</a>.
+</div>
+<div id="ref-wang_statistical_2022" class="csl-entry" role="listitem">
+Wang, X., Andrinopoulou, E.-R., Veen, K. M., Bogers, A. J. J. C., and Takkenberg, J. J. M. (2022), <span>“Statistical primer: An introduction to the application of linear mixed-effects models in cardiothoracic surgery outcomes research-a case study using homograft pulmonary valve replacement data,”</span> <em>European Journal of Cardio-Thoracic Surgery: Official Journal of the European Association for Cardio-Thoracic Surgery</em>, 62, ezac429. <a href="https://doi.org/10.1093/ejcts/ezac429">https://doi.org/10.1093/ejcts/ezac429</a>.
 </div>
 </div>
 

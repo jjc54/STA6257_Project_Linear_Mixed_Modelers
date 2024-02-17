@@ -5,41 +5,41 @@ toc: TRUE
 
 # Josh's Literature Review
 
-## [An Introduction to Linear Mixed-Effects Modeling in R - Violet A. Brown, 2021 (uwf.edu)](https://journals-sagepub-com.ezproxy.lib.uwf.edu/doi/full/10.1177/2515245920960351)
+## [Fitting Linear Mixed-Effects Models Using lme4 \| Journal of Statistical Software (jstatsoft.org)](https://www.jstatsoft.org/article/view/v067i01)
 
 **What is the goal of the paper?**
 
-The article aims to introduce the utility of linear mixed-effects models (LMMs) over traditional ANOVA or regression methods, emphasizing their applicability in handling intra-subject differences and their flexibility with missing values and outliers. This was specifically done in R.
+The paper presents the lme4 package for R, which facilitates the fitting of linear mixed-effects models. The authors aim to articulate the package's capabilities in evaluating the profiled deviance or REML criterion for linear mixed models and to explain the representation and optimization of such models for parameter estimation.
 
 **Why is it important?**
 
-LMMs are highlighted for their ability to not assume independence of observations, making them particularly suitable for psychological research where within-subject differences are common.
+The significance of this paper lies in its contribution to the field of computational methods for fitting mixed models—an area with many open problems. The lme4 package represents an evolution in this domain, offering more efficient computational tools and a syntax that simplifies the modeling process, especially for models with crossed random effects.
 
 **How is it solved? -- methods**
 
-The article employs a psychology-based dataset to demonstrate the implementation of LMMs using R. It focuses on explaining the concepts of fixed effects and random effects in LMMs, providing the data and code for readers to follow along without delving deeply into the mathematical foundations of LMMs.
+The package utilizes maximum likelihood or restricted maximum likelihood (REML) estimates for linear mixed-effects model parameters, employing numerical representation and optimization functions within R. The paper delves into the model's structure, the evaluative steps for the profiled deviance or REML criterion, and the class structure representing such models, highlighting the improvements over previous formulations.
 
 **Results/limitations, if any.**
 
-The primary contribution is the detailed walkthrough of LME model syntax in R and interpretation within the context of psychological data. The article suggests that the methods described should be generalizable across various industries, although it is based on a specific psychology dataset.
+The document focuses more on methodology than specific results or limitations. It details the improvement over the nlme package, addressing efficient linear algebra tools and the incorporation of profile likelihood confidence intervals on random-effects parameters. The paper emphasizes the ongoing development of the lme4 package, acknowledging the need for stability and usability for a broad range of applications.
 
-## [A brief introduction to mixed effects modelling and multi-model inference in ecology - PMC (nih.gov)](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5970551/)
+## [Statistical primer: an introduction to the application of linear mixed-effects models in cardiothoracic surgery outcomes research-a case study using homograft pulmonary valve replacement data - PubMed (nih.gov)](https://pubmed.ncbi.nlm.nih.gov/36005884/)
 
 **What is the goal of the paper?**
 
-This article aims to demonstrate the application of LMMs and multi-model inference within the field of ecology, focusing on error and model selection using biological data.
+The goal of the paper is to provide a detailed introduction to developing and interpreting linear mixed-effects models for repeated measurements in the context of cardiothoracic surgery outcomes research. The paper uses a dataset on patients undergoing surgical pulmonary valve replacement to illustrate the steps of developing such models for clinician researchers.
 
 **Why is it important?**
 
-The significance of the article lies in its broad overview of LMMs in the context of ecological data, addressing the challenges of error and model selection in ecological research.
+This work is important because the emergence of large cardio-thoracic surgery datasets, including repeated measurements over time, presents an opportunity to apply advanced modeling of outcomes. Linear mixed-effects models offer a more nuanced understanding of these outcomes compared to traditional methods, which is crucial for enhancing clinical decision-making and patient care.
 
 **How is it solved? -- methods**
 
-The methodology includes a detailed examination of information theory and multi-model inference, applied to example ecological data. The article provides data and code for replication and further exploration.
+The authors used a retrospective dataset containing serial echocardiographic measurements from patients who underwent surgical pulmonary valve replacement at Erasmus MC between 1986 and 2017. The paper discusses the construction of the model, including dealing with missing values, correlated variables, and multicollinearity. It also covers model specification, variable selection, addressing nonlinearity, and interpretation of results. An R script is provided for implementing the model.
 
 **Results/limitations, if any.**
 
-While the article offers valuable insights into the use of LMMs in ecology, including data and code for practical application, it primarily serves as an introductory piece, potentially leaving out more advanced aspects of LMMs and multi-model inference.
+The paper illustrates the construction of the model, including essential aspects such as theories of linear mixed-effects models, missing values, collinearity, interaction, nonlinearity, model specification, and results interpretation. It shows that linear mixed-effects models provide a more detailed view of repeated measurements and give more valid estimates compared to linear regression models, especially in the context of cardio-thoracic surgery outcomes research. Limitations related to model assumptions, such as linearity and normal distribution of residuals, are addressed through transformations and statistical tests.
 
 ## [Generalized linear mixed models: a practical guide for ecology and evolution - ScienceDirect](https://www.sciencedirect.com/science/article/abs/pii/S0169534709000196)
 
@@ -211,24 +211,6 @@ There is adequate model performance when there is a moderate amount of missingne
 
 # Syed's Literature Review
 
-## [When to use mixed models](https://crunchingthedata.com/when-to-use-mixed-models/)
-
-**What is the goal of the paper?**
-
-The goal of the paper is to provide insights into the appropriate usage of mixed models in data science projects. It aims to discuss the types of outcome variables that mixed models can handle, highlight their advantages and disadvantages, and offer guidance on when to use them effectively.
-
-**Why is it important?**
-
-Understanding when to employ mixed models is crucial for data scientists as these models offer unique capabilities, such as handling nested data structures and accommodating multiple readings on the same subject. Utilizing mixed models appropriately can improve the accuracy and interpretability of statistical analyses, especially in scenarios involving complex data structures.
-
-**How is it solved? -- methods**
-
-The paper discusses the advantages and disadvantages of mixed models, outlining scenarios where they are beneficial and situations where they may not be necessary. It provides examples to illustrate the application of mixed models in scenarios involving hierarchical data structures and multiple measurements on the same subject. Additionally, the paper offers guidance on model selection and references related articles for further exploration.
-
-**Results/limitations, if any.**
-
-The paper presents several advantages of mixed models, including their ability to handle nested data, provide interpretable coefficients, and accommodate missing measurements.
-
 ## [An Introduction to Linear Mixed-Effects Modeling in R](https://journals.sagepub.com/doi/10.1177/2515245920960351)
 
 **What is the goal of the paper?**
@@ -262,24 +244,6 @@ With the increasing use of LMMs in biological data analysis, particularly in eco
 **Results/limitations, if any**
 
 While the paper does not present empirical results, it offers practical solutions and recommendations for researchers working with ecological data. It effectively communicates the advantages and disadvantages of LMMs and provides valuable insights for their application in ecology and evolutionary studies.
-
-## [INTRODUCTION TO LINEAR MIXED MODELS](https://ourcodingclub.github.io/tutorials/mixed-models/)
-
-**What is the goal of the paper?**
-
-The article aims to provide a step-by-step code implementation guide for Linear Mixed Models (LMMs) and to explain the introduction of random effects in these models.
-
-**Why is it important?**
-
-Understanding random effects in mixed models is crucial for researchers as it allows for the consideration of variability within and between groups in hierarchical data structures. Properly defining and incorporating random effects ensures accurate modeling and interpretation, helping to avoid issues such as pseudoreplication and ensuring the independence of observations.
-
-**How is it solved? -- methods**
-
-The article explains the concepts of crossed and nested random effects in mixed models. Crossed random effects occur when factors are not hierarchically structured and can be observed across multiple levels, while nested random effects occur when one factor is nested within another, forming a hierarchical structure. The importance of properly coding the data to explicitly define nested structures is emphasized.
-
-**Results/limitations, if any.**
-
-The article does not present empirical results but serves as an educational resource on implementing LMMs with random effects.
 
 ## [Robustness of linear mixed-effects models to violations of distributional assumptions](https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13434)
 

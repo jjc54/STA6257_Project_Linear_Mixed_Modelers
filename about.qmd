@@ -15,7 +15,7 @@ Joshua J. Cook, M.S., ACRP-PM, CCRC is a recent graduate of Wake Forest Universi
 ::: {layout-ncol="2"}
 ![](images/Syed.jpeg){.lightbox}
 
-### Syed Ahzaz H. Shah
+### Syed Ahzaz H. Shah, B.S.
 
 Syed Ahzaz Shah, a skilled Software Engineer, excels in developing scalable solutions using Python, SQL, Java, and more. Currently working as software engineer, he contributes to API design, debugging, and deployment, showcasing a commitment to engineering best practices. Syed holds a Bachelor's in Computer Science, complemented by certifications in AWS Cloud Practitioner and Google Data Analytics.
 :::

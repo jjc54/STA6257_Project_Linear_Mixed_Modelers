@@ -1,31 +1,163 @@
 ---
-title: "Report"
+title: "[PLACEHOLDER FOR BETTER TITLE]"
 date: "today"
+author: "Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, B.S." 
 bibliography: references.bib
 csl: asa.csl
 ---
 
-# **Introduction to Linear Mixed-Effects Models (LMMs)**
+# **1 Introduction**
 
 Linear mixed-effects models (LMMs) are advanced statistical tools designed to analyze data that exhibit complex structures, such as hierarchical organization, repeated measures, and random effects. These models are particularly useful when data violate the assumptions of traditional ANOVA or regression methods, such as the independence of observations, homoscedasticity, and normality of residuals. LMMs accommodate intra-subject differences, allowing for both fixed effects, which are consistent across individuals, and random effects, which vary among subjects or groups.
 
-## **Implementation Methods**
+**\[PLACEHOLDER FOR FIGURE OVERVIEWING LMM PROCESS\]**
 
-The implementation of LMMs has been facilitated by various software packages and programming languages. Brown [@brown_introduction_2021] provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, `Pymer4`, developed by Jolly [@jolly_pymer4_2018], bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R's `lme4` package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.
+The implementation of LMMs has been facilitated by various software packages and programming languages. Brown [@brown_introduction_2021] provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, the lme4 package, as detailed by Bates et al. [@bates_fitting_2015], represents a significant evolution in computational methods for fitting mixed models, offering efficient tools and simplified modeling processes for R users, especially for models with crossed random effects. Pymer4, developed by Jolly [@jolly_pymer4_2018], bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R's lme4 package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.
 
-## **Industry-Specific Uses**
+LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang [@lee_estimation_nodate] explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. [@wang_statistical_2022] illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model's ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Magezi [@magezi_linear_2015] highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. [@harrison_brief_2018] and Bolker et al. [@bolker_generalized_2009] discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. [@verbeeck_linear_2023], and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. [@touraine_when_2023].
 
-LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. Magezi [@magezi_linear_2015] highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison Et. A. [@harrison_brief_2018] and Bolker Et. Al. [@bolker_generalized_2009] discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck Et. Al. [@verbeeck_linear_2023], and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine Et. Al. \[@touraine_when_2023\].
+The paper "To transform or not to transform: using generalized linear mixed models to analyse reaction time data" by Lo and Andrews [@lo_transform_2015] challenges the common practice of transforming reaction time data in cognitive psychology, advocating for GLMMs as a more robust alternative. The "LEVEL" guidelines proposed by Monsalves et al. [@monsalves_level_2020] aim to standardize the reporting of multilevel data and analyses, enhancing comparability across studies. Piepho's study [@piepho_analysing_1999] on analyzing disease incidence data with GLMMs underscores the inadequacy of traditional methods like ANOVA for such data, highlighting GLMMs' flexibility. The simulation study by Pusponegoro et al. [@pusponegoro_linear_2017] on children's growth differences emphasizes the importance of choosing the appropriate covariance structure in LMMs for longitudinal data. Lastly, the framework introduced by Steibel et al. [@steibel_powerful_2009] for analyzing RT-PCR data with LMMs showcases the method's statistical power and flexibility, offering a significant advancement over traditional analysis methods.
 
-## **Strengths and Weaknesses**
+**\[PLACEHOLDER FOR TABLE DESCRIBING WHEN TO USE LMM AND WHEN TO SEEK SIMPLER METHODS\]**
 
-The strengths of LMMs lie in their flexibility to model complex data structures and their ability to handle missing data, making them a powerful tool for a wide range of scientific inquiries. However, their application is not without challenges. Peng and Lu [@peng_model_2012] address the difficulty of variable selection and parameter estimation in LMMs, proposing an iterative procedure to improve model accuracy. Barr [@barr_random_2013] critiques existing guidelines for testing interactions within LMMs, proposing new guidelines to ensure more reliable results. Despite their robustness, as noted by Schielzeth Et. Al. \[@schielzeth_robustness_2020\], LMMs require careful evaluation of model assumptions and may present computational challenges, especially with high-dimensional datasets.
+The strengths of LMMs lie in their flexibility to model complex data structures and their ability to handle missing data, making them a powerful tool for a wide range of scientific inquiries. However, their application is not without challenges. Peng and Lu [@peng_model_2012] address the difficulty of variable selection and parameter estimation in LMMs, proposing an iterative procedure to improve model accuracy. Barr [@barr_random_2013] critiques existing guidelines for testing interactions within LMMs,\
+proposing new guidelines to ensure more reliable results. Despite their robustness, as noted by Schielzeth et al. \[\@schielzeth_robustness_2020\], LMMs require careful evaluation of model assumptions and may present computational challenges, especially with high-dimensional datasets.
 
-## **Purpose**
+**\[PLACEHOLDER FOR STRENGTHS & WEAKNESSES TABLE\]**
 
-This literature review collectively emphasize the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.
+The literature reviewed here collectively emphasizes the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes, such as the LEVEL framework [@monsalves_level_2020], and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.
 
-# **References**
+# **2 Methods**
+
+## **2.1 Mathematical Foundations**
+
+LMMs can be defined as:
+
+$y=X\beta + Z\gamma + \epsilon$
+
+where:
+
+-   Y is the response vector.
+
+-   X is the design matrix for fixed effects.
+
+-   β is the vector of fixed effects (parameters associated with the entire population or certain repeatable levels of experimental factors).
+
+-   Z is the design matrix for random effects.
+
+-   γ is the vector of random effects (represent random deviations from the population parameters (β ) for different subjects or experimental units; i.e., the variability not explained by the fixed effects).
+
+-   ϵ is the vector of residual errors.
+
+Although more flexible than other methods such as ANOVA, there are several assumptions for LMMs:
+
+1.  Random effects (γ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
+
+    $\gamma \sim N(0,G)$
+
+2.  Residual errors (ϵ ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix R.
+
+    $\epsilon \sim N(0,R)$
+
+3.  Random effects (γ) and residual errors (ϵ ) are assumed to be independent.
+
+## **2.2 Breakdown of Mathematical Foundations**
+
+**\[PLACEHOLDER FOR LAYMANS TERMS EXPLANATIONS\]**
+
+## **2.3 Sample Data Structure**
+
+**\[PLACEHOLDER\]**
+
+# **3 Analysis and Results**
+
+## **3.1 Packages**
+
+```{r}
+
+if (!requireNamespace(c("tidyverse", "lme4", "nlme", "gt"), quietly = TRUE)) {
+    install.packages(c("tidyverse", "lme4", "nlme", "gt"))
+}
+
+library(tidyverse)
+library(lme4)
+library(nlme)
+library(gt)
+```
+
+-   `tidyverse`
+
+-   `lme4`
+
+-   `nlme`
+
+-   `gt`
+
+## **3.2 Data Ingestion**
+
+```{r}
+
+# Load the datasets
+data("sleepstudy", package = "lme4")  # From lme4
+data("Orthodont", package = "nlme")   # From nlme
+data("Dyestuff", package = "lme4")    # From lme4
+
+head(sleepstudy)
+head(Orthodont)
+head(Dyestuff)
+```
+
+**\[PLACEHOLDER TO DESCRIBE THE DATASET/VARIABLES/GROUPS\]**
+
+### **1. `sleepstudy` from the `lme4` package**
+
+-   **Description**: This dataset contains the reaction times of subjects over several days of sleep deprivation.
+
+-   **Why suitable for LMMs**: The **`sleepstudy`** data are ideal for LMMs because they include repeated measures for each subject, leading to correlated observations within subjects. An LMM can model the fixed effect of days of sleep deprivation on reaction time while accounting for random subject-specific intercepts and possibly slopes, capturing individual variability in reaction time and the effect of sleep deprivation.
+
+### **2. `Orthodont` from the `nlme` package**
+
+-   **Description**: This dataset contains measurements of the distance from the pituitary to the pterygomaxillary fissure in 27 children, measured at ages 8, 10, 12, and 14.
+
+-   **Why suitable for LMMs**: The repeated measurements for each child create a nested data structure (measurements within children), leading to non-independence of observations. An LMM can effectively model the growth curves by including child-specific random effects, allowing for individual variations in growth trajectories.
+
+### **4. `Dyestuff` from the `lme4` package**
+
+-   **Description**: This dataset contains the yield from a dyeing process for different batches of dye.
+
+-   **Why suitable for LMMs**: The dataset has a grouping factor (batches), and there may be batch-to-batch variability that affects the yield. An LMM can include random effects for batches to capture this variability, which simpler models like linear regression would not account for.
+
+## **3.2 Exploratory Data Analysis (EDA)**
+
+```{r}
+
+```
+
+**\[PLACEHOLDER FOR TABLES/VIS\]**
+
+## **3.3 Linear Mixed Modeling**
+
+```{r}
+
+```
+
+## **3.4 Model Comparisons and Assessment**
+
+```{r}
+
+```
+
+## **3.5 Simulation (POSSIBLY)**
+
+```{r}
+
+```
+
+# **4 Conclusion**
+
+**\[PLACEHOLDER FOR CONCLUSION\]**
+
+# **5 References**
 
 ::: {#refs}
 :::

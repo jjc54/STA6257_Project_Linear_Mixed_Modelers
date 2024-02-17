@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -17,7 +17,7 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
 </style>
@@ -47,7 +47,13 @@ ul.task-list li input[type="checkbox"] {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -56,63 +62,65 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Linear Mixed Models - Literature">
-<meta property="og:site-name" content="Linear Mixed Models">
+<meta property="og:site_name" content="Linear Mixed Models">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Linear Mixed Models</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./literature.html" aria-current="page">
- <span class="menu-text">Literature</span></a>
+    <a class="nav-link active" href="./literature.html" aria-current="page"> 
+<span class="menu-text">Literature</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./report.html">
- <span class="menu-text">Report</span></a>
+    <a class="nav-link" href="./report.html"> 
+<span class="menu-text">[PLACEHOLDER FOR BETTER TITLE]</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./slides.html">
- <span class="menu-text">Slides</span></a>
+    <a class="nav-link" href="./slides.html"> 
+<span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./code.html">
- <span class="menu-text">Code</span></a>
+    <a class="nav-link" href="./code.html"> 
+<span class="menu-text">Code</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">
- <span class="menu-text">About Us</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About Us</span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -127,8 +135,8 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#joshs-literature-review" id="toc-joshs-literature-review" class="nav-link active" data-scroll-target="#joshs-literature-review">Josh’s Literature Review</a>
   <ul class="collapse">
-  <li><a href="#an-introduction-to-linear-mixed-effects-modeling-in-r---violet-a.-brown-2021-uwf.edu" id="toc-an-introduction-to-linear-mixed-effects-modeling-in-r---violet-a.-brown-2021-uwf.edu" class="nav-link" data-scroll-target="#an-introduction-to-linear-mixed-effects-modeling-in-r---violet-a.-brown-2021-uwf.edu">An Introduction to Linear Mixed-Effects Modeling in R - Violet A. Brown, 2021 (uwf.edu)</a></li>
-  <li><a href="#a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology---pmc-nih.gov" id="toc-a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology---pmc-nih.gov" class="nav-link" data-scroll-target="#a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology---pmc-nih.gov">A brief introduction to mixed effects modelling and multi-model inference in ecology - PMC (nih.gov)</a></li>
+  <li><a href="#fitting-linear-mixed-effects-models-using-lme4-journal-of-statistical-software-jstatsoft.org" id="toc-fitting-linear-mixed-effects-models-using-lme4-journal-of-statistical-software-jstatsoft.org" class="nav-link" data-scroll-target="#fitting-linear-mixed-effects-models-using-lme4-journal-of-statistical-software-jstatsoft.org">Fitting Linear Mixed-Effects Models Using lme4 | Journal of Statistical Software (jstatsoft.org)</a></li>
+  <li><a href="#statistical-primer-an-introduction-to-the-application-of-linear-mixed-effects-models-in-cardiothoracic-surgery-outcomes-research-a-case-study-using-homograft-pulmonary-valve-replacement-data---pubmed-nih.gov" id="toc-statistical-primer-an-introduction-to-the-application-of-linear-mixed-effects-models-in-cardiothoracic-surgery-outcomes-research-a-case-study-using-homograft-pulmonary-valve-replacement-data---pubmed-nih.gov" class="nav-link" data-scroll-target="#statistical-primer-an-introduction-to-the-application-of-linear-mixed-effects-models-in-cardiothoracic-surgery-outcomes-research-a-case-study-using-homograft-pulmonary-valve-replacement-data---pubmed-nih.gov">Statistical primer: an introduction to the application of linear mixed-effects models in cardiothoracic surgery outcomes research-a case study using homograft pulmonary valve replacement data - PubMed (nih.gov)</a></li>
   <li><a href="#generalized-linear-mixed-models-a-practical-guide-for-ecology-and-evolution---sciencedirect" id="toc-generalized-linear-mixed-models-a-practical-guide-for-ecology-and-evolution---sciencedirect" class="nav-link" data-scroll-target="#generalized-linear-mixed-models-a-practical-guide-for-ecology-and-evolution---sciencedirect">Generalized linear mixed models: a practical guide for ecology and evolution - ScienceDirect</a></li>
   <li><a href="#frontiers-linear-mixed-effects-models-for-within-participant-psychology-experiments-an-introductory-tutorial-and-free-graphical-user-interface-lmmgui-frontiersin.org" id="toc-frontiers-linear-mixed-effects-models-for-within-participant-psychology-experiments-an-introductory-tutorial-and-free-graphical-user-interface-lmmgui-frontiersin.org" class="nav-link" data-scroll-target="#frontiers-linear-mixed-effects-models-for-within-participant-psychology-experiments-an-introductory-tutorial-and-free-graphical-user-interface-lmmgui-frontiersin.org">Frontiers | Linear mixed-effects models for within-participant psychology experiments: an introductory tutorial and free, graphical user interface (LMMgui) (frontiersin.org)</a></li>
   <li><a href="#a-linear-mixed-model-to-estimate-covid-19-induced-excess-mortality---pubmed-nih.gov" id="toc-a-linear-mixed-model-to-estimate-covid-19-induced-excess-mortality---pubmed-nih.gov" class="nav-link" data-scroll-target="#a-linear-mixed-model-to-estimate-covid-19-induced-excess-mortality---pubmed-nih.gov">A linear mixed model to estimate COVID-19-induced excess mortality - PubMed (nih.gov)</a></li>
@@ -144,10 +152,8 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#syeds-literature-review" id="toc-syeds-literature-review" class="nav-link" data-scroll-target="#syeds-literature-review">Syed’s Literature Review</a>
   <ul class="collapse">
-  <li><a href="#when-to-use-mixed-models" id="toc-when-to-use-mixed-models" class="nav-link" data-scroll-target="#when-to-use-mixed-models">When to use mixed models</a></li>
   <li><a href="#an-introduction-to-linear-mixed-effects-modeling-in-r" id="toc-an-introduction-to-linear-mixed-effects-modeling-in-r" class="nav-link" data-scroll-target="#an-introduction-to-linear-mixed-effects-modeling-in-r">An Introduction to Linear Mixed-Effects Modeling in R</a></li>
   <li><a href="#a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology" id="toc-a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology" class="nav-link" data-scroll-target="#a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology">A brief introduction to mixed effects modelling and multi-model inference in ecology</a></li>
-  <li><a href="#introduction-to-linear-mixed-models" id="toc-introduction-to-linear-mixed-models" class="nav-link" data-scroll-target="#introduction-to-linear-mixed-models">INTRODUCTION TO LINEAR MIXED MODELS</a></li>
   <li><a href="#robustness-of-linear-mixed-effects-models-to-violations-of-distributional-assumptions" id="toc-robustness-of-linear-mixed-effects-models-to-violations-of-distributional-assumptions" class="nav-link" data-scroll-target="#robustness-of-linear-mixed-effects-models-to-violations-of-distributional-assumptions">Robustness of linear mixed-effects models to violations of distributional assumptions</a></li>
   <li><a href="#to-transform-or-not-to-transform-using-generalized-linear-mixed-models-to-analyse-reaction-time-data" id="toc-to-transform-or-not-to-transform-using-generalized-linear-mixed-models-to-analyse-reaction-time-data" class="nav-link" data-scroll-target="#to-transform-or-not-to-transform-using-generalized-linear-mixed-models-to-analyse-reaction-time-data">To transform or not to transform: using generalized linear mixed models to analyse reaction time data</a></li>
   <li><a href="#analysing-disease-incidence-data-from-designed-experiments-by-generalized-linear-mixed-models" id="toc-analysing-disease-incidence-data-from-designed-experiments-by-generalized-linear-mixed-models" class="nav-link" data-scroll-target="#analysing-disease-incidence-data-from-designed-experiments-by-generalized-linear-mixed-models">Analysing disease incidence data from designed experiments by generalized linear mixed models</a></li>
@@ -180,31 +186,33 @@ ul.task-list li input[type="checkbox"] {
   </div>
   
 
+
 </header>
+
 
 <section id="joshs-literature-review" class="level1">
 <h1>Josh’s Literature Review</h1>
-<section id="an-introduction-to-linear-mixed-effects-modeling-in-r---violet-a.-brown-2021-uwf.edu" class="level2">
-<h2 class="anchored" data-anchor-id="an-introduction-to-linear-mixed-effects-modeling-in-r---violet-a.-brown-2021-uwf.edu"><a href="https://journals-sagepub-com.ezproxy.lib.uwf.edu/doi/full/10.1177/2515245920960351">An Introduction to Linear Mixed-Effects Modeling in R - Violet A. Brown, 2021 (uwf.edu)</a></h2>
+<section id="fitting-linear-mixed-effects-models-using-lme4-journal-of-statistical-software-jstatsoft.org" class="level2">
+<h2 class="anchored" data-anchor-id="fitting-linear-mixed-effects-models-using-lme4-journal-of-statistical-software-jstatsoft.org"><a href="https://www.jstatsoft.org/article/view/v067i01">Fitting Linear Mixed-Effects Models Using lme4 | Journal of Statistical Software (jstatsoft.org)</a></h2>
 <p><strong>What is the goal of the paper?</strong></p>
-<p>The article aims to introduce the utility of linear mixed-effects models (LMMs) over traditional ANOVA or regression methods, emphasizing their applicability in handling intra-subject differences and their flexibility with missing values and outliers. This was specifically done in R.</p>
+<p>The paper presents the lme4 package for R, which facilitates the fitting of linear mixed-effects models. The authors aim to articulate the package’s capabilities in evaluating the profiled deviance or REML criterion for linear mixed models and to explain the representation and optimization of such models for parameter estimation.</p>
 <p><strong>Why is it important?</strong></p>
-<p>LMMs are highlighted for their ability to not assume independence of observations, making them particularly suitable for psychological research where within-subject differences are common.</p>
+<p>The significance of this paper lies in its contribution to the field of computational methods for fitting mixed models—an area with many open problems. The lme4 package represents an evolution in this domain, offering more efficient computational tools and a syntax that simplifies the modeling process, especially for models with crossed random effects.</p>
 <p><strong>How is it solved? – methods</strong></p>
-<p>The article employs a psychology-based dataset to demonstrate the implementation of LMMs using R. It focuses on explaining the concepts of fixed effects and random effects in LMMs, providing the data and code for readers to follow along without delving deeply into the mathematical foundations of LMMs.</p>
+<p>The package utilizes maximum likelihood or restricted maximum likelihood (REML) estimates for linear mixed-effects model parameters, employing numerical representation and optimization functions within R. The paper delves into the model’s structure, the evaluative steps for the profiled deviance or REML criterion, and the class structure representing such models, highlighting the improvements over previous formulations.</p>
 <p><strong>Results/limitations, if any.</strong></p>
-<p>The primary contribution is the detailed walkthrough of LME model syntax in R and interpretation within the context of psychological data. The article suggests that the methods described should be generalizable across various industries, although it is based on a specific psychology dataset.</p>
+<p>The document focuses more on methodology than specific results or limitations. It details the improvement over the nlme package, addressing efficient linear algebra tools and the incorporation of profile likelihood confidence intervals on random-effects parameters. The paper emphasizes the ongoing development of the lme4 package, acknowledging the need for stability and usability for a broad range of applications.</p>
 </section>
-<section id="a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology---pmc-nih.gov" class="level2">
-<h2 class="anchored" data-anchor-id="a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology---pmc-nih.gov"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5970551/">A brief introduction to mixed effects modelling and multi-model inference in ecology - PMC (nih.gov)</a></h2>
+<section id="statistical-primer-an-introduction-to-the-application-of-linear-mixed-effects-models-in-cardiothoracic-surgery-outcomes-research-a-case-study-using-homograft-pulmonary-valve-replacement-data---pubmed-nih.gov" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-primer-an-introduction-to-the-application-of-linear-mixed-effects-models-in-cardiothoracic-surgery-outcomes-research-a-case-study-using-homograft-pulmonary-valve-replacement-data---pubmed-nih.gov"><a href="https://pubmed.ncbi.nlm.nih.gov/36005884/">Statistical primer: an introduction to the application of linear mixed-effects models in cardiothoracic surgery outcomes research-a case study using homograft pulmonary valve replacement data - PubMed (nih.gov)</a></h2>
 <p><strong>What is the goal of the paper?</strong></p>
-<p>This article aims to demonstrate the application of LMMs and multi-model inference within the field of ecology, focusing on error and model selection using biological data.</p>
+<p>The goal of the paper is to provide a detailed introduction to developing and interpreting linear mixed-effects models for repeated measurements in the context of cardiothoracic surgery outcomes research. The paper uses a dataset on patients undergoing surgical pulmonary valve replacement to illustrate the steps of developing such models for clinician researchers.</p>
 <p><strong>Why is it important?</strong></p>
-<p>The significance of the article lies in its broad overview of LMMs in the context of ecological data, addressing the challenges of error and model selection in ecological research.</p>
+<p>This work is important because the emergence of large cardio-thoracic surgery datasets, including repeated measurements over time, presents an opportunity to apply advanced modeling of outcomes. Linear mixed-effects models offer a more nuanced understanding of these outcomes compared to traditional methods, which is crucial for enhancing clinical decision-making and patient care.</p>
 <p><strong>How is it solved? – methods</strong></p>
-<p>The methodology includes a detailed examination of information theory and multi-model inference, applied to example ecological data. The article provides data and code for replication and further exploration.</p>
+<p>The authors used a retrospective dataset containing serial echocardiographic measurements from patients who underwent surgical pulmonary valve replacement at Erasmus MC between 1986 and 2017. The paper discusses the construction of the model, including dealing with missing values, correlated variables, and multicollinearity. It also covers model specification, variable selection, addressing nonlinearity, and interpretation of results. An R script is provided for implementing the model.</p>
 <p><strong>Results/limitations, if any.</strong></p>
-<p>While the article offers valuable insights into the use of LMMs in ecology, including data and code for practical application, it primarily serves as an introductory piece, potentially leaving out more advanced aspects of LMMs and multi-model inference.</p>
+<p>The paper illustrates the construction of the model, including essential aspects such as theories of linear mixed-effects models, missing values, collinearity, interaction, nonlinearity, model specification, and results interpretation. It shows that linear mixed-effects models provide a more detailed view of repeated measurements and give more valid estimates compared to linear regression models, especially in the context of cardio-thoracic surgery outcomes research. Limitations related to model assumptions, such as linearity and normal distribution of residuals, are addressed through transformations and statistical tests.</p>
 </section>
 <section id="generalized-linear-mixed-models-a-practical-guide-for-ecology-and-evolution---sciencedirect" class="level2">
 <h2 class="anchored" data-anchor-id="generalized-linear-mixed-models-a-practical-guide-for-ecology-and-evolution---sciencedirect"><a href="https://www.sciencedirect.com/science/article/abs/pii/S0169534709000196">Generalized linear mixed models: a practical guide for ecology and evolution - ScienceDirect</a></h2>
@@ -313,17 +321,6 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="syeds-literature-review" class="level1">
 <h1>Syed’s Literature Review</h1>
-<section id="when-to-use-mixed-models" class="level2">
-<h2 class="anchored" data-anchor-id="when-to-use-mixed-models"><a href="https://crunchingthedata.com/when-to-use-mixed-models/">When to use mixed models</a></h2>
-<p><strong>What is the goal of the paper?</strong></p>
-<p>The goal of the paper is to provide insights into the appropriate usage of mixed models in data science projects. It aims to discuss the types of outcome variables that mixed models can handle, highlight their advantages and disadvantages, and offer guidance on when to use them effectively.</p>
-<p><strong>Why is it important?</strong></p>
-<p>Understanding when to employ mixed models is crucial for data scientists as these models offer unique capabilities, such as handling nested data structures and accommodating multiple readings on the same subject. Utilizing mixed models appropriately can improve the accuracy and interpretability of statistical analyses, especially in scenarios involving complex data structures.</p>
-<p><strong>How is it solved? – methods</strong></p>
-<p>The paper discusses the advantages and disadvantages of mixed models, outlining scenarios where they are beneficial and situations where they may not be necessary. It provides examples to illustrate the application of mixed models in scenarios involving hierarchical data structures and multiple measurements on the same subject. Additionally, the paper offers guidance on model selection and references related articles for further exploration.</p>
-<p><strong>Results/limitations, if any.</strong></p>
-<p>The paper presents several advantages of mixed models, including their ability to handle nested data, provide interpretable coefficients, and accommodate missing measurements.</p>
-</section>
 <section id="an-introduction-to-linear-mixed-effects-modeling-in-r" class="level2">
 <h2 class="anchored" data-anchor-id="an-introduction-to-linear-mixed-effects-modeling-in-r"><a href="https://journals.sagepub.com/doi/10.1177/2515245920960351">An Introduction to Linear Mixed-Effects Modeling in R</a></h2>
 <p><strong>What is the goal of the paper?</strong></p>
@@ -344,17 +341,6 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>How is it solved? – methods</strong> The paper discusses various aspects of applying LMMs to biological data, including model selection, error structure, data transformation, and methods for model selection. It emphasizes the importance of careful consideration and consultation with a statistician, particularly in complex situations.</p>
 <p><strong>Results/limitations, if any</strong></p>
 <p>While the paper does not present empirical results, it offers practical solutions and recommendations for researchers working with ecological data. It effectively communicates the advantages and disadvantages of LMMs and provides valuable insights for their application in ecology and evolutionary studies.</p>
-</section>
-<section id="introduction-to-linear-mixed-models" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-linear-mixed-models"><a href="https://ourcodingclub.github.io/tutorials/mixed-models/">INTRODUCTION TO LINEAR MIXED MODELS</a></h2>
-<p><strong>What is the goal of the paper?</strong></p>
-<p>The article aims to provide a step-by-step code implementation guide for Linear Mixed Models (LMMs) and to explain the introduction of random effects in these models.</p>
-<p><strong>Why is it important?</strong></p>
-<p>Understanding random effects in mixed models is crucial for researchers as it allows for the consideration of variability within and between groups in hierarchical data structures. Properly defining and incorporating random effects ensures accurate modeling and interpretation, helping to avoid issues such as pseudoreplication and ensuring the independence of observations.</p>
-<p><strong>How is it solved? – methods</strong></p>
-<p>The article explains the concepts of crossed and nested random effects in mixed models. Crossed random effects occur when factors are not hierarchically structured and can be observed across multiple levels, while nested random effects occur when one factor is nested within another, forming a hierarchical structure. The importance of properly coding the data to explicitly define nested structures is emphasized.</p>
-<p><strong>Results/limitations, if any.</strong></p>
-<p>The article does not present empirical results but serves as an educational resource on implementing LMMs with random effects.</p>
 </section>
 <section id="robustness-of-linear-mixed-effects-models-to-violations-of-distributional-assumptions" class="level2">
 <h2 class="anchored" data-anchor-id="robustness-of-linear-mixed-effects-models-to-violations-of-distributional-assumptions"><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.13434">Robustness of linear mixed-effects models to violations of distributional assumptions</a></h2>
@@ -484,6 +470,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -550,13 +563,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -583,9 +598,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -621,10 +650,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -634,8 +662,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -650,6 +687,238 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
@@ -690,6 +959,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
