@@ -23,9 +23,9 @@ Syed Ahzaz Shah, a skilled Software Engineer, excels in developing scalable solu
 ::: {layout-ncol="2"}
 ![](images/image.png){.lightbox}
 
-### \[INSERT NAME AND DEGREES HERE\]
+### Jacob Hernandez B.S.
 
-Insert bio here.
+Jacob Hernadnez graduated from the California State University of Long Beach with a degree in Chemical Engineer. Currently, he is Data Anlayst for an Aeronautics and Defense Company in California where he uses Python, SQL and Tableau to deliver high quality data products to important stake holders. He has recieved his Google Cloud Data Engineering Certifications and Tensorlflow Developer Certification which has helped him produce and depploy machine learning projects for his personal portfolio. 
 :::
 
 ::: {layout-ncol="2"}
