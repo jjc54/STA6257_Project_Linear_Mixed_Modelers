@@ -144,9 +144,9 @@ ul.task-list li input[type="checkbox"] {
   </ul></li>
   <li><a href="#jacobs-literature-review" id="toc-jacobs-literature-review" class="nav-link" data-scroll-target="#jacobs-literature-review">Jacob’s Literature Review</a>
   <ul class="collapse">
-  <li><a href="#introduction-to-linear-mixed-models-oarc.ucla.edua" id="toc-introduction-to-linear-mixed-models-oarc.ucla.edua" class="nav-link" data-scroll-target="#introduction-to-linear-mixed-models-oarc.ucla.edua">INTRODUCTION TO LINEAR MIXED MODELS (oarc.ucla.edua)</a></li>
+  <li><a href="#multimodel-inference-in-ecology-and-evolution-challenges-and-solutionsnih.gov" id="toc-multimodel-inference-in-ecology-and-evolution-challenges-and-solutionsnih.gov" class="nav-link" data-scroll-target="#multimodel-inference-in-ecology-and-evolution-challenges-and-solutionsnih.gov">Multimodel inference in ecology and evolution: challenges and solutions(nih.gov)</a></li>
   <li><a href="#linear-mixed-model-for-analyzing-longitudinal-data-a-simulation-study-of-children-growth-differences-sciencedirect.com" id="toc-linear-mixed-model-for-analyzing-longitudinal-data-a-simulation-study-of-children-growth-differences-sciencedirect.com" class="nav-link" data-scroll-target="#linear-mixed-model-for-analyzing-longitudinal-data-a-simulation-study-of-children-growth-differences-sciencedirect.com">Linear Mixed Model for Analyzing Longitudinal Data: A Simulation Study of Children Growth Differences (sciencedirect.com)</a></li>
-  <li><a href="#a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology-nih.gov" id="toc-a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology-nih.gov" class="nav-link" data-scroll-target="#a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology-nih.gov">A brief introduction to mixed effects modelling and multi-model inference in ecology (nih.gov)</a></li>
+  <li><a href="#a-protocol-for-conducting-and-presenting-results-of-regression-type-analyses" id="toc-a-protocol-for-conducting-and-presenting-results-of-regression-type-analyses" class="nav-link" data-scroll-target="#a-protocol-for-conducting-and-presenting-results-of-regression-type-analyses">A protocol for conducting and presenting results of regression-type analyses</a></li>
   <li><a href="#level-logical-explanations-visualizations-of-estimates-in-linear-mixed-models-recommendations-for-reporting-multilevel-data-and-analyses" id="toc-level-logical-explanations-visualizations-of-estimates-in-linear-mixed-models-recommendations-for-reporting-multilevel-data-and-analyses" class="nav-link" data-scroll-target="#level-logical-explanations-visualizations-of-estimates-in-linear-mixed-models-recommendations-for-reporting-multilevel-data-and-analyses">LEVEL (Logical Explanations &amp; Visualizations of Estimates in Linear mixed models): recommendations for reporting multilevel data and analyses</a></li>
   <li><a href="#estimation-and-selection-in-linear-mixed-models-with-missing-data-under-compound-symmetric-structure-nih.gov" id="toc-estimation-and-selection-in-linear-mixed-models-with-missing-data-under-compound-symmetric-structure-nih.gov" class="nav-link" data-scroll-target="#estimation-and-selection-in-linear-mixed-models-with-missing-data-under-compound-symmetric-structure-nih.gov">Estimation and selection in linear mixed models with missing data under compound symmetric structure (nih.gov)</a></li>
   </ul></li>
@@ -263,16 +263,16 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="jacobs-literature-review" class="level1">
 <h1>Jacob’s Literature Review</h1>
-<section id="introduction-to-linear-mixed-models-oarc.ucla.edua" class="level2">
-<h2 class="anchored" data-anchor-id="introduction-to-linear-mixed-models-oarc.ucla.edua"><a href="https://stats.oarc.ucla.edu/other/mult-pkg/introduction-to-linear-mixed-models/#:~:text=Linear%20mixed%20models%20are%20an,or%20patients%20from%20within%20doctors">INTRODUCTION TO LINEAR MIXED MODELS (oarc.ucla.edua)</a></h2>
+<section id="multimodel-inference-in-ecology-and-evolution-challenges-and-solutionsnih.gov" class="level2">
+<h2 class="anchored" data-anchor-id="multimodel-inference-in-ecology-and-evolution-challenges-and-solutionsnih.gov"><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/j.1420-9101.2010.02210.x">Multimodel inference in ecology and evolution: challenges and solutions(nih.gov)</a></h2>
 <p><strong>What is the goal of the paper?</strong></p>
-<p>The goal of the paper is to show how linear mixed models can help analyze data sets with non independence. Non independence can happen when data is hierarchical in structure resulting in correlations within groups in the data sets resulting in the violation of the assumption of independence between observations. The example provided has a sample dataset with different patient observations belonging to multiple doctors.</p>
+<p>The goal of the paper is to highlight obstacles when model averaging and using information theoretic framework and their potential solutions if they exist</p>
 <p><strong>Why is it important?</strong></p>
-<p>Going on the aforementioned example, data can be averaged on a doctor group level but his would result in less data. And you can not make inferences about an individual patient. You can also do multiple linear models for each doctor but the models themselve have less data resulting in more noise.</p>
+<p>A large number of ecologists and biologists are analyzing data with the Information theoretic framework rather than the traditional hypothesis testing. Modeling averaging becomes increasingly difficult with Linear Mixed models due to the fixed and random effects.</p>
 <p><strong>How is it solved? – methods</strong></p>
-<p>Linear Mixed models find a trade off between both approaches where the random effects are still considered for each doctor but there is still an overall grand or fixed effect.</p>
+<p>The research suggests that researchers define appropriate inputs and predictor variables and to handle collinearity with extreme care especially when dealing with the random effects of LMMs.The paper then goes on to propose strategies on model averaging and definition top model sets.</p>
 <p><strong>Results/limitations, if any.</strong></p>
-<p>There was no dataset or experiment analyzed in this paper. It is just a technical overview.</p>
+<p>As the paper mentions, it is NOT an exhaustive survival of the potential problems of applying model averaging under an IT framework. Some problems still exist like determining which IT criteria to use when comparing models with random factors.</p>
 </section>
 <section id="linear-mixed-model-for-analyzing-longitudinal-data-a-simulation-study-of-children-growth-differences-sciencedirect.com" class="level2">
 <h2 class="anchored" data-anchor-id="linear-mixed-model-for-analyzing-longitudinal-data-a-simulation-study-of-children-growth-differences-sciencedirect.com"><a href="https://www.sciencedirect.com/science/article/pii/S187705091732121X">Linear Mixed Model for Analyzing Longitudinal Data: A Simulation Study of Children Growth Differences (sciencedirect.com)</a></h2>
@@ -285,16 +285,16 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Results/limitations, if any.</strong></p>
 <p>The simulation study found that the UN covariance performed the best although it suffered from efficiency because of the high number of parameters leaving the ARH(1) as a solid alternative. The data was also not naturally collected but simulated</p>
 </section>
-<section id="a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology-nih.gov" class="level2">
-<h2 class="anchored" data-anchor-id="a-brief-introduction-to-mixed-effects-modelling-and-multi-model-inference-in-ecology-nih.gov"><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5970551/pdf/peerj-06-4794.pdf">A brief introduction to mixed effects modelling and multi-model inference in ecology (nih.gov)</a></h2>
+<section id="a-protocol-for-conducting-and-presenting-results-of-regression-type-analyses" class="level2">
+<h2 class="anchored" data-anchor-id="a-protocol-for-conducting-and-presenting-results-of-regression-type-analyses"><a href="https://besjournals.onlinelibrary.wiley.com/doi/full/10.1111/2041-210X.12577">A protocol for conducting and presenting results of regression-type analyses</a></h2>
 <p><strong>What is the goal of the paper?</strong></p>
-<p>The goal of this paper is to serve as a guide on the end to end to end analysis from formulating a hypothesis to inference to explaining the model parameters as it regards to biological and ecological data. Advantages and disadvantages are discussed with the different options available at different parts of the linear mixed model analysis pipeline</p>
+<p>The goal of the paper is to streamline analysis by giving the reader a 10 step protocol. It helps fellow researchers select models, justify assumptions, and validate models.</p>
 <p><strong>Why is it important?</strong></p>
-<p>This article is relevant to our group especially, to those unfamiliar with Linear Mix Models like myself. As it regards to biological science, this paper helps the reader avoid common pitfalls when implementing LMMs</p>
+<p>This paper is great for researchers new to Linear Mixed models and are looking to use its advantages on a dataset. The protocol is extremely straightforward. Linear mixed models offer more in depth analysis and it is important that all researchers know it to further the field of ecology.</p>
 <p><strong>How is it solved? – methods</strong></p>
-<p>The paper has a play by play on the different stages of LMM analysis with tangible example that include data, code and several graphs.</p>
+<p>The paper has 10 steps with very concrete examples that include sample datasets, visualizations, and results. The reader has something tangible and can directly apply what they learned to another dataset.</p>
 <p><strong>Results/limitations, if any</strong></p>
-<p>There is no study or actual experiment being analyzed by linear mixed models. Although it does have references to plenty of academic research papers</p>
+<p>The paper is limited by showing sample results and shows no empirical data. It identifies potential pitfalls like overdispersion of fitted models but offers no real solution</p>
 </section>
 <section id="level-logical-explanations-visualizations-of-estimates-in-linear-mixed-models-recommendations-for-reporting-multilevel-data-and-analyses" class="level2">
 <h2 class="anchored" data-anchor-id="level-logical-explanations-visualizations-of-estimates-in-linear-mixed-models-recommendations-for-reporting-multilevel-data-and-analyses"><a href="https://bmcmedresmethodol.biomedcentral.com/articles/10.1186/s12874-019-0876-8">LEVEL (Logical Explanations &amp; Visualizations of Estimates in Linear mixed models): recommendations for reporting multilevel data and analyses</a></h2>
