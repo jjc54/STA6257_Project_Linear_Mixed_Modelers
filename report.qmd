@@ -1,7 +1,7 @@
 ---
 title: "[PLACEHOLDER FOR BETTER TITLE]"
 date: "today"
-author: "Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, B.S." 
+author: "Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S." 
 bibliography: references.bib
 csl: asa.csl
 ---

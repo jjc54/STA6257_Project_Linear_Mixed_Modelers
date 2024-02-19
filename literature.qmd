@@ -119,7 +119,7 @@ This paper showed that poor quality-of-life scores are associated with drop out.
 
 # Jacob's Literature Review
 
-## [Multimodel inference in ecology and evolution: challenges and solutions(nih.gov) ](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1420-9101.2010.02210.x)
+## [Multimodel inference in ecology and evolution: challenges and solutions(nih.gov)](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1420-9101.2010.02210.x)
 
 **What is the goal of the paper?**
 
@@ -131,11 +131,11 @@ A large number of ecologists and biologists are analyzing data with the Informat
 
 **How is it solved? -- methods**
 
-The research suggests that researchers define appropriate inputs and predictor variables and to handle collinearity with extreme care especially when dealing with the random effects of LMMs.The paper then goes on to propose strategies on model averaging  and definition top model sets.
+The research suggests that researchers define appropriate inputs and predictor variables and to handle collinearity with extreme care especially when dealing with the random effects of LMMs.The paper then goes on to propose strategies on model averaging and definition top model sets.
 
 **Results/limitations, if any.**
 
-As the paper mentions, it is NOT an exhaustive survival of the potential problems of applying model averaging under an IT framework. Some problems still exist like determining which IT criteria to use when comparing models with random factors. 
+As the paper mentions, it is NOT an exhaustive survival of the potential problems of applying model averaging under an IT framework. Some problems still exist like determining which IT criteria to use when comparing models with random factors.
 
 ## [Linear Mixed Model for Analyzing Longitudinal Data: A Simulation Study of Children Growth Differences (sciencedirect.com)](https://www.sciencedirect.com/science/article/pii/S187705091732121X)
 
@@ -163,11 +163,11 @@ The goal of the paper is to streamline analysis by giving the reader a 10 step p
 
 **Why is it important?**
 
-This paper is great for researchers new to Linear Mixed models and are looking to use its advantages on a dataset. The protocol is extremely straightforward. Linear mixed models offer more in depth analysis and it is important that all researchers know it to further the field of ecology. 
+This paper is great for researchers new to Linear Mixed models and are looking to use its advantages on a dataset. The protocol is extremely straightforward. Linear mixed models offer more in depth analysis and it is important that all researchers know it to further the field of ecology.
 
 **How is it solved? -- methods**
 
-The paper has 10 steps with very concrete examples that include sample datasets, visualizations, and results. The reader has something tangible and can directly apply what they learned to another dataset. 
+The paper has 10 steps with very concrete examples that include sample datasets, visualizations, and results. The reader has something tangible and can directly apply what they learned to another dataset.
 
 **Results/limitations, if any**
 

@@ -23,11 +23,10 @@ Syed Ahzaz Shah, a skilled Software Engineer, excels in developing scalable solu
 ::: {layout-ncol="2"}
 ![](images/Jacob.jpg){.lightbox}
 
-### Jacob Hernandez B.S.
+### Jacob Hernandez, B.S.
 
-Jacob Hernadnez graduated from the California State University of Long Beach with a degree in Chemical Engineer. Currently, he is Data Anlayst for an Aeronautics and Defense Company in California where he uses Python, SQL and Tableau to deliver high quality data products to important stake holders. He has recieved his Google Cloud Data Engineering Certifications and Tensorlflow Developer Certification which has helped him produce and depploy machine learning projects for his personal portfolio.
+Jacob Hernadnez graduated from the California State University of Long Beach with a degree in Chemical Engineering. Currently, he is Data Analyst for an Aeronautics and Defense Company in California where he uses Python, SQL and Tableau to deliver high quality data products to important stake holders. He has recieved his Google Cloud Data Engineering Certifications and TensorFlow Developer Certification which has helped him produce and deploy machine learning projects for his personal portfolio.
 :::
-
 
 ::: {layout-ncol="2"}
 ![](images/Sara.JPG){.lightbox}
@@ -36,4 +35,3 @@ Jacob Hernadnez graduated from the California State University of Long Beach wit
 
 Sara Basili obtained her Master of Science in Computer Science with a concentration in Artificial Intelligence from the University of New Orleans (UNO) in December 2023. She is currently pursuing her Master of Science in Data Science at the University of West Florida (UWF), while working as an AI researcher and directing operations at an Artificial Intelligence company based in New Orleans. Prior to her current roles, she gained over a year of insightful experience working as a Crime Analyst for the District Attorney's office in New Orleans. Sara earned her B.S. in Statistics from Università degli Studi di Roma "La Sapienza" in March 2021, where she authored a thesis entitled "The Social Impact of Gallup Polls to Measure Public Opinion: An Empirical Analysis of the Knight Communities." She is proficient in a variety of programming languages, including SQL, R, Python, SAS, and Java, which are central to her work in both artificial intelligence and data science.
 :::
-
