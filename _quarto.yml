@@ -4,7 +4,7 @@ project:
 
 website:
   open-graph: TRUE
-  title: "Linear Mixed Models"
+  title: "The Linear Mixed Modelers"
   navbar:
     left:
       - href: index.qmd

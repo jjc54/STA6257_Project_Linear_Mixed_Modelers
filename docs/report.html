@@ -9,7 +9,7 @@
 <meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S.">
 <meta name="dcterms.date" content="2024-02-19">
 
-<title>Linear Mixed Models - [PLACEHOLDER FOR BETTER TITLE]</title>
+<title>The Linear Mixed Modelers - Report</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -156,9 +156,9 @@ window.Quarto = {
 </script>
 
 <link rel="stylesheet" href="styles.css">
-<meta property="og:title" content="Linear Mixed Models - [PLACEHOLDER FOR BETTER TITLE]">
-<meta property="og:description" content="">
-<meta property="og:site_name" content="Linear Mixed Models">
+<meta property="og:title" content="The Linear Mixed Modelers - Report">
+<meta property="og:description" content="Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes">
+<meta property="og:site_name" content="The Linear Mixed Modelers">
 </head>
 
 <body class="nav-fixed">
@@ -169,7 +169,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Linear Mixed Models</span>
+    <span class="navbar-title">The Linear Mixed Modelers</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -188,7 +188,7 @@ window.Quarto = {
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./report.html" aria-current="page"> 
-<span class="menu-text">[PLACEHOLDER FOR BETTER TITLE]</span></a>
+<span class="menu-text">Report</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./slides.html"> 
@@ -231,10 +231,7 @@ window.Quarto = {
   <li><a href="#packages" id="toc-packages" class="nav-link" data-scroll-target="#packages"><strong>3.1 Packages</strong></a></li>
   <li><a href="#data-ingestion" id="toc-data-ingestion" class="nav-link" data-scroll-target="#data-ingestion"><strong>3.2 Data Ingestion</strong></a>
   <ul class="collapse">
-  <li><a href="#sleepstudy-from-the-lme4-package" id="toc-sleepstudy-from-the-lme4-package" class="nav-link" data-scroll-target="#sleepstudy-from-the-lme4-package"><strong>1. <code>sleepstudy</code> from the <code>lme4</code> package</strong></a></li>
-  <li><a href="#orthodont-from-the-nlme-package" id="toc-orthodont-from-the-nlme-package" class="nav-link" data-scroll-target="#orthodont-from-the-nlme-package"><strong>2. <code>Orthodont</code> from the <code>nlme</code> package</strong></a></li>
-  <li><a href="#dyestuff-from-the-lme4-package" id="toc-dyestuff-from-the-lme4-package" class="nav-link" data-scroll-target="#dyestuff-from-the-lme4-package"><strong>3. <code>Dyestuff</code> from the <code>lme4</code> package</strong></a></li>
-  <li><a href="#bmi-from-kaggle" id="toc-bmi-from-kaggle" class="nav-link" data-scroll-target="#bmi-from-kaggle"><strong>4. <code>BMI</code> from Kaggle</strong></a></li>
+  <li><a href="#bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" id="toc-bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" class="nav-link" data-scroll-target="#bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com"><strong><code>BMI</code> from Kaggle (</strong>Impact of BMI on IOS measures on children (kaggle.com))</a></li>
   </ul></li>
   <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></a></li>
   <li><a href="#linear-mixed-modeling" id="toc-linear-mixed-modeling" class="nav-link" data-scroll-target="#linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></a></li>
@@ -251,7 +248,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">[PLACEHOLDER FOR BETTER TITLE]</h1>
+<h1 class="title">Report</h1>
+<p class="subtitle lead">Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes</p>
 </div>
 
 
@@ -284,7 +282,7 @@ window.Quarto = {
 <h1><strong>1 Introduction</strong></h1>
 <p>Linear mixed-effects models (LMMs) are advanced statistical tools designed to analyze data that exhibit complex structures, such as hierarchical organization, repeated measures, and random effects. These models are particularly useful when data violate the assumptions of traditional ANOVA or regression methods, such as the independence of observations, homoscedasticity, and normality of residuals. LMMs accommodate intra-subject differences, allowing for both fixed effects, which are consistent across individuals, and random effects, which vary among subjects or groups.</p>
 <p>The implementation of LMMs has been facilitated by various software packages and programming languages. Brown <span class="citation" data-cites="brown_introduction_2021">(<a href="#ref-brown_introduction_2021" role="doc-biblioref">Brown 2021</a>)</span> provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, the lme4 package, as detailed by Bates et al. <span class="citation" data-cites="bates_fitting_2015">(<a href="#ref-bates_fitting_2015" role="doc-biblioref">Bates et al. 2015</a>)</span>, represents a significant evolution in computational methods for fitting mixed models, offering efficient tools and simplified modeling processes for R users, especially for models with crossed random effects. Pymer4, developed by Jolly <span class="citation" data-cites="jolly_pymer4_2018">(<a href="#ref-jolly_pymer4_2018" role="doc-biblioref">Jolly 2018</a>)</span>, bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R’s lme4 package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.</p>
-<p>LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang <span class="citation" data-cites="lee_estimation_nodate">(<a href="#ref-lee_estimation_nodate" role="doc-biblioref">Lee and Shang n.d.</a>)</span> explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. <span class="citation" data-cites="wang_statistical_2022">(<a href="#ref-wang_statistical_2022" role="doc-biblioref">Wang et al. 2022</a>)</span> illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model’s ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Aarts et al [<span class="citation" data-cites="aarts_2015">Aarts et al. (<a href="#ref-aarts_2015" role="doc-biblioref">2015</a>)</span>] demonstrates mulilevel design experiements in neurscciene and how using linear models on multilevel data can result in increase in false positives. Magezi <span class="citation" data-cites="magezi_linear_2015">(<a href="#ref-magezi_linear_2015" role="doc-biblioref">Magezi 2015</a>)</span> highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. <span class="citation" data-cites="harrison_brief_2018">(<a href="#ref-harrison_brief_2018" role="doc-biblioref">Harrison et al. 2018</a>)</span> and Bolker et al. <span class="citation" data-cites="bolker_generalized_2009">(<a href="#ref-bolker_generalized_2009" role="doc-biblioref">Bolker et al. 2009</a>)</span> discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures with GRU. Grueber et al <span class="citation" data-cites="grueber_2011">(<a href="#ref-grueber_2011" role="doc-biblioref">GRUEBER et al. 2011</a>)</span> another ecology research, paper focuses on the model averaging and information theoritac with LMMS as an alternative to traditional null hypothesis testing. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. <span class="citation" data-cites="verbeeck_linear_2023">(<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">Verbeeck et al. 2023</a>)</span>, and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. <span class="citation" data-cites="touraine_when_2023">(<a href="#ref-touraine_when_2023" role="doc-biblioref">Touraine et al. 2023</a>)</span>.</p>
+<p>LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang <span class="citation" data-cites="lee_estimation_nodate">(<a href="#ref-lee_estimation_nodate" role="doc-biblioref">Lee and Shang n.d.</a>)</span> explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. <span class="citation" data-cites="wang_statistical_2022">(<a href="#ref-wang_statistical_2022" role="doc-biblioref">Wang et al. 2022</a>)</span> illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model’s ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Aarts et al <span class="citation" data-cites="aarts_2015">(<a href="#ref-aarts_2015" role="doc-biblioref">Aarts et al. 2015</a>)</span> demonstrates mulilevel design experiements in neurscciene and how using linear models on multilevel data can result in increase in false positives. Magezi <span class="citation" data-cites="magezi_linear_2015">(<a href="#ref-magezi_linear_2015" role="doc-biblioref">Magezi 2015</a>)</span> highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. <span class="citation" data-cites="harrison_brief_2018">(<a href="#ref-harrison_brief_2018" role="doc-biblioref">Harrison et al. 2018</a>)</span> and Bolker et al. <span class="citation" data-cites="bolker_generalized_2009">(<a href="#ref-bolker_generalized_2009" role="doc-biblioref">Bolker et al. 2009</a>)</span> discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures with GRU. Grueber et al <span class="citation" data-cites="grueber_2011">(<a href="#ref-grueber_2011" role="doc-biblioref">GRUEBER et al. 2011</a>)</span> another ecology research, paper focuses on the model averaging and information theoritac with LMMS as an alternative to traditional null hypothesis testing. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. <span class="citation" data-cites="verbeeck_linear_2023">(<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">Verbeeck et al. 2023</a>)</span>, and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. <span class="citation" data-cites="touraine_when_2023">(<a href="#ref-touraine_when_2023" role="doc-biblioref">Touraine et al. 2023</a>)</span>.</p>
 <p>The paper “To transform or not to transform: using generalized linear mixed models to analyse reaction time data” by Lo and Andrews <span class="citation" data-cites="lo_transform_2015">(<a href="#ref-lo_transform_2015" role="doc-biblioref">Lo and Andrews 2015</a>)</span> challenges the common practice of transforming reaction time data in cognitive psychology, advocating for GLMMs as a more robust alternative. The “LEVEL” guidelines proposed by Monsalves et al. <span class="citation" data-cites="monsalves_level_2020">(<a href="#ref-monsalves_level_2020" role="doc-biblioref">Monsalves et al. 2020</a>)</span> aim to standardize the reporting of multilevel data and analyses, enhancing comparability across studies. Piepho’s study <span class="citation" data-cites="piepho_analysing_1999">(<a href="#ref-piepho_analysing_1999" role="doc-biblioref">Piepho 1999</a>)</span> on analyzing disease incidence data with GLMMs underscores the inadequacy of traditional methods like ANOVA for such data, highlighting GLMMs’ flexibility. The simulation study by Pusponegoro et al. <span class="citation" data-cites="pusponegoro_linear_2017">(<a href="#ref-pusponegoro_linear_2017" role="doc-biblioref">Pusponegoro et al. 2017</a>)</span> on children’s growth differences emphasizes the importance of choosing the appropriate covariance structure in LMMs for longitudinal data. Lastly, the framework introduced by Steibel et al. <span class="citation" data-cites="steibel_powerful_2009">(<a href="#ref-steibel_powerful_2009" role="doc-biblioref">Steibel et al. 2009</a>)</span> for analyzing RT-PCR data with LMMs showcases the method’s statistical power and flexibility, offering a significant advancement over traditional analysis methods. LMMs are used in a wide array of disciplines, but also in varying study designs, as shown in Table 1.</p>
 <p>Table 1. Systematic Review of LMM Use-cases <span class="citation" data-cites="casals_methodological_2014">(<a href="#ref-casals_methodological_2014" role="doc-biblioref">Casals et al. 2014</a>)</span></p>
 <p><img src="images/LMM_uses.png" class="img-fluid"></p>
@@ -371,87 +369,25 @@ The following object is masked from 'package:dplyr':
 </div>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RefManageR)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>references <span class="ot">&lt;-</span> <span class="fu">ReadBib</span>(<span class="st">"references.bib"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(references)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>                           Length Class    Mode
-brown_introduction_2021    1      BibEntry list
-harrison_brief_2018        1      BibEntry list
-bolker_generalized_2009    1      BibEntry list
-magezi_linear_2015         1      BibEntry list
-verbeeck_linear_2023       1      BibEntry list
-touraine_when_2023         1      BibEntry list
-pusponegoro_linear_2017    1      BibEntry list
-monsalves_level_2020       1      BibEntry list
-lee_estimation_nodate      1      BibEntry list
-schielzeth_robustness_2020 1      BibEntry list
-peng_model_2012            1      BibEntry list
-barr_random_2013           1      BibEntry list
-steibel_powerful_2009      1      BibEntry list
-jolly_pymer4_2018          1      BibEntry list
-bates_fitting_2015         1      BibEntry list
-wang_statistical_2022      1      BibEntry list
-lo_transform_2015          1      BibEntry list
-piepho_analysing_1999      1      BibEntry list
-tu_using_2015              1      BibEntry list
-fokkema_generalized_2021   1      BibEntry list
-grueber_2011               1      BibEntry list
-zuur_2016                  1      BibEntry list
-aarts_2015                 1      BibEntry list
-casals_methodological_2014 1      BibEntry list</code></pre>
-</div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#references &lt;- ReadBib("references.bib")</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(references)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li><p><code>tidyverse</code></p></li>
 <li><p><code>lme4</code></p></li>
 <li><p><code>nlme</code></p></li>
 <li><p><code>gt</code></p></li>
+<li><p><code>RefManageR</code></p></li>
 </ul>
 </section>
 <section id="data-ingestion" class="level2">
 <h2 class="anchored" data-anchor-id="data-ingestion"><strong>3.2 Data Ingestion</strong></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the datasets</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sleepstudy"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)  <span class="co"># From lme4</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Orthodont"</span>, <span class="at">package =</span> <span class="st">"nlme"</span>)   <span class="co"># From nlme</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Dyestuff"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)    <span class="co"># From lme4</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   180 obs. of  3 variables:
- $ Reaction: num  250 259 251 321 357 ...
- $ Days    : num  0 1 2 3 4 5 6 7 8 9 ...
- $ Subject : Factor w/ 18 levels "308","309","310",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Orthodont)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Classes 'nfnGroupedData', 'nfGroupedData', 'groupedData' and 'data.frame':  108 obs. of  4 variables:
- $ distance: num  26 25 29 31 21.5 22.5 23 26.5 23 22.5 ...
- $ age     : num  8 10 12 14 8 10 12 14 8 10 ...
- $ Subject : Ord.factor w/ 27 levels "M16"&lt;"M05"&lt;"M02"&lt;..: 15 15 15 15 3 3 3 3 7 7 ...
- $ Sex     : Factor w/ 2 levels "Male","Female": 1 1 1 1 1 1 1 1 1 1 ...
- - attr(*, "outer")=Class 'formula'  language ~Sex
-  .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
- - attr(*, "formula")=Class 'formula'  language distance ~ age | Subject
-  .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
- - attr(*, "labels")=List of 2
-  ..$ x: chr "Age"
-  ..$ y: chr "Distance from pituitary to pterygomaxillary fissure"
- - attr(*, "units")=List of 2
-  ..$ x: chr "(yr)"
-  ..$ y: chr "(mm)"
- - attr(*, "FUN")=function (x)  
-  ..- attr(*, "source")= chr "function (x) max(x, na.rm = TRUE)"
- - attr(*, "order.groups")= logi TRUE</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Dyestuff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>'data.frame':   30 obs. of  2 variables:
- $ Batch: Factor w/ 6 levels "A","B","C","D",..: 1 1 1 1 1 2 2 2 2 2 ...
- $ Yield: num  1545 1440 1440 1520 1580 ...</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(BMI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(BMI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   219 obs. of  16 variables:
  $ Group             : chr  "C-SCD" "C-SCD" "C-SCD" "C-SCD" ...
@@ -473,29 +409,8 @@ casals_methodological_2014 1      BibEntry list</code></pre>
 </div>
 </div>
 <p><strong>[PLACEHOLDER TO DESCRIBE THE DATASET/VARIABLES/GROUPS]</strong></p>
-<section id="sleepstudy-from-the-lme4-package" class="level3">
-<h3 class="anchored" data-anchor-id="sleepstudy-from-the-lme4-package"><strong>1. <code>sleepstudy</code> from the <code>lme4</code> package</strong></h3>
-<ul>
-<li><p><strong>Description</strong>: This dataset contains the reaction times of subjects over several days of sleep deprivation.</p></li>
-<li><p><strong>Why suitable for LMMs</strong>: The <strong><code>sleepstudy</code></strong> data are ideal for LMMs because they include repeated measures for each subject, leading to correlated observations within subjects. An LMM can model the fixed effect of days of sleep deprivation on reaction time while accounting for random subject-specific intercepts and possibly slopes, capturing individual variability in reaction time and the effect of sleep deprivation.</p></li>
-</ul>
-</section>
-<section id="orthodont-from-the-nlme-package" class="level3">
-<h3 class="anchored" data-anchor-id="orthodont-from-the-nlme-package"><strong>2. <code>Orthodont</code> from the <code>nlme</code> package</strong></h3>
-<ul>
-<li><p><strong>Description</strong>: This dataset contains measurements of the distance from the pituitary to the pterygomaxillary fissure in 27 children, measured at ages 8, 10, 12, and 14.</p></li>
-<li><p><strong>Why suitable for LMMs</strong>: The repeated measurements for each child create a nested data structure (measurements within children), leading to non-independence of observations. An LMM can effectively model the growth curves by including child-specific random effects, allowing for individual variations in growth trajectories.</p></li>
-</ul>
-</section>
-<section id="dyestuff-from-the-lme4-package" class="level3">
-<h3 class="anchored" data-anchor-id="dyestuff-from-the-lme4-package"><strong>3. <code>Dyestuff</code> from the <code>lme4</code> package</strong></h3>
-<ul>
-<li><p><strong>Description</strong>: This dataset contains the yield from a dyeing process for different batches of dye.</p></li>
-<li><p><strong>Why suitable for LMMs</strong>: The dataset has a grouping factor (batches), and there may be batch-to-batch variability that affects the yield. An LMM can include random effects for batches to capture this variability, which simpler models like linear regression would not account for.</p></li>
-</ul>
-</section>
-<section id="bmi-from-kaggle" class="level3">
-<h3 class="anchored" data-anchor-id="bmi-from-kaggle"><strong>4. <code>BMI</code> from Kaggle</strong></h3>
+<section id="bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" class="level3">
+<h3 class="anchored" data-anchor-id="bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com"><strong><code>BMI</code> from Kaggle (</strong><a href="https://www.kaggle.com/datasets/utkarshx27/impact-of-bmi-on-ios-measures">Impact of BMI on IOS measures on children (kaggle.com)</a>)</h3>
 <ul>
 <li><p><strong>Description</strong>: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD)</p></li>
 <li><p><strong>Why suitable for LMMs</strong>: The dataset has multiple observations, over time, for the same set of participants.</p></li>
