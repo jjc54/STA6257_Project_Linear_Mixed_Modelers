@@ -390,3 +390,40 @@ The method involves a sophisticated statistical approach that incorporates both 
 **Results/limitations, if any.**
 
 The framework has been shown to yield more accurate and statistically powerful results compared to traditional methods, facilitating better decision-making in biological research. The paper thoroughly evaluates the model's performance and discusses its applicability to a wide range of experimental designs.
+
+## [Using Generalized Linear Mixed Models to Evaluate Inconsistency within a Network Meta-Analysis](https://www.sciencedirect.com/science/article/pii/S1098301515050706)
+
+**What is the goal of the paper?**
+
+The goal of the paper is to demonstrate how generalized linear mixed models (GLMMs) can evaluate inconsistency within network meta-analyses, improving upon traditional models by using an arm-based approach for more accurate results.
+
+**Why is it important?**
+
+The paper addresses the challenge of inconsistency between direct and indirect evidence in network meta-analysis, which can compromise the validity of conclusions, offering a more reliable framework for analysis.
+
+**How is it solved? -- Methods**
+
+The authors propose an arm-based GLMM approach, which allows for flexible modeling of different outcome variables and shows improved accuracy over contrast-based methods, especially when event rates are low.
+
+**Results/limitations, if any.**
+
+The arm-based model provided more accurate evaluations of design inconsistency and treatment effects compared to traditional contrast-based approaches, highlighting its utility in complex analyses involving many treatments and designs.
+
+
+## [Generalized linear mixed-model (GLMM) trees: A flexible decision-tree method for multilevel and longitudinal data](https://www.tandfonline.com/doi/full/10.1080/10503307.2020.1785037)
+
+**What is the goal of the paper?**
+
+The goal of the paper is to introduce GLMM trees, a method combining generalized linear mixed models (GLMMs) with decision trees for analyzing multilevel and longitudinal data, offering a novel approach to clinical prediction problems.
+
+**Why is it important?**
+
+GLMM trees provide an interpretable and flexible method that can handle complex data structures, improving upon traditional models by simplifying the analysis and enhancing the understanding of data patterns.
+
+**How is it solved? -- Methods**
+
+The paper employs GLMM trees to analyze a large dataset from UK mental health services, comparing its performance with traditional GLMMs and random forests to demonstrate its predictive accuracy and efficiency.
+
+**Results/limitations, if any.**
+
+The method achieves similar predictive accuracy to traditional GLMMs and random forests but with fewer variables, showcasing its potential to streamline clinical decision-making. 
