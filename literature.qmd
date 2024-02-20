@@ -131,7 +131,7 @@ Not only are several assumptions violated but experiential effects could be misc
 
 **How is it solved? -- methods**
 
-The paper does 2 simulation studies to show the significance of using the appropriate significant method. Design A had cluster data that may have random effects for just the intercept.. Design B had cluster data that may have random effects in both the intercepts and experiment effect. Both cases resulted in an increase in false positive rates. 
+The paper does two simulation studies to show the significance of using the appropriate significant method. Design A had cluster data that may have random effects for just the intercept.. Design B had cluster data that may have random effects in both the intercepts and experiment effect. Both cases resulted in an increase in false positive rates. 
 
 **Results/limitations, if any.**
 
