@@ -123,6 +123,24 @@ This paper showed that poor quality-of-life scores are associated with drop out.
 
 **What is the goal of the paper?**
 
+The goal of this is to show how to handle nested data in neuroscience. Oftentimes data will be collected from the same sample with different experimental conditions. The paper states that this often goes over look in neuroscience 
+
+**Why is it important?**
+
+Not only are several assumptions violated but experiential effects could be miscalculated leading to representing incorrect results.
+
+**How is it solved? -- methods**
+
+The paper does 2 simulation studies to show the significance of using the appropriate significant method. Design A had cluster data that may have random effects for just the intercept.. Design B had cluster data that may have random effects in both the intercepts and experiment effect. Both cases resulted in an increase in false positive rates. 
+
+**Results/limitations, if any.**
+
+This data is simulated and only within the context of neuroscience data. It would be beneficial to see these results to a real world dataset
+
+## [Multimodel inference in ecology and evolution: challenges and solutions(nih.gov)](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1420-9101.2010.02210.x)
+
+**What is the goal of the paper?**
+
 The goal of the paper is to highlight obstacles when model averaging and using information theoretic framework and their potential solutions if they exist
 
 **Why is it important?**
