@@ -123,7 +123,7 @@ This paper showed that poor quality-of-life scores are associated with drop out.
 
 **What is the goal of the paper?**
 
-The goal of this is to show how to handle nested data in neuroscience. Oftentimes data will be collected from the same sample with different experimental conditions. The paper states that this often goes over look in neuroscience 
+The goal of this is to show how to handle nested data in neuroscience. Oftentimes data will be collected from the same sample with different experimental conditions. The paper states that this often goes over look in neuroscience
 
 **Why is it important?**
 
@@ -131,7 +131,7 @@ Not only are several assumptions violated but experiential effects could be misc
 
 **How is it solved? -- methods**
 
-The paper does two simulation studies to show the significance of using the appropriate significant method. Design A had cluster data that may have random effects for just the intercept.. Design B had cluster data that may have random effects in both the intercepts and experiment effect. Both cases resulted in an increase in false positive rates. 
+The paper does two simulation studies to show the significance of using the appropriate significant method. Design A had cluster data that may have random effects for just the intercept.. Design B had cluster data that may have random effects in both the intercepts and experiment effect. Both cases resulted in an increase in false positive rates.
 
 **Results/limitations, if any.**
 
@@ -409,7 +409,6 @@ The authors propose an arm-based GLMM approach, which allows for flexible modeli
 
 The arm-based model provided more accurate evaluations of design inconsistency and treatment effects compared to traditional contrast-based approaches, highlighting its utility in complex analyses involving many treatments and designs.
 
-
 ## [Generalized linear mixed-model (GLMM) trees: A flexible decision-tree method for multilevel and longitudinal data](https://www.tandfonline.com/doi/full/10.1080/10503307.2020.1785037)
 
 **What is the goal of the paper?**
@@ -426,4 +425,4 @@ The paper employs GLMM trees to analyze a large dataset from UK mental health se
 
 **Results/limitations, if any.**
 
-The method achieves similar predictive accuracy to traditional GLMMs and random forests but with fewer variables, showcasing its potential to streamline clinical decision-making. 
+The method achieves similar predictive accuracy to traditional GLMMs and random forests but with fewer variables, showcasing its potential to streamline clinical decision-making.

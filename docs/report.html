@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,6 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -102,7 +103,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -111,6 +118,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -120,19 +128,46 @@ div.csl-indent {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="Linear Mixed Models - [PLACEHOLDER FOR BETTER TITLE]">
 <meta property="og:description" content="">
-<meta property="og:site-name" content="Linear Mixed Models">
+<meta property="og:site_name" content="Linear Mixed Models">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Linear Mixed Models</span>
     </a>
@@ -144,34 +179,34 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./literature.html" rel="" target="">
- <span class="menu-text">Literature</span></a>
+    <a class="nav-link" href="./literature.html"> 
+<span class="menu-text">Literature</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./report.html" rel="" target="" aria-current="page">
- <span class="menu-text">[PLACEHOLDER FOR BETTER TITLE]</span></a>
+    <a class="nav-link active" href="./report.html" aria-current="page"> 
+<span class="menu-text">[PLACEHOLDER FOR BETTER TITLE]</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./slides.html" rel="" target="">
- <span class="menu-text">Slides</span></a>
+    <a class="nav-link" href="./slides.html"> 
+<span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./code.html" rel="" target="">
- <span class="menu-text">Code</span></a>
+    <a class="nav-link" href="./code.html"> 
+<span class="menu-text">Code</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About Us</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About Us</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -198,7 +233,8 @@ div.csl-indent {
   <ul class="collapse">
   <li><a href="#sleepstudy-from-the-lme4-package" id="toc-sleepstudy-from-the-lme4-package" class="nav-link" data-scroll-target="#sleepstudy-from-the-lme4-package"><strong>1. <code>sleepstudy</code> from the <code>lme4</code> package</strong></a></li>
   <li><a href="#orthodont-from-the-nlme-package" id="toc-orthodont-from-the-nlme-package" class="nav-link" data-scroll-target="#orthodont-from-the-nlme-package"><strong>2. <code>Orthodont</code> from the <code>nlme</code> package</strong></a></li>
-  <li><a href="#dyestuff-from-the-lme4-package" id="toc-dyestuff-from-the-lme4-package" class="nav-link" data-scroll-target="#dyestuff-from-the-lme4-package"><strong>4. <code>Dyestuff</code> from the <code>lme4</code> package</strong></a></li>
+  <li><a href="#dyestuff-from-the-lme4-package" id="toc-dyestuff-from-the-lme4-package" class="nav-link" data-scroll-target="#dyestuff-from-the-lme4-package"><strong>3. <code>Dyestuff</code> from the <code>lme4</code> package</strong></a></li>
+  <li><a href="#bmi-from-kaggle" id="toc-bmi-from-kaggle" class="nav-link" data-scroll-target="#bmi-from-kaggle"><strong>4. <code>BMI</code> from Kaggle</strong></a></li>
   </ul></li>
   <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></a></li>
   <li><a href="#linear-mixed-modeling" id="toc-linear-mixed-modeling" class="nav-link" data-scroll-target="#linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></a></li>
@@ -240,18 +276,19 @@ div.csl-indent {
   </div>
   
 
+
 </header>
+
 
 <section id="introduction" class="level1">
 <h1><strong>1 Introduction</strong></h1>
 <p>Linear mixed-effects models (LMMs) are advanced statistical tools designed to analyze data that exhibit complex structures, such as hierarchical organization, repeated measures, and random effects. These models are particularly useful when data violate the assumptions of traditional ANOVA or regression methods, such as the independence of observations, homoscedasticity, and normality of residuals. LMMs accommodate intra-subject differences, allowing for both fixed effects, which are consistent across individuals, and random effects, which vary among subjects or groups.</p>
-<p><strong>[PLACEHOLDER FOR FIGURE OVERVIEWING LMM PROCESS]</strong></p>
 <p>The implementation of LMMs has been facilitated by various software packages and programming languages. Brown <span class="citation" data-cites="brown_introduction_2021">(<a href="#ref-brown_introduction_2021" role="doc-biblioref">Brown 2021</a>)</span> provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, the lme4 package, as detailed by Bates et al. <span class="citation" data-cites="bates_fitting_2015">(<a href="#ref-bates_fitting_2015" role="doc-biblioref">Bates et al. 2015</a>)</span>, represents a significant evolution in computational methods for fitting mixed models, offering efficient tools and simplified modeling processes for R users, especially for models with crossed random effects. Pymer4, developed by Jolly <span class="citation" data-cites="jolly_pymer4_2018">(<a href="#ref-jolly_pymer4_2018" role="doc-biblioref">Jolly 2018</a>)</span>, bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R’s lme4 package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.</p>
-<p>LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang <span class="citation" data-cites="lee_estimation_nodate">(<a href="#ref-lee_estimation_nodate" role="doc-biblioref">Lee and Shang n.d.</a>)</span> explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. <span class="citation" data-cites="wang_statistical_2022">(<a href="#ref-wang_statistical_2022" role="doc-biblioref">Wang et al. 2022</a>)</span> illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model’s ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Aarts et al [aarts_2015] demonstrates mulilevel design experiements in neurscciene and how using linear models on multilevel data can result in increase in false positives. Magezi <span class="citation" data-cites="magezi_linear_2015">(<a href="#ref-magezi_linear_2015" role="doc-biblioref">Magezi 2015</a>)</span> highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. <span class="citation" data-cites="harrison_brief_2018">(<a href="#ref-harrison_brief_2018" role="doc-biblioref">Harrison et al. 2018</a>)</span> and Bolker et al. <span class="citation" data-cites="bolker_generalized_2009">(<a href="#ref-bolker_generalized_2009" role="doc-biblioref">Bolker et al. 2009</a>)</span> discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures with GRU. Grueber et al <span class="citation" data-cites="grueber_2011">(<a href="#ref-grueber_2011" role="doc-biblioref">GRUEBER et al. 2011</a>)</span> another ecology research, paper focuses on the model averaging and information theoritac with LMMS as an alternative to traditional null hypothesis testing. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. <span class="citation" data-cites="verbeeck_linear_2023">(<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">Verbeeck et al. 2023</a>)</span>, and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. <span class="citation" data-cites="touraine_when_2023">(<a href="#ref-touraine_when_2023" role="doc-biblioref">Touraine et al. 2023</a>)</span>.</p>
-<p>The paper “To transform or not to transform: using generalized linear mixed models to analyse reaction time data” by Lo and Andrews <span class="citation" data-cites="lo_transform_2015">(<a href="#ref-lo_transform_2015" role="doc-biblioref">Lo and Andrews 2015</a>)</span> challenges the common practice of transforming reaction time data in cognitive psychology, advocating for GLMMs as a more robust alternative. The “LEVEL” guidelines proposed by Monsalves et al. <span class="citation" data-cites="monsalves_level_2020">(<a href="#ref-monsalves_level_2020" role="doc-biblioref">Monsalves et al. 2020</a>)</span> aim to standardize the reporting of multilevel data and analyses, enhancing comparability across studies. Piepho’s study <span class="citation" data-cites="piepho_analysing_1999">(<a href="#ref-piepho_analysing_1999" role="doc-biblioref">Piepho 1999</a>)</span> on analyzing disease incidence data with GLMMs underscores the inadequacy of traditional methods like ANOVA for such data, highlighting GLMMs’ flexibility. The simulation study by Pusponegoro et al. <span class="citation" data-cites="pusponegoro_linear_2017">(<a href="#ref-pusponegoro_linear_2017" role="doc-biblioref">Pusponegoro et al. 2017</a>)</span> on children’s growth differences emphasizes the importance of choosing the appropriate covariance structure in LMMs for longitudinal data. Lastly, the framework introduced by Steibel et al. <span class="citation" data-cites="steibel_powerful_2009">(<a href="#ref-steibel_powerful_2009" role="doc-biblioref">Steibel et al. 2009</a>)</span> for analyzing RT-PCR data with LMMs showcases the method’s statistical power and flexibility, offering a significant advancement over traditional analysis methods.</p>
-<p><strong>[PLACEHOLDER FOR TABLE DESCRIBING WHEN TO USE LMM AND WHEN TO SEEK SIMPLER METHODS]</strong></p>
+<p>LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang <span class="citation" data-cites="lee_estimation_nodate">(<a href="#ref-lee_estimation_nodate" role="doc-biblioref">Lee and Shang n.d.</a>)</span> explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. <span class="citation" data-cites="wang_statistical_2022">(<a href="#ref-wang_statistical_2022" role="doc-biblioref">Wang et al. 2022</a>)</span> illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model’s ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Aarts et al [<span class="citation" data-cites="aarts_2015">Aarts et al. (<a href="#ref-aarts_2015" role="doc-biblioref">2015</a>)</span>] demonstrates mulilevel design experiements in neurscciene and how using linear models on multilevel data can result in increase in false positives. Magezi <span class="citation" data-cites="magezi_linear_2015">(<a href="#ref-magezi_linear_2015" role="doc-biblioref">Magezi 2015</a>)</span> highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. <span class="citation" data-cites="harrison_brief_2018">(<a href="#ref-harrison_brief_2018" role="doc-biblioref">Harrison et al. 2018</a>)</span> and Bolker et al. <span class="citation" data-cites="bolker_generalized_2009">(<a href="#ref-bolker_generalized_2009" role="doc-biblioref">Bolker et al. 2009</a>)</span> discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures with GRU. Grueber et al <span class="citation" data-cites="grueber_2011">(<a href="#ref-grueber_2011" role="doc-biblioref">GRUEBER et al. 2011</a>)</span> another ecology research, paper focuses on the model averaging and information theoritac with LMMS as an alternative to traditional null hypothesis testing. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. <span class="citation" data-cites="verbeeck_linear_2023">(<a href="#ref-verbeeck_linear_2023" role="doc-biblioref">Verbeeck et al. 2023</a>)</span>, and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. <span class="citation" data-cites="touraine_when_2023">(<a href="#ref-touraine_when_2023" role="doc-biblioref">Touraine et al. 2023</a>)</span>.</p>
+<p>The paper “To transform or not to transform: using generalized linear mixed models to analyse reaction time data” by Lo and Andrews <span class="citation" data-cites="lo_transform_2015">(<a href="#ref-lo_transform_2015" role="doc-biblioref">Lo and Andrews 2015</a>)</span> challenges the common practice of transforming reaction time data in cognitive psychology, advocating for GLMMs as a more robust alternative. The “LEVEL” guidelines proposed by Monsalves et al. <span class="citation" data-cites="monsalves_level_2020">(<a href="#ref-monsalves_level_2020" role="doc-biblioref">Monsalves et al. 2020</a>)</span> aim to standardize the reporting of multilevel data and analyses, enhancing comparability across studies. Piepho’s study <span class="citation" data-cites="piepho_analysing_1999">(<a href="#ref-piepho_analysing_1999" role="doc-biblioref">Piepho 1999</a>)</span> on analyzing disease incidence data with GLMMs underscores the inadequacy of traditional methods like ANOVA for such data, highlighting GLMMs’ flexibility. The simulation study by Pusponegoro et al. <span class="citation" data-cites="pusponegoro_linear_2017">(<a href="#ref-pusponegoro_linear_2017" role="doc-biblioref">Pusponegoro et al. 2017</a>)</span> on children’s growth differences emphasizes the importance of choosing the appropriate covariance structure in LMMs for longitudinal data. Lastly, the framework introduced by Steibel et al. <span class="citation" data-cites="steibel_powerful_2009">(<a href="#ref-steibel_powerful_2009" role="doc-biblioref">Steibel et al. 2009</a>)</span> for analyzing RT-PCR data with LMMs showcases the method’s statistical power and flexibility, offering a significant advancement over traditional analysis methods. LMMs are used in a wide array of disciplines, but also in varying study designs, as shown in Table 1.</p>
+<p>Table 1. Systematic Review of LMM Use-cases <span class="citation" data-cites="casals_methodological_2014">(<a href="#ref-casals_methodological_2014" role="doc-biblioref">Casals et al. 2014</a>)</span></p>
+<p><img src="images/LMM_uses.png" class="img-fluid"></p>
 <p>The strengths of LMMs lie in their flexibility to model complex data structures and their ability to handle missing data, making them a powerful tool for a wide range of scientific inquiries. However, their application is not without challenges. Peng and Lu <span class="citation" data-cites="peng_model_2012">(<a href="#ref-peng_model_2012" role="doc-biblioref">Peng and Lu 2012</a>)</span> address the difficulty of variable selection and parameter estimation in LMMs, proposing an iterative procedure to improve model accuracy. Barr <span class="citation" data-cites="barr_random_2013">(<a href="#ref-barr_random_2013" role="doc-biblioref">Barr 2013</a>)</span> critiques existing guidelines for testing interactions within LMMs, proposing new guidelines to ensure more reliable results. The work by Tu <span class="citation" data-cites="tu_using_2015">(<a href="#ref-tu_using_2015" role="doc-biblioref">Tu 2015</a>)</span> on GLMMs for network meta-analyses showcases how mixed models have evolved to tackle complex data, enhancing the accuracy of combining different studies. On the other hand, Fokkema et al. <span class="citation" data-cites="fokkema_generalized_2021">(<a href="#ref-fokkema_generalized_2021" role="doc-biblioref">Marjolein Fokkema and Wolpert 2021</a>)</span> introduce GLMM trees, merging machine learning with mixed models to improve predictions and analysis, particularly useful in mental health research. Despite their robustness, as noted by Schielzeth et al. <span class="citation" data-cites="schielzeth_robustness_2020">(<a href="#ref-schielzeth_robustness_2020" role="doc-biblioref">Schielzeth et al. 2020</a>)</span>, LMMs require careful evaluation of model assumptions and may present computational challenges, especially with high-dimensional datasets.</p>
-<p><strong>[PLACEHOLDER FOR STRENGTHS &amp; WEAKNESSES TABLE]</strong></p>
 <p>The literature reviewed here collectively emphasizes the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes, such as the LEVEL framework <span class="citation" data-cites="monsalves_level_2020">(<a href="#ref-monsalves_level_2020" role="doc-biblioref">Monsalves et al. 2020</a>)</span> and the 10 protocol put forth by <span class="citation" data-cites="zuur_2016">(<a href="#ref-zuur_2016" role="doc-biblioref">Zuur and Ieno 2016</a>)</span>, and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.</p>
 </section>
 <section id="methods" class="level1">
@@ -292,17 +329,17 @@ div.csl-indent {
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages"><strong>3.1 Packages</strong></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>))</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.2     ✔ readr     2.1.4
+✔ dplyr     1.1.4     ✔ readr     2.1.5
 ✔ forcats   1.0.0     ✔ stringr   1.5.0
 ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -332,7 +369,37 @@ The following object is masked from 'package:dplyr':
 
     collapse</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RefManageR)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>references <span class="ot">&lt;-</span> <span class="fu">ReadBib</span>(<span class="st">"references.bib"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(references)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                           Length Class    Mode
+brown_introduction_2021    1      BibEntry list
+harrison_brief_2018        1      BibEntry list
+bolker_generalized_2009    1      BibEntry list
+magezi_linear_2015         1      BibEntry list
+verbeeck_linear_2023       1      BibEntry list
+touraine_when_2023         1      BibEntry list
+pusponegoro_linear_2017    1      BibEntry list
+monsalves_level_2020       1      BibEntry list
+lee_estimation_nodate      1      BibEntry list
+schielzeth_robustness_2020 1      BibEntry list
+peng_model_2012            1      BibEntry list
+barr_random_2013           1      BibEntry list
+steibel_powerful_2009      1      BibEntry list
+jolly_pymer4_2018          1      BibEntry list
+bates_fitting_2015         1      BibEntry list
+wang_statistical_2022      1      BibEntry list
+lo_transform_2015          1      BibEntry list
+piepho_analysing_1999      1      BibEntry list
+tu_using_2015              1      BibEntry list
+fokkema_generalized_2021   1      BibEntry list
+grueber_2011               1      BibEntry list
+zuur_2016                  1      BibEntry list
+aarts_2015                 1      BibEntry list
+casals_methodological_2014 1      BibEntry list</code></pre>
+</div>
 </div>
 <ul>
 <li><p><code>tidyverse</code></p></li>
@@ -344,41 +411,65 @@ The following object is masked from 'package:dplyr':
 <section id="data-ingestion" class="level2">
 <h2 class="anchored" data-anchor-id="data-ingestion"><strong>3.2 Data Ingestion</strong></h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the datasets</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sleepstudy"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)  <span class="co"># From lme4</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Orthodont"</span>, <span class="at">package =</span> <span class="st">"nlme"</span>)   <span class="co"># From nlme</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Dyestuff"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)    <span class="co"># From lme4</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the datasets</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"sleepstudy"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)  <span class="co"># From lme4</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Orthodont"</span>, <span class="at">package =</span> <span class="st">"nlme"</span>)   <span class="co"># From nlme</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Dyestuff"</span>, <span class="at">package =</span> <span class="st">"lme4"</span>)    <span class="co"># From lme4</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(sleepstudy)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Reaction Days Subject
-1 249.5600    0     308
-2 258.7047    1     308
-3 250.8006    2     308
-4 321.4398    3     308
-5 356.8519    4     308
-6 414.6901    5     308</code></pre>
+<pre><code>'data.frame':   180 obs. of  3 variables:
+ $ Reaction: num  250 259 251 321 357 ...
+ $ Days    : num  0 1 2 3 4 5 6 7 8 9 ...
+ $ Subject : Factor w/ 18 levels "308","309","310",..: 1 1 1 1 1 1 1 1 1 1 ...</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Orthodont)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Orthodont)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Grouped Data: distance ~ age | Subject
-  distance age Subject  Sex
-1     26.0   8     M01 Male
-2     25.0  10     M01 Male
-3     29.0  12     M01 Male
-4     31.0  14     M01 Male
-5     21.5   8     M02 Male
-6     22.5  10     M02 Male</code></pre>
+<pre><code>Classes 'nfnGroupedData', 'nfGroupedData', 'groupedData' and 'data.frame':  108 obs. of  4 variables:
+ $ distance: num  26 25 29 31 21.5 22.5 23 26.5 23 22.5 ...
+ $ age     : num  8 10 12 14 8 10 12 14 8 10 ...
+ $ Subject : Ord.factor w/ 27 levels "M16"&lt;"M05"&lt;"M02"&lt;..: 15 15 15 15 3 3 3 3 7 7 ...
+ $ Sex     : Factor w/ 2 levels "Male","Female": 1 1 1 1 1 1 1 1 1 1 ...
+ - attr(*, "outer")=Class 'formula'  language ~Sex
+  .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
+ - attr(*, "formula")=Class 'formula'  language distance ~ age | Subject
+  .. ..- attr(*, ".Environment")=&lt;environment: R_GlobalEnv&gt; 
+ - attr(*, "labels")=List of 2
+  ..$ x: chr "Age"
+  ..$ y: chr "Distance from pituitary to pterygomaxillary fissure"
+ - attr(*, "units")=List of 2
+  ..$ x: chr "(yr)"
+  ..$ y: chr "(mm)"
+ - attr(*, "FUN")=function (x)  
+  ..- attr(*, "source")= chr "function (x) max(x, na.rm = TRUE)"
+ - attr(*, "order.groups")= logi TRUE</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Dyestuff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(Dyestuff)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Batch Yield
-1     A  1545
-2     A  1440
-3     A  1440
-4     A  1520
-5     A  1580
-6     B  1540</code></pre>
+<pre><code>'data.frame':   30 obs. of  2 variables:
+ $ Batch: Factor w/ 6 levels "A","B","C","D",..: 1 1 1 1 1 2 2 2 2 2 ...
+ $ Yield: num  1545 1440 1440 1520 1580 ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(BMI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   219 obs. of  16 variables:
+ $ Group             : chr  "C-SCD" "C-SCD" "C-SCD" "C-SCD" ...
+ $ Subject.ID        : int  1 1 1 1 2 3 3 4 4 5 ...
+ $ Observation_number: int  1 2 3 4 1 1 2 1 2 1 ...
+ $ Hydroxyurea       : chr  "Yes" "Yes" "Yes" "Yes" ...
+ $ Asthma            : chr  "Yes" "Yes" "Yes" "Yes" ...
+ $ ICS               : chr  "Yes" "Yes" "Yes" "Yes" ...
+ $ LABA              : chr  "No" "No" "Yes" "Yes" ...
+ $ Gender            : chr  "Male" "Male" "Male" "Male" ...
+ $ Age..months.      : int  239 193 212 224 204 178 186 222 210 196 ...
+ $ Height..cm.       : num  164 163 164 164 154 ...
+ $ Weight..Kg.       : num  61.5 62.3 63.1 63.7 66.4 51.9 56.7 66.7 66.9 52.9 ...
+ $ BMI               : num  22.8 23.5 23.6 23.7 27.8 ...
+ $ R5Hz_PP           : int  145 103 107 87 124 109 117 101 179 136 ...
+ $ R20Hz_PP          : int  133 98 98 87 121 86 105 132 153 97 ...
+ $ X5Hz_PP           : num  -456 111 174 -303 98 115 107 -216 195 140 ...
+ $ Fres_PP           : int  NA 169 159 NA 135 148 159 NA 175 199 ...</code></pre>
 </div>
 </div>
 <p><strong>[PLACEHOLDER TO DESCRIBE THE DATASET/VARIABLES/GROUPS]</strong></p>
@@ -397,10 +488,17 @@ The following object is masked from 'package:dplyr':
 </ul>
 </section>
 <section id="dyestuff-from-the-lme4-package" class="level3">
-<h3 class="anchored" data-anchor-id="dyestuff-from-the-lme4-package"><strong>4. <code>Dyestuff</code> from the <code>lme4</code> package</strong></h3>
+<h3 class="anchored" data-anchor-id="dyestuff-from-the-lme4-package"><strong>3. <code>Dyestuff</code> from the <code>lme4</code> package</strong></h3>
 <ul>
 <li><p><strong>Description</strong>: This dataset contains the yield from a dyeing process for different batches of dye.</p></li>
 <li><p><strong>Why suitable for LMMs</strong>: The dataset has a grouping factor (batches), and there may be batch-to-batch variability that affects the yield. An LMM can include random effects for batches to capture this variability, which simpler models like linear regression would not account for.</p></li>
+</ul>
+</section>
+<section id="bmi-from-kaggle" class="level3">
+<h3 class="anchored" data-anchor-id="bmi-from-kaggle"><strong>4. <code>BMI</code> from Kaggle</strong></h3>
+<ul>
+<li><p><strong>Description</strong>: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD)</p></li>
+<li><p><strong>Why suitable for LMMs</strong>: The dataset has multiple observations, over time, for the same set of participants.</p></li>
 </ul>
 </section>
 </section>
@@ -424,7 +522,10 @@ The following object is masked from 'package:dplyr':
 </section>
 <section id="references" class="level1">
 <h1><strong>5 References</strong></h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-aarts_2015" class="csl-entry" role="listitem">
+Aarts, E., Dolan, C. V., Verhage, M., and Sluis, S. van der (2015), <span>“Multilevel analysis quantifies variation in the experimental effect while optimizing power and preventing false positives,”</span> <em>BMC Neuroscience</em>, 16, 94. <a href="https://doi.org/10.1186/s12868-015-0228-5">https://doi.org/10.1186/s12868-015-0228-5</a>.
+</div>
 <div id="ref-barr_random_2013" class="csl-entry" role="listitem">
 Barr, D. J. (2013), <span>“Random effects structure for testing interactions in linear mixed-effects models,”</span> <em>Frontiers in Psychology</em>, 4, 328. <a href="https://doi.org/10.3389/fpsyg.2013.00328">https://doi.org/10.3389/fpsyg.2013.00328</a>.
 </div>
@@ -437,6 +538,9 @@ Bolker, B. M., Brooks, M. E., Clark, C. J., Geange, S. W., Poulsen, J. R., Steve
 <div id="ref-brown_introduction_2021" class="csl-entry" role="listitem">
 Brown, V. A. (2021), <span>“An <span>Introduction</span> to <span>Linear</span> <span>Mixed</span>-<span>Effects</span> <span>Modeling</span> in <span>R</span>,”</span> <em>Advances in Methods and Practices in Psychological Science</em>, 4, 2515245920960351. <a href="https://doi.org/10.1177/2515245920960351">https://doi.org/10.1177/2515245920960351</a>.
 </div>
+<div id="ref-casals_methodological_2014" class="csl-entry" role="listitem">
+Casals, M., Girabent-Farrés, M., and Carrasco, J. L. (2014), <span>“Methodological quality and reporting of generalized linear mixed models in clinical medicine (2000-2012): A systematic review,”</span> <em>PloS One</em>, 9, e112653. <a href="https://doi.org/10.1371/journal.pone.0112653">https://doi.org/10.1371/journal.pone.0112653</a>.
+</div>
 <div id="ref-grueber_2011" class="csl-entry" role="listitem">
 GRUEBER, C. E., NAKAGAWA, S., LAWS, R. J., and JAMIESON, I. G. (2011), <span>“Multimodel inference in ecology and evolution: Challenges and solutions,”</span> <em>Journal of Evolutionary Biology</em>, 24, 699–711. https://doi.org/<a href="https://doi.org/10.1111/j.1420-9101.2010.02210.x">https://doi.org/10.1111/j.1420-9101.2010.02210.x</a>.
 </div>
@@ -447,7 +551,7 @@ Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Go
 Jolly, E. (2018), <span>“Pymer4: <span>Connecting</span> <span>R</span> and <span>Python</span> for <span>Linear</span> <span>Mixed</span> <span>Modeling</span>,”</span> <em>Journal of Open Source Software</em>, 3, 862. <a href="https://doi.org/10.21105/joss.00862">https://doi.org/10.21105/joss.00862</a>.
 </div>
 <div id="ref-lee_estimation_nodate" class="csl-entry" role="listitem">
-Lee, Y.-C., and Shang, J. (n.d.). <span>“Estimation and selection in linear mixed models with missing data under compound symmetric structure,”</span> <em>Journal of Applied Statistics</em>, 49, 4003–4027. <a href="https://doi.org/10.1080/02664763.2021.1969342">https://doi.org/10.1080/02664763.2021.1969342</a>.
+Lee, Y.-C., and Shang, J. (n.d.), <span>“Estimation and selection in linear mixed models with missing data under compound symmetric structure,”</span> <em>Journal of Applied Statistics</em>, 49, 4003–4027. <a href="https://doi.org/10.1080/02664763.2021.1969342">https://doi.org/10.1080/02664763.2021.1969342</a>.
 </div>
 <div id="ref-lo_transform_2015" class="csl-entry" role="listitem">
 Lo, S., and Andrews, S. (2015), <span>“<a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.01171">To transform or not to transform: Using generalized linear mixed models to analyse reaction time data</a>,”</span> <em>Frontiers in Psychology</em>, 6.
@@ -540,6 +644,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -606,13 +737,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -691,10 +824,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -704,8 +836,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -718,6 +859,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -761,6 +1021,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -786,6 +1047,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -846,6 +1133,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
