@@ -119,7 +119,7 @@ This paper showed that poor quality-of-life scores are associated with drop out.
 
 # Jacob's Literature Review
 
-## [Multimodel inference in ecology and evolution: challenges and solutions(nih.gov)](https://onlinelibrary.wiley.com/doi/full/10.1111/j.1420-9101.2010.02210.x)
+## [Multilevel analysis quantifies variation in the experimental effect while optimizing power and preventing false positives](https://bmcneurosci.biomedcentral.com/articles/10.1186/s12868-015-0228-5)
 
 **What is the goal of the paper?**
 
