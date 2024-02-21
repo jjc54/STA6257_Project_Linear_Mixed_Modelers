@@ -73,8 +73,8 @@ Although more flexible than other methods such as ANOVA, there are several assum
 
 ```{r}
 
-if (!requireNamespace(c("tidyverse", "lme4", "nlme", "gt", "RefManageR"), quietly = TRUE)) {
-    install.packages(c("tidyverse", "lme4", "nlme", "gt", "RefManageR"))
+if (!requireNamespace(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer"), quietly = TRUE)) {
+    install.packages(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer"))
 }
 
 library(tidyverse)
@@ -82,6 +82,7 @@ library(lme4)
 library(nlme)
 library(gt)
 library(RefManageR)
+library(DataExplorer)
 
 #references <- ReadBib("references.bib")
 #summary(references)
@@ -119,6 +120,28 @@ str(BMI)
 
 ```{r}
 
+x <- BMI
+
+variables <- 
+  BMI %>% 
+  colnames()
+
+Description <-
+  c("")
+
+variables_table <-
+  variables
+
+plot_str(x)
+introduce(x)
+plot_intro(x)
+plot_missing(x)
+plot_bar(x)
+plot_histogram(x)
+plot_correlation(na.omit(x), maxcat=5L)
+plot_qq(na.omit(x))
+plot_prcomp(na.omit(x))
+  
 ```
 
 **\[PLACEHOLDER FOR TABLES/VIS\]**
