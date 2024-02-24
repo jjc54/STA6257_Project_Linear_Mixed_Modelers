@@ -65,7 +65,7 @@ Although more flexible than other methods such as ANOVA, there are several assum
 
 ## **2.3 Sample Data Structure**
 
-**\[PLACEHOLDER\]**
+**\[PLACEHOLDER - need to describe the data structure needed for LMMs\]**
 
 # **3 Analysis and Results**
 
@@ -88,15 +88,15 @@ library(DataExplorer)
 #summary(references)
 ```
 
--   `tidyverse`
+-   `tidyverse`: used for data wrangling and visualisation. 
 
--   `lme4`
+-   `lme4`: used for LMM within R. 
 
--   `nlme`
+-   `nlme`: used for nonlinear LMM (NLMM) within R. 
 
--   `gt`
+-   `gt`: used for table generation. 
 
--   `RefManageR`
+-   `RefManageR`: used for BibTex reference management. 
 
 ## **3.2 Data Ingestion**
 
@@ -104,15 +104,13 @@ library(DataExplorer)
 
 # Load the dataset
 BMI <- read.csv("data/BMI_IOS_SCD_Asthma.csv")
-
-str(BMI)
 ```
-
-**\[PLACEHOLDER TO DESCRIBE THE DATASET/VARIABLES/GROUPS\]**
 
 ### **`BMI` from Kaggle (**[Impact of BMI on IOS measures on children (kaggle.com)](https://www.kaggle.com/datasets/utkarshx27/impact-of-bmi-on-ios-measures))
 
 -   **Description**: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD)
+
+-   **Detailed Description**: The dataset comprises various attributes and measurements across its columns. Categorical variables, such as Group, Subject ID, Observation_number, Hydroxyurea, Asthma, ICS, LABA, and Gender, denote different groupings, individual subjects, and attributes like medication usage and gender. Numerical variables like Age (months), Height (cm), Weight (Kg), BMI, R5Hz_PP, R20Hz_PP, X5Hz_PP, and Fres_PP provide quantitative data on subjects’ characteristics and test results. Notably, the summary also identifies missing values, such as the 14 instances in the Fres_PP variable, which warrant consideration in subsequent analysis.These columns provide measurements and estimates related to airway resistance and reactance obtained using impulse oscillometry (IOS), which is a non-invasive method for assessing respiratory function. These parameters are valuable in understanding the impact of BMI on respiratory measures in children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma) participating in the study.
 
 -   **Why suitable for LMMs**: The dataset has multiple observations, over time, for the same set of participants.
 
@@ -122,29 +120,118 @@ str(BMI)
 
 x <- BMI
 
-variables <- 
-  BMI %>% 
-  colnames()
+str(x)
 
-Description <-
-  c("")
+head(x)
 
-variables_table <-
-  variables
+variables <- colnames(x)
 
+variables_table <- data.frame(
+  Variable = variables,
+  Description = c(
+    "This column indicates the group to which the subject belongs. There are two groups in the study: children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).",
+    "Each subject in the study is assigned a unique identifier or ID, which is listed in this column. The ID is used to differentiate between individual participants.",
+    "This column represents the number assigned to each observation or measurement taken for a particular subject. Since this is a longitudinal study, multiple observations may be recorded for each subject over time.",
+    "This column indicates whether the subject with sickle cell disease (C-SCD) received hydroxyurea treatment. Hydroxyurea is a medication commonly used for the treatment of sickle cell disease.",
+    "This column indicates whether the subject has a diagnosis of asthma. It distinguishes between children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).",
+    "This column indicates whether the subject is using inhaled corticosteroids (ICS). ICS is a type of medication commonly used for the treatment of asthma and certain other respiratory conditions.",
+    "This column indicates whether the subject is using a long-acting beta-agonist (LABA). LABA is a type of medication often used in combination with inhaled corticosteroids for the treatment of asthma.",
+    "This column represents the gender of the subject, indicating whether they are male or female",
+    "This column specifies the age of the subject at the time of the observation or measurement. Age is typically measured in months.",
+    "This column represents the height of the subject, typically measured in a standard unit of length, such as centimeters or inches. Height is an important variable to consider in assessing the impact of BMI on respiratory measures.",
+    "This column indicates the weight of the subject at the time of the observation or measurement. Weight is typically measured in kilograms (Kg) and is an important variable for calculating the body mass index (BMI).",
+    "Body Mass Index (BMI) is a measure that assesses body weight relative to height. It is calculated by dividing the weight of an individual (in kilograms) by the square of their height (in meters). The BMI column provides the calculated BMI value for each subject based on their weight and height measurements. BMI is commonly used as an indicator of overall body fatness and is often used to classify individuals into different weight categories (e.g., underweight, normal weight, overweight, obese).",
+    "This column represents the estimate of airway resistance at 5 Hz using impulse oscillometry (IOS). Airway resistance is a measure of the impedance encountered by airflow during respiration. The R5Hz_PP value indicates the airway resistance at the frequency of 5 Hz and is obtained through the IOS testing.",
+    "This column represents the estimate of airway resistance at 20 Hz using impulse oscillometry (IOS). Similar to R5Hz_PP, R20Hz_PP provides the measure of airway resistance at the frequency of 20 Hz based on the IOS testing.",
+    "This column represents the estimate of airway reactance at 5 Hz using impulse oscillometry (IOS). Airway reactance is a measure of the elasticity and stiffness of the airway walls. The X5Hz_PP value indicates the airway reactance at the frequency of 5 Hz and is obtained through the IOS testing.",
+    "This column represents the estimate of resonant frequency using impulse oscillometry (IOS). Resonant frequency is a measure of the point at which the reactance of the airways transitions from positive to negative during respiration. The Fres_PP value indicates the resonant frequency and is obtained through the IOS testing.:"
+    )
+)
+
+variables_table %>%
+  gt %>%
+  tab_header(
+    title = "Variable Description"
+  )
+  
 plot_str(x)
 introduce(x)
 plot_intro(x)
-plot_missing(x)
-plot_bar(x)
-plot_histogram(x)
-plot_correlation(na.omit(x), maxcat=5L)
-plot_qq(na.omit(x))
-plot_prcomp(na.omit(x))
-  
 ```
 
-**\[PLACEHOLDER FOR TABLES/VIS\]**
+### **3.2.1 Missing Values**
+
+```{r}
+
+plot_missing(x)
+```
+
+Based on the missing values count, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation
+
+### 3.2.2 Cleaning Data
+
+```{r}
+
+dim(x)
+x_clean <- na.omit(x)
+dim(x_clean)
+str(x_clean)
+plot_bar(x_clean)
+plot_histogram(x_clean)
+plot_qq(na.omit(x))
+plot_prcomp(na.omit(x))
+
+numeric_vars <- x_clean %>% 
+  select_if(is.numeric)
+
+# Boxplot for each numeric variable
+par(mfrow=c(2, 2))
+for (col in colnames(numeric_vars)) {
+  boxplot(numeric_vars[[col]], main=col)
+}
+```
+
+Based on the boxplot, it’s evident that all columns except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers.
+
+```{r}
+
+# Define a function to detect outliers in each column
+detect_outliers <- function(column) {
+  Q1 <- quantile(column, 0.25)
+  Q3 <- quantile(column, 0.75)
+  IQR <- Q3 - Q1
+  lower_bound <- Q1 - 1.5 * IQR
+  upper_bound <- Q3 + 1.5 * IQR
+  outliers <- column[column < lower_bound | column > upper_bound]
+  return(outliers)
+}
+
+# Iterate over each column and print outliers
+for (col in names(numeric_vars)) {
+  outliers <- detect_outliers(numeric_vars[[col]])
+  if (length(outliers) > 0) {
+    cat("Outliers in", col, ":\n")
+    print(outliers)
+    cat("\n")
+  }
+}
+
+```
+
+### 3.2.3 Correlations
+
+```{r}
+plot_correlation(na.omit(x), maxcat=5L)
+
+correlation_matrix <- cor(numeric_vars)
+print(correlation_matrix)
+```
+
+Age (months) and Height (cm): There is a strong positive correlation (0.914) between Age (months) and Height (cm). This implies that as age increases, height tends to increase as well. This correlation is expected, as children tend to grow taller as they get older.
+
+Weight (Kg) and BMI: There is a strong positive correlation (0.927) between Weight (Kg) and BMI. This suggests that as weight increases, BMI (Body Mass Index) tends to increase as well. This correlation is expected because BMI is calculated using weight and height measurements.
+
+R5Hz_PP and Fres_PP: There is a strong positive correlation (0.754) between R5Hz_PP and Fres_PP.
 
 ## **3.3 Linear Mixed Modeling**
 

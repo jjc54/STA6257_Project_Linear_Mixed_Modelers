@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S.">
-<meta name="dcterms.date" content="2024-02-20">
+<meta name="dcterms.date" content="2024-02-24">
 
 <title>The Linear Mixed Modelers - Report</title>
 <style>
@@ -233,7 +233,12 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" id="toc-bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" class="nav-link" data-scroll-target="#bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com"><strong><code>BMI</code> from Kaggle (</strong>Impact of BMI on IOS measures on children (kaggle.com))</a></li>
   </ul></li>
-  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></a></li>
+  <li><a href="#exploratory-data-analysis-eda" id="toc-exploratory-data-analysis-eda" class="nav-link" data-scroll-target="#exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></a>
+  <ul class="collapse">
+  <li><a href="#missing-values" id="toc-missing-values" class="nav-link" data-scroll-target="#missing-values"><strong>3.2.1 Missing Values</strong></a></li>
+  <li><a href="#cleaning-data" id="toc-cleaning-data" class="nav-link" data-scroll-target="#cleaning-data">3.2.2 Cleaning Data</a></li>
+  <li><a href="#correlations" id="toc-correlations" class="nav-link" data-scroll-target="#correlations">3.2.3 Correlations</a></li>
+  </ul></li>
   <li><a href="#linear-mixed-modeling" id="toc-linear-mixed-modeling" class="nav-link" data-scroll-target="#linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></a></li>
   <li><a href="#model-comparisons-and-assessment" id="toc-model-comparisons-and-assessment" class="nav-link" data-scroll-target="#model-comparisons-and-assessment"><strong>3.4 Model Comparisons and Assessment</strong></a></li>
   <li><a href="#simulation-possibly" id="toc-simulation-possibly" class="nav-link" data-scroll-target="#simulation-possibly"><strong>3.5 Simulation (POSSIBLY)</strong></a></li>
@@ -266,7 +271,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 20, 2024</p>
+      <p class="date">February 24, 2024</p>
     </div>
   </div>
   
@@ -319,7 +324,7 @@ window.Quarto = {
 </section>
 <section id="sample-data-structure" class="level2">
 <h2 class="anchored" data-anchor-id="sample-data-structure"><strong>2.3 Sample Data Structure</strong></h2>
-<p><strong>[PLACEHOLDER]</strong></p>
+<p><strong>[PLACEHOLDER - need to describe the data structure needed for LMMs]</strong></p>
 </section>
 </section>
 <section id="analysis-and-results" class="level1">
@@ -375,20 +380,34 @@ The following object is masked from 'package:dplyr':
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(references)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
-<li><p><code>tidyverse</code></p></li>
-<li><p><code>lme4</code></p></li>
-<li><p><code>nlme</code></p></li>
-<li><p><code>gt</code></p></li>
-<li><p><code>RefManageR</code></p></li>
+<li><p><code>tidyverse</code>: used for data wrangling and visualisation.</p></li>
+<li><p><code>lme4</code>: used for LMM within R.</p></li>
+<li><p><code>nlme</code>: used for nonlinear LMM (NLMM) within R.</p></li>
+<li><p><code>gt</code>: used for table generation.</p></li>
+<li><p><code>RefManageR</code>: used for BibTex reference management.</p></li>
 </ul>
 </section>
 <section id="data-ingestion" class="level2">
 <h2 class="anchored" data-anchor-id="data-ingestion"><strong>3.2 Data Ingestion</strong></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(BMI)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" class="level3">
+<h3 class="anchored" data-anchor-id="bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com"><strong><code>BMI</code> from Kaggle (</strong><a href="https://www.kaggle.com/datasets/utkarshx27/impact-of-bmi-on-ios-measures">Impact of BMI on IOS measures on children (kaggle.com)</a>)</h3>
+<ul>
+<li><p><strong>Description</strong>: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD)</p></li>
+<li><p><strong>Detailed Description</strong>: The dataset comprises various attributes and measurements across its columns. Categorical variables, such as Group, Subject ID, Observation_number, Hydroxyurea, Asthma, ICS, LABA, and Gender, denote different groupings, individual subjects, and attributes like medication usage and gender. Numerical variables like Age (months), Height (cm), Weight (Kg), BMI, R5Hz_PP, R20Hz_PP, X5Hz_PP, and Fres_PP provide quantitative data on subjects’ characteristics and test results. Notably, the summary also identifies missing values, such as the 14 instances in the Fres_PP variable, which warrant consideration in subsequent analysis.These columns provide measurements and estimates related to airway resistance and reactance obtained using impulse oscillometry (IOS), which is a non-invasive method for assessing respiratory function. These parameters are valuable in understanding the impact of BMI on respiratory measures in children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma) participating in the study.</p></li>
+<li><p><strong>Why suitable for LMMs</strong>: The dataset has multiple observations, over time, for the same set of participants.</p></li>
+</ul>
+</section>
+</section>
+<section id="exploratory-data-analysis-eda" class="level2">
+<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> BMI</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   219 obs. of  16 variables:
  $ Group             : chr  "C-SCD" "C-SCD" "C-SCD" "C-SCD" ...
@@ -408,40 +427,583 @@ The following object is masked from 'package:dplyr':
  $ X5Hz_PP           : num  -456 111 174 -303 98 115 107 -216 195 140 ...
  $ Fres_PP           : int  NA 169 159 NA 135 148 159 NA 175 199 ...</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Group Subject.ID Observation_number Hydroxyurea Asthma ICS LABA Gender
+1 C-SCD          1                  1         Yes    Yes Yes   No   Male
+2 C-SCD          1                  2         Yes    Yes Yes   No   Male
+3 C-SCD          1                  3         Yes    Yes Yes  Yes   Male
+4 C-SCD          1                  4         Yes    Yes Yes  Yes   Male
+5 C-SCD          2                  1          No     No  No   No Female
+6 C-SCD          3                  1         Yes    Yes  No   No   Male
+  Age..months. Height..cm. Weight..Kg.   BMI R5Hz_PP R20Hz_PP X5Hz_PP Fres_PP
+1          239       164.1        61.5 22.84     145      133    -456      NA
+2          193       162.7        62.3 23.53     103       98     111     169
+3          212       163.5        63.1 23.60     107       98     174     159
+4          224       163.8        63.7 23.74      87       87    -303      NA
+5          204       154.5        66.4 27.82     124      121      98     135
+6          178       158.0        51.9 20.79     109       86     115     148</code></pre>
 </div>
-<p><strong>[PLACEHOLDER TO DESCRIBE THE DATASET/VARIABLES/GROUPS]</strong></p>
-<section id="bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" class="level3">
-<h3 class="anchored" data-anchor-id="bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com"><strong><code>BMI</code> from Kaggle (</strong><a href="https://www.kaggle.com/datasets/utkarshx27/impact-of-bmi-on-ios-measures">Impact of BMI on IOS measures on children (kaggle.com)</a>)</h3>
-<ul>
-<li><p><strong>Description</strong>: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD)</p></li>
-<li><p><strong>Why suitable for LMMs</strong>: The dataset has multiple observations, over time, for the same set of participants.</p></li>
-</ul>
-</section>
-</section>
-<section id="exploratory-data-analysis-eda" class="level2">
-<h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> BMI</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>variables <span class="ot">&lt;-</span> </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  BMI <span class="sc">%&gt;%</span> </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>()</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>Description <span class="ot">&lt;-</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="st">""</span>)</span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>variables_table <span class="ot">&lt;-</span></span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  variables</span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_str</span>(x)</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="fu">introduce</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>variables <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>variables_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> variables,</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">Description =</span> <span class="fu">c</span>(</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column indicates the group to which the subject belongs. There are two groups in the study: children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma)."</span>,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Each subject in the study is assigned a unique identifier or ID, which is listed in this column. The ID is used to differentiate between individual participants."</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column represents the number assigned to each observation or measurement taken for a particular subject. Since this is a longitudinal study, multiple observations may be recorded for each subject over time."</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column indicates whether the subject with sickle cell disease (C-SCD) received hydroxyurea treatment. Hydroxyurea is a medication commonly used for the treatment of sickle cell disease."</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column indicates whether the subject has a diagnosis of asthma. It distinguishes between children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma)."</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column indicates whether the subject is using inhaled corticosteroids (ICS). ICS is a type of medication commonly used for the treatment of asthma and certain other respiratory conditions."</span>,</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column indicates whether the subject is using a long-acting beta-agonist (LABA). LABA is a type of medication often used in combination with inhaled corticosteroids for the treatment of asthma."</span>,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column represents the gender of the subject, indicating whether they are male or female"</span>,</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column specifies the age of the subject at the time of the observation or measurement. Age is typically measured in months."</span>,</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column represents the height of the subject, typically measured in a standard unit of length, such as centimeters or inches. Height is an important variable to consider in assessing the impact of BMI on respiratory measures."</span>,</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column indicates the weight of the subject at the time of the observation or measurement. Weight is typically measured in kilograms (Kg) and is an important variable for calculating the body mass index (BMI)."</span>,</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Body Mass Index (BMI) is a measure that assesses body weight relative to height. It is calculated by dividing the weight of an individual (in kilograms) by the square of their height (in meters). The BMI column provides the calculated BMI value for each subject based on their weight and height measurements. BMI is commonly used as an indicator of overall body fatness and is often used to classify individuals into different weight categories (e.g., underweight, normal weight, overweight, obese)."</span>,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column represents the estimate of airway resistance at 5 Hz using impulse oscillometry (IOS). Airway resistance is a measure of the impedance encountered by airflow during respiration. The R5Hz_PP value indicates the airway resistance at the frequency of 5 Hz and is obtained through the IOS testing."</span>,</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column represents the estimate of airway resistance at 20 Hz using impulse oscillometry (IOS). Similar to R5Hz_PP, R20Hz_PP provides the measure of airway resistance at the frequency of 20 Hz based on the IOS testing."</span>,</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column represents the estimate of airway reactance at 5 Hz using impulse oscillometry (IOS). Airway reactance is a measure of the elasticity and stiffness of the airway walls. The X5Hz_PP value indicates the airway reactance at the frequency of 5 Hz and is obtained through the IOS testing."</span>,</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"This column represents the estimate of resonant frequency using impulse oscillometry (IOS). Resonant frequency is a measure of the point at which the reactance of the airways transitions from positive to negative during respiration. The Fres_PP value indicates the resonant frequency and is obtained through the IOS testing.:"</span></span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>variables_table <span class="sc">%&gt;%</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  gt <span class="sc">%&gt;%</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_header</span>(</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Variable Description"</span></span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fjvmyzwajn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fjvmyzwajn table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#fjvmyzwajn thead, #fjvmyzwajn tbody, #fjvmyzwajn tfoot, #fjvmyzwajn tr, #fjvmyzwajn td, #fjvmyzwajn th {
+  border-style: none;
+}
+
+#fjvmyzwajn p {
+  margin: 0;
+  padding: 0;
+}
+
+#fjvmyzwajn .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#fjvmyzwajn .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#fjvmyzwajn .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#fjvmyzwajn .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#fjvmyzwajn .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#fjvmyzwajn .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#fjvmyzwajn .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#fjvmyzwajn .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#fjvmyzwajn .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#fjvmyzwajn .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#fjvmyzwajn .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#fjvmyzwajn .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#fjvmyzwajn .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#fjvmyzwajn .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#fjvmyzwajn .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fjvmyzwajn .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#fjvmyzwajn .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#fjvmyzwajn .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#fjvmyzwajn .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fjvmyzwajn .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#fjvmyzwajn .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fjvmyzwajn .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#fjvmyzwajn .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fjvmyzwajn .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#fjvmyzwajn .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#fjvmyzwajn .gt_left {
+  text-align: left;
+}
+
+#fjvmyzwajn .gt_center {
+  text-align: center;
+}
+
+#fjvmyzwajn .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#fjvmyzwajn .gt_font_normal {
+  font-weight: normal;
+}
+
+#fjvmyzwajn .gt_font_bold {
+  font-weight: bold;
+}
+
+#fjvmyzwajn .gt_font_italic {
+  font-style: italic;
+}
+
+#fjvmyzwajn .gt_super {
+  font-size: 65%;
+}
+
+#fjvmyzwajn .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#fjvmyzwajn .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#fjvmyzwajn .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#fjvmyzwajn .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#fjvmyzwajn .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#fjvmyzwajn .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#fjvmyzwajn .gt_indent_5 {
+  text-indent: 25px;
+}
+</style>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Variable Description</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="Variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th id="Description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Description</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Group</td>
+<td class="gt_row gt_left" headers="Description">This column indicates the group to which the subject belongs. There are two groups in the study: children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Subject.ID</td>
+<td class="gt_row gt_left" headers="Description">Each subject in the study is assigned a unique identifier or ID, which is listed in this column. The ID is used to differentiate between individual participants.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Observation_number</td>
+<td class="gt_row gt_left" headers="Description">This column represents the number assigned to each observation or measurement taken for a particular subject. Since this is a longitudinal study, multiple observations may be recorded for each subject over time.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Hydroxyurea</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject with sickle cell disease (C-SCD) received hydroxyurea treatment. Hydroxyurea is a medication commonly used for the treatment of sickle cell disease.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Asthma</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject has a diagnosis of asthma. It distinguishes between children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">ICS</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject is using inhaled corticosteroids (ICS). ICS is a type of medication commonly used for the treatment of asthma and certain other respiratory conditions.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">LABA</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject is using a long-acting beta-agonist (LABA). LABA is a type of medication often used in combination with inhaled corticosteroids for the treatment of asthma.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Gender</td>
+<td class="gt_row gt_left" headers="Description">This column represents the gender of the subject, indicating whether they are male or female</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Age..months.</td>
+<td class="gt_row gt_left" headers="Description">This column specifies the age of the subject at the time of the observation or measurement. Age is typically measured in months.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Height..cm.</td>
+<td class="gt_row gt_left" headers="Description">This column represents the height of the subject, typically measured in a standard unit of length, such as centimeters or inches. Height is an important variable to consider in assessing the impact of BMI on respiratory measures.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Weight..Kg.</td>
+<td class="gt_row gt_left" headers="Description">This column indicates the weight of the subject at the time of the observation or measurement. Weight is typically measured in kilograms (Kg) and is an important variable for calculating the body mass index (BMI).</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">BMI</td>
+<td class="gt_row gt_left" headers="Description">Body Mass Index (BMI) is a measure that assesses body weight relative to height. It is calculated by dividing the weight of an individual (in kilograms) by the square of their height (in meters). The BMI column provides the calculated BMI value for each subject based on their weight and height measurements. BMI is commonly used as an indicator of overall body fatness and is often used to classify individuals into different weight categories (e.g., underweight, normal weight, overweight, obese).</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">R5Hz_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of airway resistance at 5 Hz using impulse oscillometry (IOS). Airway resistance is a measure of the impedance encountered by airflow during respiration. The R5Hz_PP value indicates the airway resistance at the frequency of 5 Hz and is obtained through the IOS testing.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">R20Hz_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of airway resistance at 20 Hz using impulse oscillometry (IOS). Similar to R5Hz_PP, R20Hz_PP provides the measure of airway resistance at the frequency of 20 Hz based on the IOS testing.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">X5Hz_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of airway reactance at 5 Hz using impulse oscillometry (IOS). Airway reactance is a measure of the elasticity and stiffness of the airway walls. The X5Hz_PP value indicates the airway reactance at the frequency of 5 Hz and is obtained through the IOS testing.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Fres_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of resonant frequency using impulse oscillometry (IOS). Resonant frequency is a measure of the point at which the reactance of the airways transitions from positive to negative during respiration. The Fres_PP value indicates the resonant frequency and is obtained through the IOS testing.:</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_str</span>(x)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">introduce</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rows columns discrete_columns continuous_columns all_missing_columns
 1  219      16                6                 10                   0
   total_missing_values complete_rows total_observations memory_usage
 1                   14           205               3504        27592</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intro</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intro</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -449,70 +1011,226 @@ The following object is masked from 'package:dplyr':
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="missing-values"><strong>3.2.1 Missing Values</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-3.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_histogram</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlation</span>(<span class="fu">na.omit</span>(x), <span class="at">maxcat=</span><span class="dv">5</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-5.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_qq</span>(<span class="fu">na.omit</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-6.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-7.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_prcomp</span>(<span class="fu">na.omit</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-8.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-9.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="report_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p><strong>[PLACEHOLDER FOR TABLES/VIS]</strong></p>
+<p>Based on the missing values count, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation</p>
+</section>
+<section id="cleaning-data" class="level3">
+<h3 class="anchored" data-anchor-id="cleaning-data">3.2.2 Cleaning Data</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 219  16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(x)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(x_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 205  16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>'data.frame':   205 obs. of  16 variables:
+ $ Group             : chr  "C-SCD" "C-SCD" "C-SCD" "C-SCD" ...
+ $ Subject.ID        : int  1 1 2 3 3 4 5 6 6 7 ...
+ $ Observation_number: int  2 3 1 1 2 2 1 1 2 1 ...
+ $ Hydroxyurea       : chr  "Yes" "Yes" "No" "Yes" ...
+ $ Asthma            : chr  "Yes" "Yes" "No" "Yes" ...
+ $ ICS               : chr  "Yes" "Yes" "No" "No" ...
+ $ LABA              : chr  "No" "Yes" "No" "No" ...
+ $ Gender            : chr  "Male" "Male" "Female" "Male" ...
+ $ Age..months.      : int  193 212 204 178 186 210 196 175 200 173 ...
+ $ Height..cm.       : num  163 164 154 158 164 ...
+ $ Weight..Kg.       : num  62.3 63.1 66.4 51.9 56.7 66.9 52.9 39 50.6 56.3 ...
+ $ BMI               : num  23.5 23.6 27.8 20.8 20.9 ...
+ $ R5Hz_PP           : int  103 107 124 109 117 179 136 96 123 117 ...
+ $ R20Hz_PP          : int  98 98 121 86 105 153 97 109 115 117 ...
+ $ X5Hz_PP           : num  111 174 98 115 107 195 140 111 164 92 ...
+ $ Fres_PP           : int  169 159 135 148 159 175 199 104 109 152 ...
+ - attr(*, "na.action")= 'omit' Named int [1:14] 1 4 8 13 18 21 44 46 50 52 ...
+  ..- attr(*, "names")= chr [1:14] "1" "4" "8" "13" ...</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(x_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_histogram</span>(x_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_qq</span>(<span class="fu">na.omit</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_prcomp</span>(<span class="fu">na.omit</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>numeric_vars <span class="ot">&lt;-</span> x_clean <span class="sc">%&gt;%</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.numeric)</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Boxplot for each numeric variable</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>))</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> <span class="fu">colnames</span>(numeric_vars)) {</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">boxplot</span>(numeric_vars[[col]], <span class="at">main=</span>col)</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Based on the boxplot, it’s evident that all columns except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to detect outliers in each column</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>detect_outliers <span class="ot">&lt;-</span> <span class="cf">function</span>(column) {</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  Q1 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(column, <span class="fl">0.25</span>)</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>  Q3 <span class="ot">&lt;-</span> <span class="fu">quantile</span>(column, <span class="fl">0.75</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  IQR <span class="ot">&lt;-</span> Q3 <span class="sc">-</span> Q1</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  lower_bound <span class="ot">&lt;-</span> Q1 <span class="sc">-</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>  upper_bound <span class="ot">&lt;-</span> Q3 <span class="sc">+</span> <span class="fl">1.5</span> <span class="sc">*</span> IQR</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>  outliers <span class="ot">&lt;-</span> column[column <span class="sc">&lt;</span> lower_bound <span class="sc">|</span> column <span class="sc">&gt;</span> upper_bound]</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(outliers)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Iterate over each column and print outliers</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (col <span class="cf">in</span> <span class="fu">names</span>(numeric_vars)) {</span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>  outliers <span class="ot">&lt;-</span> <span class="fu">detect_outliers</span>(numeric_vars[[col]])</span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(outliers) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"Outliers in"</span>, col, <span class="st">":</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>(outliers)</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Outliers in Weight..Kg. :
+ [1]  91.4 100.2 104.4 111.2 120.4 108.6 105.1 100.0  95.5 130.1 108.5 124.6
+[13]  95.2
+
+Outliers in BMI :
+ [1] 27.82 37.85 41.49 42.09 26.65 28.66 41.85 41.18 39.89 40.05 38.58 38.74
+[13] 29.92 47.21 41.34 48.07 27.82 26.95
+
+Outliers in R5Hz_PP :
+[1] 187 183 196  10 199 198
+
+Outliers in R20Hz_PP :
+[1] 153 150  12 162 153
+
+Outliers in X5Hz_PP :
+ [1]  439 1117  260  270  297  465  338  285  306  -68  543  381</code></pre>
+</div>
+</div>
+</section>
+<section id="correlations" class="level3">
+<h3 class="anchored" data-anchor-id="correlations">3.2.3 Correlations</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlation</span>(<span class="fu">na.omit</span>(x), <span class="at">maxcat=</span><span class="dv">5</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(numeric_vars)</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(correlation_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    Subject.ID Observation_number Age..months. Height..cm.
+Subject.ID          1.00000000        -0.21500257  -0.32924618 -0.17917013
+Observation_number -0.21500257         1.00000000   0.08375717  0.05602244
+Age..months.       -0.32924618         0.08375717   1.00000000  0.91367866
+Height..cm.        -0.17917013         0.05602244   0.91367866  1.00000000
+Weight..Kg.         0.05534316        -0.04624712   0.69729363  0.74787329
+BMI                 0.16386162        -0.08167290   0.44416330  0.45814806
+R5Hz_PP            -0.26537828         0.17631576   0.40385960  0.31003693
+R20Hz_PP           -0.24942573         0.13865818   0.33200111  0.24291582
+X5Hz_PP            -0.20369376         0.09891752   0.38857148  0.37455537
+Fres_PP            -0.30541160         0.11774148   0.58762865  0.52148796
+                   Weight..Kg.           BMI       R5Hz_PP    R20Hz_PP
+Subject.ID          0.05534316  1.638616e-01 -2.653783e-01 -0.24942573
+Observation_number -0.04624712 -8.167290e-02  1.763158e-01  0.13865818
+Age..months.        0.69729363  4.441633e-01  4.038596e-01  0.33200111
+Height..cm.         0.74787329  4.581481e-01  3.100369e-01  0.24291582
+Weight..Kg.         1.00000000  9.265856e-01  1.261621e-01  0.10391395
+BMI                 0.92658562  1.000000e+00  6.430664e-06  0.01337894
+R5Hz_PP             0.12616210  6.430664e-06  1.000000e+00  0.70961067
+R20Hz_PP            0.10391395  1.337894e-02  7.096107e-01  1.00000000
+X5Hz_PP             0.13463870 -2.990486e-02  4.464806e-01  0.20055148
+Fres_PP             0.19759669 -1.523383e-02  7.538067e-01  0.54826299
+                       X5Hz_PP     Fres_PP
+Subject.ID         -0.20369376 -0.30541160
+Observation_number  0.09891752  0.11774148
+Age..months.        0.38857148  0.58762865
+Height..cm.         0.37455537  0.52148796
+Weight..Kg.         0.13463870  0.19759669
+BMI                -0.02990486 -0.01523383
+R5Hz_PP             0.44648059  0.75380665
+R20Hz_PP            0.20055148  0.54826299
+X5Hz_PP             1.00000000  0.50290470
+Fres_PP             0.50290470  1.00000000</code></pre>
+</div>
+</div>
+<p>Age (months) and Height (cm): There is a strong positive correlation (0.914) between Age (months) and Height (cm). This implies that as age increases, height tends to increase as well. This correlation is expected, as children tend to grow taller as they get older.</p>
+<p>Weight (Kg) and BMI: There is a strong positive correlation (0.927) between Weight (Kg) and BMI. This suggests that as weight increases, BMI (Body Mass Index) tends to increase as well. This correlation is expected because BMI is calculated using weight and height measurements.</p>
+<p>R5Hz_PP and Fres_PP: There is a strong positive correlation (0.754) between R5Hz_PP and Fres_PP.</p>
+</section>
 </section>
 <section id="linear-mixed-modeling" class="level2">
 <h2 class="anchored" data-anchor-id="linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></h2>
