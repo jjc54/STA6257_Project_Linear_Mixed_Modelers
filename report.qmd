@@ -73,8 +73,8 @@ Although more flexible than other methods such as ANOVA, there are several assum
 
 ```{r}
 
-if (!requireNamespace(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer"), quietly = TRUE)) {
-    install.packages(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer"))
+if (!requireNamespace(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer", "gtsummary"), quietly = TRUE)) {
+    install.packages(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer", "gtsummary"))
 }
 
 library(tidyverse)
@@ -83,20 +83,23 @@ library(nlme)
 library(gt)
 library(RefManageR)
 library(DataExplorer)
+library(gtsummary)
 
 #references <- ReadBib("references.bib")
 #summary(references)
 ```
 
--   `tidyverse`: used for data wrangling and visualisation. 
+-   `tidyverse`: used for data wrangling and visualisation.
 
--   `lme4`: used for LMM within R. 
+-   `lme4`: used for LMM within R.
 
--   `nlme`: used for nonlinear LMM (NLMM) within R. 
+-   `nlme`: used for nonlinear LMM (NLMM) within R.
 
--   `gt`: used for table generation. 
+-   `gt`: used for table generation.
 
--   `RefManageR`: used for BibTex reference management. 
+-   `gtsummary`: used for summary table generation of descriptive statistics.
+
+-   `RefManageR`: used for BibTex reference management.
 
 ## **3.2 Data Ingestion**
 
@@ -173,7 +176,9 @@ Based on the missing values count, it appears that there are no missing values i
 ```{r}
 
 dim(x)
-x_clean <- na.omit(x)
+ 
+x_clean <- na.omit(x) # drops NAs, further analysis is without NA values
+
 dim(x_clean)
 str(x_clean)
 plot_bar(x_clean)
@@ -206,7 +211,7 @@ detect_outliers <- function(column) {
   return(outliers)
 }
 
-# Iterate over each column and print outliers
+# Iterate over each column and print outliers; not removed
 for (col in names(numeric_vars)) {
   outliers <- detect_outliers(numeric_vars[[col]])
   if (length(outliers) > 0) {
@@ -216,6 +221,26 @@ for (col in names(numeric_vars)) {
   }
 }
 
+x_clean %>% 
+  select(-2) %>%
+  tbl_summary( #gtSummary Table
+    by=Group,
+    type = list(
+      c('Age..months.', 'Height..cm.', 'Weight..Kg.', 'BMI', 'R5Hz_PP', 'R20Hz_PP', 'X5Hz_PP', 'Fres_PP') ~ 'continuous2'),
+    statistic = all_continuous2() ~ c(
+                       "{mean} ± {sd}",
+                       "{median} ({p25}, {p75})",
+                       "{min}, {max}"
+                       ),
+    digits = all_continuous2() ~ 2,
+    missing="ifany",
+  ) %>%
+  bold_labels %>%
+  italicize_levels() %>%
+  as_gt() %>%
+  tab_header(
+    title = "Summary Statistics"
+  )
 ```
 
 ### 3.2.3 Correlations
