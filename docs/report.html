@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S.">
-<meta name="dcterms.date" content="2024-02-26">
+<meta name="dcterms.date" content="2024-02-27">
 
 <title>The Linear Mixed Modelers - Report</title>
 <style>
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,6 +60,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging-indent div.csl-entry {
   margin-left:2em;
@@ -102,7 +103,13 @@ div.csl-indent {
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -111,6 +118,7 @@ div.csl-indent {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -120,20 +128,46 @@ div.csl-indent {
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="The Linear Mixed Modelers - Report">
 <meta property="og:description" content="Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes">
-<meta property="og:image" content="images/LMM_uses.png">
-<meta property="og:site-name" content="The Linear Mixed Modelers">
+<meta property="og:site_name" content="The Linear Mixed Modelers">
 </head>
 
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">The Linear Mixed Modelers</span>
     </a>
@@ -145,34 +179,34 @@ div.csl-indent {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./literature.html" rel="" target="">
- <span class="menu-text">Literature</span></a>
+    <a class="nav-link" href="./literature.html"> 
+<span class="menu-text">Literature</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./report.html" rel="" target="" aria-current="page">
- <span class="menu-text">Report</span></a>
+    <a class="nav-link active" href="./report.html" aria-current="page"> 
+<span class="menu-text">Report</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./slides.html" rel="" target="">
- <span class="menu-text">Slides</span></a>
+    <a class="nav-link" href="./slides.html"> 
+<span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./code.html" rel="" target="">
- <span class="menu-text">Code</span></a>
+    <a class="nav-link" href="./code.html"> 
+<span class="menu-text">Code</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
- <span class="menu-text">About Us</span></a>
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">About Us</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
-          </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -237,7 +271,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">February 26, 2024</p>
+      <p class="date">February 27, 2024</p>
     </div>
   </div>
   
@@ -245,7 +279,9 @@ div.csl-indent {
   </div>
   
 
+
 </header>
+
 
 <section id="introduction" class="level1">
 <h1><strong>1 Introduction</strong></h1>
@@ -297,55 +333,23 @@ div.csl-indent {
 <section id="packages" class="level2">
 <h2 class="anchored" data-anchor-id="packages"><strong>3.1 Packages</strong></h2>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>, <span class="st">"DataExplorer"</span>, <span class="st">"gtsummary"</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>, <span class="st">"DataExplorer"</span>, <span class="st">"gtsummary"</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.5.0     ✔ tibble    3.2.1
-✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-✔ purrr     1.0.2     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: Matrix
-
-Attaching package: 'Matrix'
-
-The following objects are masked from 'package:tidyr':
-
-    expand, pack, unpack</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'nlme'
-
-The following object is masked from 'package:lme4':
-
-    lmList
-
-The following object is masked from 'package:dplyr':
-
-    collapse</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RefManageR)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#references &lt;- ReadBib("references.bib")</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(references)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nlme)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gt)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RefManageR)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#references &lt;- ReadBib("references.bib")</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(references)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <ul>
 <li><p><code>tidyverse</code>: used for data wrangling and visualisation.</p></li>
@@ -359,7 +363,7 @@ The following object is masked from 'package:dplyr':
 <section id="data-ingestion" class="level2">
 <h2 class="anchored" data-anchor-id="data-ingestion"><strong>3.2 Data Ingestion</strong></h2>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -377,7 +381,7 @@ The following object is masked from 'package:dplyr':
 <section id="exploratory-data-analysis-eda" class="level2">
 <h2 class="anchored" data-anchor-id="exploratory-data-analysis-eda"><strong>3.2 Exploratory Data Analysis (EDA)</strong></h2>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> BMI</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -402,7 +406,7 @@ The following object is masked from 'package:dplyr':
  $ X5Hz_PP           : num  -456 111 174 -303 98 115 107 -216 195 140 ...
  $ Fres_PP           : int  NA 169 159 NA 135 148 159 NA 175 199 ...</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -422,7 +426,7 @@ The following object is masked from 'package:dplyr':
 5          204       154.5        66.4 27.82     124      121      98     135
 6          178       158.0        51.9 20.79     109       86     115     148</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>variables <span class="ot">&lt;-</span> <span class="fu">colnames</span>(x)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -455,23 +459,23 @@ The following object is masked from 'package:dplyr':
 <span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="yggafqvmms" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#yggafqvmms table {
+<div id="qkiltrjpek" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qkiltrjpek table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#yggafqvmms thead, #yggafqvmms tbody, #yggafqvmms tfoot, #yggafqvmms tr, #yggafqvmms td, #yggafqvmms th {
+#qkiltrjpek thead, #qkiltrjpek tbody, #qkiltrjpek tfoot, #qkiltrjpek tr, #qkiltrjpek td, #qkiltrjpek th {
   border-style: none;
 }
 
-#yggafqvmms p {
+#qkiltrjpek p {
   margin: 0;
   padding: 0;
 }
 
-#yggafqvmms .gt_table {
+#qkiltrjpek .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -497,12 +501,12 @@ The following object is masked from 'package:dplyr':
   border-left-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_caption {
+#qkiltrjpek .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#yggafqvmms .gt_title {
+#qkiltrjpek .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -514,7 +518,7 @@ The following object is masked from 'package:dplyr':
   border-bottom-width: 0;
 }
 
-#yggafqvmms .gt_subtitle {
+#qkiltrjpek .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -526,7 +530,7 @@ The following object is masked from 'package:dplyr':
   border-top-width: 0;
 }
 
-#yggafqvmms .gt_heading {
+#qkiltrjpek .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -538,13 +542,13 @@ The following object is masked from 'package:dplyr':
   border-right-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_bottom_border {
+#qkiltrjpek .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_col_headings {
+#qkiltrjpek .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -559,7 +563,7 @@ The following object is masked from 'package:dplyr':
   border-right-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_col_heading {
+#qkiltrjpek .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -579,7 +583,7 @@ The following object is masked from 'package:dplyr':
   overflow-x: hidden;
 }
 
-#yggafqvmms .gt_column_spanner_outer {
+#qkiltrjpek .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -591,15 +595,15 @@ The following object is masked from 'package:dplyr':
   padding-right: 4px;
 }
 
-#yggafqvmms .gt_column_spanner_outer:first-child {
+#qkiltrjpek .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#yggafqvmms .gt_column_spanner_outer:last-child {
+#qkiltrjpek .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#yggafqvmms .gt_column_spanner {
+#qkiltrjpek .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -611,11 +615,11 @@ The following object is masked from 'package:dplyr':
   width: 100%;
 }
 
-#yggafqvmms .gt_spanner_row {
+#qkiltrjpek .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#yggafqvmms .gt_group_heading {
+#qkiltrjpek .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -641,7 +645,7 @@ The following object is masked from 'package:dplyr':
   text-align: left;
 }
 
-#yggafqvmms .gt_empty_group_heading {
+#qkiltrjpek .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -656,15 +660,15 @@ The following object is masked from 'package:dplyr':
   vertical-align: middle;
 }
 
-#yggafqvmms .gt_from_md > :first-child {
+#qkiltrjpek .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#yggafqvmms .gt_from_md > :last-child {
+#qkiltrjpek .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#yggafqvmms .gt_row {
+#qkiltrjpek .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -683,7 +687,7 @@ The following object is masked from 'package:dplyr':
   overflow-x: hidden;
 }
 
-#yggafqvmms .gt_stub {
+#qkiltrjpek .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -696,7 +700,7 @@ The following object is masked from 'package:dplyr':
   padding-right: 5px;
 }
 
-#yggafqvmms .gt_stub_row_group {
+#qkiltrjpek .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -710,15 +714,15 @@ The following object is masked from 'package:dplyr':
   vertical-align: top;
 }
 
-#yggafqvmms .gt_row_group_first td {
+#qkiltrjpek .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#yggafqvmms .gt_row_group_first th {
+#qkiltrjpek .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#yggafqvmms .gt_summary_row {
+#qkiltrjpek .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -728,16 +732,16 @@ The following object is masked from 'package:dplyr':
   padding-right: 5px;
 }
 
-#yggafqvmms .gt_first_summary_row {
+#qkiltrjpek .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_first_summary_row.thick {
+#qkiltrjpek .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#yggafqvmms .gt_last_summary_row {
+#qkiltrjpek .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -747,7 +751,7 @@ The following object is masked from 'package:dplyr':
   border-bottom-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_grand_summary_row {
+#qkiltrjpek .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -757,7 +761,7 @@ The following object is masked from 'package:dplyr':
   padding-right: 5px;
 }
 
-#yggafqvmms .gt_first_grand_summary_row {
+#qkiltrjpek .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -767,7 +771,7 @@ The following object is masked from 'package:dplyr':
   border-top-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_last_grand_summary_row_top {
+#qkiltrjpek .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -777,11 +781,11 @@ The following object is masked from 'package:dplyr':
   border-bottom-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_striped {
+#qkiltrjpek .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#yggafqvmms .gt_table_body {
+#qkiltrjpek .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -790,7 +794,7 @@ The following object is masked from 'package:dplyr':
   border-bottom-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_footnotes {
+#qkiltrjpek .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -804,7 +808,7 @@ The following object is masked from 'package:dplyr':
   border-right-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_footnote {
+#qkiltrjpek .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -813,7 +817,7 @@ The following object is masked from 'package:dplyr':
   padding-right: 5px;
 }
 
-#yggafqvmms .gt_sourcenotes {
+#qkiltrjpek .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -827,7 +831,7 @@ The following object is masked from 'package:dplyr':
   border-right-color: #D3D3D3;
 }
 
-#yggafqvmms .gt_sourcenote {
+#qkiltrjpek .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -835,117 +839,148 @@ The following object is masked from 'package:dplyr':
   padding-right: 5px;
 }
 
-#yggafqvmms .gt_left {
+#qkiltrjpek .gt_left {
   text-align: left;
 }
 
-#yggafqvmms .gt_center {
+#qkiltrjpek .gt_center {
   text-align: center;
 }
 
-#yggafqvmms .gt_right {
+#qkiltrjpek .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#yggafqvmms .gt_font_normal {
+#qkiltrjpek .gt_font_normal {
   font-weight: normal;
 }
 
-#yggafqvmms .gt_font_bold {
+#qkiltrjpek .gt_font_bold {
   font-weight: bold;
 }
 
-#yggafqvmms .gt_font_italic {
+#qkiltrjpek .gt_font_italic {
   font-style: italic;
 }
 
-#yggafqvmms .gt_super {
+#qkiltrjpek .gt_super {
   font-size: 65%;
 }
 
-#yggafqvmms .gt_footnote_marks {
+#qkiltrjpek .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#yggafqvmms .gt_asterisk {
+#qkiltrjpek .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#yggafqvmms .gt_indent_1 {
+#qkiltrjpek .gt_indent_1 {
   text-indent: 5px;
 }
 
-#yggafqvmms .gt_indent_2 {
+#qkiltrjpek .gt_indent_2 {
   text-indent: 10px;
 }
 
-#yggafqvmms .gt_indent_3 {
+#qkiltrjpek .gt_indent_3 {
   text-indent: 15px;
 }
 
-#yggafqvmms .gt_indent_4 {
+#qkiltrjpek .gt_indent_4 {
   text-indent: 20px;
 }
 
-#yggafqvmms .gt_indent_5 {
+#qkiltrjpek .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Variable Description</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Variable">Variable</th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="Description">Description</th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="Variable" class="gt_row gt_left">Group</td>
-<td headers="Description" class="gt_row gt_left">This column indicates the group to which the subject belongs. There are two groups in the study: children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Subject.ID</td>
-<td headers="Description" class="gt_row gt_left">Each subject in the study is assigned a unique identifier or ID, which is listed in this column. The ID is used to differentiate between individual participants.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Observation_number</td>
-<td headers="Description" class="gt_row gt_left">This column represents the number assigned to each observation or measurement taken for a particular subject. Since this is a longitudinal study, multiple observations may be recorded for each subject over time.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Hydroxyurea</td>
-<td headers="Description" class="gt_row gt_left">This column indicates whether the subject with sickle cell disease (C-SCD) received hydroxyurea treatment. Hydroxyurea is a medication commonly used for the treatment of sickle cell disease.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Asthma</td>
-<td headers="Description" class="gt_row gt_left">This column indicates whether the subject has a diagnosis of asthma. It distinguishes between children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">ICS</td>
-<td headers="Description" class="gt_row gt_left">This column indicates whether the subject is using inhaled corticosteroids (ICS). ICS is a type of medication commonly used for the treatment of asthma and certain other respiratory conditions.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">LABA</td>
-<td headers="Description" class="gt_row gt_left">This column indicates whether the subject is using a long-acting beta-agonist (LABA). LABA is a type of medication often used in combination with inhaled corticosteroids for the treatment of asthma.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Gender</td>
-<td headers="Description" class="gt_row gt_left">This column represents the gender of the subject, indicating whether they are male or female</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Age..months.</td>
-<td headers="Description" class="gt_row gt_left">This column specifies the age of the subject at the time of the observation or measurement. Age is typically measured in months.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Height..cm.</td>
-<td headers="Description" class="gt_row gt_left">This column represents the height of the subject, typically measured in a standard unit of length, such as centimeters or inches. Height is an important variable to consider in assessing the impact of BMI on respiratory measures.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Weight..Kg.</td>
-<td headers="Description" class="gt_row gt_left">This column indicates the weight of the subject at the time of the observation or measurement. Weight is typically measured in kilograms (Kg) and is an important variable for calculating the body mass index (BMI).</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">BMI</td>
-<td headers="Description" class="gt_row gt_left">Body Mass Index (BMI) is a measure that assesses body weight relative to height. It is calculated by dividing the weight of an individual (in kilograms) by the square of their height (in meters). The BMI column provides the calculated BMI value for each subject based on their weight and height measurements. BMI is commonly used as an indicator of overall body fatness and is often used to classify individuals into different weight categories (e.g., underweight, normal weight, overweight, obese).</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">R5Hz_PP</td>
-<td headers="Description" class="gt_row gt_left">This column represents the estimate of airway resistance at 5 Hz using impulse oscillometry (IOS). Airway resistance is a measure of the impedance encountered by airflow during respiration. The R5Hz_PP value indicates the airway resistance at the frequency of 5 Hz and is obtained through the IOS testing.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">R20Hz_PP</td>
-<td headers="Description" class="gt_row gt_left">This column represents the estimate of airway resistance at 20 Hz using impulse oscillometry (IOS). Similar to R5Hz_PP, R20Hz_PP provides the measure of airway resistance at the frequency of 20 Hz based on the IOS testing.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">X5Hz_PP</td>
-<td headers="Description" class="gt_row gt_left">This column represents the estimate of airway reactance at 5 Hz using impulse oscillometry (IOS). Airway reactance is a measure of the elasticity and stiffness of the airway walls. The X5Hz_PP value indicates the airway reactance at the frequency of 5 Hz and is obtained through the IOS testing.</td></tr>
-    <tr><td headers="Variable" class="gt_row gt_left">Fres_PP</td>
-<td headers="Description" class="gt_row gt_left">This column represents the estimate of resonant frequency using impulse oscillometry (IOS). Resonant frequency is a measure of the point at which the reactance of the airways transitions from positive to negative during respiration. The Fres_PP value indicates the resonant frequency and is obtained through the IOS testing.:</td></tr>
-  </tbody>
-  
-  
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Variable Description</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="Variable" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Variable</th>
+<th id="Description" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Description</th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Group</td>
+<td class="gt_row gt_left" headers="Description">This column indicates the group to which the subject belongs. There are two groups in the study: children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Subject.ID</td>
+<td class="gt_row gt_left" headers="Description">Each subject in the study is assigned a unique identifier or ID, which is listed in this column. The ID is used to differentiate between individual participants.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Observation_number</td>
+<td class="gt_row gt_left" headers="Description">This column represents the number assigned to each observation or measurement taken for a particular subject. Since this is a longitudinal study, multiple observations may be recorded for each subject over time.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Hydroxyurea</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject with sickle cell disease (C-SCD) received hydroxyurea treatment. Hydroxyurea is a medication commonly used for the treatment of sickle cell disease.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Asthma</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject has a diagnosis of asthma. It distinguishes between children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">ICS</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject is using inhaled corticosteroids (ICS). ICS is a type of medication commonly used for the treatment of asthma and certain other respiratory conditions.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">LABA</td>
+<td class="gt_row gt_left" headers="Description">This column indicates whether the subject is using a long-acting beta-agonist (LABA). LABA is a type of medication often used in combination with inhaled corticosteroids for the treatment of asthma.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Gender</td>
+<td class="gt_row gt_left" headers="Description">This column represents the gender of the subject, indicating whether they are male or female</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Age..months.</td>
+<td class="gt_row gt_left" headers="Description">This column specifies the age of the subject at the time of the observation or measurement. Age is typically measured in months.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Height..cm.</td>
+<td class="gt_row gt_left" headers="Description">This column represents the height of the subject, typically measured in a standard unit of length, such as centimeters or inches. Height is an important variable to consider in assessing the impact of BMI on respiratory measures.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">Weight..Kg.</td>
+<td class="gt_row gt_left" headers="Description">This column indicates the weight of the subject at the time of the observation or measurement. Weight is typically measured in kilograms (Kg) and is an important variable for calculating the body mass index (BMI).</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">BMI</td>
+<td class="gt_row gt_left" headers="Description">Body Mass Index (BMI) is a measure that assesses body weight relative to height. It is calculated by dividing the weight of an individual (in kilograms) by the square of their height (in meters). The BMI column provides the calculated BMI value for each subject based on their weight and height measurements. BMI is commonly used as an indicator of overall body fatness and is often used to classify individuals into different weight categories (e.g., underweight, normal weight, overweight, obese).</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">R5Hz_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of airway resistance at 5 Hz using impulse oscillometry (IOS). Airway resistance is a measure of the impedance encountered by airflow during respiration. The R5Hz_PP value indicates the airway resistance at the frequency of 5 Hz and is obtained through the IOS testing.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">R20Hz_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of airway resistance at 20 Hz using impulse oscillometry (IOS). Similar to R5Hz_PP, R20Hz_PP provides the measure of airway resistance at the frequency of 20 Hz based on the IOS testing.</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="Variable">X5Hz_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of airway reactance at 5 Hz using impulse oscillometry (IOS). Airway reactance is a measure of the elasticity and stiffness of the airway walls. The X5Hz_PP value indicates the airway reactance at the frequency of 5 Hz and is obtained through the IOS testing.</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="Variable">Fres_PP</td>
+<td class="gt_row gt_left" headers="Description">This column represents the estimate of resonant frequency using impulse oscillometry (IOS). Resonant frequency is a measure of the point at which the reactance of the airways transitions from positive to negative during respiration. The Fres_PP value indicates the resonant frequency and is obtained through the IOS testing.:</td>
+</tr>
+</tbody>
 </table>
+
 </div>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_str</span>(x)</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">introduce</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -956,23 +991,31 @@ The following object is masked from 'package:dplyr':
   total_missing_values complete_rows total_observations memory_usage
 1                   14           205               3504        27592</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_intro</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <section id="missing-values" class="level3">
 <h3 class="anchored" data-anchor-id="missing-values"><strong>3.2.1 Missing Values</strong></h3>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_missing</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Based on the missing values count, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation</p>
@@ -980,14 +1023,14 @@ The following object is masked from 'package:dplyr':
 <section id="cleaning-data" class="level3">
 <h3 class="anchored" data-anchor-id="cleaning-data">3.2.2 Cleaning Data</h3>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 219  16</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>x_clean <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(x) <span class="co"># drops NAs, further analysis is without NA values</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -996,7 +1039,7 @@ The following object is masked from 'package:dplyr':
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 205  16</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(x_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1021,41 +1064,65 @@ The following object is masked from 'package:dplyr':
  - attr(*, "na.action")= 'omit' Named int [1:14] 1 4 8 13 18 21 44 46 50 52 ...
   ..- attr(*, "names")= chr [1:14] "1" "4" "8" "13" ...</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_bar</span>(x_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_histogram</span>(x_clean)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_qq</span>(<span class="fu">na.omit</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-3.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_prcomp</span>(<span class="fu">na.omit</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>numeric_vars <span class="ot">&lt;-</span> x_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select_if</span>(is.numeric)</span>
@@ -1067,18 +1134,30 @@ The following object is masked from 'package:dplyr':
 <span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-7.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-7.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-8.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-8.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-9.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-9.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Based on the boxplot, it’s evident that all columns except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers.</p>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a function to detect outliers in each column</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>detect_outliers <span class="ot">&lt;-</span> <span class="cf">function</span>(column) {</span>
@@ -1119,7 +1198,7 @@ Outliers in R20Hz_PP :
 Outliers in X5Hz_PP :
  [1]  439 1117  260  270  297  465  338  285  306  -68  543  381</code></pre>
 </div>
-<details>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>x_clean <span class="sc">%&gt;%</span> </span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
@@ -1143,23 +1222,23 @@ Outliers in X5Hz_PP :
 <span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="zzulhyfrmk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zzulhyfrmk table {
+<div id="qpeitiqebq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qpeitiqebq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zzulhyfrmk thead, #zzulhyfrmk tbody, #zzulhyfrmk tfoot, #zzulhyfrmk tr, #zzulhyfrmk td, #zzulhyfrmk th {
+#qpeitiqebq thead, #qpeitiqebq tbody, #qpeitiqebq tfoot, #qpeitiqebq tr, #qpeitiqebq td, #qpeitiqebq th {
   border-style: none;
 }
 
-#zzulhyfrmk p {
+#qpeitiqebq p {
   margin: 0;
   padding: 0;
 }
 
-#zzulhyfrmk .gt_table {
+#qpeitiqebq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1185,12 +1264,12 @@ Outliers in X5Hz_PP :
   border-left-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_caption {
+#qpeitiqebq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zzulhyfrmk .gt_title {
+#qpeitiqebq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1202,7 +1281,7 @@ Outliers in X5Hz_PP :
   border-bottom-width: 0;
 }
 
-#zzulhyfrmk .gt_subtitle {
+#qpeitiqebq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1214,7 +1293,7 @@ Outliers in X5Hz_PP :
   border-top-width: 0;
 }
 
-#zzulhyfrmk .gt_heading {
+#qpeitiqebq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1226,13 +1305,13 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_bottom_border {
+#qpeitiqebq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_col_headings {
+#qpeitiqebq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1247,7 +1326,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_col_heading {
+#qpeitiqebq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1267,7 +1346,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#zzulhyfrmk .gt_column_spanner_outer {
+#qpeitiqebq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1279,15 +1358,15 @@ Outliers in X5Hz_PP :
   padding-right: 4px;
 }
 
-#zzulhyfrmk .gt_column_spanner_outer:first-child {
+#qpeitiqebq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zzulhyfrmk .gt_column_spanner_outer:last-child {
+#qpeitiqebq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zzulhyfrmk .gt_column_spanner {
+#qpeitiqebq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1299,11 +1378,11 @@ Outliers in X5Hz_PP :
   width: 100%;
 }
 
-#zzulhyfrmk .gt_spanner_row {
+#qpeitiqebq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zzulhyfrmk .gt_group_heading {
+#qpeitiqebq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1329,7 +1408,7 @@ Outliers in X5Hz_PP :
   text-align: left;
 }
 
-#zzulhyfrmk .gt_empty_group_heading {
+#qpeitiqebq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1344,15 +1423,15 @@ Outliers in X5Hz_PP :
   vertical-align: middle;
 }
 
-#zzulhyfrmk .gt_from_md > :first-child {
+#qpeitiqebq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zzulhyfrmk .gt_from_md > :last-child {
+#qpeitiqebq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zzulhyfrmk .gt_row {
+#qpeitiqebq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1371,7 +1450,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#zzulhyfrmk .gt_stub {
+#qpeitiqebq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1384,7 +1463,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#zzulhyfrmk .gt_stub_row_group {
+#qpeitiqebq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1398,15 +1477,15 @@ Outliers in X5Hz_PP :
   vertical-align: top;
 }
 
-#zzulhyfrmk .gt_row_group_first td {
+#qpeitiqebq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zzulhyfrmk .gt_row_group_first th {
+#qpeitiqebq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zzulhyfrmk .gt_summary_row {
+#qpeitiqebq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1416,16 +1495,16 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#zzulhyfrmk .gt_first_summary_row {
+#qpeitiqebq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_first_summary_row.thick {
+#qpeitiqebq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zzulhyfrmk .gt_last_summary_row {
+#qpeitiqebq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1435,7 +1514,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_grand_summary_row {
+#qpeitiqebq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1445,7 +1524,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#zzulhyfrmk .gt_first_grand_summary_row {
+#qpeitiqebq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1455,7 +1534,7 @@ Outliers in X5Hz_PP :
   border-top-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_last_grand_summary_row_top {
+#qpeitiqebq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1465,11 +1544,11 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_striped {
+#qpeitiqebq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zzulhyfrmk .gt_table_body {
+#qpeitiqebq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1478,7 +1557,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_footnotes {
+#qpeitiqebq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1492,7 +1571,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_footnote {
+#qpeitiqebq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1501,7 +1580,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#zzulhyfrmk .gt_sourcenotes {
+#qpeitiqebq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1515,7 +1594,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#zzulhyfrmk .gt_sourcenote {
+#qpeitiqebq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1523,228 +1602,322 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#zzulhyfrmk .gt_left {
+#qpeitiqebq .gt_left {
   text-align: left;
 }
 
-#zzulhyfrmk .gt_center {
+#qpeitiqebq .gt_center {
   text-align: center;
 }
 
-#zzulhyfrmk .gt_right {
+#qpeitiqebq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zzulhyfrmk .gt_font_normal {
+#qpeitiqebq .gt_font_normal {
   font-weight: normal;
 }
 
-#zzulhyfrmk .gt_font_bold {
+#qpeitiqebq .gt_font_bold {
   font-weight: bold;
 }
 
-#zzulhyfrmk .gt_font_italic {
+#qpeitiqebq .gt_font_italic {
   font-style: italic;
 }
 
-#zzulhyfrmk .gt_super {
+#qpeitiqebq .gt_super {
   font-size: 65%;
 }
 
-#zzulhyfrmk .gt_footnote_marks {
+#qpeitiqebq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zzulhyfrmk .gt_asterisk {
+#qpeitiqebq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zzulhyfrmk .gt_indent_1 {
+#qpeitiqebq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zzulhyfrmk .gt_indent_2 {
+#qpeitiqebq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zzulhyfrmk .gt_indent_3 {
+#qpeitiqebq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zzulhyfrmk .gt_indent_4 {
+#qpeitiqebq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zzulhyfrmk .gt_indent_5 {
+#qpeitiqebq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
-<table class="gt_table" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-  <thead>
-    <tr class="gt_heading">
-      <td colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border" style="">Summary Statistics</td>
-    </tr>
-    
-    <tr class="gt_col_headings">
-      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" scope="col" id="<strong>Characteristic</strong>"><strong>Characteristic</strong></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="<strong>C-Asthma</strong>, N = 56<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>"><strong>C-Asthma</strong>, N = 56<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
-      <th class="gt_col_heading gt_columns_bottom_border gt_center" rowspan="1" colspan="1" scope="col" id="<strong>C-SCD</strong>, N = 149<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>"><strong>C-SCD</strong>, N = 149<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
-    </tr>
-  </thead>
-  <tbody class="gt_table_body">
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Observation_number</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
-<td headers="stat_1" class="gt_row gt_center">34 (61%)</td>
-<td headers="stat_2" class="gt_row gt_center">51 (34%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
-<td headers="stat_1" class="gt_row gt_center">13 (23%)</td>
-<td headers="stat_2" class="gt_row gt_center">44 (30%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
-<td headers="stat_1" class="gt_row gt_center">7 (13%)</td>
-<td headers="stat_2" class="gt_row gt_center">31 (21%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;4</td>
-<td headers="stat_1" class="gt_row gt_center">2 (3.6%)</td>
-<td headers="stat_2" class="gt_row gt_center">17 (11%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;5</td>
-<td headers="stat_1" class="gt_row gt_center">0 (0%)</td>
-<td headers="stat_2" class="gt_row gt_center">5 (3.4%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;6</td>
-<td headers="stat_1" class="gt_row gt_center">0 (0%)</td>
-<td headers="stat_2" class="gt_row gt_center">1 (0.7%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Hydroxyurea</td>
-<td headers="stat_1" class="gt_row gt_center">0 (0%)</td>
-<td headers="stat_2" class="gt_row gt_center">112 (75%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Asthma</td>
-<td headers="stat_1" class="gt_row gt_center">56 (100%)</td>
-<td headers="stat_2" class="gt_row gt_center">106 (71%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">ICS</td>
-<td headers="stat_1" class="gt_row gt_center">40 (71%)</td>
-<td headers="stat_2" class="gt_row gt_center">73 (49%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">LABA</td>
-<td headers="stat_1" class="gt_row gt_center">24 (43%)</td>
-<td headers="stat_2" class="gt_row gt_center">14 (9.4%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Gender</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Female</td>
-<td headers="stat_1" class="gt_row gt_center">22 (39%)</td>
-<td headers="stat_2" class="gt_row gt_center">59 (40%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;male</td>
-<td headers="stat_1" class="gt_row gt_center">34 (61%)</td>
-<td headers="stat_2" class="gt_row gt_center">0 (0%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Male</td>
-<td headers="stat_1" class="gt_row gt_center">0 (0%)</td>
-<td headers="stat_2" class="gt_row gt_center">90 (60%)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Age..months.</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">132.98 ± 35.59</td>
-<td headers="stat_2" class="gt_row gt_center">142.16 ± 44.70</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">134.00 (100.00, 147.25)</td>
-<td headers="stat_2" class="gt_row gt_center">144.00 (105.00, 179.00)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">87.00, 213.00</td>
-<td headers="stat_2" class="gt_row gt_center">50.00, 215.00</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Height..cm.</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">146.57 ± 17.33</td>
-<td headers="stat_2" class="gt_row gt_center">145.00 ± 18.83</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">144.50 (131.00, 162.00)</td>
-<td headers="stat_2" class="gt_row gt_center">146.20 (132.00, 160.30)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">120.00, 185.00</td>
-<td headers="stat_2" class="gt_row gt_center">101.80, 178.90</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Weight..Kg.</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">52.98 ± 30.88</td>
-<td headers="stat_2" class="gt_row gt_center">40.11 ± 16.06</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">38.30 (30.60, 66.83)</td>
-<td headers="stat_2" class="gt_row gt_center">36.70 (28.30, 51.90)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">19.60, 130.10</td>
-<td headers="stat_2" class="gt_row gt_center">14.90, 104.40</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">BMI</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">23.02 ± 9.17</td>
-<td headers="stat_2" class="gt_row gt_center">18.32 ± 4.10</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">18.38 (17.17, 25.66)</td>
-<td headers="stat_2" class="gt_row gt_center">17.59 (15.87, 19.48)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">14.10, 48.07</td>
-<td headers="stat_2" class="gt_row gt_center">13.70, 42.09</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">R5Hz_PP</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">89.57 ± 25.09</td>
-<td headers="stat_2" class="gt_row gt_center">107.67 ± 32.83</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">85.50 (72.75, 104.50)</td>
-<td headers="stat_2" class="gt_row gt_center">105.00 (85.00, 125.00)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">43.00, 168.00</td>
-<td headers="stat_2" class="gt_row gt_center">10.00, 199.00</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">R20Hz_PP</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">77.16 ± 21.70</td>
-<td headers="stat_2" class="gt_row gt_center">88.77 ± 24.61</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">72.00 (62.00, 88.25)</td>
-<td headers="stat_2" class="gt_row gt_center">88.00 (72.00, 102.00)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">38.00, 135.00</td>
-<td headers="stat_2" class="gt_row gt_center">12.00, 162.00</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">X5Hz_PP</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">101.87 ± 51.52</td>
-<td headers="stat_2" class="gt_row gt_center">138.04 ± 115.20</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">96.00 (74.75, 117.75)</td>
-<td headers="stat_2" class="gt_row gt_center">116.00 (83.00, 157.00)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">1.69, 381.00</td>
-<td headers="stat_2" class="gt_row gt_center">-68.00, 1,117.00</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-weight: bold;">Fres_PP</td>
-<td headers="stat_1" class="gt_row gt_center"><br></td>
-<td headers="stat_2" class="gt_row gt_center"><br></td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
-<td headers="stat_1" class="gt_row gt_center">120.55 ± 31.25</td>
-<td headers="stat_2" class="gt_row gt_center">136.75 ± 33.35</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
-<td headers="stat_1" class="gt_row gt_center">111.50 (99.00, 142.50)</td>
-<td headers="stat_2" class="gt_row gt_center">132.00 (110.00, 163.00)</td></tr>
-    <tr><td headers="label" class="gt_row gt_left" style="font-style: italic;">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
-<td headers="stat_1" class="gt_row gt_center">61.00, 236.00</td>
-<td headers="stat_2" class="gt_row gt_center">66.00, 225.00</td></tr>
-  </tbody>
-  
-  <tfoot class="gt_footnotes">
-    <tr>
-      <td class="gt_footnote" colspan="3"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> n (%)</td>
-    </tr>
-  </tfoot>
+
+<table class="gt_table table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<thead>
+<tr class="header gt_heading">
+<th colspan="3" class="gt_heading gt_title gt_font_normal gt_bottom_border">Summary Statistics</th>
+</tr>
+<tr class="odd gt_col_headings">
+<th id="<strong>Characteristic</strong>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="<strong>C-Asthma</strong>, N = 56<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>C-Asthma</strong>, N = 56<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+<th id="<strong>C-SCD</strong>, N = 149<span class=&quot;gt_footnote_marks&quot; style=&quot;white-space:nowrap;font-style:italic;font-weight:normal;&quot;><sup>1</sup></span>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>C-SCD</strong>, N = 149<span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Observation_number</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;1</td>
+<td class="gt_row gt_center" headers="stat_1">34 (61%)</td>
+<td class="gt_row gt_center" headers="stat_2">51 (34%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;2</td>
+<td class="gt_row gt_center" headers="stat_1">13 (23%)</td>
+<td class="gt_row gt_center" headers="stat_2">44 (30%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;3</td>
+<td class="gt_row gt_center" headers="stat_1">7 (13%)</td>
+<td class="gt_row gt_center" headers="stat_2">31 (21%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;4</td>
+<td class="gt_row gt_center" headers="stat_1">2 (3.6%)</td>
+<td class="gt_row gt_center" headers="stat_2">17 (11%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;5</td>
+<td class="gt_row gt_center" headers="stat_1">0 (0%)</td>
+<td class="gt_row gt_center" headers="stat_2">5 (3.4%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;6</td>
+<td class="gt_row gt_center" headers="stat_1">0 (0%)</td>
+<td class="gt_row gt_center" headers="stat_2">1 (0.7%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Hydroxyurea</td>
+<td class="gt_row gt_center" headers="stat_1">0 (0%)</td>
+<td class="gt_row gt_center" headers="stat_2">112 (75%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Asthma</td>
+<td class="gt_row gt_center" headers="stat_1">56 (100%)</td>
+<td class="gt_row gt_center" headers="stat_2">106 (71%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">ICS</td>
+<td class="gt_row gt_center" headers="stat_1">40 (71%)</td>
+<td class="gt_row gt_center" headers="stat_2">73 (49%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">LABA</td>
+<td class="gt_row gt_center" headers="stat_1">24 (43%)</td>
+<td class="gt_row gt_center" headers="stat_2">14 (9.4%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Gender</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Female</td>
+<td class="gt_row gt_center" headers="stat_1">22 (39%)</td>
+<td class="gt_row gt_center" headers="stat_2">59 (40%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;male</td>
+<td class="gt_row gt_center" headers="stat_1">34 (61%)</td>
+<td class="gt_row gt_center" headers="stat_2">0 (0%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Male</td>
+<td class="gt_row gt_center" headers="stat_1">0 (0%)</td>
+<td class="gt_row gt_center" headers="stat_2">90 (60%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Age..months.</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">132.98 ± 35.59</td>
+<td class="gt_row gt_center" headers="stat_2">142.16 ± 44.70</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">134.00 (100.00, 147.25)</td>
+<td class="gt_row gt_center" headers="stat_2">144.00 (105.00, 179.00)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">87.00, 213.00</td>
+<td class="gt_row gt_center" headers="stat_2">50.00, 215.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Height..cm.</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">146.57 ± 17.33</td>
+<td class="gt_row gt_center" headers="stat_2">145.00 ± 18.83</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">144.50 (131.00, 162.00)</td>
+<td class="gt_row gt_center" headers="stat_2">146.20 (132.00, 160.30)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">120.00, 185.00</td>
+<td class="gt_row gt_center" headers="stat_2">101.80, 178.90</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Weight..Kg.</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">52.98 ± 30.88</td>
+<td class="gt_row gt_center" headers="stat_2">40.11 ± 16.06</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">38.30 (30.60, 66.83)</td>
+<td class="gt_row gt_center" headers="stat_2">36.70 (28.30, 51.90)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">19.60, 130.10</td>
+<td class="gt_row gt_center" headers="stat_2">14.90, 104.40</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">BMI</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">23.02 ± 9.17</td>
+<td class="gt_row gt_center" headers="stat_2">18.32 ± 4.10</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">18.38 (17.17, 25.66)</td>
+<td class="gt_row gt_center" headers="stat_2">17.59 (15.87, 19.48)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">14.10, 48.07</td>
+<td class="gt_row gt_center" headers="stat_2">13.70, 42.09</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">R5Hz_PP</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">89.57 ± 25.09</td>
+<td class="gt_row gt_center" headers="stat_2">107.67 ± 32.83</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">85.50 (72.75, 104.50)</td>
+<td class="gt_row gt_center" headers="stat_2">105.00 (85.00, 125.00)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">43.00, 168.00</td>
+<td class="gt_row gt_center" headers="stat_2">10.00, 199.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">R20Hz_PP</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">77.16 ± 21.70</td>
+<td class="gt_row gt_center" headers="stat_2">88.77 ± 24.61</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">72.00 (62.00, 88.25)</td>
+<td class="gt_row gt_center" headers="stat_2">88.00 (72.00, 102.00)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">38.00, 135.00</td>
+<td class="gt_row gt_center" headers="stat_2">12.00, 162.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">X5Hz_PP</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">101.87 ± 51.52</td>
+<td class="gt_row gt_center" headers="stat_2">138.04 ± 115.20</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">96.00 (74.75, 117.75)</td>
+<td class="gt_row gt_center" headers="stat_2">116.00 (83.00, 157.00)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">1.69, 381.00</td>
+<td class="gt_row gt_center" headers="stat_2">-68.00, 1,117.00</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Fres_PP</td>
+<td class="gt_row gt_center" headers="stat_1"></td>
+<td class="gt_row gt_center" headers="stat_2"></td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Mean ± SD</td>
+<td class="gt_row gt_center" headers="stat_1">120.55 ± 31.25</td>
+<td class="gt_row gt_center" headers="stat_2">136.75 ± 33.35</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Median (IQR)</td>
+<td class="gt_row gt_center" headers="stat_1">111.50 (99.00, 142.50)</td>
+<td class="gt_row gt_center" headers="stat_2">132.00 (110.00, 163.00)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label" style="font-style: italic">&nbsp;&nbsp;&nbsp;&nbsp;Range</td>
+<td class="gt_row gt_center" headers="stat_1">61.00, 236.00</td>
+<td class="gt_row gt_center" headers="stat_2">66.00, 225.00</td>
+</tr>
+</tbody><tfoot class="gt_footnotes">
+<tr class="odd">
+<td colspan="3" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;"><sup>1</sup></span> n (%)</td>
+</tr>
+</tfoot>
+
 </table>
+
 </div>
 </div>
 </div>
@@ -1752,14 +1925,18 @@ Outliers in X5Hz_PP :
 <section id="correlations" class="level3">
 <h3 class="anchored" data-anchor-id="correlations">3.2.3 Correlations</h3>
 <div class="cell">
-<details>
+<details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlation</span>(<span class="fu">na.omit</span>(x), <span class="at">maxcat=</span>5L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_correlation</span>(<span class="fu">na.omit</span>(x), <span class="at">maxcat=</span><span class="dv">5</span>L)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<details>
+</div>
+<details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>correlation_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(numeric_vars)</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(correlation_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1821,7 +1998,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
 </section>
 <section id="references" class="level1">
 <h1><strong>5 References</strong></h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-aarts_2015" class="csl-entry" role="listitem">
 Aarts, E., Dolan, C. V., Verhage, M., and Sluis, S. van der (2015), <span>“Multilevel analysis quantifies variation in the experimental effect while optimizing power and preventing false positives,”</span> <em>BMC Neuroscience</em>, 16, 94. <a href="https://doi.org/10.1186/s12868-015-0228-5">https://doi.org/10.1186/s12868-015-0228-5</a>.
 </div>
@@ -1943,6 +2120,33 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       }
     }
   }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
   const toggleColorMode = (alternate) => {
     // Switch the stylesheets
     const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
@@ -2009,13 +2213,15 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return localAlternateSentinel;
     }
   }
-  let localAlternateSentinel = 'default';
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
   // Dark / light mode switch
   window.quartoToggleColorScheme = () => {
     // Read the current dark / light value 
     let toAlternate = !hasAlternateSentinel();
     toggleColorMode(toAlternate);
     setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
   };
   // Ensure there is a toggle, if there isn't float one in the top right
   if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
@@ -2094,10 +2300,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2107,8 +2312,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2121,6 +2335,125 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2164,6 +2497,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2189,6 +2523,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2249,6 +2609,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
