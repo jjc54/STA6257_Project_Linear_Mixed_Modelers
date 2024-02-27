@@ -5,7 +5,14 @@ date: "today"
 author: "Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S." 
 bibliography: references.bib
 csl: asa.csl
+format:
+  html:
+    code-fold: true
 ---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
 
 # **1 Introduction**
 
