@@ -65,7 +65,7 @@ Although more flexible than other methods such as ANOVA, there are several assum
 
 ## **2.3 Sample Data Structure**
 
-LMMs require a tidy data set where each variables are columns and observations are rows. Smaller datasets are usually saved as CSV files and are often loaded from a database. The dataset can contain nulls but they still need to be handled whether they are omitted or imputed and depends on the amount and which columns are affected. The lmer() function in the lme4 library will automatically drop any null values so it is important that data is inspected and visualized before contstructing any models. Below is an example of tidy data. 
+LMMs require a tidy data set where each variables are columns and observations are rows. Smaller datasets are usually saved as CSV files and are often loaded from a database. The dataset can contain nulls but they still need to be handled whether they are omitted or imputed and depends on the amount and which columns are affected. The lmer() function in the lme4 library will automatically drop any null values so it is important that data is inspected and visualized before contstructing any models. Below is an example of tidy data.
 
 ![](images/tidy-4.png)
 
