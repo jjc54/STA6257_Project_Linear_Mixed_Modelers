@@ -4,11 +4,12 @@ project:
 
 website:
   open-graph: TRUE
-  title: "The CLIP Chronicles"
+  title: "The Linear Mixed Modelers"
   navbar:
     left:
       - href: index.qmd
         text: Home
+      - literature.qmd
       - report.qmd
       - slides.qmd
       - code.qmd

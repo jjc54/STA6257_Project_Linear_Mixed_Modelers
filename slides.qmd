@@ -2,6 +2,4 @@
 title: "Slides"
 ---
 
-Here's a copy of the final slideshow we presented as part of the group project to Dr. Pu on March 1st, 2024.
-
-[Download Slides](./Slides.pptx)
+TBD

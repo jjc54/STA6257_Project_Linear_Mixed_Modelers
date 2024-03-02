@@ -1,9 +1,7 @@
-Contrastive Language-Image Pre-training (CLIP) is a Convolutional Neural Network (CNN) that learns visual concepts from natural language supervision and has been trained on a combination of images and their captions. CLIP bridges the gap between traditional CNN and natural language processing, providing several innovations and advancements such as generalization across tasks, increased flexibility, and scalability, and having an interface to natural language.
+Linear mixed models (LMMs) are statistical models that account for both fixed and random effects. Please follow along as we provide a systematic review of LMMs, their applications, their limitations, and more. Importantly, we will develop a report and by-example analysis of LMMs in R.
 
-As part of **Deep Learning for Data Science (IDC 6146) at the University of West Florida**, our team critically analyzed, assessed, and reproduced the CLIP model and elaborated on potential applications in a professional report. This website was built using R/Quarto while the code for the analysis was built using Python/Jupyter, representing an interdisciplinary and collaborative approach to this group project.
+Here's a snapshot of the analysis process our team is currently going through:
 
-This project was completed under the guidance of **Dr. Shusen Pu ([Shusen Pu \| Dr. Shusen Pu](https://www.shusenpu.com/)).**
+![LMM](images/LMM.png)
 
-![CLIP](images/timeline.png)
-
-Feel free to learn more on our website: 
+Feel free to learn more on our website: [Linear Mixed Models (jjc54.github.io)](https://jjc54.github.io/STA6257_Project_Linear_Mixed_Modelers/)

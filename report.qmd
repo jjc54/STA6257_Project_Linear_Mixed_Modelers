@@ -1,229 +1,295 @@
 ---
 title: "Report"
-subtitle: "CLIP Chronicles: Bridging Pixels and Prose in Deep Learning"
+subtitle: "Inhale, Exhale, Analyze: BMI's Imprint on Impulse Oscillometry Outcomes"
 date: "today"
-author: "Chinmay Shah, M.S., Joshua J. Cook, M.S., ACRP-PM, CCRC, Praya Cheekapara, B.S., Moise Brutus, B.S., Shusen Pu, Ph.D." 
+author: "Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S." 
 bibliography: references.bib
 csl: asa.csl
 format:
   html:
     code-fold: true
-embed-resources: TRUE
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(warning = FALSE, message = FALSE)
 ```
 
-# **1 Related Work**
+# **1 Introduction**
 
-Inception of one of the first artificial neural networks is credited to Dr. Kunihiko Fukushima in the 1980s. In his landmark paper, Fukushima builds on earlier work by Hubel and Wiesel who conceptualized a network of simple and complex “cells” that are capable of recognizing stimulus patterns based on geometrical similarity that simulated the way the human visual cortex processes visual information [@fukushima_neocognitron_1980]. This network was nicknamed the “Neocognitron,” and was built off of Fukushima’s original concept of the “Cognitron'' in 1975, which was also a self-organizing multilayered neural network model [@fukushima_neocognitron_1980]. The main improvement introduced in the Neocognitron was the response of the network not being affected by the position of individual stimulus patterns (i.e., shifted patterns) [@fukushima_neocognitron_1980]. Additionally, the Neocognitron introduced architecture capable of supervised learning in addition to the unsupervised methods that were present in the Cognitron [@fukushima_neocognitron_1980]. Both the Cognitron and the Neocognitron laid the foundation for the development of more advanced convolutional neural networks (CNNs) throughout the 1990s and to modern models, as shown in Figure 1. 
+Linear mixed-effects models (LMMs) are advanced statistical tools designed to analyze data that exhibit complex structures, such as hierarchical organization, repeated measures, and random effects. These models are particularly useful when data violate the assumptions of traditional ANOVA or regression methods, such as the independence of observations, homoscedasticity, and normality of residuals. LMMs accommodate intra-subject differences, allowing for both fixed effects, which are consistent across individuals, and random effects, which vary among subjects or groups.
 
-![](figure_1.png){.lightbox}
+The implementation of LMMs has been facilitated by various software packages and programming languages. Brown [@brown_introduction_2021] provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, the lme4 package, as detailed by Bates et al. [@bates_fitting_2015], represents a significant evolution in computational methods for fitting mixed models, offering efficient tools and simplified modeling processes for R users, especially for models with crossed random effects. Pymer4, developed by Jolly [@jolly_pymer4_2018], bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R's lme4 package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.
 
-**Figure 1. Timeline of CNN development. CNN development was initiated by the work of Fukushima in the 1970s and 1980s via the introduction of the Cognitron and Neocognitron. This spurred the development of more complex CNNs during the 1990s such as LeNet-5, and modern models such as GoogLeNet and CLIP** [@fukushima_neocognitron_1980; @lecun_gradient-based_1998; @krizhevsky_imagenet_2012; @simonyan_very_2014; @szegedy_going_2015; @sabour_dynamic_2017]
+LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang [@lee_estimation_nodate] explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. [@wang_statistical_2022] illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model's ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Aarts et al [@aarts_2015] demonstrates mulilevel design experiements in neurscciene and how using linear models on multilevel data can result in increase in false positives. Magezi [@magezi_linear_2015] highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. [@harrison_brief_2018] and Bolker et al. [@bolker_generalized_2009] discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures with GRU. Grueber et al [@grueber_2011] another ecology research, paper focuses on the model averaging and information theoritac with LMMS as an alternative to traditional null hypothesis testing. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. [@verbeeck_linear_2023], and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. [@touraine_when_2023].
 
-In the late 1990s, LeCun Et. Al. applied the concept of backpropagation to neural networks with the goal of recognizing digits of different handwriting styles [@lecun_gradient-based_1998]. Backpropagation is a gradient estimation algorithm used to train neural networks, including CNNs. In their paper, LeCun Et. Al. utilized the MNIST database that contained 60,000 training and 10,000 testing images of handwriting from the American Census Bureau [@lecun_gradient-based_1998]. LeCun Et. Al. directly built on the work of Fukushima, creating the LeNet CNN by giving the model an example image, asking it to predict the image (i.e., training), and then updating the model setting by comparing the ground truth to the predicted label (i.e., testing) [@lecun_gradient-based_1998]. The LeNet model (now known as LeNet-5) was a groundbreaking application of artificial neural networks from which further development in the 2000s and 2010s was built on [@lecun_gradient-based_1998]. 
+The paper "To transform or not to transform: using generalized linear mixed models to analyse reaction time data" by Lo and Andrews [@lo_transform_2015] challenges the common practice of transforming reaction time data in cognitive psychology, advocating for GLMMs as a more robust alternative. The "LEVEL" guidelines proposed by Monsalves et al. [@monsalves_level_2020] aim to standardize the reporting of multilevel data and analyses, enhancing comparability across studies. Piepho's study [@piepho_analysing_1999] on analyzing disease incidence data with GLMMs underscores the inadequacy of traditional methods like ANOVA for such data, highlighting GLMMs' flexibility. The simulation study by Pusponegoro et al. [@pusponegoro_linear_2017] on children's growth differences emphasizes the importance of choosing the appropriate covariance structure in LMMs for longitudinal data. Lastly, the framework introduced by Steibel et al. [@steibel_powerful_2009] for analyzing RT-PCR data with LMMs showcases the method's statistical power and flexibility, offering a significant advancement over traditional analysis methods. LMMs are used in a wide array of disciplines, but also in varying study designs, as shown in Table 1.
 
-One of the primary limitations of developing models like LeCun-5 stemmed from the availability of large-scale image data. Due to this, in 2006 Fei-Fei Li began working on a database of image data that could be widely utilized by artificial intelligence researchers. This database became ImageNet, which currently houses over 14 million images that are organized according to WordNet hierarchy. ImageNet is available to researchers, but is also the focus of the annual ImageNet Large Scale Visual Recognition Challenge (ILSVRC), which evaluates algorithms for object detection and image classification. The introduction of ImageNet did two things: first, a large image-based dataset became widely available for researchers, and two, an annual competition was created that encouraged innovations in CNN development. 
+Table 1. Systematic Review of LMM Use-cases [@casals_methodological_2014]
 
-In 2012, the third year of the ILSVRC, Alex Krizhevsky Et. Al. won the competition with a top-5 error of 15.3%, which was 10.8% lower than the runner-up and utilizes a CNN [@krizhevsky_imagenet_2012]. The network, now known as AlexNet, has 8 layers (5 convolutional and 3 fully-connected) that were trained on the ImageNet dataset (which included 1.2 million high-resolution images at the time) [@krizhevsky_imagenet_2012]. AlexNet represented a huge leap forward in the complexity of CNNs, with 60 million parameters and 650,000 neurons [@krizhevsky_imagenet_2012]. Building on this, the 2014 and 2015 ILSVRC were won by Karen Simonyan Et. Al. for their development of VGGNet and Google for their development of GoogleLeNet respectively [@simonyan_very_2014; @szegedy_going_2015]. Both of these implementations of CNN were focused at increasing the depth of the networks [@simonyan_very_2014; @szegedy_going_2015]. Microsoft introduced ResNet in 2015. 
+![](images/LMM_uses.png)
 
-More recently, in 2017, Geoffrey Hinton Et. Al. introduced the idea of Capsule Networks, which are groups of neurons in a network (capsules) that can detect objects or parts of objects across different viewpoints [@sabour_dynamic_2017]. This innovation provided several improvements on traditional CNNs, including the preservation of spatial hierarchies, generalization to new views, and reduced data requirements[@sabour_dynamic_2017]. A few years later, in 2019, Google introduced EfficientNet, which can scale CNNs in a very structured measure and provides high accuracy with fewer parameters using the ImageNet database. Most recently in 2021, Radford Et. Al. at OpenAI introduced the contrastive language-image pre-training (CLIP) [@radford_learning_2021]. CLIP is a CNN that learns visual concepts from natural language supervision, and has been trained on a combination of images and their captions [@radford_learning_2021] CLIP bridges the gap between traditional CNN and natural language processing, providing several innovations and advancements such as generalization across tasks, increased flexibility and scalability, and having an interface to natural language [@radford_learning_2021]. 
+The strengths of LMMs lie in their flexibility to model complex data structures and their ability to handle missing data, making them a powerful tool for a wide range of scientific inquiries. However, their application is not without challenges. Peng and Lu [@peng_model_2012] address the difficulty of variable selection and parameter estimation in LMMs, proposing an iterative procedure to improve model accuracy. Barr [@barr_random_2013] critiques existing guidelines for testing interactions within LMMs, proposing new guidelines to ensure more reliable results. The work by Tu [@tu_using_2015] on GLMMs for network meta-analyses showcases how mixed models have evolved to tackle complex data, enhancing the accuracy of combining different studies. On the other hand, Fokkema et al. [@fokkema_generalized_2021] introduce GLMM trees, merging machine learning with mixed models to improve predictions and analysis, particularly useful in mental health research. Despite their robustness, as noted by Schielzeth et al. [@schielzeth_robustness_2020], LMMs require careful evaluation of model assumptions and may present computational challenges, especially with high-dimensional datasets.
 
-# **2 Methodology**
+The literature reviewed here collectively emphasizes the versatility, robustness, and broad applicability of LMMs and GLMMs across various fields of research. Despite their advantages, the importance of careful model selection, acknowledgment of limitations, and the potential need for more complex models such as joint models in certain scenarios are also highlighted. As the use of LMMs continues to grow, the development of standardized processes, such as the LEVEL framework [@monsalves_level_2020] and the 10 protocol put forth by [@zuur_2016], and user-friendly tools will be crucial in ensuring the accurate and effective application of these models in research.
 
-The CLIP (Contrastive Language Image Pretraining) model is founded on the concept of acquiring perceptual understanding through natural language.
+# **2 Methods**
 
-![](images/figure_2.png){.lightbox}
+## **2.1 Mathematical Foundations**
 
-**Figure 2. Summary of the CLIP architecture. CLIP jointly trains an image encoder and a text encoder to predict the correct pairings of a batch of (image, text) training examples. At test time the learned text encoder synthesizes a zero-shot linear classifier by embedding the names or descriptions of the target dataset’s classes.** [@radford_learning_2021]
+LMMs can be defined as:
 
-The fundamental concept behind CLIP involves utilizing captioned images picked up from the internet to build a model that is capable of predicting text or a bunch of words associated with an image. The CLIP model achieves this by pretraining on a set of images and captions and generating a comparison between their encoding’s output using an image and text encoder respectively. In this process, images that match well with corresponding text are assigned high values, whereas those that do not match receive low values. Here the model learns to place matching pairs nearby and place non-matching pairs further away. This approach, known as "contrastive learning," entails training the model to discern whether elements belong together or not.
+$y=X\beta + Z\gamma + \epsilon$
 
-## **2.1 Setting up a Large Dataset**
+where:
 
-Establishing a comprehensive dataset presented a significant challenge in training this model. Previous efforts primarily relied on three datasets—MS-COCO, Visual Genome, and YFCC100M. MS-COCO and Visual Genome, each comprising approximately 100,000 crowd-labeled images, proved insufficient. Although YFCC100M boasted over 100 million images, the authors narrowed down the selection by filtering for quality and English-language descriptions, resulting in 15 million images comparable to those in ImageNet. The abundance of publicly available data served as a primary motivation for incorporating natural language supervision. The authors curated a dataset consisting of 400 million image-text pairs, averaging around 20,000 pairs per query.
+-   Y is the response vector.
 
-## **2.2 Components of the CLIP Model**
+-   X is the design matrix for fixed effects.
 
-Clip as a model is a combination of a variety of subcomponents that are used to achieve this association between images and text. At its core, CLIP consists of a dual encoder system, which includes separate encoders for processing text and images. The image encoder is typically based on a convolutional neural network (CNN), capable of extracting hierarchical visual features from input images. Conversely, the text encoder leverages transformer-based models to encode textual descriptions or prompts. These encoders learn to represent images and text in a shared embedding space, where semantically similar concepts are positioned closer to each other. Additionally, CLIP incorporates a contrastive learning objective, where the model is trained to maximize the similarity between matching pairs of text and images while minimizing the similarity between non-matching pairs.
+-   β is the vector of fixed effects (parameters associated with the entire population or certain repeatable levels of experimental factors).
 
-### **2.2.1 What is a Text Encoder?**
+-   Z is the design matrix for random effects.
 
-![](images/figure_3.png){.lightbox}
+-   γ is the vector of random effects (represent random deviations from the population parameters (β ) for different subjects or experimental units; i.e., the variability not explained by the fixed effects).
 
-**Figure 3. The above figure describes the role of a text encoder.** [@radford_learning_2021]
+-   ϵ is the vector of residual errors.
 
-The text encoder within CLIP is a standard transformer encoder. A transformer can be thought of as a system which takes an entire input sequence of words, then re-presents, and compares those words to create an abstract and contextualized representation of the entire input. The self-attention mechanism within a transformer is the main mechanism that creates that contextualized representation.
+Although more flexible than other methods such as ANOVA, there are several assumptions for LMMs:
 
-### **2.2.2 Transformers**
+1.  Random effects (γ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
 
-Transformers are a powerful class of deep learning models that have revolutionized natural language processing (NLP) tasks. Unlike traditional recurrent neural networks (RNNs) and convolutional neural networks (CNNs), which process data sequentially or locally, transformers leverage attention mechanisms to capture long-range dependencies and relationships within input sequences. At the heart of a transformer architecture are self-attention mechanisms, which enable the model to weigh the importance of each token in the input sequence with respect to every other token. By attending to relevant tokens and aggregating information across the entire sequence, transformers can effectively capture global context and semantic relationships, making them highly effective for tasks such as language translation, text generation, and sentiment analysis. Additionally, transformers consist of multiple layers of self-attention and feedforward neural networks, allowing them to learn hierarchical representations of input sequences.
+    $\gamma \sim N(0,G)$
 
-### **2.2.3 What is an Image Encoder?**
+2.  Residual errors (ϵ ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix R.
 
-![](images/figure_4.png){.lightbox}
+    $\epsilon \sim N(0,R)$
 
-**Figure 4. The above figure describes the role of an image encoder.** [@radford_learning_2021]
+3.  Random effects (γ) and residual errors (ϵ ) are assumed to be independent.
 
-The image encoder converts an image into a vector (a list of numbers) that represents the image’s meaning. In the CLIP paper we employ a RESNET-50 architecture as an image encoder.
+## **2.2 Breakdown of Mathematical Foundations**
 
-![](images/figure_5.png){.lightbox}
+**\[PLACEHOLDER FOR LAYMANS TERMS EXPLANATIONS\]**
 
-**Figure 5. The above figure describes a simple convolution operation where we use a horizontal line detection kernel used to detect horizontal line features in the input image.**
+## **2.3 Sample Data Structure**
 
-### **2.2.4 What is Convolution?**
+LMMs require a tidy data set where each variables are columns and observations are rows. Smaller datasets are usually saved as CSV files and are often loaded from a database. The dataset can contain nulls but they still need to be handled whether they are omitted or imputed and depends on the amount and which columns are affected. The lmer() function in the lme4 library will automatically drop any null values so it is important that data is inspected and visualized before contstructing any models. Below is an example of tidy data.
 
-Convolutional layers, the building blocks of CNNs, operate by applying filters (also known as kernels) to input images. These filters slide across the input image, computing a dot product between the filter weights and the pixel values within each receptive field. Figure 4 above describes a simple convolution where we use a horizontal line detecting kernel to detect horizontal line features in the input image. By stacking these convolutional kernels together, we build a CNN. The following equation (eqn 1.) defines the convolution operation.
+![](images/tidy-4.png)
 
-![](images/equation_1.png){.lightbox}
+# **3 Analysis and Results**
 
-### **2.2.5 Convolutional Neural Network**
+## **3.1 Packages**
 
-Convolutional neural networks (CNNs) are a class of deep learning models specifically designed for processing structured grid-like data, such as images. CNNs are characterized by their ability to automatically learn hierarchical representations of visual features directly from raw pixel data. CNNs can effectively learn increasingly abstract and hierarchical representations of visual features, leading to robust performance in tasks such as image classification, object detection, and image segmentation. The whole idea behind a convolutional network is, by doing a combination of convolutions and down sampling of an image, you can extract more and more subtle feature representations which can be turned into some final output. Fig 6. describes a classic CNN architecture from a very famous object detection model YOLO [@redmon_you_2016]. In the figure each of these boxes describe an input image’s horizontal and vertical size, as well as their “depth”, in terms of number of features. The input image is an RGB image, so it has a depth of 3. By extracting more and more features, and downsampling the image via max pooling, the network distills the image into an abstract representation which is trained to hold some meaning about the image.
+```{r}
 
-![](images/figure_6.png){.lightbox}
+if (!requireNamespace(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer", "gtsummary"), quietly = TRUE)) {
+    install.packages(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer", "gtsummary"))
+}
 
-**Figure 6. A classic convolutional architecture from the YOLO paper, an landmark object detection model.** [@redmon_you_2016]
+library(tidyverse)
+library(lme4)
+library(nlme)
+library(gt)
+library(RefManageR)
+library(DataExplorer)
+library(gtsummary)
 
-### **2.2.6 Comparing the Cosine Similarity**
+#references <- ReadBib("references.bib")
+#summary(references)
+```
 
-Cosine similarity is a measure used to determine the similarity between two vectors in a high-dimensional space by computing the cosine of the angle between them. In machine learning and natural language processing, cosine similarity is valuable for comparing the similarity of documents, sentences, or words represented as vectors in a vector space model. Widely used in machine learning and natural language processing, it compares vectors' directions rather than magnitudes, making it robust for tasks like document retrieval, text classification, and recommendation systems. The following equation 2 describes how the cosine similarity is calculated. This cosine similarity is used
+-   `tidyverse`: used for data wrangling and visualisation.
 
-![](images/equation_2.png){.lightbox}
+-   `lme4`: used for LMM within R.
 
-![](images/figure_7.png){.lightbox}
+-   `nlme`: used for nonlinear LMM (NLMM) within R.
 
-**Figure 7. The figure focuses on putting the first and second part together and calculating the contrastive loss. [@radford_learning_2021]**
+-   `gt`: used for table generation.
 
-In the CLIP model as seen in figure 7 cosine similarity is employed to calculate the contrastive loss by comparing the cosine similarity between text and image embeddings. This involves computing the cosine similarity between the normalized text embedding and the normalized image embedding, which helps quantify the semantic similarity between the given text and image pair. By maximizing the cosine similarity for positive pairs (matching text and image) and minimizing it for negative pairs (mismatched text and image), the model learns to effectively align semantic representations across different modalities.
+-   `gtsummary`: used for summary table generation of descriptive statistics.
 
-## **2.3 Zero Shot Classification**
+-   `RefManageR`: used for BibTex reference management.
 
-Zero-shot classification in the CLIP model enables it to recognize objects or concepts that it hasn't been explicitly trained on. By leveraging a large pre-trained language and vision model, CLIP learns to associate text prompts with corresponding images during training, allowing it to generalize to unseen classes at inference time. This capability is achieved through the model's ability to understand natural language descriptions and relate them to visual content, enabling versatile and adaptive classification without the need for fine-tuning on specific classes.
+## **3.2 Data Ingestion**
 
-# **3 Impact and Critical Assessment**
+```{r}
 
-**Impact** - Since CLIP allows people to design their own classifiers, how classes are designed influences model performance and model biases.There are also discrepancies across gender and race for the people categorized into “crime” and “non-human” categories even when care is taken into thoughtful class design. Since CLIP does not need task-specific training data, it can unlock specific tasks with greater ease.This also means that  it may raise privacy or surveillance related risks [@radford_learning_2021].
+# Load the dataset
+BMI <- read.csv("data/BMI_IOS_SCD_Asthma.csv")
+```
+
+### **`BMI` from Kaggle (**[Impact of BMI on IOS measures on children (kaggle.com)](https://www.kaggle.com/datasets/utkarshx27/impact-of-bmi-on-ios-measures))
+
+-   **Description**: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD)
+
+-   **Detailed Description**: The dataset comprises various attributes and measurements across its columns. Categorical variables, such as Group, Subject ID, Observation_number, Hydroxyurea, Asthma, ICS, LABA, and Gender, denote different groupings, individual subjects, and attributes like medication usage and gender. Numerical variables like Age (months), Height (cm), Weight (Kg), BMI, R5Hz_PP, R20Hz_PP, X5Hz_PP, and Fres_PP provide quantitative data on subjects’ characteristics and test results. Notably, the summary also identifies missing values, such as the 14 instances in the Fres_PP variable, which warrant consideration in subsequent analysis.These columns provide measurements and estimates related to airway resistance and reactance obtained using impulse oscillometry (IOS), which is a non-invasive method for assessing respiratory function. These parameters are valuable in understanding the impact of BMI on respiratory measures in children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma) participating in the study.
+
+-   **Why suitable for LMMs**: The dataset has multiple observations, over time, for the same set of participants.
+
+## **3.2 Exploratory Data Analysis (EDA)**
+
+```{r}
+
+x <- BMI
+
+str(x)
+
+head(x)
+
+variables <- colnames(x)
+
+variables_table <- data.frame(
+  Variable = variables,
+  Description = c(
+    "This column indicates the group to which the subject belongs. There are two groups in the study: children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).",
+    "Each subject in the study is assigned a unique identifier or ID, which is listed in this column. The ID is used to differentiate between individual participants.",
+    "This column represents the number assigned to each observation or measurement taken for a particular subject. Since this is a longitudinal study, multiple observations may be recorded for each subject over time.",
+    "This column indicates whether the subject with sickle cell disease (C-SCD) received hydroxyurea treatment. Hydroxyurea is a medication commonly used for the treatment of sickle cell disease.",
+    "This column indicates whether the subject has a diagnosis of asthma. It distinguishes between children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).",
+    "This column indicates whether the subject is using inhaled corticosteroids (ICS). ICS is a type of medication commonly used for the treatment of asthma and certain other respiratory conditions.",
+    "This column indicates whether the subject is using a long-acting beta-agonist (LABA). LABA is a type of medication often used in combination with inhaled corticosteroids for the treatment of asthma.",
+    "This column represents the gender of the subject, indicating whether they are male or female",
+    "This column specifies the age of the subject at the time of the observation or measurement. Age is typically measured in months.",
+    "This column represents the height of the subject, typically measured in a standard unit of length, such as centimeters or inches. Height is an important variable to consider in assessing the impact of BMI on respiratory measures.",
+    "This column indicates the weight of the subject at the time of the observation or measurement. Weight is typically measured in kilograms (Kg) and is an important variable for calculating the body mass index (BMI).",
+    "Body Mass Index (BMI) is a measure that assesses body weight relative to height. It is calculated by dividing the weight of an individual (in kilograms) by the square of their height (in meters). The BMI column provides the calculated BMI value for each subject based on their weight and height measurements. BMI is commonly used as an indicator of overall body fatness and is often used to classify individuals into different weight categories (e.g., underweight, normal weight, overweight, obese).",
+    "This column represents the estimate of airway resistance at 5 Hz using impulse oscillometry (IOS). Airway resistance is a measure of the impedance encountered by airflow during respiration. The R5Hz_PP value indicates the airway resistance at the frequency of 5 Hz and is obtained through the IOS testing.",
+    "This column represents the estimate of airway resistance at 20 Hz using impulse oscillometry (IOS). Similar to R5Hz_PP, R20Hz_PP provides the measure of airway resistance at the frequency of 20 Hz based on the IOS testing.",
+    "This column represents the estimate of airway reactance at 5 Hz using impulse oscillometry (IOS). Airway reactance is a measure of the elasticity and stiffness of the airway walls. The X5Hz_PP value indicates the airway reactance at the frequency of 5 Hz and is obtained through the IOS testing.",
+    "This column represents the estimate of resonant frequency using impulse oscillometry (IOS). Resonant frequency is a measure of the point at which the reactance of the airways transitions from positive to negative during respiration. The Fres_PP value indicates the resonant frequency and is obtained through the IOS testing.:"
+    )
+)
+
+variables_table %>%
+  gt %>%
+  tab_header(
+    title = "Variable Description"
+  )
+  
+plot_str(x)
+introduce(x)
+plot_intro(x)
+```
+
+### **3.2.1 Missing Values**
+
+```{r}
+
+plot_missing(x)
+```
+
+Based on the missing values count, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation
+
+### 3.2.2 Cleaning Data
+
+```{r}
+
+dim(x)
+ 
+x_clean <- na.omit(x) # drops NAs, further analysis is without NA values
 
-![](images/table_1.png){.lightbox}
+dim(x_clean)
+str(x_clean)
+plot_bar(x_clean)
+plot_histogram(x_clean)
+plot_qq(na.omit(x))
+plot_prcomp(na.omit(x))
 
-**Table 1. Comparison of visual n-Grams to CLIP.** [@radford_learning_2021]
+numeric_vars <- x_clean %>% 
+  select_if(is.numeric)
 
-**Accuracy** -  The best CLIP model improves accuracy on ImageNet from a proof of concept 11.5% to 76.2% and matches the performance of the original ResNet50 despite using none of the crowd-labeled training examples [@radford_learning_2021].
+# Boxplot for each numeric variable
+par(mfrow=c(2, 2))
+for (col in colnames(numeric_vars)) {
+  boxplot(numeric_vars[[col]], main=col)
+}
+```
 
-**Results**- Figure 8 showed CLIP’s zero-shot classifiers performance when compared to a simple off-the-shelf baseline which is fitting a logistic regression classifier on the features of the canonical ResNet50 [@radford_learning_2021]. This comparison was across 27 datasets. Zero-shot CLIP outperforms this baseline slightly on 16 of the 27 datasets. CLIP underperforms when it comes to complex or abstract tasks such as counting objects in synthetic scenes (CLEVR Counts).This can show the the poorer capabilities of zero-shot CLIP on more complex tasks. Figure 9 summarizes the findings of the representation learning capabilities of a model. The performance on the from dataset evaluation suite was from Kornblith et al [@chen_big_2020]\]. Models trained with CLIP scale well and the largest model outperforms the best existing model (a Noisy Student EfficientNet-L2) on the compute efficiency. They also found that CLIP vision transformers are about three times more compute efficient than CLIP ResNets. This allows higher overall performance within the compute budget. These results replicate previous findings where it was reported that vision transformers are more compute efficient than convnets when trained on large datasets [@radford_learning_2021].
+Based on the boxplot, it’s evident that all columns except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers.
 
-![](images/figure_8.png){.lightbox}
+```{r}
 
-**Figure 8. The Zero Shot CLIP is fully comparable with all fully supervised baselines across all 27 datasets. [@radford_learning_2021]**
+# Define a function to detect outliers in each column
+detect_outliers <- function(column) {
+  Q1 <- quantile(column, 0.25)
+  Q3 <- quantile(column, 0.75)
+  IQR <- Q3 - Q1
+  lower_bound <- Q1 - 1.5 * IQR
+  upper_bound <- Q3 + 1.5 * IQR
+  outliers <- column[column < lower_bound | column > upper_bound]
+  return(outliers)
+}
 
-![](images/figure_9.png){.lightbox}
+# Iterate over each column and print outliers; not removed
+for (col in names(numeric_vars)) {
+  outliers <- detect_outliers(numeric_vars[[col]])
+  if (length(outliers) > 0) {
+    cat("Outliers in", col, ":\n")
+    print(outliers)
+    cat("\n")
+  }
+}
 
-**Figure 9. Linear probe performance of CLIP models in comparison with state-ofthe-art computer vision models** [@radford_learning_2021]
+x_clean %>% 
+  select(-2) %>%
+  tbl_summary( #gtSummary Table
+    by=Group,
+    type = list(
+      c('Age..months.', 'Height..cm.', 'Weight..Kg.', 'BMI', 'R5Hz_PP', 'R20Hz_PP', 'X5Hz_PP', 'Fres_PP') ~ 'continuous2'),
+    statistic = all_continuous2() ~ c(
+                       "{mean} ± {sd}",
+                       "{median} ({p25}, {p75})",
+                       "{min}, {max}"
+                       ),
+    digits = all_continuous2() ~ 2,
+    missing="ifany",
+  ) %>%
+  bold_labels %>%
+  italicize_levels() %>%
+  as_gt() %>%
+  tab_header(
+    title = "Summary Statistics"
+  )
+```
 
-**Scalability** -There is concern that  pre-training a large internet dataset would have unintentional overlap with downstream evals. De-duplication analysis was done to detect this.Although there was found to be a  small amount of overlap,  the overall accuracy was  rarely shifted by more than 0.1% with only seven datasets above this threshold. This was similar to previous  findings of similar duplicate analysis in previous work on large scale pre-training where there was minimal changes in overall performance.Future research  would be on the characterization of the capabilities,faults, and biases in such models [@radford_learning_2021].
+### 3.2.3 Correlations
 
-# **4 Replication of Results**
+```{r}
+plot_correlation(na.omit(x), maxcat=5L)
 
-## 4.1 Dataset
+correlation_matrix <- cor(numeric_vars)
+print(correlation_matrix)
+```
 
-The CIFAR-10 dataset is a collection of 60,000 32X32 pixel images divided into two subsets. The main subset consists of 50,000 images referred to as the training set. The secondary subset consists of 10,000 images referred to as the testing set. The images are broken into the 10 following individual classes: airplanes, cars, birds, cats, deer, dogs, frogs, horses, ships, and trucks. Each class comprising 6,000 images further broken down into 5,000 in the training set and 1,000 in the testing set. CIFAR-10 is one of the most widely used data sets used to train computer vision tasks. We gained access to the dataset using the built-in Torchvision Dataset library.
+Age (months) and Height (cm): There is a strong positive correlation (0.914) between Age (months) and Height (cm). This implies that as age increases, height tends to increase as well. This correlation is expected, as children tend to grow taller as they get older.
 
-To test the model out and try to train it on a broader dataset we also explored the caltech 256 dataset. The Caltech 256 dataset is a widely used benchmark dataset in computer vision, consisting of 30,607 images across 256 object categories. The dataset covers a diverse set of object classes, including animals, vehicles, household items, and natural scenes. This rich diversity makes the dataset challenging and suitable for evaluating the performance of computer vision algorithms, particularly in tasks such as object recognition, classification, and scene understanding. The dataset was broken down into smaller sections, where we picked up like 5000 images for training and 1000 images for validation. This dataset was available online and is free to download. 
+Weight (Kg) and BMI: There is a strong positive correlation (0.927) between Weight (Kg) and BMI. This suggests that as weight increases, BMI (Body Mass Index) tends to increase as well. This correlation is expected because BMI is calculated using weight and height measurements.
 
-## 4.2 Model Training
+R5Hz_PP and Fres_PP: There is a strong positive correlation (0.754) between R5Hz_PP and Fres_PP.
 
-The pretrained CLIP model available on GitHub offers a selection of five different models, each varying in architecture size and complexity. For this project, we opted to utilize the "ViT-B32" model, notable for its extensive parameter count of over 155 million, making it capable of capturing rich visual and textual features during training. With our chosen model in hand, we embarked on the training process using the dataset described in the previous section.\
+## **3.3 Linear Mixed Modeling**
 
-The training loop unfolds in several key steps to iteratively refine the model's performance:
+```{r}
 
--   Within each iteration, a batch of images along with their corresponding captions is loaded into memory.
+```
 
--   The data is then fed through the CLIP model, which generates predictions based on the learned associations between textual and visual representations.
+## **3.4 Model Comparisons and Assessment**
 
--   These predictions are compared against the ground truth annotations to compute the loss, which quantifies the disparity between the predicted and actual labels.
+```{r}
 
--   Through backpropagation, the computed loss is propagated back through the network, enabling the model to adjust its parameters in the direction that minimizes the loss, thereby improving its performance.
+```
 
--   This fine-tuning process continues for a predetermined number of epochs, gradually refining the model's understanding of the intricate relationship between our specific set of images and their corresponding textual descriptions.
+## **3.5 Simulation (POSSIBLY)**
 
-Figure 10 represents the result that we got during training where we have plotted validation accuracy and loss vs no. of epochs.
+```{r}
 
-![](images/figure_10.png){.lightbox}
+```
 
-**Figure 10. The above plot represents the loss and validation accuracy vs no. of epochs.**
+# **4 Conclusion**
 
-As you can see from the plot there is a lot more data and a lot more many epochs required in addition with some tunning to get the loss to be zero and increase the accuracy. Due to equipment limitation we had to run a smaller subset of the data for a lesser number of epochs due to the shear size of the model. The model contains over 155 million parameters and the huge dataset posed a huge challenge for our personal computers.
+**\[PLACEHOLDER FOR CONCLUSION\]**
 
-[**See the Code tab for a full code listing.**]{.underline}
-
-## 4.3 Classification Examples
-
-### 4.3.1 Principle of Similarity Matrix
-
-In the context of the CLIP model, a similarity matrix serves as a vital tool for quantifying the semantic relationships between textual descriptions and associated images. Represented as a square matrix, it captures pairwise similarities between elements in the dataset, aiding tasks such as image retrieval and clustering. By computing similarity scores between image-caption pairs, the matrix facilitates the exploration of underlying patterns and structures within multimodal data. This matrix plays a crucial role in enhancing our understanding of the intricate connections between textual and visual information, driving advancements in multimodal learning within the CLIP framework.
-
-![](images/figure_11.png){.lightbox}
-
-**Figure 11. The above figure describes a similarity matrix. And how the clip model is structured to find the similarity between text and images.** [@radford_learning_2021]
-
-### 4.3.2. Cosine Similarity Between Text and Image Features
-
-In the illustration below, we present a straightforward classification example for the CLIP model. The image depicts a cosine similarity matrix comparing five images with five distinct captions. The diagonal of the matrix represents the similarity index, showcasing how each image aligns with its corresponding caption. This visualization offers a clear depiction of the model's ability to discern semantic relationships between images and textual descriptions through cosine similarity computations.
-
-![](images/figure_12.png){.lightbox}
-
-**Figure 12. The above image illustrates the working of the CLIP model where we see the highest similarity between images and respective captions.** [@radford_learning_2021]
-
-## **4.4 Possible real world applications**
-
-### **4.4.1 Robotics Application**
-
-In today's rapidly advancing world, there is a growing demand for robots designed to perform intricate tasks aimed at enhancing our daily lives. Among the recent trends, there's a notable surge in the development of autonomous robots. In this context, we advocate for the integration of vision and language-based models into the field of robotics. These models enable robots to leverage camera input, identify various objects within their view, and generate tailored prompts for user interaction.
-
-For instance, imagine a humanoid robot equipped with vision capabilities observing objects on a table. The robot can then provide users with a range of options, such as 'Pick up the bottle' or 'Dispose of the trashcan.' This approach empowers users to receive prompts that outline the robot's potential actions, allowing us select the most appropriate response.
-
-![](images/figure_13.png){.lightbox}
-
-**Figure 13. Humanoid Robotics Application. The image on the right shows the prompts that the user will see as possible actions.**
-
-### **4.4.2 Healthcare Application**
-
-There are numerous examples throughout the healthcare field where deep learning models such as CLIP may open the door to multimodal data integration which could enhance our understanding of individual health (i.e., personalized medicine) as well as population-level epidemiology (ex: pandemic surveillance). A recent article by Acosta Et. Al. has highlighted 7 opportunities for general multimodal biomedical AI as shown in Figure 14 [@acosta_multimodal_2022]. 
-
-![](images/figure_14.png){.lightbox}
-
-**Figure 14. Data modalities and their applications in healthcare** [@acosta_multimodal_2022]. **CLIP specifically has applications with EHR data that is uploaded as images, such as radiological scans and environmental monitoring.**
-
-Healthcare would specifically benefit from the CLIP model where images and scans are utilized, which is common in specialities such as oncology, neurology, radiology, and orthopedics. Some CNN models are already being implemented to separate “noise’ from the true image that is produced by scans in these specialities, as shown in Figure 15 [@liu_artificial_2021]. As explained by Acosta Et. Al., models like CLIP could play a crucial role in not just separating noise, but also in extracting and interpreting information from scans and EHR data that are uploaded as images, which is common in Electronic Health Record (EHR) systems [@acosta_multimodal_2022]. Taking this a step further, once analyzed by CLIP, this data could then be integrated into the existing collection of personalized omics data that is maintained in EHRs, providing a much more robust assessment of individual health. 
-
-![](images/figure_15.png){.lightbox}
-
-**Figure 15. An example of radiological “cleaning” with CNNs** [@liu_artificial_2021]. **Low-resolution and low-count PET scans of the abdomen and brain were cleaned with a trained CNN to produce a deblurred or denoised image that resembled the full-count and high-resolution images taken on a higher quality and more expensive machine** [@liu_artificial_2021].
-
-Environmental monitoring is an area of medicine that is frequently overlooked but could potentially benefit from models like CLIP. Acosta Et. Al. briefly mention that these models could be used in conjunction with ambient sensors to improve remote care systems both at home and in assisted living facilities (ALFs) [@acosta_multimodal_2022]. The CLIP model could be trained to recognize high-risk situations, such as stroke symptoms (which include physical changes) and accidents such as falls. CLIP may even be able to recognize activities of mental stimulation compared to boredom, which would benefit the goals of ALFs to provide physical as well as mental support to the aging population. 
-
-### 4.4.3 Assistive Device Application
-
-Another real-world application of the CLIP model is to employ the model as an assistive technology to aid people with visual impairments. Historically, the majority of blind people have had to rely on passive devices such as a walking cane to navigate their surroundings using the cane to detect objects in their path. A small number utilize guide dogs to navigate around obstacles. But these methods are not ideal. As an example, a guide dog is unable to interpret street signs. We imagine a CLIP model being combined with a large language model deployed to a device that can recognize & identify objects for the blind and for people with visual impairments. The advantage of the CLIP model is that the output object identification won’t be limited to a one-word response. Leveraging the fact that model is trained on captions and textual descriptions. The output response has the potential to be able to provide a vivid sentence describing the object as it relates to its surroundings. This would allow the visually impaired person to essentially have awareness of their environment.
-
-# **5 Limitations and Conclusion**
-
-## **5.1 Limitations**
-
-CLIP is geared towards a contrastive objective rather than a prediction objective. While this approach requires relatively significant less computational resources it does it at a cost to accuracy. A contrastive objective tends to be better at predicting the relationship between two objects, in this case being the text and the image instead of predicting it. As such the model tends to have difficulty distinguishing between objects of a specific class.  As an example, being able to correctly label different breeds of dogs, rather having more success in just being able to classify the imagine as a dog. CLIP is a generalized model meaning that it was created to be able to recognize a wide variety of tasks by taking images and relating them to text to improve zero-shot performance. However, that generality underperforms on several specialized tasks such as medical imaging, self-driving tasks, and satellite image classification to name a few [@radford_learning_2021].
-
-CLIP is a new model having been introduced in 2021 and naturally the CLIP model has yet to reach the zero-shot performance accuracy of the SOTA models available today. The accuracy margin increases even more when compared to specialty models trained for a specific task as an example celebrity identification. Achieving such accuracy would require an additional 1000 times increase in the computation resources which is impossible given current hardware limitations [@radford_learning_2021]. GPU, memory requirements, and energy consumption being at the forefront of those limitations given the use of today’s hardware. The hardware limitations could be one of the reasons why the researchers at OpenAI used a contrastive approach mentioned in the previous paragraph. 
-
-## **5.2 Conclusion**
-
-Regardless of these limitations the CLIP model advances image classification by combining images and text to learn. It accomplishes this by its pre-training task which harnesses image-text pairs which are jointly trained on an image encoder in addition to a text encoder. CLIP shows great promise in its efficiency in relation to its performance. By contrast the models presented in the paper were trained on a few datasets, with the largest Vision Transformer taking 12 days to train on only 592 V100 GPUs and the largest Vision Transformer taking 18 days to train on 256 V100 GPUs [@radford_learning_2021]. Compare that with some of the larger image classification models taking months and some even more than a year to train. 
-
-Furthermore, the CLIP model is scalable given the number of captions enabled images that can be found on the internet on websites such as social media sites making it ideal for self-supervised learning. Self-supervised in the sense that the training data can be scrapped directly from the internet instead of relying on people or machines to annotate and label the data. This step alone significantly reduces the pre-training time. Just as it took about a decade for the leap from LeNet to Alexnet to materialize in part due to the hardware limitations, mostly the storage capacity of computers and the advancement of the GPU.  We predict that with continuing research and the advancement of the next generation of hardware, the CLIP model will play a pivotal role in the future of classification problems.
-
-# **6 References**
+# **5 References**
 
 ::: {#refs}
 :::
