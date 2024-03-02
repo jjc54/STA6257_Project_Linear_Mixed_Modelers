@@ -1,11 +1,45 @@
 ---
-title: "The Linear Mixed Modelers"
+title: "The CLIP Chronicles"
 ---
 
-Linear mixed models (LMMs) are statistical models that account for both fixed and random effects. Please follow along as we provide a systematic review of LMMs, their applications, their limitations, and more. Importantly, we will develop a report and **by-example** analysis of LMMs in R.
+Contrastive Language-Image Pre-training (CLIP) is a Convolutional Neural Network (CNN) that learns visual concepts from natural language supervision and has been trained on a combination of images and their captions. CLIP bridges the gap between traditional CNN and natural language processing, providing several innovations and advancements such as generalization across tasks, increased flexibility, and scalability, and having an interface to natural language.
 
-Here's a snapshot of the analysis process our team is currently going through:
+As part of **Deep Learning for Data Science (IDC 6146) at the University of West Florida**, our team critically analyzed, assessed, and reproduced the CLIP model and elaborated on potential applications in a professional report. This website was built using R/Quarto while the code for the analysis was built using Python/Jupyter, representing an interdisciplinary and collaborative approach to this group project.
 
-![](images/LMM.png){.lightbox}
+This project was completed under the guidance of **Dr. Shusen Pu ([Shusen Pu \| Dr. Shusen Pu](https://www.shusenpu.com/)).**
 
-Feel free to meet our team, **The Linear Mixed Modelers**, on the **About** tab and review our individual literature contributions on the **Literature** tab. Our overall report is on the **Report** tab with code and slides extracted for general use.
+```{r}
+#| label: setup
+#| include: false
+
+
+library(ggplot2)
+
+# Create a data frame with the milestones
+cnn_milestones <- data.frame(
+  year = c(1980, 1989, 1998, 2012, 2014, 2014, 2015, 2017, 2020, 2021),
+  event = c("Neocognitron", "Handwritten Digit Recognition", "LeNet-5", "AlexNet", "GoogLeNet", "VGGNet", "ResNet", "Capsule Networks", "EfficientNet", "CLIP"),
+  description = c("Introduction of Neocognitron", "Application of backpropagation for digit recognition", "Development of LeNet-5 for OCR", "AlexNet wins ImageNet challenge", "Introduction of GoogLeNet (Inception)", "Development of VGGNet", "Introduction of ResNet", "Introduction of Capsule Networks", "Introduction of EfficientNet", "Introduction of CLIP"),
+  color = c("red", "blue", "green", "orange", "purple", "cyan", "magenta", "yellow", "brown", "pink")  # Assign a color to each event
+)
+
+# Plotting the enhanced timeline
+ggplot(cnn_milestones, aes(x = year, y = event, group = event)) +
+  geom_point(aes(color = color), size = 4) +  # Add colored points
+  geom_text(aes(label = event, x = year + 0.5), hjust = 0, size = 3) +  # Add text labels
+  geom_segment(aes(xend = year + 0.5, yend = event), linetype = "dashed", color = "grey") +  # Add horizontal dashed lines
+  scale_color_identity() +  # Use the colors defined in the data frame
+  labs(title = "Timeline of Convolutional Neural Networks (CNNs)",
+       x = "Year", y = "") +
+  theme_minimal() +
+  theme(legend.position = "none",  # Hide the legend
+        axis.text.y = element_blank(),  # Hide y-axis text
+        axis.ticks.y = element_blank(),  # Hide y-axis ticks
+        plot.title = element_text(hjust = 0.5))
+
+ggsave("figure_1.png")
+```
+
+![](figure_1.png){.lightbox}
+
+Feel free to meet our team, on the **About** tab and review our report on the **Report** tab. Our raw code is on the **Code** tab with code and slides extracted for general use.
