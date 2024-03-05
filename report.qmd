@@ -34,9 +34,21 @@ The literature reviewed here collectively emphasizes the versatility, robustness
 
 # **2 Methods**
 
+As mentioned by [@galecki_linear_2014], a LMM is:
+
+> a parametric linear model for clustered, longitudinal, or repeated-measures data that quantifies the relationships between a continuous dependent variable and various predictor variables. An LMM may include by **fixed-effect** parameters associated with one or more continous or categorical covariates and **random effects** associated with one or more random factors.
+
+Fixed-effect parameters describe the relationships of the covariates to the depdent variable for the entire population. These effects are typically distinct and clearly defined categorical values and are used for classification, such as Gender or Co-morbidities. These effects are commonly utilized in the setting of analysis like ANOVA. Random effects are specific to clusters or subjects within a population. It is typically not possible to include all the distinct levels random effects, but the researcher should always attempt to account for as many random effects as possible to improve the reliablity of the LMM. An example of fixed and random effects are provided in Table 1 that utilized the example dataset for this report.
+
+\[PLACEHOLDER FOR TABLE 1\]
+
+The selected dataset for this report specifically represent **longitudinal data**, which is data where the dependent variable is measured at several points in time for each unit of analysis. **Participant dropout** is often a concern in the analysis of longitudinal data, with early time points often having a higher compliance rate than later time points. Along with clustered and repeated-measures data, longitudinal data is **hierarchical** because the observations can be placed into hierarchies or levels.
+
 ## **2.1 Mathematical Foundations**
 
-LMMs can be defined as:
+LMMs have a mathematical foundation stemming from x. In this report, the index *i* is used to denote participants and *t* is used to denote the different time points of the observations.
+
+Simple LMMs can be defined as:
 
 $y=X\beta + Z\gamma + \epsilon$
 
@@ -54,7 +66,9 @@ where:
 
 -   ϵ is the vector of residual errors.
 
-Although more flexible than other methods such as ANOVA, there are several assumptions for LMMs:
+## **2.2 Assumptions**
+
+Although more flexible than other methods such as ANOVA, there are **several assumptions** for LMMs:
 
 1.  Random effects (γ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
 
@@ -66,15 +80,15 @@ Although more flexible than other methods such as ANOVA, there are several assum
 
 3.  Random effects (γ) and residual errors (ϵ ) are assumed to be independent.
 
-## **2.2 Breakdown of Mathematical Foundations**
-
-**\[PLACEHOLDER FOR LAYMANS TERMS EXPLANATIONS\]**
-
 ## **2.3 Sample Data Structure**
 
 LMMs require a tidy data set where each variables are columns and observations are rows. Smaller datasets are usually saved as CSV files and are often loaded from a database. The dataset can contain nulls but they still need to be handled whether they are omitted or imputed and depends on the amount and which columns are affected. The lmer() function in the lme4 library will automatically drop any null values so it is important that data is inspected and visualized before contstructing any models. Below is an example of tidy data.
 
 ![](images/tidy-4.png)
+
+## **2.4 Implementation in R**
+
+\[TBD\] - lme4 package
 
 # **3 Analysis and Results**
 
@@ -178,7 +192,7 @@ plot_intro(x)
 plot_missing(x)
 ```
 
-Based on the missing values count, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation
+Based on the missing values count, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation.
 
 ### 3.2.2 Cleaning Data
 
@@ -250,7 +264,26 @@ x_clean %>%
   tab_header(
     title = "Summary Statistics"
   )
+
+
+x_clean_timepoints <- x_clean %>%
+  group_by(Observation_number) %>%
+  summarise(Unique_Subjects = n_distinct(Subject.ID))
+
+ggplot(x_clean_timepoints, aes(x = Observation_number, y = Unique_Subjects)) +
+  geom_point(size = 3, color = "blue") + # Add points for each observation
+  geom_line(aes(group = 1), color = "blue") + # Connect the points with a line
+  geom_smooth(method = "lm", se = FALSE, color = "red") + # Add a linear trend line
+  theme_minimal() +
+  scale_x_continuous(breaks = 1:6) +
+  labs(title = "Unique Subjects per Timepoint",
+       x = "Timepoint",
+       y = "Number of Unique Subjects")
+
+x_clean_timepoints %>% gt()
 ```
+
+**It will be extremely important to account for the rapid participant dropout that seems to be present in this dataset. It may or may not be attributed to the condition/treatment and thus may or may not be random. If not, it should be accounted for in the model.**
 
 ### 3.2.3 Correlations
 
