@@ -96,7 +96,29 @@ Then there is also longitudinal data where repeated measures are at the first le
 
 ## **2.4 Implementation in R**
 
-\[TBD\] - lme4 package
+The implementation begins with importing the dataset into R from a file containing longitudinal retrospective data on the impact of BMI on IOS estimates of airway resistance and reactance in children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma). This dataset spans from 2015 to 2020. Data import is executed using the appropriate function, with consideration for specifying file paths and handling header information. Following data importation, preprocessing steps, such as handling missing values and ensuring data integrity, are performed [@galecki_linear_2014].
+
+### 2.4.1 Analysis Using lme() Function
+
+After preprocessing the data, we proceed with fitting linear mixed-effects models (LMMs) using the lme() function from the nlme package.
+
+The analysis employs the lme() function from the nlme package to fit linear mixed-effects models (LMMs). Model formulation involves specifying a model formula that includes both fixed effects (e.g., BMI, diagnosis of asthma, relevant covariates) and random effects (e.g., random intercepts for subjects). The random argument specifies the random effects structure, while the data argument indicates the dataset to be used. The estimation method (method = "REML") is specified to use restricted maximum likelihood estimation.
+
+### 2.4.2 Hypothesis Testing
+
+Hypotheses are tested to guide model selection and refinement. For instance, Hypothesis 3.1 \[1\] assesses whether the variance of random effects is greater than zero, while Hypothesis 3.2 \[2\] investigates the presence of heterogeneous residual variances across treatment groups. These hypotheses are evaluated using likelihood ratio tests or F-tests, depending on the context.
+
+### 2.4.3 Model Refinement
+
+Based on the outcomes of hypothesis testing and model diagnostics, the model may be refined by removing non-significant fixed effects or selecting an appropriate covariance structure for the residuals. This iterative process entails fitting alternative models and comparing their fit statistics or testing additional hypotheses.
+
+### 2.4.4. Analysis Using lmer() Function
+
+An alternative approach involves utilizing the lmer() function from the lme4 package to fit LMMs. This function follows a similar syntax to lme() but differs in how it handles random effects specification. Likelihood ratio tests and model diagnostics are employed to assess model fit and inform model selection [@bates_fitting_2015].
+
+### 2.4.5 Final Model Selection
+
+The final model is selected based on a synthesis of statistical criteria, including model fit indices, significance of fixed effects, and the adequacy of the model's assumptions. This selected model is then employed for interpretation and inference concerning the relationships between the predictor variables (e.g., BMI) and the response variable (e.g., IOS measures).
 
 # **3 Analysis and Results**
 
