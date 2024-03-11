@@ -90,7 +90,10 @@ LMMs require a tidy data set where each variables are columns and observations a
 
 ![Figure 1. Tidy data, as defined by Wickham Et. Al.](images/tidy-4.png)
 
-LMMs also require that the structure of both random and fixed effects be defined before the model is created. The variables that have random variation across groups and those that are fixed must be identified.
+LMMs also require that the structure of both random and fixed effects be defined before the model is created. The variables that have random variation across groups and those that are fixed must be identified. There are different hierarchies in LMMs. First of all we have to distinguish between clustered and longitudinal data. With cluttered data, as the name suggests, groups the subjects or the unit of analysis into different groups. For a two level data set we can have students be the unit of analysis and the next level up is the classrooms. For a three level data set we can add schools as the third level. Regardless of the amount of levels, the first level is always the subject of the unit of analysis, In the example mentioned above, its students  [@galecki_linear_2014]. 
+
+Then there is also longitudinal data where repeated measures are at the first level and the unit of analysis is the second level. A dataset with different patient cholesterol data over time has the measures at different timepoints as the first level and the patients at a second level [@galecki_linear_2014]. 
+
 
 ## **2.4 Implementation in R**
 
