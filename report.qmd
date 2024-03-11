@@ -20,7 +20,7 @@ Linear mixed-effects models (LMMs) are advanced statistical tools designed to an
 
 The implementation of LMMs has been facilitated by various software packages and programming languages. Brown [@brown_introduction_2021] provides a comprehensive guide to implementing LMMs in R, a widely used statistical programming language, offering a step-by-step walkthrough of model syntax without delving deeply into complex mathematical foundations. Additionally, the lme4 package, as detailed by Bates et al. [@bates_fitting_2015], represents a significant evolution in computational methods for fitting mixed models, offering efficient tools and simplified modeling processes for R users, especially for models with crossed random effects. Pymer4, developed by Jolly [@jolly_pymer4_2018], bridges R and Python, offering Python users a flexible and integrated tool for linear mixed modeling by leveraging the capabilities of R's lme4 package. This tool enhances the analytical capabilities within the Python ecosystem, making advanced statistical methods more accessible to a broader audience.
 
-LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang [@lee_estimation_nodate] explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. [@wang_statistical_2022] illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model's ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Aarts et al [@aarts_2015] demonstrates mulilevel design experiements in neurscciene and how using linear models on multilevel data can result in increase in false positives. Magezi [@magezi_linear_2015] highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. [@harrison_brief_2018] and Bolker et al. [@bolker_generalized_2009] discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures with GRU. Grueber et al [@grueber_2011] another ecology research, paper focuses on the model averaging and information theoritac with LMMS as an alternative to traditional null hypothesis testing. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. [@verbeeck_linear_2023], and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. [@touraine_when_2023].
+LMMs find applications across various scientific domains, each with its unique data structures and analytical challenges. The paper by Lee and Shang [@lee_estimation_nodate] explores the impact of missing data on the estimation and selection in LMMs, highlighting the challenges and proposing a method to record missingness using an indicator-based matrix. This approach is critical for ensuring model accuracy in the presence of missing data, a common issue in real-world datasets. Wang et al. [@wang_statistical_2022] illustrate the application of LMMs in cardiothoracic surgery outcomes research, using a case study of homograft pulmonary valve replacement data to demonstrate the model's ability to handle repeated measurements and provide more nuanced understandings of clinical outcomes. Aarts et al [@aarts_2015] demonstrates multilevel design experiments in neuroscience and how using linear models on multilevel data can result in increase in false positives. Magezi [@magezi_linear_2015] highlights the use of LMMs in within-participant psychology experiments, addressing the complexities of repeated measures and nested data structures common in psychological research. Harrison et al. [@harrison_brief_2018] and Bolker et al. [@bolker_generalized_2009] discuss the application of LMMs and generalized linear mixed models (GLMMs) in ecology, emphasizing their utility in analyzing ecological data that involve complex relationships and hierarchical data structures with GRU. Grueber et al [@grueber_2011] another ecology research, paper focuses on the model averaging and information theorist with LMMS as an alternative to traditional null hypothesis testing. In the medical field, LMMs are employed to model pandemic-induced mortality changes, as demonstrated by Verbeeck et al. [@verbeeck_linear_2023], and to analyze longitudinal health-related quality of life data in cancer clinical trials, as discussed by Touraine et al. [@touraine_when_2023].
 
 The paper "To transform or not to transform: using generalized linear mixed models to analyse reaction time data" by Lo and Andrews [@lo_transform_2015] challenges the common practice of transforming reaction time data in cognitive psychology, advocating for GLMMs as a more robust alternative. The "LEVEL" guidelines proposed by Monsalves et al. [@monsalves_level_2020] aim to standardize the reporting of multilevel data and analyses, enhancing comparability across studies. Piepho's study [@piepho_analysing_1999] on analyzing disease incidence data with GLMMs underscores the inadequacy of traditional methods like ANOVA for such data, highlighting GLMMs' flexibility. The simulation study by Pusponegoro et al. [@pusponegoro_linear_2017] on children's growth differences emphasizes the importance of choosing the appropriate covariance structure in LMMs for longitudinal data. Lastly, the framework introduced by Steibel et al. [@steibel_powerful_2009] for analyzing RT-PCR data with LMMs showcases the method's statistical power and flexibility, offering a significant advancement over traditional analysis methods. LMMs are used in a wide array of disciplines, but also in varying study designs, as shown in Table 1.
 
@@ -36,17 +36,15 @@ The literature reviewed here collectively emphasizes the versatility, robustness
 
 As mentioned by [@galecki_linear_2014], a LMM is:
 
-> a parametric linear model for clustered, longitudinal, or repeated-measures data that quantifies the relationships between a continuous dependent variable and various predictor variables. An LMM may include by **fixed-effect** parameters associated with one or more continous or categorical covariates and **random effects** associated with one or more random factors.
+> a parametric linear model for clustered, longitudinal, or repeated-measures data that quantifies the relationships between a continuous dependent variable and various predictor variables. An LMM may include by **fixed-effect** parameters associated with one or more continuous or categorical covariates and **random effects** associated with one or more random factors.
 
-Fixed-effect parameters describe the relationships of the covariates to the depdent variable for the entire population. These effects are typically distinct and clearly defined categorical values and are used for classification, such as Gender or Co-morbidities. These effects are commonly utilized in the setting of analysis like ANOVA. Random effects are specific to clusters or subjects within a population. It is typically not possible to include all the distinct levels random effects, but the researcher should always attempt to account for as many random effects as possible to improve the reliablity of the LMM. An example of fixed and random effects are provided in Table 1 that utilized the example dataset for this report.
-
-\[PLACEHOLDER FOR TABLE 1\]
+Fixed-effect parameters describe the relationships of the covariates to the dependent variable for the entire population. These effects are typically distinct and clearly defined categorical values and are used for classification, such as Gender or Co-morbidities. These effects are commonly utilized in the setting of analysis like ANOVA. Random effects are specific to clusters or subjects within a population. It is typically not possible to include all the distinct levels random effects, but the researcher should always attempt to account for as many random effects as possible to improve the reliability of the LMM.
 
 The selected dataset for this report specifically represent **longitudinal data**, which is data where the dependent variable is measured at several points in time for each unit of analysis. **Participant dropout** is often a concern in the analysis of longitudinal data, with early time points often having a higher compliance rate than later time points. Along with clustered and repeated-measures data, longitudinal data is **hierarchical** because the observations can be placed into hierarchies or levels.
 
 ## **2.1 Mathematical Foundations**
 
-LMMs have a mathematical foundation stemming from x. In this report, the index *i* is used to denote participants and *t* is used to denote the different time points of the observations.
+LMMs have a mathematical foundation stemming from **linear algebra.** In this report, the index *i* is used to denote participants and *t* is used to denote the different time points of the observations.
 
 Simple LMMs can be defined as:
 
@@ -70,21 +68,29 @@ where:
 
 Although more flexible than other methods such as ANOVA, there are **several assumptions** for LMMs:
 
-1.  Random effects (γ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
+1.  The relationship between the predictors and response variable is assumed to be linear, within each level of random effects.
+
+2.  Random effects (γ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
 
     $\gamma \sim N(0,G)$
 
-2.  Residual errors (ϵ ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix R.
+3.  Residual errors (ϵ ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix R.
 
     $\epsilon \sim N(0,R)$
 
-3.  Random effects (γ) and residual errors (ϵ ) are assumed to be independent.
+4.  Random effects (γ) and residual errors (ϵ ) are assumed to be independent.
+
+5.  Homoscedasticity is assumed for the residuals across all levels of the independent variables.
+
+There are several techniques that can be utilized to overcome violations in the LMM assumptions, including variable transformation (to achieve linearity or normality), using robust variance estimates, modifying the structure of random and fixed effects, and employing non-parametric methods or generalized linear mixed models (GLMMs) [@galecki_linear_2014].
 
 ## **2.3 Sample Data Structure**
 
 LMMs require a tidy data set where each variables are columns and observations are rows. Smaller datasets are usually saved as CSV files and are often loaded from a database. The dataset can contain nulls but they still need to be handled whether they are omitted or imputed and depends on the amount and which columns are affected. The lmer() function in the lme4 library will automatically drop any null values so it is important that data is inspected and visualized before contstructing any models. Below is an example of tidy data.
 
-![](images/tidy-4.png)
+![Figure 1. Tidy data, as defined by Wickham Et. Al.](images/tidy-4.png)
+
+LMMs also require that the structure of both random and fixed effects be defined before the model is created. The variables that have random variation across groups and those that are fixed must be identified.
 
 ## **2.4 Implementation in R**
 
@@ -112,7 +118,7 @@ library(gtsummary)
 #summary(references)
 ```
 
--   `tidyverse`: used for data wrangling and visualisation.
+-   `tidyverse`: used for data wrangling and visualization.
 
 -   `lme4`: used for LMM within R.
 
@@ -177,7 +183,10 @@ variables_table <- data.frame(
 variables_table %>%
   gt %>%
   tab_header(
-    title = "Variable Description"
+    title = "Table 2. Variable Description"
+  ) %>%
+  tab_footnote(
+    footnote = "Each variable in the dataset, accompanied by a qualitative description from the study team."
   )
   
 plot_str(x)
@@ -262,9 +271,11 @@ x_clean %>%
   italicize_levels() %>%
   as_gt() %>%
   tab_header(
-    title = "Summary Statistics"
+    title = "Table. 3 Summary Statistics"
+  ) %>%
+  tab_footnote(
+    footnote = "Summary statistics for all variables."
   )
-
 
 x_clean_timepoints <- x_clean %>%
   group_by(Observation_number) %>%
@@ -280,7 +291,14 @@ ggplot(x_clean_timepoints, aes(x = Observation_number, y = Unique_Subjects)) +
        x = "Timepoint",
        y = "Number of Unique Subjects")
 
-x_clean_timepoints %>% gt()
+x_clean_timepoints %>% 
+  gt() %>%
+  tab_header(
+    title = "Table 4. Summary of Missing Data"
+  ) %>%
+  tab_footnote(
+    footnote = "Counts of unique subjects reveal an increasing amount of missing data at subsequent observation visits."
+  )
 ```
 
 **It will be extremely important to account for the rapid participant dropout that seems to be present in this dataset. It may or may not be attributed to the condition/treatment and thus may or may not be random. If not, it should be accounted for in the model.**
@@ -302,7 +320,54 @@ R5Hz_PP and Fres_PP: There is a strong positive correlation (0.754) between R5Hz
 
 ## **3.3 Linear Mixed Modeling**
 
+In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations, groups, and subjects. These represent the random effects, as shown in Table 2.
+
 ```{r}
+#| label: FixedOrRandom
+
+variables_table2 <- variables_table %>%
+  select(1) %>%
+  mutate(Type = c(
+    "Random",
+    "Random",
+    "Random",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed",
+    "Fixed"
+  )
+  )
+
+variables_table2 %>%
+  gt %>%
+  tab_header(
+    title = "Table 5. Variable Categorization"
+  ) %>%
+  tab_footnote(
+    footnote = "A break down of random and fixed effects based on the purpose of the study. Variable categorization is a crucial step in the LMM process."
+  )
+```
+
+```{r}
+#| label: AssumptionsCheck
+
+
+
+```
+
+```{r}
+#| label: InitialModel
+
+
 
 ```
 
