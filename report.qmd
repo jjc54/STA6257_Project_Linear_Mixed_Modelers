@@ -94,11 +94,11 @@ Variable Breakdown:
 
 Matrix Notations and Dimension laid out:
 
-$Y_{1000\times1} = X_{1000\times 2} \; \beta_{2\times1} +  Z_{1000\times10}\;u_{10\times1} +  \epsilon_{1000\times1}$
+$Y_{1000\times1} = X_{1000\times 2} \; \beta_{2\times1} + Z_{1000\times10}\;u_{10\times1} + \epsilon_{1000\times1}$
 
 Example Matrices:
 
-$y = \begin{bmatrix} Score\\ 75 \\ 80\\ ... \\ 90 \end{bmatrix} X = \begin{bmatrix} Intercept & Study Time \\1 & 2 \\1 &  3\\... & ... \\1 & 5\end{bmatrix}$
+$y = \begin{bmatrix} Score\\ 75 \\ 80\\ ... \\ 90 \end{bmatrix} X = \begin{bmatrix} Intercept & Study Time \\1 & 2 \\1 & 3\\... & ... \\1 & 5\end{bmatrix}$
 
 $\beta = \begin{bmatrix} 1.2\\2.3\end{bmatrix}$
 
@@ -106,15 +106,11 @@ The matrix multiplication can also be broken down into individual equations. In 
 
 Level 1 (Time):
 
-$
-Y_{ti} = \beta_{0j} + \beta_{1j}StudyTime_{ti} + e_{1j}
-$
+$Y_{ti} = \beta_{0j} + \beta_{1j} \cdot \text{StudyTime}_{ti} + e_{ti}$
 
 Level 2 (Student):
 
-$
-\beta_{0j}  = \gamma_{00} + u_{0j}
-$
+$\beta_{0j} = \gamma_{00} + u_{0j}$
 
 Since this is a random intercepts model, only the intercept equation is needed. γ~00~ is the grand intercept mean an u~0j~ is the deviation of the j~th~ group, which in our case is the student. [@galecki_linear_2014].
 
@@ -188,9 +184,9 @@ library(tidyverse)
 library(lme4)
 library(nlme)
 library(gt)
+library(gtsummary)
 library(RefManageR)
 library(DataExplorer)
-library(gtsummary)
 
 #references <- ReadBib("references.bib")
 #summary(references)
@@ -207,6 +203,8 @@ library(gtsummary)
 -   `gtsummary`: used for summary table generation of descriptive statistics.
 
 -   `RefManageR`: used for BibTex reference management.
+
+-   `DataExplorer`: used for EDA
 
 ## **3.2 Data Ingestion**
 
