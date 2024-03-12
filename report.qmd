@@ -124,7 +124,7 @@ Although more flexible than other methods such as ANOVA, there are **several ass
 
 1.  The relationship between the predictors and response variable is assumed to be linear, within each level of random effects.
 
-2.  Random effects (γ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
+2.  Random effects (u) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
 
     $\gamma \sim N(0,G)$
 
@@ -132,7 +132,7 @@ Although more flexible than other methods such as ANOVA, there are **several ass
 
     $\epsilon \sim N(0,R)$
 
-4.  Random effects (γ) and residual errors (ϵ ) are assumed to be independent.
+4.  Random effects (u) and residual errors (ϵ ) are assumed to be independent.
 
 5.  Homoscedasticity is assumed for the residuals across all levels of the independent variables.
 
