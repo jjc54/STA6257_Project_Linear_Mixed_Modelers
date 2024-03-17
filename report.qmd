@@ -150,9 +150,9 @@ The implementation begins with importing the dataset into R from a file containi
 
 ### 2.4.1 Analysis Using lme() Function
 
-After preprocessing the data, we proceed with fitting linear mixed-effects models (LMMs) using the lme() function from the nlme package.
+After preprocessing the data, we proceed with fitting linear mixed-effects models (LMMs) using the lme() function from the `nlme` package.
 
-The analysis employs the lme() function from the nlme package to fit linear mixed-effects models (LMMs). Model formulation involves specifying a model formula that includes both fixed effects (e.g., BMI, diagnosis of asthma, relevant covariates) and random effects (e.g., random intercepts for subjects). The random argument specifies the random effects structure, while the data argument indicates the dataset to be used. The estimation method (method = "REML") is specified to use restricted maximum likelihood estimation.
+The analysis employs the lme() function from the `nlme` package to fit linear mixed-effects models (LMMs). Model formulation involves specifying a model formula that includes both fixed effects (e.g., BMI, diagnosis of asthma, relevant covariates) and random effects (e.g., random intercepts for subjects). The random argument specifies the random effects structure, while the data argument indicates the dataset to be used. The estimation method (method = "REML") is specified to use restricted maximum likelihood estimation. It is advantageous to use `nlme` because it offers a user interface for fitting models with structure in the residuals (including forms of heteroscedasticity and autocorrelation) and in the random-effects covariance matrices).
 
 ### 2.4.2 Hypothesis Testing
 
@@ -164,7 +164,7 @@ Based on the outcomes of hypothesis testing and model diagnostics, the model may
 
 ### 2.4.4. Analysis Using lmer() Function
 
-An alternative approach involves utilizing the lmer() function from the lme4 package to fit LMMs. This function follows a similar syntax to lme() but differs in how it handles random effects specification. Likelihood ratio tests and model diagnostics are employed to assess model fit and inform model selection [@bates_fitting_2015].
+An alternative approach involves utilizing the lmer() function from the `lme4` package to fit LMMs. This function follows a similar syntax to lme() but differs in how it handles random effects specification. `lme4` offers several benefits compared to `nlme`, including: more efficient linear algebra tools (with associated performance enhancements), simpler syntax and more efficient implementation for fitting models with crossed random effects, implementation of profile likelihood confidence intervals on random-effects parameters, and the ability to fit GLMMs [@bates_fitting_2015]. Likelihood ratio tests and model diagnostics are employed to assess model fit and inform model selection \[@bates_fitting_2015\].
 
 ### 2.4.5 Final Model Selection
 
@@ -176,8 +176,8 @@ The final model is selected based on a synthesis of statistical criteria, includ
 
 ```{r}
 
-if (!requireNamespace(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer", "gtsummary"), quietly = TRUE)) {
-    install.packages(c("tidyverse", "lme4", "nlme", "gt", "RefManageR", "DataExplorer", "gtsummary"))
+if (!requireNamespace(c("tidyverse", "lme4", "nlme", "Matrix", "gt", "RefManageR", "DataExplorer", "gtsummary", "car"), quietly = TRUE)) {
+    install.packages(c("tidyverse", "lme4", "nlme", "Matrix", "gt", "RefManageR", "DataExplorer", "gtsummary", "car"))
 }
 
 library(tidyverse)
@@ -187,6 +187,8 @@ library(gt)
 library(gtsummary)
 library(RefManageR)
 library(DataExplorer)
+library(Matrix)
+library(car)
 
 #references <- ReadBib("references.bib")
 #summary(references)
@@ -194,9 +196,9 @@ library(DataExplorer)
 
 -   `tidyverse`: used for data wrangling and visualization.
 
--   `lme4`: used for LMM within R.
+-   `lme4` and `nlme`: used for LMM within R.
 
--   `nlme`: used for nonlinear LMM (NLMM) within R.
+-   `Matrix`: used for matrix manipulation.
 
 -   `gt`: used for table generation.
 
@@ -204,7 +206,21 @@ library(DataExplorer)
 
 -   `RefManageR`: used for BibTex reference management.
 
--   `DataExplorer`: used for EDA
+-   `DataExplorer`: used for EDA.
+
+-   `car`: for qq plots.
+
+::: callout-warning
+## An error was encountered with the Matrix and lme4 packages during model creation. If this error is encountered, please:
+
+## remove.packages("Matrix") 
+
+## remove.packages("lme4") 
+
+## install.packages("lme4", type = "source") 
+
+## library(lme4)
+:::
 
 ## **3.2 Data Ingestion**
 
@@ -212,6 +228,12 @@ library(DataExplorer)
 
 # Load the dataset
 BMI <- read.csv("data/BMI_IOS_SCD_Asthma.csv")
+
+colnames(BMI) <- c("Group", "Subject_ID", "Observation_number", "Hydroxyurea", "Asthma", "ICS", "LABA", "Gender", "Age_months", "Height_cm", "Weight_Kg", "BMI", "R5Hz_PP", "R20Hz_PP", "X5Hz_PP", "Fres_PP")
+
+BMI$Group <- as.factor(BMI$Group)
+BMI$Subject_ID <- as.factor(BMI$Subject_ID)
+BMI$Observation_number <- as.factor(BMI$Observation_number)
 ```
 
 ### **`BMI` from Kaggle (**[Impact of BMI on IOS measures on children (kaggle.com)](https://www.kaggle.com/datasets/utkarshx27/impact-of-bmi-on-ios-measures))
@@ -334,7 +356,7 @@ x_clean %>%
   tbl_summary( #gtSummary Table
     by=Group,
     type = list(
-      c('Age..months.', 'Height..cm.', 'Weight..Kg.', 'BMI', 'R5Hz_PP', 'R20Hz_PP', 'X5Hz_PP', 'Fres_PP') ~ 'continuous2'),
+      c('Age_months', 'Height_cm', 'Weight_Kg', 'BMI', 'R5Hz_PP', 'R20Hz_PP', 'X5Hz_PP', 'Fres_PP') ~ 'continuous2'),
     statistic = all_continuous2() ~ c(
                        "{mean} ± {sd}",
                        "{median} ({p25}, {p75})",
@@ -355,14 +377,14 @@ x_clean %>%
 
 x_clean_timepoints <- x_clean %>%
   group_by(Observation_number) %>%
-  summarise(Unique_Subjects = n_distinct(Subject.ID))
+  summarise(Unique_Subjects = n_distinct(Subject_ID))
+
+x_clean_timepoints$Unique_Subjects <- as.numeric(x_clean_timepoints$Unique_Subjects)
 
 ggplot(x_clean_timepoints, aes(x = Observation_number, y = Unique_Subjects)) +
   geom_point(size = 3, color = "blue") + # Add points for each observation
   geom_line(aes(group = 1), color = "blue") + # Connect the points with a line
-  geom_smooth(method = "lm", se = FALSE, color = "red") + # Add a linear trend line
   theme_minimal() +
-  scale_x_continuous(breaks = 1:6) +
   labs(title = "Unique Subjects per Timepoint",
        x = "Timepoint",
        y = "Number of Unique Subjects")
@@ -396,7 +418,7 @@ R5Hz_PP and Fres_PP: There is a strong positive correlation (0.754) between R5Hz
 
 ## **3.3 Linear Mixed Modeling**
 
-In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations, groups, and subjects. These represent the random effects, as shown in Table 2.
+In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations, groups, and subjects. These represent the random effects, as shown in Table 2. In the initial models, Subject_ID was treated as the sole random effect. In the final models, all random effects were incorporated (Subject_ID, Group, Observation_Number).
 
 ```{r}
 #| label: FixedOrRandom
@@ -434,22 +456,120 @@ variables_table2 %>%
 ```
 
 ```{r}
-#| label: AssumptionsCheck
+#| label: InitialModeling
 
+#lme()
 
+# Fit models using a tidy and clear approach
+model_lme <- lme(
+  fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg,
+  random = list(Subject_ID = pdIdent(~1)),
+  data = x_clean,
+  method = "REML"
+)
 
+#lmer() 
+
+model_lmer <- lmer(
+  formula = R5Hz_PP + R20Hz_PP + X5Hz_PP + Fres_PP ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + (1 | Subject_ID),
+  data = x_clean
+)
 ```
 
+## **3.4 Model Comparison and Selection**
+
 ```{r}
-#| label: InitialModel
+#| label: InitialAIC
 
+# Compare models based on AIC
+aic_lme <- AIC(model_lme)
+aic_lmer <- AIC(model_lmer)
 
+cat(sprintf("AIC for lme model: %f\n", aic_lme))
+cat(sprintf("AIC for lmer model: %f\n", aic_lmer))
 
+# Correctly assign final_model based on AIC comparison
+if (aic_lme < aic_lmer) {
+  final_model <- model_lme
+  model_type <- "lme"
+} else {
+  final_model <- model_lmer
+  model_type <- "lmer"
+}
+cat(sprintf("Final model selected: %s\n", model_type))
+
+# Since final_model is now correctly assigned, we can call summary on it
+summary(final_model)
 ```
 
-## **3.4 Model Comparisons and Assessment**
+The **Akaike Information Criterion (AIC)** for both models was calculated. The AIC is a measure of the relative quality of statistical models for a given set of data. Lower AIC values indicate a model that better fits the data without unnecessary complexity.
+
+Here, the AIC for lme was 1894.70 while lmer was 2510.44.
+
+The model with the lower AIC was selected as the **final model (lme)** despite performance improvements offered by the lme4 package.
 
 ```{r}
+#| label: InitialResiduals
+
+# Residuals
+residuals_final <- resid(final_model)
+
+# Calculate fitted values and residuals from the final model
+fitted_values <- fitted(final_model)
+residual_values <- residuals(final_model)
+
+# Create a data frame explicitly for plotting
+plot_data <- data.frame(Fitted = fitted_values, Residuals = residual_values)
+
+# Plotting using ggplot2 for a more flexible and powerful approach
+# Residuals vs Fitted Values
+ggplot(plot_data, aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "red") +
+  labs(x = "Fitted Values", y = "Residuals", title = "Residuals vs. Fitted Values")
+```
+
+Residual plots (Residuals vs. Fitted Values) were created for the lme model to assess the goodness of fit. A horizontal line at y=0 was added as a reference. These plots help in identifying non-linearity, unequal variances, and outliers.
+
+Based on the **residual plot**, the model has an ideal random pattern of scattered values with a few possible outliers.
+
+```{r}
+#| label: InitialQQ
+
+# Histogram of Residuals
+ggplot(plot_data, aes(x = Residuals)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black") +
+  labs(title = "Histogram of Residuals")
+
+# Q-Q Plot
+qqPlot(residuals_final, main = "Q-Q Plot of Residuals")
+```
+
+A histogram and a Q-Q (Quantile-Quantile) plot of the residuals were used to check the normality assumption of the residuals. Finally, a QQ plot with a QQ line was produced for a graphical normality check.
+
+Based on the **histogram**, the model [visually]{.underline} had an ideal bell-shaped curve that resembles the normal distribution. Based on the **QQ plot**, the model [graphically]{.underline} may have had some residuals that were not normally distributed toward the ends.
+
+```{r}
+#| label: InitialNormality
+
+# Shapiro-Wilk Normality Test
+shapiro_test_results <- shapiro.test(residuals_final)
+print(shapiro_test_results)
+```
+
+The Shapiro-Wilk test was conducted on the residuals to formally test for normality.
+
+$H_o$: the residuals are normally distributed.
+
+$H_a$: the residuals are not normally distributed.
+
+$\alpha$ = 0.05
+
+In this case, P = 0.000009375. P \< 0.05, so the null hypothesis was rejected, suggesting that the **residuals were not normally distributed.**
+
+```{r}
+#| label: AddressingAssumptionsAndRandomEffects
+
 
 ```
 

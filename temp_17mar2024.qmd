@@ -1,0 +1,108 @@
+---
+title: "R Model"
+format: html
+editor: visual
+---
+
+```{r}
+library(nlme)
+library(lme4)
+library(readr)
+library(Matrix)
+library(nlme)
+library(car)
+library(ggplot2)
+
+BMI_IOS_SCD_Asthma <- read_csv("BMI_IOS_SCD_Asthma.csv")
+```
+
+```{r}
+bmi_data=BMI_IOS_SCD_Asthma
+```
+
+```{r}
+head(bmi_data)
+```
+
+```{r}
+colnames(bmi_data) <- c("Group", "Subject_ID", "Observation_number", "Hydroxyurea", "Asthma", "ICS", "LABA", "Gender", "Age_months", "Height_cm", "Weight_Kg", "BMI", "R5Hz_PP", "R20Hz_PP", "X5Hz_PP", "Fres_PP")
+```
+
+```{r}
+bmi_data_clean = na.omit(bmi_data)
+```
+
+```{r}
+
+?lme()
+model_lme_clean <- lme(cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg, 
+                 random = list(Subject_ID = pdIdent(~1)), 
+                 data = bmi_data_clean, 
+                 method = "REML")
+```
+
+```{r}
+
+model_lmer_clean <- lmer(R5Hz_PP + R20Hz_PP + X5Hz_PP + Fres_PP ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + (1 | Subject_ID), 
+                   data = bmi_data_clean)
+```
+
+```{r}
+
+AIC_lme <- AIC(model_lme_clean)
+AIC_lmer <- AIC(model_lmer_clean)
+
+
+cat("AIC for lme model:", AIC_lme, "\n")
+cat("AIC for lmer model:", AIC_lmer, "\n")
+
+if (AIC_lme < AIC_lmer) {
+  final_model <- model_lme_clean
+  cat("Final model selected: lme\n")
+} else {
+  final_model <- model_lmer_clean
+  cat("Final model selected: lmer\n")
+}
+
+
+summary(final_model)
+
+```
+
+```{r}
+residuals_clean <- resid(model_lme_clean)
+```
+
+```{r}
+
+plot(predict(model_lme_clean), residuals_clean, xlab = "Fitted Values", ylab = "Residuals")
+abline(h = 0, col = "red")  # Add horizontal line at y = 0
+title("Residuals vs. Fitted Values")
+```
+
+```{r}
+hist(residuals_clean, main = "Histogram of Residuals")
+# Q-Q plot
+qqPlot(residuals_clean, main = "Q-Q Plot of Residuals")
+```
+
+```{r}
+
+shapiro.test(residuals(model_lme_clean))
+
+qqnorm(residuals(model_lme_clean))
+qqline(residuals(model_lme_clean))
+
+
+```
+
+```{r}
+
+fitted_values <- fitted(model_lme_clean)
+residuals <- residuals(model_lme_clean)
+
+
+plot(fitted_values, residuals, xlab = "Fitted values", ylab = "Residuals",
+     main = "Residuals vs Fitted Values Plot")
+abline(h = 0, col = "red")  # Add a horizontal line at y = 0 for reference
+```

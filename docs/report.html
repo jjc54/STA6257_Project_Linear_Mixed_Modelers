@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S.">
-<meta name="dcterms.date" content="2024-03-12">
+<meta name="dcterms.date" content="2024-03-17">
 
 <title>The Linear Mixed Modelers - Report</title>
 <style>
@@ -248,7 +248,7 @@ window.Quarto = {
   <li><a href="#correlations" id="toc-correlations" class="nav-link" data-scroll-target="#correlations">3.2.3 Correlations</a></li>
   </ul></li>
   <li><a href="#linear-mixed-modeling" id="toc-linear-mixed-modeling" class="nav-link" data-scroll-target="#linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></a></li>
-  <li><a href="#model-comparisons-and-assessment" id="toc-model-comparisons-and-assessment" class="nav-link" data-scroll-target="#model-comparisons-and-assessment"><strong>3.4 Model Comparisons and Assessment</strong></a></li>
+  <li><a href="#model-comparison-and-selection" id="toc-model-comparison-and-selection" class="nav-link" data-scroll-target="#model-comparison-and-selection"><strong>3.4 Model Comparison and Selection</strong></a></li>
   <li><a href="#simulation-possibly" id="toc-simulation-possibly" class="nav-link" data-scroll-target="#simulation-possibly"><strong>3.5 Simulation (POSSIBLY)</strong></a></li>
   </ul></li>
   <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><strong>4 Conclusion</strong></a></li>
@@ -279,7 +279,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">March 12, 2024</p>
+      <p class="date">March 17, 2024</p>
     </div>
   </div>
   
@@ -385,8 +385,8 @@ window.Quarto = {
 <p>The implementation begins with importing the dataset into R from a file containing longitudinal retrospective data on the impact of BMI on IOS estimates of airway resistance and reactance in children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma). This dataset spans from 2015 to 2020. Data import is executed using the appropriate function, with consideration for specifying file paths and handling header information. Following data importation, preprocessing steps, such as handling missing values and ensuring data integrity, are performed <span class="citation" data-cites="galecki_linear_2014">(<a href="#ref-galecki_linear_2014" role="doc-biblioref">Galecki 2014</a>)</span>.</p>
 <section id="analysis-using-lme-function" class="level3">
 <h3 class="anchored" data-anchor-id="analysis-using-lme-function">2.4.1 Analysis Using lme() Function</h3>
-<p>After preprocessing the data, we proceed with fitting linear mixed-effects models (LMMs) using the lme() function from the nlme package.</p>
-<p>The analysis employs the lme() function from the nlme package to fit linear mixed-effects models (LMMs). Model formulation involves specifying a model formula that includes both fixed effects (e.g., BMI, diagnosis of asthma, relevant covariates) and random effects (e.g., random intercepts for subjects). The random argument specifies the random effects structure, while the data argument indicates the dataset to be used. The estimation method (method = “REML”) is specified to use restricted maximum likelihood estimation.</p>
+<p>After preprocessing the data, we proceed with fitting linear mixed-effects models (LMMs) using the lme() function from the <code>nlme</code> package.</p>
+<p>The analysis employs the lme() function from the <code>nlme</code> package to fit linear mixed-effects models (LMMs). Model formulation involves specifying a model formula that includes both fixed effects (e.g., BMI, diagnosis of asthma, relevant covariates) and random effects (e.g., random intercepts for subjects). The random argument specifies the random effects structure, while the data argument indicates the dataset to be used. The estimation method (method = “REML”) is specified to use restricted maximum likelihood estimation. It is advantageous to use <code>nlme</code> because it offers a user interface for fitting models with structure in the residuals (including forms of heteroscedasticity and autocorrelation) and in the random-effects covariance matrices).</p>
 </section>
 <section id="hypothesis-testing" class="level3">
 <h3 class="anchored" data-anchor-id="hypothesis-testing">2.4.2 Hypothesis Testing</h3>
@@ -398,7 +398,7 @@ window.Quarto = {
 </section>
 <section id="analysis-using-lmer-function" class="level3">
 <h3 class="anchored" data-anchor-id="analysis-using-lmer-function">2.4.4. Analysis Using lmer() Function</h3>
-<p>An alternative approach involves utilizing the lmer() function from the lme4 package to fit LMMs. This function follows a similar syntax to lme() but differs in how it handles random effects specification. Likelihood ratio tests and model diagnostics are employed to assess model fit and inform model selection <span class="citation" data-cites="bates_fitting_2015">(<a href="#ref-bates_fitting_2015" role="doc-biblioref">Bates et al. 2015</a>)</span>.</p>
+<p>An alternative approach involves utilizing the lmer() function from the <code>lme4</code> package to fit LMMs. This function follows a similar syntax to lme() but differs in how it handles random effects specification. <code>lme4</code> offers several benefits compared to <code>nlme</code>, including: more efficient linear algebra tools (with associated performance enhancements), simpler syntax and more efficient implementation for fitting models with crossed random effects, implementation of profile likelihood confidence intervals on random-effects parameters, and the ability to fit GLMMs <span class="citation" data-cites="bates_fitting_2015">(<a href="#ref-bates_fitting_2015" role="doc-biblioref">Bates et al. 2015</a>)</span>. Likelihood ratio tests and model diagnostics are employed to assess model fit and inform model selection [<span class="citation" data-cites="bates_fitting_2015">Bates et al. (<a href="#ref-bates_fitting_2015" role="doc-biblioref">2015</a>)</span>].</p>
 </section>
 <section id="final-model-selection" class="level3">
 <h3 class="anchored" data-anchor-id="final-model-selection">2.4.5 Final Model Selection</h3>
@@ -413,8 +413,8 @@ window.Quarto = {
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>, <span class="st">"DataExplorer"</span>, <span class="st">"gtsummary"</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>, <span class="st">"DataExplorer"</span>, <span class="st">"gtsummary"</span>))</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"Matrix"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>, <span class="st">"DataExplorer"</span>, <span class="st">"gtsummary"</span>, <span class="st">"car"</span>), <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">"tidyverse"</span>, <span class="st">"lme4"</span>, <span class="st">"nlme"</span>, <span class="st">"Matrix"</span>, <span class="st">"gt"</span>, <span class="st">"RefManageR"</span>, <span class="st">"DataExplorer"</span>, <span class="st">"gtsummary"</span>, <span class="st">"car"</span>))</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>}</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
@@ -424,20 +424,47 @@ window.Quarto = {
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RefManageR)</span>
 <span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DataExplorer)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">#references &lt;- ReadBib("references.bib")</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(references)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matrix)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">#references &lt;- ReadBib("references.bib")</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(references)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <ul>
 <li><p><code>tidyverse</code>: used for data wrangling and visualization.</p></li>
-<li><p><code>lme4</code>: used for LMM within R.</p></li>
-<li><p><code>nlme</code>: used for nonlinear LMM (NLMM) within R.</p></li>
+<li><p><code>lme4</code> and <code>nlme</code>: used for LMM within R.</p></li>
+<li><p><code>Matrix</code>: used for matrix manipulation.</p></li>
 <li><p><code>gt</code>: used for table generation.</p></li>
 <li><p><code>gtsummary</code>: used for summary table generation of descriptive statistics.</p></li>
 <li><p><code>RefManageR</code>: used for BibTex reference management.</p></li>
-<li><p><code>DataExplorer</code>: used for EDA</p></li>
+<li><p><code>DataExplorer</code>: used for EDA.</p></li>
+<li><p><code>car</code>: for qq plots.</p></li>
 </ul>
+<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+An error was encountered with the Matrix and lme4 packages during model creation. If this error is encountered, please:
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<section id="remove.packagesmatrix" class="level2">
+<h2 class="anchored" data-anchor-id="remove.packagesmatrix">remove.packages(“Matrix”)</h2>
+</section>
+<section id="remove.packageslme4" class="level2">
+<h2 class="anchored" data-anchor-id="remove.packageslme4">remove.packages(“lme4”)</h2>
+</section>
+<section id="install.packageslme4-type-source" class="level2">
+<h2 class="anchored" data-anchor-id="install.packageslme4-type-source">install.packages(“lme4”, type = “source”)</h2>
+</section>
+<section id="librarylme4" class="level2">
+<h2 class="anchored" data-anchor-id="librarylme4">library(lme4)</h2>
+</section>
+</div>
+</div>
 </section>
 <section id="data-ingestion" class="level2">
 <h2 class="anchored" data-anchor-id="data-ingestion"><strong>3.2 Data Ingestion</strong></h2>
@@ -445,7 +472,13 @@ window.Quarto = {
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load the dataset</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>BMI <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"data/BMI_IOS_SCD_Asthma.csv"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(BMI) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Group"</span>, <span class="st">"Subject_ID"</span>, <span class="st">"Observation_number"</span>, <span class="st">"Hydroxyurea"</span>, <span class="st">"Asthma"</span>, <span class="st">"ICS"</span>, <span class="st">"LABA"</span>, <span class="st">"Gender"</span>, <span class="st">"Age_months"</span>, <span class="st">"Height_cm"</span>, <span class="st">"Weight_Kg"</span>, <span class="st">"BMI"</span>, <span class="st">"R5Hz_PP"</span>, <span class="st">"R20Hz_PP"</span>, <span class="st">"X5Hz_PP"</span>, <span class="st">"Fres_PP"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>BMI<span class="sc">$</span>Group <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(BMI<span class="sc">$</span>Group)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>BMI<span class="sc">$</span>Subject_ID <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(BMI<span class="sc">$</span>Subject_ID)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>BMI<span class="sc">$</span>Observation_number <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(BMI<span class="sc">$</span>Observation_number)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <section id="bmi-from-kaggle-impact-of-bmi-on-ios-measures-on-children-kaggle.com" class="level3">
@@ -468,17 +501,17 @@ window.Quarto = {
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   219 obs. of  16 variables:
- $ Group             : chr  "C-SCD" "C-SCD" "C-SCD" "C-SCD" ...
- $ Subject.ID        : int  1 1 1 1 2 3 3 4 4 5 ...
- $ Observation_number: int  1 2 3 4 1 1 2 1 2 1 ...
+ $ Group             : Factor w/ 2 levels "C-Asthma","C-SCD": 2 2 2 2 2 2 2 2 2 2 ...
+ $ Subject_ID        : Factor w/ 90 levels "1","2","3","4",..: 1 1 1 1 2 3 3 4 4 5 ...
+ $ Observation_number: Factor w/ 6 levels "1","2","3","4",..: 1 2 3 4 1 1 2 1 2 1 ...
  $ Hydroxyurea       : chr  "Yes" "Yes" "Yes" "Yes" ...
  $ Asthma            : chr  "Yes" "Yes" "Yes" "Yes" ...
  $ ICS               : chr  "Yes" "Yes" "Yes" "Yes" ...
  $ LABA              : chr  "No" "No" "Yes" "Yes" ...
  $ Gender            : chr  "Male" "Male" "Male" "Male" ...
- $ Age..months.      : int  239 193 212 224 204 178 186 222 210 196 ...
- $ Height..cm.       : num  164 163 164 164 154 ...
- $ Weight..Kg.       : num  61.5 62.3 63.1 63.7 66.4 51.9 56.7 66.7 66.9 52.9 ...
+ $ Age_months        : int  239 193 212 224 204 178 186 222 210 196 ...
+ $ Height_cm         : num  164 163 164 164 154 ...
+ $ Weight_Kg         : num  61.5 62.3 63.1 63.7 66.4 51.9 56.7 66.7 66.9 52.9 ...
  $ BMI               : num  22.8 23.5 23.6 23.7 27.8 ...
  $ R5Hz_PP           : int  145 103 107 87 124 109 117 101 179 136 ...
  $ R20Hz_PP          : int  133 98 98 87 121 86 105 132 153 97 ...
@@ -490,20 +523,20 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>  Group Subject.ID Observation_number Hydroxyurea Asthma ICS LABA Gender
+<pre><code>  Group Subject_ID Observation_number Hydroxyurea Asthma ICS LABA Gender
 1 C-SCD          1                  1         Yes    Yes Yes   No   Male
 2 C-SCD          1                  2         Yes    Yes Yes   No   Male
 3 C-SCD          1                  3         Yes    Yes Yes  Yes   Male
 4 C-SCD          1                  4         Yes    Yes Yes  Yes   Male
 5 C-SCD          2                  1          No     No  No   No Female
 6 C-SCD          3                  1         Yes    Yes  No   No   Male
-  Age..months. Height..cm. Weight..Kg.   BMI R5Hz_PP R20Hz_PP X5Hz_PP Fres_PP
-1          239       164.1        61.5 22.84     145      133    -456      NA
-2          193       162.7        62.3 23.53     103       98     111     169
-3          212       163.5        63.1 23.60     107       98     174     159
-4          224       163.8        63.7 23.74      87       87    -303      NA
-5          204       154.5        66.4 27.82     124      121      98     135
-6          178       158.0        51.9 20.79     109       86     115     148</code></pre>
+  Age_months Height_cm Weight_Kg   BMI R5Hz_PP R20Hz_PP X5Hz_PP Fres_PP
+1        239     164.1      61.5 22.84     145      133    -456      NA
+2        193     162.7      62.3 23.53     103       98     111     169
+3        212     163.5      63.1 23.60     107       98     174     159
+4        224     163.8      63.7 23.74      87       87    -303      NA
+5        204     154.5      66.4 27.82     124      121      98     135
+6        178     158.0      51.9 20.79     109       86     115     148</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -541,23 +574,23 @@ window.Quarto = {
 <span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="iqsdpxzytr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#iqsdpxzytr table {
+<div id="jfkfrdjqzh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#jfkfrdjqzh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#iqsdpxzytr thead, #iqsdpxzytr tbody, #iqsdpxzytr tfoot, #iqsdpxzytr tr, #iqsdpxzytr td, #iqsdpxzytr th {
+#jfkfrdjqzh thead, #jfkfrdjqzh tbody, #jfkfrdjqzh tfoot, #jfkfrdjqzh tr, #jfkfrdjqzh td, #jfkfrdjqzh th {
   border-style: none;
 }
 
-#iqsdpxzytr p {
+#jfkfrdjqzh p {
   margin: 0;
   padding: 0;
 }
 
-#iqsdpxzytr .gt_table {
+#jfkfrdjqzh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -583,12 +616,12 @@ window.Quarto = {
   border-left-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_caption {
+#jfkfrdjqzh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#iqsdpxzytr .gt_title {
+#jfkfrdjqzh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -600,7 +633,7 @@ window.Quarto = {
   border-bottom-width: 0;
 }
 
-#iqsdpxzytr .gt_subtitle {
+#jfkfrdjqzh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -612,7 +645,7 @@ window.Quarto = {
   border-top-width: 0;
 }
 
-#iqsdpxzytr .gt_heading {
+#jfkfrdjqzh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -624,13 +657,13 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_bottom_border {
+#jfkfrdjqzh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_col_headings {
+#jfkfrdjqzh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -645,7 +678,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_col_heading {
+#jfkfrdjqzh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -665,7 +698,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#iqsdpxzytr .gt_column_spanner_outer {
+#jfkfrdjqzh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -677,15 +710,15 @@ window.Quarto = {
   padding-right: 4px;
 }
 
-#iqsdpxzytr .gt_column_spanner_outer:first-child {
+#jfkfrdjqzh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#iqsdpxzytr .gt_column_spanner_outer:last-child {
+#jfkfrdjqzh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#iqsdpxzytr .gt_column_spanner {
+#jfkfrdjqzh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -697,11 +730,11 @@ window.Quarto = {
   width: 100%;
 }
 
-#iqsdpxzytr .gt_spanner_row {
+#jfkfrdjqzh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#iqsdpxzytr .gt_group_heading {
+#jfkfrdjqzh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -727,7 +760,7 @@ window.Quarto = {
   text-align: left;
 }
 
-#iqsdpxzytr .gt_empty_group_heading {
+#jfkfrdjqzh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -742,15 +775,15 @@ window.Quarto = {
   vertical-align: middle;
 }
 
-#iqsdpxzytr .gt_from_md > :first-child {
+#jfkfrdjqzh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#iqsdpxzytr .gt_from_md > :last-child {
+#jfkfrdjqzh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#iqsdpxzytr .gt_row {
+#jfkfrdjqzh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -769,7 +802,7 @@ window.Quarto = {
   overflow-x: hidden;
 }
 
-#iqsdpxzytr .gt_stub {
+#jfkfrdjqzh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -782,7 +815,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#iqsdpxzytr .gt_stub_row_group {
+#jfkfrdjqzh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -796,15 +829,15 @@ window.Quarto = {
   vertical-align: top;
 }
 
-#iqsdpxzytr .gt_row_group_first td {
+#jfkfrdjqzh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#iqsdpxzytr .gt_row_group_first th {
+#jfkfrdjqzh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#iqsdpxzytr .gt_summary_row {
+#jfkfrdjqzh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -814,16 +847,16 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#iqsdpxzytr .gt_first_summary_row {
+#jfkfrdjqzh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_first_summary_row.thick {
+#jfkfrdjqzh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#iqsdpxzytr .gt_last_summary_row {
+#jfkfrdjqzh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -833,7 +866,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_grand_summary_row {
+#jfkfrdjqzh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -843,7 +876,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#iqsdpxzytr .gt_first_grand_summary_row {
+#jfkfrdjqzh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -853,7 +886,7 @@ window.Quarto = {
   border-top-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_last_grand_summary_row_top {
+#jfkfrdjqzh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -863,11 +896,11 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_striped {
+#jfkfrdjqzh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#iqsdpxzytr .gt_table_body {
+#jfkfrdjqzh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -876,7 +909,7 @@ window.Quarto = {
   border-bottom-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_footnotes {
+#jfkfrdjqzh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -890,7 +923,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_footnote {
+#jfkfrdjqzh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -899,7 +932,7 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#iqsdpxzytr .gt_sourcenotes {
+#jfkfrdjqzh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -913,7 +946,7 @@ window.Quarto = {
   border-right-color: #D3D3D3;
 }
 
-#iqsdpxzytr .gt_sourcenote {
+#jfkfrdjqzh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -921,63 +954,63 @@ window.Quarto = {
   padding-right: 5px;
 }
 
-#iqsdpxzytr .gt_left {
+#jfkfrdjqzh .gt_left {
   text-align: left;
 }
 
-#iqsdpxzytr .gt_center {
+#jfkfrdjqzh .gt_center {
   text-align: center;
 }
 
-#iqsdpxzytr .gt_right {
+#jfkfrdjqzh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#iqsdpxzytr .gt_font_normal {
+#jfkfrdjqzh .gt_font_normal {
   font-weight: normal;
 }
 
-#iqsdpxzytr .gt_font_bold {
+#jfkfrdjqzh .gt_font_bold {
   font-weight: bold;
 }
 
-#iqsdpxzytr .gt_font_italic {
+#jfkfrdjqzh .gt_font_italic {
   font-style: italic;
 }
 
-#iqsdpxzytr .gt_super {
+#jfkfrdjqzh .gt_super {
   font-size: 65%;
 }
 
-#iqsdpxzytr .gt_footnote_marks {
+#jfkfrdjqzh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#iqsdpxzytr .gt_asterisk {
+#jfkfrdjqzh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#iqsdpxzytr .gt_indent_1 {
+#jfkfrdjqzh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#iqsdpxzytr .gt_indent_2 {
+#jfkfrdjqzh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#iqsdpxzytr .gt_indent_3 {
+#jfkfrdjqzh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#iqsdpxzytr .gt_indent_4 {
+#jfkfrdjqzh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#iqsdpxzytr .gt_indent_5 {
+#jfkfrdjqzh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -998,7 +1031,7 @@ window.Quarto = {
 <td class="gt_row gt_left" headers="Description">This column indicates the group to which the subject belongs. There are two groups in the study: children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma).</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Variable">Subject.ID</td>
+<td class="gt_row gt_left" headers="Variable">Subject_ID</td>
 <td class="gt_row gt_left" headers="Description">Each subject in the study is assigned a unique identifier or ID, which is listed in this column. The ID is used to differentiate between individual participants.</td>
 </tr>
 <tr class="odd">
@@ -1026,15 +1059,15 @@ window.Quarto = {
 <td class="gt_row gt_left" headers="Description">This column represents the gender of the subject, indicating whether they are male or female</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Variable">Age..months.</td>
+<td class="gt_row gt_left" headers="Variable">Age_months</td>
 <td class="gt_row gt_left" headers="Description">This column specifies the age of the subject at the time of the observation or measurement. Age is typically measured in months.</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Variable">Height..cm.</td>
+<td class="gt_row gt_left" headers="Variable">Height_cm</td>
 <td class="gt_row gt_left" headers="Description">This column represents the height of the subject, typically measured in a standard unit of length, such as centimeters or inches. Height is an important variable to consider in assessing the impact of BMI on respiratory measures.</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Variable">Weight..Kg.</td>
+<td class="gt_row gt_left" headers="Variable">Weight_Kg</td>
 <td class="gt_row gt_left" headers="Description">This column indicates the weight of the subject at the time of the observation or measurement. Weight is typically measured in kilograms (Kg) and is an important variable for calculating the body mass index (BMI).</td>
 </tr>
 <tr class="even">
@@ -1074,9 +1107,9 @@ window.Quarto = {
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>  rows columns discrete_columns continuous_columns all_missing_columns
-1  219      16                6                 10                   0
+1  219      16                8                  8                   0
   total_missing_values complete_rows total_observations memory_usage
-1                   14           205               3504        27592</code></pre>
+1                   14           205               3504        34032</code></pre>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
@@ -1132,17 +1165,17 @@ window.Quarto = {
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>'data.frame':   205 obs. of  16 variables:
- $ Group             : chr  "C-SCD" "C-SCD" "C-SCD" "C-SCD" ...
- $ Subject.ID        : int  1 1 2 3 3 4 5 6 6 7 ...
- $ Observation_number: int  2 3 1 1 2 2 1 1 2 1 ...
+ $ Group             : Factor w/ 2 levels "C-Asthma","C-SCD": 2 2 2 2 2 2 2 2 2 2 ...
+ $ Subject_ID        : Factor w/ 90 levels "1","2","3","4",..: 1 1 2 3 3 4 5 6 6 7 ...
+ $ Observation_number: Factor w/ 6 levels "1","2","3","4",..: 2 3 1 1 2 2 1 1 2 1 ...
  $ Hydroxyurea       : chr  "Yes" "Yes" "No" "Yes" ...
  $ Asthma            : chr  "Yes" "Yes" "No" "Yes" ...
  $ ICS               : chr  "Yes" "Yes" "No" "No" ...
  $ LABA              : chr  "No" "Yes" "No" "No" ...
  $ Gender            : chr  "Male" "Male" "Female" "Male" ...
- $ Age..months.      : int  193 212 204 178 186 210 196 175 200 173 ...
- $ Height..cm.       : num  163 164 154 158 164 ...
- $ Weight..Kg.       : num  62.3 63.1 66.4 51.9 56.7 66.9 52.9 39 50.6 56.3 ...
+ $ Age_months        : int  193 212 204 178 186 210 196 175 200 173 ...
+ $ Height_cm         : num  163 164 154 158 164 ...
+ $ Weight_Kg         : num  62.3 63.1 66.4 51.9 56.7 66.9 52.9 39 50.6 56.3 ...
  $ BMI               : num  23.5 23.6 27.8 20.8 20.9 ...
  $ R5Hz_PP           : int  103 107 124 109 117 179 136 96 123 117 ...
  $ R20Hz_PP          : int  98 98 121 86 105 153 97 109 115 117 ...
@@ -1184,13 +1217,6 @@ window.Quarto = {
 </figure>
 </div>
 </div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_prcomp</span>(<span class="fu">na.omit</span>(x))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1198,14 +1224,14 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="report_files/figure-html/unnamed-chunk-5-4.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="report_files/figure-html/unnamed-chunk-5-5.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1223,21 +1249,14 @@ window.Quarto = {
 <div class="cell-output-display">
 <div>
 <figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-6.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
 <p><img src="report_files/figure-html/unnamed-chunk-5-7.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-5-8.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-5-9.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
@@ -1268,7 +1287,7 @@ window.Quarto = {
 <span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Outliers in Weight..Kg. :
+<pre><code>Outliers in Weight_Kg :
  [1]  91.4 100.2 104.4 111.2 120.4 108.6 105.1 100.0  95.5 130.1 108.5 124.6
 [13]  95.2
 
@@ -1292,7 +1311,7 @@ Outliers in X5Hz_PP :
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>( <span class="co">#gtSummary Table</span></span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">by=</span>Group,</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="fu">list</span>(</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(<span class="st">'Age..months.'</span>, <span class="st">'Height..cm.'</span>, <span class="st">'Weight..Kg.'</span>, <span class="st">'BMI'</span>, <span class="st">'R5Hz_PP'</span>, <span class="st">'R20Hz_PP'</span>, <span class="st">'X5Hz_PP'</span>, <span class="st">'Fres_PP'</span>) <span class="sc">~</span> <span class="st">'continuous2'</span>),</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">c</span>(<span class="st">'Age_months'</span>, <span class="st">'Height_cm'</span>, <span class="st">'Weight_Kg'</span>, <span class="st">'BMI'</span>, <span class="st">'R5Hz_PP'</span>, <span class="st">'R20Hz_PP'</span>, <span class="st">'X5Hz_PP'</span>, <span class="st">'Fres_PP'</span>) <span class="sc">~</span> <span class="st">'continuous2'</span>),</span>
 <span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">statistic =</span> <span class="fu">all_continuous2</span>() <span class="sc">~</span> <span class="fu">c</span>(</span>
 <span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"{mean} ± {sd}"</span>,</span>
 <span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>                       <span class="st">"{median} ({p25}, {p75})"</span>,</span>
@@ -1312,23 +1331,23 @@ Outliers in X5Hz_PP :
 <span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="wghtuxmlxb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#wghtuxmlxb table {
+<div id="modhptdztn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#modhptdztn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#wghtuxmlxb thead, #wghtuxmlxb tbody, #wghtuxmlxb tfoot, #wghtuxmlxb tr, #wghtuxmlxb td, #wghtuxmlxb th {
+#modhptdztn thead, #modhptdztn tbody, #modhptdztn tfoot, #modhptdztn tr, #modhptdztn td, #modhptdztn th {
   border-style: none;
 }
 
-#wghtuxmlxb p {
+#modhptdztn p {
   margin: 0;
   padding: 0;
 }
 
-#wghtuxmlxb .gt_table {
+#modhptdztn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1354,12 +1373,12 @@ Outliers in X5Hz_PP :
   border-left-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_caption {
+#modhptdztn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#wghtuxmlxb .gt_title {
+#modhptdztn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1371,7 +1390,7 @@ Outliers in X5Hz_PP :
   border-bottom-width: 0;
 }
 
-#wghtuxmlxb .gt_subtitle {
+#modhptdztn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1383,7 +1402,7 @@ Outliers in X5Hz_PP :
   border-top-width: 0;
 }
 
-#wghtuxmlxb .gt_heading {
+#modhptdztn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1395,13 +1414,13 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_bottom_border {
+#modhptdztn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_col_headings {
+#modhptdztn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1416,7 +1435,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_col_heading {
+#modhptdztn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1436,7 +1455,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#wghtuxmlxb .gt_column_spanner_outer {
+#modhptdztn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1448,15 +1467,15 @@ Outliers in X5Hz_PP :
   padding-right: 4px;
 }
 
-#wghtuxmlxb .gt_column_spanner_outer:first-child {
+#modhptdztn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#wghtuxmlxb .gt_column_spanner_outer:last-child {
+#modhptdztn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#wghtuxmlxb .gt_column_spanner {
+#modhptdztn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1468,11 +1487,11 @@ Outliers in X5Hz_PP :
   width: 100%;
 }
 
-#wghtuxmlxb .gt_spanner_row {
+#modhptdztn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#wghtuxmlxb .gt_group_heading {
+#modhptdztn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1498,7 +1517,7 @@ Outliers in X5Hz_PP :
   text-align: left;
 }
 
-#wghtuxmlxb .gt_empty_group_heading {
+#modhptdztn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1513,15 +1532,15 @@ Outliers in X5Hz_PP :
   vertical-align: middle;
 }
 
-#wghtuxmlxb .gt_from_md > :first-child {
+#modhptdztn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#wghtuxmlxb .gt_from_md > :last-child {
+#modhptdztn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#wghtuxmlxb .gt_row {
+#modhptdztn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1540,7 +1559,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#wghtuxmlxb .gt_stub {
+#modhptdztn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1553,7 +1572,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#wghtuxmlxb .gt_stub_row_group {
+#modhptdztn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1567,15 +1586,15 @@ Outliers in X5Hz_PP :
   vertical-align: top;
 }
 
-#wghtuxmlxb .gt_row_group_first td {
+#modhptdztn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#wghtuxmlxb .gt_row_group_first th {
+#modhptdztn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#wghtuxmlxb .gt_summary_row {
+#modhptdztn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1585,16 +1604,16 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#wghtuxmlxb .gt_first_summary_row {
+#modhptdztn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_first_summary_row.thick {
+#modhptdztn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#wghtuxmlxb .gt_last_summary_row {
+#modhptdztn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1604,7 +1623,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_grand_summary_row {
+#modhptdztn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1614,7 +1633,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#wghtuxmlxb .gt_first_grand_summary_row {
+#modhptdztn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1624,7 +1643,7 @@ Outliers in X5Hz_PP :
   border-top-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_last_grand_summary_row_top {
+#modhptdztn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1634,11 +1653,11 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_striped {
+#modhptdztn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#wghtuxmlxb .gt_table_body {
+#modhptdztn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1647,7 +1666,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_footnotes {
+#modhptdztn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1661,7 +1680,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_footnote {
+#modhptdztn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1670,7 +1689,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#wghtuxmlxb .gt_sourcenotes {
+#modhptdztn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1684,7 +1703,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#wghtuxmlxb .gt_sourcenote {
+#modhptdztn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1692,63 +1711,63 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#wghtuxmlxb .gt_left {
+#modhptdztn .gt_left {
   text-align: left;
 }
 
-#wghtuxmlxb .gt_center {
+#modhptdztn .gt_center {
   text-align: center;
 }
 
-#wghtuxmlxb .gt_right {
+#modhptdztn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#wghtuxmlxb .gt_font_normal {
+#modhptdztn .gt_font_normal {
   font-weight: normal;
 }
 
-#wghtuxmlxb .gt_font_bold {
+#modhptdztn .gt_font_bold {
   font-weight: bold;
 }
 
-#wghtuxmlxb .gt_font_italic {
+#modhptdztn .gt_font_italic {
   font-style: italic;
 }
 
-#wghtuxmlxb .gt_super {
+#modhptdztn .gt_super {
   font-size: 65%;
 }
 
-#wghtuxmlxb .gt_footnote_marks {
+#modhptdztn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#wghtuxmlxb .gt_asterisk {
+#modhptdztn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#wghtuxmlxb .gt_indent_1 {
+#modhptdztn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#wghtuxmlxb .gt_indent_2 {
+#modhptdztn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#wghtuxmlxb .gt_indent_3 {
+#modhptdztn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#wghtuxmlxb .gt_indent_4 {
+#modhptdztn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#wghtuxmlxb .gt_indent_5 {
+#modhptdztn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1841,7 +1860,7 @@ Outliers in X5Hz_PP :
 <td class="gt_row gt_center" headers="stat_2">90 (60%)</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label" style="font-weight: bold">Age..months.</td>
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Age_months</td>
 <td class="gt_row gt_center" headers="stat_1"></td>
 <td class="gt_row gt_center" headers="stat_2"></td>
 </tr>
@@ -1861,7 +1880,7 @@ Outliers in X5Hz_PP :
 <td class="gt_row gt_center" headers="stat_2">50.00, 215.00</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label" style="font-weight: bold">Height..cm.</td>
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Height_cm</td>
 <td class="gt_row gt_center" headers="stat_1"></td>
 <td class="gt_row gt_center" headers="stat_2"></td>
 </tr>
@@ -1881,7 +1900,7 @@ Outliers in X5Hz_PP :
 <td class="gt_row gt_center" headers="stat_2">101.80, 178.90</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="label" style="font-weight: bold">Weight..Kg.</td>
+<td class="gt_row gt_left" headers="label" style="font-weight: bold">Weight_Kg</td>
 <td class="gt_row gt_center" headers="stat_1"></td>
 <td class="gt_row gt_center" headers="stat_2"></td>
 </tr>
@@ -2017,14 +2036,14 @@ Outliers in X5Hz_PP :
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>x_clean_timepoints <span class="ot">&lt;-</span> x_clean <span class="sc">%&gt;%</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Observation_number) <span class="sc">%&gt;%</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Unique_Subjects =</span> <span class="fu">n_distinct</span>(Subject.ID))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Unique_Subjects =</span> <span class="fu">n_distinct</span>(Subject_ID))</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_clean_timepoints, <span class="fu">aes</span>(<span class="at">x =</span> Observation_number, <span class="at">y =</span> Unique_Subjects)) <span class="sc">+</span></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># Add points for each observation</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># Connect the points with a line</span></span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>, <span class="at">se =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span> <span class="co"># Add a linear trend line</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>x_clean_timepoints<span class="sc">$</span>Unique_Subjects <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(x_clean_timepoints<span class="sc">$</span>Unique_Subjects)</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_clean_timepoints, <span class="fu">aes</span>(<span class="at">x =</span> Observation_number, <span class="at">y =</span> Unique_Subjects)) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># Add points for each observation</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> <span class="dv">1</span>), <span class="at">color =</span> <span class="st">"blue"</span>) <span class="sc">+</span> <span class="co"># Connect the points with a line</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
 <span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Unique Subjects per Timepoint"</span>,</span>
 <span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"Timepoint"</span>,</span>
 <span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Number of Unique Subjects"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2048,23 +2067,23 @@ Outliers in X5Hz_PP :
 <span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="znudkjyggm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#znudkjyggm table {
+<div id="yupssmezoy" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yupssmezoy table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#znudkjyggm thead, #znudkjyggm tbody, #znudkjyggm tfoot, #znudkjyggm tr, #znudkjyggm td, #znudkjyggm th {
+#yupssmezoy thead, #yupssmezoy tbody, #yupssmezoy tfoot, #yupssmezoy tr, #yupssmezoy td, #yupssmezoy th {
   border-style: none;
 }
 
-#znudkjyggm p {
+#yupssmezoy p {
   margin: 0;
   padding: 0;
 }
 
-#znudkjyggm .gt_table {
+#yupssmezoy .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2090,12 +2109,12 @@ Outliers in X5Hz_PP :
   border-left-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_caption {
+#yupssmezoy .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#znudkjyggm .gt_title {
+#yupssmezoy .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2107,7 +2126,7 @@ Outliers in X5Hz_PP :
   border-bottom-width: 0;
 }
 
-#znudkjyggm .gt_subtitle {
+#yupssmezoy .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2119,7 +2138,7 @@ Outliers in X5Hz_PP :
   border-top-width: 0;
 }
 
-#znudkjyggm .gt_heading {
+#yupssmezoy .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2131,13 +2150,13 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_bottom_border {
+#yupssmezoy .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_col_headings {
+#yupssmezoy .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2152,7 +2171,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_col_heading {
+#yupssmezoy .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2172,7 +2191,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#znudkjyggm .gt_column_spanner_outer {
+#yupssmezoy .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2184,15 +2203,15 @@ Outliers in X5Hz_PP :
   padding-right: 4px;
 }
 
-#znudkjyggm .gt_column_spanner_outer:first-child {
+#yupssmezoy .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#znudkjyggm .gt_column_spanner_outer:last-child {
+#yupssmezoy .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#znudkjyggm .gt_column_spanner {
+#yupssmezoy .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2204,11 +2223,11 @@ Outliers in X5Hz_PP :
   width: 100%;
 }
 
-#znudkjyggm .gt_spanner_row {
+#yupssmezoy .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#znudkjyggm .gt_group_heading {
+#yupssmezoy .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2234,7 +2253,7 @@ Outliers in X5Hz_PP :
   text-align: left;
 }
 
-#znudkjyggm .gt_empty_group_heading {
+#yupssmezoy .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2249,15 +2268,15 @@ Outliers in X5Hz_PP :
   vertical-align: middle;
 }
 
-#znudkjyggm .gt_from_md > :first-child {
+#yupssmezoy .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#znudkjyggm .gt_from_md > :last-child {
+#yupssmezoy .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#znudkjyggm .gt_row {
+#yupssmezoy .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2276,7 +2295,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#znudkjyggm .gt_stub {
+#yupssmezoy .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2289,7 +2308,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#znudkjyggm .gt_stub_row_group {
+#yupssmezoy .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2303,15 +2322,15 @@ Outliers in X5Hz_PP :
   vertical-align: top;
 }
 
-#znudkjyggm .gt_row_group_first td {
+#yupssmezoy .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#znudkjyggm .gt_row_group_first th {
+#yupssmezoy .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#znudkjyggm .gt_summary_row {
+#yupssmezoy .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2321,16 +2340,16 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#znudkjyggm .gt_first_summary_row {
+#yupssmezoy .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_first_summary_row.thick {
+#yupssmezoy .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#znudkjyggm .gt_last_summary_row {
+#yupssmezoy .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2340,7 +2359,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_grand_summary_row {
+#yupssmezoy .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2350,7 +2369,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#znudkjyggm .gt_first_grand_summary_row {
+#yupssmezoy .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2360,7 +2379,7 @@ Outliers in X5Hz_PP :
   border-top-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_last_grand_summary_row_top {
+#yupssmezoy .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2370,11 +2389,11 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_striped {
+#yupssmezoy .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#znudkjyggm .gt_table_body {
+#yupssmezoy .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2383,7 +2402,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_footnotes {
+#yupssmezoy .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2397,7 +2416,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_footnote {
+#yupssmezoy .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2406,7 +2425,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#znudkjyggm .gt_sourcenotes {
+#yupssmezoy .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2420,7 +2439,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#znudkjyggm .gt_sourcenote {
+#yupssmezoy .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2428,63 +2447,63 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#znudkjyggm .gt_left {
+#yupssmezoy .gt_left {
   text-align: left;
 }
 
-#znudkjyggm .gt_center {
+#yupssmezoy .gt_center {
   text-align: center;
 }
 
-#znudkjyggm .gt_right {
+#yupssmezoy .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#znudkjyggm .gt_font_normal {
+#yupssmezoy .gt_font_normal {
   font-weight: normal;
 }
 
-#znudkjyggm .gt_font_bold {
+#yupssmezoy .gt_font_bold {
   font-weight: bold;
 }
 
-#znudkjyggm .gt_font_italic {
+#yupssmezoy .gt_font_italic {
   font-style: italic;
 }
 
-#znudkjyggm .gt_super {
+#yupssmezoy .gt_super {
   font-size: 65%;
 }
 
-#znudkjyggm .gt_footnote_marks {
+#yupssmezoy .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#znudkjyggm .gt_asterisk {
+#yupssmezoy .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#znudkjyggm .gt_indent_1 {
+#yupssmezoy .gt_indent_1 {
   text-indent: 5px;
 }
 
-#znudkjyggm .gt_indent_2 {
+#yupssmezoy .gt_indent_2 {
   text-indent: 10px;
 }
 
-#znudkjyggm .gt_indent_3 {
+#yupssmezoy .gt_indent_3 {
   text-indent: 15px;
 }
 
-#znudkjyggm .gt_indent_4 {
+#yupssmezoy .gt_indent_4 {
   text-indent: 20px;
 }
 
-#znudkjyggm .gt_indent_5 {
+#yupssmezoy .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2495,33 +2514,33 @@ Outliers in X5Hz_PP :
 <th colspan="2" class="gt_heading gt_title gt_font_normal gt_bottom_border">Table 4. Summary of Missing Data</th>
 </tr>
 <tr class="odd gt_col_headings">
-<th id="Observation_number" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Observation_number</th>
+<th id="Observation_number" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col">Observation_number</th>
 <th id="Unique_Subjects" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Unique_Subjects</th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_right" headers="Observation_number">1</td>
+<td class="gt_row gt_center" headers="Observation_number">1</td>
 <td class="gt_row gt_right" headers="Unique_Subjects">85</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="Observation_number">2</td>
+<td class="gt_row gt_center" headers="Observation_number">2</td>
 <td class="gt_row gt_right" headers="Unique_Subjects">57</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="Observation_number">3</td>
+<td class="gt_row gt_center" headers="Observation_number">3</td>
 <td class="gt_row gt_right" headers="Unique_Subjects">38</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="Observation_number">4</td>
+<td class="gt_row gt_center" headers="Observation_number">4</td>
 <td class="gt_row gt_right" headers="Unique_Subjects">19</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_right" headers="Observation_number">5</td>
+<td class="gt_row gt_center" headers="Observation_number">5</td>
 <td class="gt_row gt_right" headers="Unique_Subjects">5</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_right" headers="Observation_number">6</td>
+<td class="gt_row gt_center" headers="Observation_number">6</td>
 <td class="gt_row gt_right" headers="Unique_Subjects">1</td>
 </tr>
 </tbody><tfoot class="gt_footnotes">
@@ -2557,39 +2576,24 @@ Outliers in X5Hz_PP :
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(correlation_matrix)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>                    Subject.ID Observation_number Age..months. Height..cm.
-Subject.ID          1.00000000        -0.21500257  -0.32924618 -0.17917013
-Observation_number -0.21500257         1.00000000   0.08375717  0.05602244
-Age..months.       -0.32924618         0.08375717   1.00000000  0.91367866
-Height..cm.        -0.17917013         0.05602244   0.91367866  1.00000000
-Weight..Kg.         0.05534316        -0.04624712   0.69729363  0.74787329
-BMI                 0.16386162        -0.08167290   0.44416330  0.45814806
-R5Hz_PP            -0.26537828         0.17631576   0.40385960  0.31003693
-R20Hz_PP           -0.24942573         0.13865818   0.33200111  0.24291582
-X5Hz_PP            -0.20369376         0.09891752   0.38857148  0.37455537
-Fres_PP            -0.30541160         0.11774148   0.58762865  0.52148796
-                   Weight..Kg.           BMI       R5Hz_PP    R20Hz_PP
-Subject.ID          0.05534316  1.638616e-01 -2.653783e-01 -0.24942573
-Observation_number -0.04624712 -8.167290e-02  1.763158e-01  0.13865818
-Age..months.        0.69729363  4.441633e-01  4.038596e-01  0.33200111
-Height..cm.         0.74787329  4.581481e-01  3.100369e-01  0.24291582
-Weight..Kg.         1.00000000  9.265856e-01  1.261621e-01  0.10391395
-BMI                 0.92658562  1.000000e+00  6.430664e-06  0.01337894
-R5Hz_PP             0.12616210  6.430664e-06  1.000000e+00  0.70961067
-R20Hz_PP            0.10391395  1.337894e-02  7.096107e-01  1.00000000
-X5Hz_PP             0.13463870 -2.990486e-02  4.464806e-01  0.20055148
-Fres_PP             0.19759669 -1.523383e-02  7.538067e-01  0.54826299
-                       X5Hz_PP     Fres_PP
-Subject.ID         -0.20369376 -0.30541160
-Observation_number  0.09891752  0.11774148
-Age..months.        0.38857148  0.58762865
-Height..cm.         0.37455537  0.52148796
-Weight..Kg.         0.13463870  0.19759669
-BMI                -0.02990486 -0.01523383
-R5Hz_PP             0.44648059  0.75380665
-R20Hz_PP            0.20055148  0.54826299
-X5Hz_PP             1.00000000  0.50290470
-Fres_PP             0.50290470  1.00000000</code></pre>
+<pre><code>           Age_months Height_cm Weight_Kg           BMI      R5Hz_PP   R20Hz_PP
+Age_months  1.0000000 0.9136787 0.6972936  4.441633e-01 4.038596e-01 0.33200111
+Height_cm   0.9136787 1.0000000 0.7478733  4.581481e-01 3.100369e-01 0.24291582
+Weight_Kg   0.6972936 0.7478733 1.0000000  9.265856e-01 1.261621e-01 0.10391395
+BMI         0.4441633 0.4581481 0.9265856  1.000000e+00 6.430664e-06 0.01337894
+R5Hz_PP     0.4038596 0.3100369 0.1261621  6.430664e-06 1.000000e+00 0.70961067
+R20Hz_PP    0.3320011 0.2429158 0.1039139  1.337894e-02 7.096107e-01 1.00000000
+X5Hz_PP     0.3885715 0.3745554 0.1346387 -2.990486e-02 4.464806e-01 0.20055148
+Fres_PP     0.5876287 0.5214880 0.1975967 -1.523383e-02 7.538067e-01 0.54826299
+               X5Hz_PP     Fres_PP
+Age_months  0.38857148  0.58762865
+Height_cm   0.37455537  0.52148796
+Weight_Kg   0.13463870  0.19759669
+BMI        -0.02990486 -0.01523383
+R5Hz_PP     0.44648059  0.75380665
+R20Hz_PP    0.20055148  0.54826299
+X5Hz_PP     1.00000000  0.50290470
+Fres_PP     0.50290470  1.00000000</code></pre>
 </div>
 </div>
 <p>Age (months) and Height (cm): There is a strong positive correlation (0.914) between Age (months) and Height (cm). This implies that as age increases, height tends to increase as well. This correlation is expected, as children tend to grow taller as they get older.</p>
@@ -2599,7 +2603,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
 </section>
 <section id="linear-mixed-modeling" class="level2">
 <h2 class="anchored" data-anchor-id="linear-mixed-modeling"><strong>3.3 Linear Mixed Modeling</strong></h2>
-<p>In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations, groups, and subjects. These represent the random effects, as shown in Table 2.</p>
+<p>In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations, groups, and subjects. These represent the random effects, as shown in Table 2. In the initial models, Subject_ID was treated as the sole random effect. In the final models, all random effects were incorporated (Subject_ID, Group, Observation_Number).</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
@@ -2635,23 +2639,23 @@ Fres_PP             0.50290470  1.00000000</code></pre>
 <span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<div id="ihwujlxkht" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ihwujlxkht table {
+<div id="izuylzaqzf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#izuylzaqzf table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ihwujlxkht thead, #ihwujlxkht tbody, #ihwujlxkht tfoot, #ihwujlxkht tr, #ihwujlxkht td, #ihwujlxkht th {
+#izuylzaqzf thead, #izuylzaqzf tbody, #izuylzaqzf tfoot, #izuylzaqzf tr, #izuylzaqzf td, #izuylzaqzf th {
   border-style: none;
 }
 
-#ihwujlxkht p {
+#izuylzaqzf p {
   margin: 0;
   padding: 0;
 }
 
-#ihwujlxkht .gt_table {
+#izuylzaqzf .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2677,12 +2681,12 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_caption {
+#izuylzaqzf .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ihwujlxkht .gt_title {
+#izuylzaqzf .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2694,7 +2698,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-bottom-width: 0;
 }
 
-#ihwujlxkht .gt_subtitle {
+#izuylzaqzf .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2706,7 +2710,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-top-width: 0;
 }
 
-#ihwujlxkht .gt_heading {
+#izuylzaqzf .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2718,13 +2722,13 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_bottom_border {
+#izuylzaqzf .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_col_headings {
+#izuylzaqzf .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2739,7 +2743,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_col_heading {
+#izuylzaqzf .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2759,7 +2763,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   overflow-x: hidden;
 }
 
-#ihwujlxkht .gt_column_spanner_outer {
+#izuylzaqzf .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2771,15 +2775,15 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   padding-right: 4px;
 }
 
-#ihwujlxkht .gt_column_spanner_outer:first-child {
+#izuylzaqzf .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ihwujlxkht .gt_column_spanner_outer:last-child {
+#izuylzaqzf .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ihwujlxkht .gt_column_spanner {
+#izuylzaqzf .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2791,11 +2795,11 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   width: 100%;
 }
 
-#ihwujlxkht .gt_spanner_row {
+#izuylzaqzf .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ihwujlxkht .gt_group_heading {
+#izuylzaqzf .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2821,7 +2825,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   text-align: left;
 }
 
-#ihwujlxkht .gt_empty_group_heading {
+#izuylzaqzf .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2836,15 +2840,15 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   vertical-align: middle;
 }
 
-#ihwujlxkht .gt_from_md > :first-child {
+#izuylzaqzf .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ihwujlxkht .gt_from_md > :last-child {
+#izuylzaqzf .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ihwujlxkht .gt_row {
+#izuylzaqzf .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2863,7 +2867,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   overflow-x: hidden;
 }
 
-#ihwujlxkht .gt_stub {
+#izuylzaqzf .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2876,7 +2880,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#ihwujlxkht .gt_stub_row_group {
+#izuylzaqzf .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2890,15 +2894,15 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   vertical-align: top;
 }
 
-#ihwujlxkht .gt_row_group_first td {
+#izuylzaqzf .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ihwujlxkht .gt_row_group_first th {
+#izuylzaqzf .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ihwujlxkht .gt_summary_row {
+#izuylzaqzf .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2908,16 +2912,16 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#ihwujlxkht .gt_first_summary_row {
+#izuylzaqzf .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_first_summary_row.thick {
+#izuylzaqzf .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ihwujlxkht .gt_last_summary_row {
+#izuylzaqzf .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2927,7 +2931,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_grand_summary_row {
+#izuylzaqzf .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2937,7 +2941,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#ihwujlxkht .gt_first_grand_summary_row {
+#izuylzaqzf .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2947,7 +2951,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_last_grand_summary_row_top {
+#izuylzaqzf .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2957,11 +2961,11 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_striped {
+#izuylzaqzf .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ihwujlxkht .gt_table_body {
+#izuylzaqzf .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2970,7 +2974,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_footnotes {
+#izuylzaqzf .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2984,7 +2988,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_footnote {
+#izuylzaqzf .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2993,7 +2997,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#ihwujlxkht .gt_sourcenotes {
+#izuylzaqzf .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3007,7 +3011,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#ihwujlxkht .gt_sourcenote {
+#izuylzaqzf .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3015,63 +3019,63 @@ Fres_PP             0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#ihwujlxkht .gt_left {
+#izuylzaqzf .gt_left {
   text-align: left;
 }
 
-#ihwujlxkht .gt_center {
+#izuylzaqzf .gt_center {
   text-align: center;
 }
 
-#ihwujlxkht .gt_right {
+#izuylzaqzf .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ihwujlxkht .gt_font_normal {
+#izuylzaqzf .gt_font_normal {
   font-weight: normal;
 }
 
-#ihwujlxkht .gt_font_bold {
+#izuylzaqzf .gt_font_bold {
   font-weight: bold;
 }
 
-#ihwujlxkht .gt_font_italic {
+#izuylzaqzf .gt_font_italic {
   font-style: italic;
 }
 
-#ihwujlxkht .gt_super {
+#izuylzaqzf .gt_super {
   font-size: 65%;
 }
 
-#ihwujlxkht .gt_footnote_marks {
+#izuylzaqzf .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ihwujlxkht .gt_asterisk {
+#izuylzaqzf .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ihwujlxkht .gt_indent_1 {
+#izuylzaqzf .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ihwujlxkht .gt_indent_2 {
+#izuylzaqzf .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ihwujlxkht .gt_indent_3 {
+#izuylzaqzf .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ihwujlxkht .gt_indent_4 {
+#izuylzaqzf .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ihwujlxkht .gt_indent_5 {
+#izuylzaqzf .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3092,7 +3096,7 @@ Fres_PP             0.50290470  1.00000000</code></pre>
 <td class="gt_row gt_left" headers="Type">Random</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Variable">Subject.ID</td>
+<td class="gt_row gt_left" headers="Variable">Subject_ID</td>
 <td class="gt_row gt_left" headers="Type">Random</td>
 </tr>
 <tr class="odd">
@@ -3120,15 +3124,15 @@ Fres_PP             0.50290470  1.00000000</code></pre>
 <td class="gt_row gt_left" headers="Type">Fixed</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Variable">Age..months.</td>
+<td class="gt_row gt_left" headers="Variable">Age_months</td>
 <td class="gt_row gt_left" headers="Type">Fixed</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_left" headers="Variable">Height..cm.</td>
+<td class="gt_row gt_left" headers="Variable">Height_cm</td>
 <td class="gt_row gt_left" headers="Type">Fixed</td>
 </tr>
 <tr class="odd">
-<td class="gt_row gt_left" headers="Variable">Weight..Kg.</td>
+<td class="gt_row gt_left" headers="Variable">Weight_Kg</td>
 <td class="gt_row gt_left" headers="Type">Fixed</td>
 </tr>
 <tr class="even">
@@ -3162,9 +3166,199 @@ Fres_PP             0.50290470  1.00000000</code></pre>
 </div>
 </div>
 </div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co">#lme()</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit models using a tidy and clear approach</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>model_lme <span class="ot">&lt;-</span> <span class="fu">lme</span>(</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fixed =</span> <span class="fu">cbind</span>(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) <span class="sc">~</span> BMI <span class="sc">+</span> Asthma <span class="sc">+</span> ICS <span class="sc">+</span> LABA <span class="sc">+</span> Gender <span class="sc">+</span> Age_months <span class="sc">+</span> Height_cm <span class="sc">+</span> Weight_Kg,</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">random =</span> <span class="fu">list</span>(<span class="at">Subject_ID =</span> <span class="fu">pdIdent</span>(<span class="sc">~</span><span class="dv">1</span>)),</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> x_clean,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"REML"</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a><span class="co">#lmer() </span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>model_lmer <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> R5Hz_PP <span class="sc">+</span> R20Hz_PP <span class="sc">+</span> X5Hz_PP <span class="sc">+</span> Fres_PP <span class="sc">~</span> BMI <span class="sc">+</span> Asthma <span class="sc">+</span> ICS <span class="sc">+</span> LABA <span class="sc">+</span> Gender <span class="sc">+</span> Age_months <span class="sc">+</span> Height_cm <span class="sc">+</span> Weight_Kg <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject_ID),</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> x_clean</span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
-<section id="model-comparisons-and-assessment" class="level2">
-<h2 class="anchored" data-anchor-id="model-comparisons-and-assessment"><strong>3.4 Model Comparisons and Assessment</strong></h2>
+<section id="model-comparison-and-selection" class="level2">
+<h2 class="anchored" data-anchor-id="model-comparison-and-selection"><strong>3.4 Model Comparison and Selection</strong></h2>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compare models based on AIC</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>aic_lme <span class="ot">&lt;-</span> <span class="fu">AIC</span>(model_lme)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>aic_lmer <span class="ot">&lt;-</span> <span class="fu">AIC</span>(model_lmer)</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"AIC for lme model: %f</span><span class="sc">\n</span><span class="st">"</span>, aic_lme))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>AIC for lme model: 1894.697020</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"AIC for lmer model: %f</span><span class="sc">\n</span><span class="st">"</span>, aic_lmer))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>AIC for lmer model: 2510.440919</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Correctly assign final_model based on AIC comparison</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (aic_lme <span class="sc">&lt;</span> aic_lmer) {</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  final_model <span class="ot">&lt;-</span> model_lme</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  model_type <span class="ot">&lt;-</span> <span class="st">"lme"</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>  final_model <span class="ot">&lt;-</span> model_lmer</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>  model_type <span class="ot">&lt;-</span> <span class="st">"lmer"</span></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">"Final model selected: %s</span><span class="sc">\n</span><span class="st">"</span>, model_type))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Final model selected: lme</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Since final_model is now correctly assigned, we can call summary on it</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(final_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>Linear mixed-effects model fit by REML
+  Data: x_clean 
+       AIC      BIC    logLik
+  1894.697 1933.973 -935.3485
+
+Random effects:
+ Formula: ~1 | Subject_ID
+        (Intercept) Residual
+StdDev:    20.66526 19.74809
+
+Fixed effects:  cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS +      LABA + Gender + Age_months + Height_cm + Weight_Kg 
+                Value Std.Error  DF   t-value p-value
+(Intercept) 226.43608  88.21974 111  2.566728  0.0116
+BMI          -6.10885   2.71786 111 -2.247668  0.0266
+AsthmaYes    16.07816   7.88142  84  2.040008  0.0445
+ICSYes       -4.87575   4.88928 111 -0.997232  0.3208
+LABAYes      -4.87933   6.24234 111 -0.781650  0.4361
+Gendermale   -3.47282   7.90991  84 -0.439047  0.6618
+GenderMale   -6.93767   6.46377  84 -1.073316  0.2862
+Age_months    0.51089   0.14105 111  3.621990  0.0004
+Height_cm    -1.08364   0.61282 111 -1.768289  0.0798
+Weight_Kg     1.71540   1.01913 111  1.683202  0.0951
+ Correlation: 
+           (Intr) BMI    AsthmY ICSYes LABAYs Gndrml GndrMl Ag_mnt Hght_c
+BMI        -0.928                                                        
+AsthmaYes  -0.160  0.080                                                 
+ICSYes      0.124 -0.082 -0.381                                          
+LABAYes    -0.042  0.055 -0.012 -0.303                                   
+Gendermale -0.004  0.008 -0.139 -0.006 -0.119                            
+GenderMale -0.195  0.194  0.079 -0.092  0.128  0.336                     
+Age_months  0.352 -0.131  0.001  0.014 -0.023  0.267  0.017              
+Height_cm  -0.966  0.833  0.100 -0.118  0.033 -0.065  0.110 -0.549       
+Weight_Kg   0.938 -0.986 -0.099  0.093 -0.050 -0.021 -0.152  0.107 -0.853
+
+Standardized Within-Group Residuals:
+       Min         Q1        Med         Q3        Max 
+-2.8915211 -0.4632049 -0.1308452  0.4063270  2.5866553 
+
+Number of Observations: 205
+Number of Groups: 88 </code></pre>
+</div>
+</div>
+<p>The <strong>Akaike Information Criterion (AIC)</strong> for both models was calculated. The AIC is a measure of the relative quality of statistical models for a given set of data. Lower AIC values indicate a model that better fits the data without unnecessary complexity.</p>
+<p>Here, the AIC for lme was 1894.70 while lmer was 2510.44.</p>
+<p>The model with the lower AIC was selected as the <strong>final model (lme)</strong> despite performance improvements offered by the lme4 package.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>residuals_final <span class="ot">&lt;-</span> <span class="fu">resid</span>(final_model)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate fitted values and residuals from the final model</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>fitted_values <span class="ot">&lt;-</span> <span class="fu">fitted</span>(final_model)</span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>residual_values <span class="ot">&lt;-</span> <span class="fu">residuals</span>(final_model)</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame explicitly for plotting</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Fitted =</span> fitted_values, <span class="at">Residuals =</span> residual_values)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting using ggplot2 for a more flexible and powerful approach</span></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Residuals vs Fitted Values</span></span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Fitted, <span class="at">y =</span> Residuals)) <span class="sc">+</span></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Fitted Values"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>, <span class="at">title =</span> <span class="st">"Residuals vs. Fitted Values"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/InitialResiduals-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Residual plots (Residuals vs.&nbsp;Fitted Values) were created for the lme model to assess the goodness of fit. A horizontal line at y=0 was added as a reference. These plots help in identifying non-linearity, unequal variances, and outliers.</p>
+<p>Based on the <strong>residual plot</strong>, the model has an ideal random pattern of scattered values with a few possible outliers.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Histogram of Residuals</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Residuals)) <span class="sc">+</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">1</span>, <span class="at">fill =</span> <span class="st">"blue"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Histogram of Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/InitialQQ-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Q-Q Plot</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqPlot</span>(residuals_final, <span class="at">main =</span> <span class="st">"Q-Q Plot of Residuals"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/InitialQQ-2.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code> 35  40 
+ 95 113 </code></pre>
+</div>
+</div>
+<p>A histogram and a Q-Q (Quantile-Quantile) plot of the residuals were used to check the normality assumption of the residuals. Finally, a QQ plot with a QQ line was produced for a graphical normality check.</p>
+<p>Based on the <strong>histogram</strong>, the model <u>visually</u> had an ideal bell-shaped curve that resembles the normal distribution. Based on the <strong>QQ plot</strong>, the model <u>graphically</u> may have had some residuals that were not normally distributed toward the ends.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shapiro-Wilk Normality Test</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>shapiro_test_results <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(residuals_final)</span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(shapiro_test_results)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  residuals_final
+W = 0.95796, p-value = 9.375e-06</code></pre>
+</div>
+</div>
+<p>The Shapiro-Wilk test was conducted on the residuals to formally test for normality.</p>
+<p><span class="math inline">\(H_o\)</span>: the residuals are normally distributed.</p>
+<p><span class="math inline">\(H_a\)</span>: the residuals are not normally distributed.</p>
+<p><span class="math inline">\(\alpha\)</span> = 0.05</p>
+<p>In this case, P = 0.000009375. P &lt; 0.05, so the null hypothesis was rejected, suggesting that the <strong>residuals were not normally distributed.</strong></p>
 </section>
 <section id="simulation-possibly" class="level2">
 <h2 class="anchored" data-anchor-id="simulation-possibly"><strong>3.5 Simulation (POSSIBLY)</strong></h2>
