@@ -46,9 +46,11 @@ The selected dataset for this report specifically represent **longitudinal data*
 
 LMMs have a mathematical foundation stemming from **linear algebra.** We will be using notation for a 2-level longitudinal model since that is the structure of the dataset in this report. The index *i* is used to denote participants and *t* is used to denote the different time points of the observations. Given this notation *t* is the first level and *i* is the second level.
 
-Simple LMMs can be defined as:
+Simple LMMs can be defined as in Equation 1.
 
-$y=X\beta + Zu+ \epsilon$
+$$
+y=X\beta + Zu+ \epsilon
+$$ {#eq-1}
 
 where:
 
@@ -81,6 +83,8 @@ Matrix and Vector Dimensions (Random Intercepts)
 For a model with a random intercept, the first column of the X matrix will be all 1s  and the first element in the β vector will pertain to that random intercept. The Z matrix in a random intercepts model block diagnol matrix with the block defined by Z~i~ matrices.
 
 Adding random effects to the model also changes the size of the dimensions of the Z. If one random effect is added to the matrix then the dimensions change to N x 2q which essentially doubles the columns of the Z matrix to account for the random intercept. γ will also double in length to be 2q x 1.
+
+### 2.1.1 Example
 
 Now let's go over an example with a 2-level longitudinal structure where we have 100 students with 10 test scores per student and the associated study time for those tests. In this case, the dependent variable is the test scores, the fixed effect is the study time and the random effect is the student. For the sake of simplicity, we will only consider a random intercepts model.
 
@@ -164,7 +168,7 @@ Based on the outcomes of hypothesis testing and model diagnostics, the model may
 
 ### 2.4.4. Analysis Using lmer() Function
 
-An alternative approach involves utilizing the lmer() function from the `lme4` package to fit LMMs. This function follows a similar syntax to lme() but differs in how it handles random effects specification. `lme4` offers several benefits compared to `nlme`, including: more efficient linear algebra tools (with associated performance enhancements), simpler syntax and more efficient implementation for fitting models with crossed random effects, implementation of profile likelihood confidence intervals on random-effects parameters, and the ability to fit GLMMs [@bates_fitting_2015]. Likelihood ratio tests and model diagnostics are employed to assess model fit and inform model selection \[@bates_fitting_2015\].
+An alternative approach involves utilizing the lmer() function from the `lme4` package to fit LMMs. This function follows a similar syntax to lme() but differs in how it handles random effects specification. `lme4` offers several benefits compared to `nlme`, including: more efficient linear algebra tools (with associated performance enhancements), simpler syntax and more efficient implementation for fitting models with crossed random effects, implementation of profile likelihood confidence intervals on random-effects parameters, and the ability to fit GLMMs [@bates_fitting_2015]. Likelihood ratio tests and model diagnostics are employed to assess model fit and inform model selection [@bates_fitting_2015].
 
 ### 2.4.5 Final Model Selection
 
@@ -213,11 +217,11 @@ library(car)
 ::: callout-warning
 ## An error was encountered with the Matrix and lme4 packages during model creation. If this error is encountered, please:
 
-## remove.packages("Matrix") 
+## remove.packages("Matrix")
 
-## remove.packages("lme4") 
+## remove.packages("lme4")
 
-## install.packages("lme4", type = "source") 
+## install.packages("lme4", type = "source")
 
 ## library(lme4)
 :::
