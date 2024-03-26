@@ -403,7 +403,9 @@ x_clean_timepoints %>%
   )
 ```
 
-**It will be extremely important to account for the rapid participant dropout that seems to be present in this dataset. It may or may not be attributed to the condition/treatment and thus may or may not be random. If not, it should be accounted for in the model.**
+**It will be important to account for the rapid participant dropout that seems to be present in this dataset. It may or may not be attributed to the condition/treatment and thus may or may not be random. If not, it should be accounted for in the model.**
+
+**Per Dr. Cohen 19MAR2024** - can still do LMM even with dropout. Imputation for missing datapoints is an option, but a strength of LMM is that it can handle unbalanced groups (patients). Most reviewers don't like extreme imputation in this case. Just monitor trend in dropouts due to potential link back to the treatment/study. If none, just continue with modeling.
 
 ### 3.2.3 Correlations
 
