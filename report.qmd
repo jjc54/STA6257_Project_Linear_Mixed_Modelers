@@ -537,6 +537,18 @@ Residual plots (Residuals vs. Fitted Values) were created for the lme model to a
 
 Based on the **residual plot**, the model has an ideal random pattern of scattered values with a few possible outliers.
 
+\# Histogram of Residuals
+
+ggplot(plot_data, aes(x = Residuals)) +
+
+geom_histogram(binwidth = 1, fill = "blue", color = "black") +
+
+labs(title = "Histogram of Residuals")
+
+\# Q-Q Plot
+
+qqPlot(residuals_final, main = "Q-Q Plot of Residuals")
+
 ```{r}
 #| label: InitialQQ
 
@@ -574,7 +586,63 @@ In this case, P = 0.000009375. P \< 0.05, so the null hypothesis was rejected, s
 ```{r}
 #| label: AddressingAssumptionsAndRandomEffects
 
+# Copy the original dataset
+x_clean_imputed <- x_clean
 
+# Define a function to impute outliers with the median
+impute_outliers <- function(column, lower_threshold, upper_threshold) {
+  median_val <- median(column, na.rm = TRUE)
+  column[column < lower_threshold | column > upper_threshold] <- median_val
+  return(column)
+}
+
+# Apply imputation across numeric variables in the copied dataset
+numeric_vars <- names(x_clean_imputed %>% select_if(is.numeric))
+for (col in numeric_vars) {
+  lower_threshold <- quantile(x_clean_imputed[[col]], 0.05, na.rm = TRUE)
+  upper_threshold <- quantile(x_clean_imputed[[col]], 0.95, na.rm = TRUE)
+  x_clean_imputed[[col]] <- impute_outliers(x_clean_imputed[[col]], lower_threshold, upper_threshold)
+}
+
+# Summary after correction
+cat("Summary after median imputation:\n")
+summary(x_clean_imputed)
+
+# Visualization with ggplot2
+# Plot boxplots for each numeric variable after imputation
+for (col in numeric_vars) {
+  p <- ggplot(data = x_clean_imputed, aes(x = "", y = !!sym(col))) +
+    geom_boxplot(fill = "skyblue", color = "blue") +
+    labs(title = paste("Boxplot of", col), x = "", y = col)
+  print(p)
+}
+
+# Modeling with Median Imputed Data
+# Refit the model using the lme function with the cleaned data
+model_lme_imputed <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg,
+                       random = list(Subject_ID = pdIdent(~1)),
+                       data = x_clean_imputed,
+                       method = "REML")
+
+# Extract residuals
+residuals_imputed <- resid(model_lme_imputed)
+
+# Residuals vs Fitted Values Plot
+ggplot(data = data.frame(Fitted = fitted(model_lme_imputed), Residuals = residuals_imputed), aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "red") +
+  labs(x = "Fitted Values", y = "Residuals", title = "Residuals vs. Fitted Values")
+
+# Histogram of Residuals
+ggplot(data = data.frame(Residuals = residuals_imputed), aes(x = Residuals)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black") +
+  labs(title = "Histogram of Residuals")
+
+qqPlot(residuals_imputed, main = "Q-Q Plot of Residuals")
+
+# Q-Q Plot and Shapiro-Wilk Test
+shapiro_test_results <- shapiro.test(residuals_imputed)
+print(shapiro_test_results)
 ```
 
 ## **3.5 Simulation (POSSIBLY)**
