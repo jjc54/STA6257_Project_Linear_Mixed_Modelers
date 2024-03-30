@@ -312,7 +312,7 @@ Based on the missing values count, it appears that there are no missing values i
 dim(x)
  
 x_clean <- na.omit(x) # drops NAs, further analysis is without NA values
-
+x_clean$Gender <- tolower(x_clean$Gender)
 dim(x_clean)
 str(x_clean)
 plot_bar(x_clean)
