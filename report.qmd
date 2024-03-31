@@ -315,11 +315,49 @@ x_clean <- na.omit(x) # drops NAs, further analysis is without NA values
 x_clean$Gender <- tolower(x_clean$Gender)
 dim(x_clean)
 str(x_clean)
-plot_bar(x_clean)
-plot_histogram(x_clean)
-plot_qq(na.omit(x))
-plot_prcomp(na.omit(x))
 
+
+```
+
+**Count Plots for Categorical Variable**
+
+The count plots show frequency distributions for categroies within a distribution. This can aid in data cleaning, checking sparseness or checking class imbalances. For examples in the count plots below we see that Asthma and LABA variables are binary varibales that are imbalances towards the "Yes" category
+
+```{r}
+plot_bar(x_clean)
+
+```
+
+**Histograms**
+
+This shows the frequency and distributions of numerical variables This helps idenitfy distributions types amonngst the different variables. Most of the variables below exhibit a normal distribution with some (BMI) showing a slight right skew.
+
+```{r}
+plot_histogram(x_clean)
+
+```
+
+**Q-Q Plots**
+
+This plot is a visual aid to asses normality in the covariates. The closer the points are to the straight diagonal line the more "normal" the data is distributed. Most of varaibles shows a normal distribution. BMI has a substantial amount of points on the right corner of the plot that go off of the diagonal line and is due to the right skew in the histogram we mentioned in the plot sumary above.
+
+```{r}
+plot_qq(na.omit(x))
+```
+
+**Princicap Component Analysis**
+
+The plot below shows the numerical variables in our data set split into principal components. More than have of the explained variance can be accounted for with just 4 principal componenets. This can be useful if we want to simplify our model by only keeping the principal components that explain most of the variance.
+
+```{r}
+plot_prcomp(na.omit(x))
+```
+
+**Box Plots**
+
+Based on the boxplot, it’s evident that all columns except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers.
+
+```{r}
 numeric_vars <- x_clean %>% 
   select_if(is.numeric)
 
@@ -328,9 +366,8 @@ par(mfrow=c(2, 2))
 for (col in colnames(numeric_vars)) {
   boxplot(numeric_vars[[col]], main=col)
 }
-```
 
-Based on the boxplot, it’s evident that all columns except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers.
+```
 
 ```{r}
 
