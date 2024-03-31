@@ -312,7 +312,7 @@ Based on the missing values count, it appears that there are no missing values i
 dim(x)
  
 x_clean <- na.omit(x) # drops NAs, further analysis is without NA values
-
+x_clean$Gender <- tolower(x_clean$Gender)
 dim(x_clean)
 str(x_clean)
 plot_bar(x_clean)
@@ -591,20 +591,22 @@ In this case, P = 0.000009375. P \< 0.05, so the null hypothesis was rejected, s
 # Copy the original dataset
 x_clean_imputed <- x_clean
 
-# Define a function to impute outliers with the median
-impute_outliers <- function(column, lower_threshold, upper_threshold) {
-  median_val <- median(column, na.rm = TRUE)
-  column[column < lower_threshold | column > upper_threshold] <- median_val
-  return(column)
+# Define a function for Winsorization
+winsorize <- function(x, lower_percentile = 0.10, upper_percentile = 0.90) {
+  lower_threshold <- quantile(x, lower_percentile)
+  upper_threshold <- quantile(x, upper_percentile)
+  x[x < lower_threshold] <- lower_threshold
+  x[x > upper_threshold] <- upper_threshold
+  
+  return(x)
 }
 
 # Apply imputation across numeric variables in the copied dataset
 numeric_vars <- names(x_clean_imputed %>% select_if(is.numeric))
 for (col in numeric_vars) {
-  lower_threshold <- quantile(x_clean_imputed[[col]], 0.05, na.rm = TRUE)
-  upper_threshold <- quantile(x_clean_imputed[[col]], 0.95, na.rm = TRUE)
-  x_clean_imputed[[col]] <- impute_outliers(x_clean_imputed[[col]], lower_threshold, upper_threshold)
+  x_clean_imputed[[col]] <- winsorize(x_clean_imputed[[col]])
 }
+
 
 # Summary after correction
 cat("Summary after median imputation:\n")
