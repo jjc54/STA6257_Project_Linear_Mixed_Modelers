@@ -212,6 +212,8 @@ library(car)
 
 -   `DataExplorer`: used for EDA.
 
+-   `Matrix`: used for sparse and dense matrix classes and methods.
+
 -   `car`: for qq plots.
 
 ::: callout-warning
@@ -249,6 +251,8 @@ BMI$Observation_number <- as.factor(BMI$Observation_number)
 -   **Why suitable for LMMs**: The dataset has multiple observations, over time, for the same set of participants.
 
 ## **3.2 Exploratory Data Analysis (EDA)**
+
+The structure of the dataframe and variable descriptions are shown in Table 2 and Figure 2. Figures 3-10 systematically explore the features of the data and are described below.
 
 ```{r}
 
@@ -293,17 +297,17 @@ variables_table %>%
   
 plot_str(x)
 introduce(x)
-plot_intro(x)
+plot_intro(x) + labs(title="Figure 2. Structure of variables and missing observations.")
 ```
 
 ### **3.2.1 Missing Values**
 
 ```{r}
 
-plot_missing(x)
+plot_missing(x) + labs(title="Figure 3. Breakdown of missing observations.")
 ```
 
-Based on the missing values count, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation.
+Based on the missing values count in Figure 3, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation.
 
 ### 3.2.2 Cleaning Data
 
@@ -315,47 +319,54 @@ x_clean <- na.omit(x) # drops NAs, further analysis is without NA values
 x_clean$Gender <- tolower(x_clean$Gender)
 dim(x_clean)
 str(x_clean)
-
-
 ```
 
 **Count Plots for Categorical Variable**
 
-The count plots show frequency distributions for categroies within a distribution. This can aid in data cleaning, checking sparseness or checking class imbalances. For examples in the count plots below we see that Asthma and LABA variables are binary varibales that are imbalances towards the "Yes" category
+The bar plots in Figure 4 show frequency distributions for categories within a distribution. This can aid in data cleaning, checking sparseness or checking for class imbalances. It appears that:
+
+-   Most cases are C-SCD compared to C-Asthma (class imbalance).
+
+-   The number of observations decreases at subsequent measurements.
+
+-   Most cases have Asthma (class imbalance).
+
+-   Most cases have LABA (class imbalance).
+
+-   Hydroxyurea, ICS, and Gender is relatively evenly distributed.
 
 ```{r}
-plot_bar(x_clean)
-
+plot_bar(x_clean, title = "Figure 4. Frequency plots of categorical variables.")
 ```
 
 **Histograms**
 
-This shows the frequency and distributions of numerical variables This helps idenitfy distributions types amonngst the different variables. Most of the variables below exhibit a normal distribution with some (BMI) showing a slight right skew.
+Histograms in Figure 5 show the frequency and distributions of numerical variables This helps identify distribution types among the different variables. Most of the variables below exhibit a normal distribution with some (BMI) showing a slight right skew.
 
 ```{r}
-plot_histogram(x_clean)
-
+plot_histogram(x_clean, title = "Figure 5. Histogram plots of numerical variables.")
 ```
 
 **Q-Q Plots**
 
-This plot is a visual aid to asses normality in the covariates. The closer the points are to the straight diagonal line the more "normal" the data is distributed. Most of varaibles shows a normal distribution. BMI has a substantial amount of points on the right corner of the plot that go off of the diagonal line and is due to the right skew in the histogram we mentioned in the plot sumary above.
+The QQ plots in Figure 6 serve as a visual aid to asses normality in the covariates. The closer the points are to the straight diagonal line, the more "normal" the data is distributed. Most of variables show a normal distribution. BMI has a substantial amount of points on the right corner of the plot that go off of the diagonal line potentially representing a non-normal distribution. Weight_Kg shows a similar skew.
 
 ```{r}
-plot_qq(na.omit(x))
+plot_qq(na.omit(x), title = "Figure 6. QQ plots to assess normality of numerical variables.")
+
 ```
 
-**Princicap Component Analysis**
+**Principal Component Analysis (PCA)**
 
-The plot below shows the numerical variables in our data set split into principal components. More than have of the explained variance can be accounted for with just 4 principal componenets. This can be useful if we want to simplify our model by only keeping the principal components that explain most of the variance.
+The PCA plots in Figure 7 show the numerical variables in our data set split into principal components. More than half (54.8%) of the variance can be explained with just 4 principal components. This can be useful if we want to simplify our model by only keeping the principal components that explain most of the variance.
 
 ```{r}
-plot_prcomp(na.omit(x))
+plot_prcomp(na.omit(x), title = "Figure 7. PCA to assess key principle components that explain the variance.")
 ```
 
 **Box Plots**
 
-Based on the boxplot, it’s evident that all columns except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers.
+Based on the boxplots in Figure 8, it’s evident that all variables except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers and calculate summary statistics (Table 3).
 
 ```{r}
 numeric_vars <- x_clean %>% 
@@ -367,6 +378,8 @@ for (col in colnames(numeric_vars)) {
   boxplot(numeric_vars[[col]], main=col)
 }
 
+# Adding a general title for the entire set of boxplots
+mtext("Figure 8. Box plots of numerical variables.", side=3, line=1, outer=TRUE, cex=1.5)
 ```
 
 ```{r}
@@ -415,7 +428,13 @@ x_clean %>%
   tab_footnote(
     footnote = "Summary statistics for all variables."
   )
+```
 
+**Participant Dropout**
+
+Figure 9 and Table 4 show how many subjects had data at each subsequent timepoint, which suggests that this study experienced significant participant dropout over time. This dropout may or may not be attributed to the study itself and should be investigated further. A strength of LMM is that it can handle unbalanced groups (i.e., patients), so we will continue with modeling regardless.
+
+```{r}
 x_clean_timepoints <- x_clean %>%
   group_by(Observation_number) %>%
   summarise(Unique_Subjects = n_distinct(Subject_ID))
@@ -426,42 +445,38 @@ ggplot(x_clean_timepoints, aes(x = Observation_number, y = Unique_Subjects)) +
   geom_point(size = 3, color = "blue") + # Add points for each observation
   geom_line(aes(group = 1), color = "blue") + # Connect the points with a line
   theme_minimal() +
-  labs(title = "Unique Subjects per Timepoint",
+  labs(title = "Figure 9. Participant dropout over time.",
        x = "Timepoint",
        y = "Number of Unique Subjects")
 
 x_clean_timepoints %>% 
   gt() %>%
   tab_header(
-    title = "Table 4. Summary of Missing Data"
+    title = "Table 4. Number of participants at each timepoint."
   ) %>%
   tab_footnote(
     footnote = "Counts of unique subjects reveal an increasing amount of missing data at subsequent observation visits."
   )
 ```
 
-**It will be important to account for the rapid participant dropout that seems to be present in this dataset. It may or may not be attributed to the condition/treatment and thus may or may not be random. If not, it should be accounted for in the model.**
-
-**Per Dr. Cohen 19MAR2024** - can still do LMM even with dropout. Imputation for missing datapoints is an option, but a strength of LMM is that it can handle unbalanced groups (patients). Most reviewers don't like extreme imputation in this case. Just monitor trend in dropouts due to potential link back to the treatment/study. If none, just continue with modeling.
-
 ### 3.2.3 Correlations
 
-```{r}
-plot_correlation(na.omit(x), maxcat=5L)
-
-correlation_matrix <- cor(numeric_vars)
-print(correlation_matrix)
-```
-
-Age (months) and Height (cm): There is a strong positive correlation (0.914) between Age (months) and Height (cm). This implies that as age increases, height tends to increase as well. This correlation is expected, as children tend to grow taller as they get older.
+Figure 10 highlights correlations between variables that should be assessed before any modeling. Age (months) and Height (cm): There is a strong positive correlation (0.914) between Age (months) and Height (cm). This implies that as age increases, height tends to increase as well. This correlation is expected, as children tend to grow taller as they get older.
 
 Weight (Kg) and BMI: There is a strong positive correlation (0.927) between Weight (Kg) and BMI. This suggests that as weight increases, BMI (Body Mass Index) tends to increase as well. This correlation is expected because BMI is calculated using weight and height measurements.
 
 R5Hz_PP and Fres_PP: There is a strong positive correlation (0.754) between R5Hz_PP and Fres_PP.
 
+```{r}
+plot_correlation(na.omit(x), maxcat=5L, title = "Figure 10. Correlation matrix of all variables.")
+
+correlation_matrix <- cor(numeric_vars)
+print(correlation_matrix)
+```
+
 ## **3.3 Linear Mixed Modeling**
 
-In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations, groups, and subjects. These represent the random effects, as shown in Table 2. In the initial models, Subject_ID was treated as the sole random effect. In the final models, all random effects were incorporated (Subject_ID, Group, Observation_Number).
+In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as group, age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations which are nested in each subject. These represent the random effects, as shown in Table 5. In the [**initial model**]{.underline}, Subject_ID was treated as the sole random effect. In the [**final model**]{.underline}, both random effects were incorporated (Subject_ID, Observation_Number).
 
 ```{r}
 #| label: FixedOrRandom
@@ -469,7 +484,7 @@ In this dataset, the variable of interest is body mass index (BMI). Additionally
 variables_table2 <- variables_table %>%
   select(1) %>%
   mutate(Type = c(
-    "Random",
+    "Fixed",
     "Random",
     "Random",
     "Fixed",
@@ -519,7 +534,7 @@ model_lmer <- lmer(
 )
 ```
 
-## **3.4 Model Comparison and Selection**
+### **3.3.1 Initial Model**
 
 ```{r}
 #| label: InitialAIC
@@ -545,11 +560,19 @@ cat(sprintf("Final model selected: %s\n", model_type))
 summary(final_model)
 ```
 
-The **Akaike Information Criterion (AIC)** for both models was calculated. The AIC is a measure of the relative quality of statistical models for a given set of data. Lower AIC values indicate a model that better fits the data without unnecessary complexity.
+**Akaike Information Criterion (AIC)**
 
-Here, the AIC for lme was 1894.70 while lmer was 2510.44.
+The AIC for both models was calculated. The AIC is a measure of the relative quality of statistical models for a given set of data. Lower AIC values indicate a model that better fits the data without unnecessary complexity.
 
-The model with the lower AIC was selected as the **final model (lme)** despite performance improvements offered by the lme4 package.
+Here, the AIC for lme was 1898.95 while lmer was 2517.37.
+
+The model with the lower AIC was selected as the **final model (lme)** despite performance improvements offered by the lme4 package. [All additional models were lme.]{.underline}
+
+**Residuals**
+
+Residual plots (Residuals vs. Fitted Values) were created for the lme model to assess the goodness of fit in Figure 11. A horizontal line at y=0 was added as a reference. These plots help in identifying non-linearity, unequal variances, and outliers.
+
+Based on the **residual plot**, the model has an ideal random pattern of scattered values with a few possible outliers.
 
 ```{r}
 #| label: InitialResiduals
@@ -569,24 +592,14 @@ plot_data <- data.frame(Fitted = fitted_values, Residuals = residual_values)
 ggplot(plot_data, aes(x = Fitted, y = Residuals)) +
   geom_point() +
   geom_hline(yintercept = 0, color = "red") +
-  labs(x = "Fitted Values", y = "Residuals", title = "Residuals vs. Fitted Values")
+  labs(x = "Fitted Values", y = "Residuals", title = "Figure 11. Residuals vs. Fitted Values")
 ```
 
-Residual plots (Residuals vs. Fitted Values) were created for the lme model to assess the goodness of fit. A horizontal line at y=0 was added as a reference. These plots help in identifying non-linearity, unequal variances, and outliers.
+**Histogram of Residuals and QQ Plots**
 
-Based on the **residual plot**, the model has an ideal random pattern of scattered values with a few possible outliers.
+A histogram and a Q-Q (Quantile-Quantile) plot of the residuals were used to check the normality assumption of the residuals (Figure 12). Finally, a QQ plot with a QQ line was produced for a graphical normality check (Figure 13).
 
-\# Histogram of Residuals
-
-ggplot(plot_data, aes(x = Residuals)) +
-
-geom_histogram(binwidth = 1, fill = "blue", color = "black") +
-
-labs(title = "Histogram of Residuals")
-
-\# Q-Q Plot
-
-qqPlot(residuals_final, main = "Q-Q Plot of Residuals")
+Based on the **histogram**, the model [visually]{.underline} had an ideal bell-shaped curve that resembles the normal distribution. Based on the **QQ plot**, the model [graphically]{.underline} may have had some residuals that were not normally distributed toward the ends.
 
 ```{r}
 #| label: InitialQQ
@@ -594,15 +607,11 @@ qqPlot(residuals_final, main = "Q-Q Plot of Residuals")
 # Histogram of Residuals
 ggplot(plot_data, aes(x = Residuals)) +
   geom_histogram(binwidth = 1, fill = "blue", color = "black") +
-  labs(title = "Histogram of Residuals")
+  labs(title = "Figure 12. Histogram of Residuals")
 
 # Q-Q Plot
-qqPlot(residuals_final, main = "Q-Q Plot of Residuals")
+qqPlot(residuals_final, main = "Figure 13. Q-Q Plot of Residuals")
 ```
-
-A histogram and a Q-Q (Quantile-Quantile) plot of the residuals were used to check the normality assumption of the residuals. Finally, a QQ plot with a QQ line was produced for a graphical normality check.
-
-Based on the **histogram**, the model [visually]{.underline} had an ideal bell-shaped curve that resembles the normal distribution. Based on the **QQ plot**, the model [graphically]{.underline} may have had some residuals that were not normally distributed toward the ends.
 
 ```{r}
 #| label: InitialNormality
@@ -620,7 +629,11 @@ $H_a$: the residuals are not normally distributed.
 
 $\alpha$ = 0.05
 
-In this case, P = 0.000009375. P \< 0.05, so the null hypothesis was rejected, suggesting that the **residuals were not normally distributed.**
+In this case, P = 0.00001163. P \< 0.05, so the null hypothesis was rejected, suggesting that the **residuals were not normally distributed.** This model does not satisfy the assumptions of LMMs.
+
+### **3.3.2 Imputed Model**
+
+Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the median. The model was the regenerated and assessed using the same metrics as above (Figures 14-17).
 
 ```{r}
 #| label: AddressingAssumptionsAndRandomEffects
@@ -644,7 +657,6 @@ for (col in numeric_vars) {
   x_clean_imputed[[col]] <- winsorize(x_clean_imputed[[col]])
 }
 
-
 # Summary after correction
 cat("Summary after median imputation:\n")
 summary(x_clean_imputed)
@@ -658,12 +670,19 @@ for (col in numeric_vars) {
   print(p)
 }
 
+# Adding a general title for the entire set of boxplots
+#mtext("Figure 14. Box plots of numerical variables.", side=3, line=1, outer=TRUE, cex=1.5)
+
 # Modeling with Median Imputed Data
 # Refit the model using the lme function with the cleaned data
 model_lme_imputed <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg,
                        random = list(Subject_ID = pdIdent(~1)),
                        data = x_clean_imputed,
                        method = "REML")
+
+aic_lme_imputed <- AIC(model_lme_imputed)
+
+cat(sprintf("AIC for lme model: %f\n", aic_lme_imputed))
 
 # Extract residuals
 residuals_imputed <- resid(model_lme_imputed)
@@ -672,21 +691,113 @@ residuals_imputed <- resid(model_lme_imputed)
 ggplot(data = data.frame(Fitted = fitted(model_lme_imputed), Residuals = residuals_imputed), aes(x = Fitted, y = Residuals)) +
   geom_point() +
   geom_hline(yintercept = 0, color = "red") +
-  labs(x = "Fitted Values", y = "Residuals", title = "Residuals vs. Fitted Values")
+  labs(x = "Fitted Values", y = "Residuals", title = "Figure 15. Residuals vs. Fitted Values")
 
 # Histogram of Residuals
 ggplot(data = data.frame(Residuals = residuals_imputed), aes(x = Residuals)) +
   geom_histogram(binwidth = 1, fill = "blue", color = "black") +
-  labs(title = "Histogram of Residuals")
+  labs(title = "Figure 16. Histogram of Residuals")
 
-qqPlot(residuals_imputed, main = "Q-Q Plot of Residuals")
+qqPlot(residuals_imputed, main = "Figure 17. Q-Q Plot of Residuals")
 
 # Q-Q Plot and Shapiro-Wilk Test
 shapiro_test_results <- shapiro.test(residuals_imputed)
 print(shapiro_test_results)
 ```
 
-## **3.5 Simulation (POSSIBLY)**
+The AIC was calculated as 1790.91, **an improvement on the initial model.**
+
+The Shapiro-Wilk test was conducted on the residuals to formally test for normality.
+
+$H_o$: the residuals are normally distributed.
+
+$H_a$: the residuals are not normally distributed.
+
+$\alpha$ = 0.05
+
+In this case, P = 0.05066. P \>0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after median imputation. This model now satisfies the assumptions of LMMs.
+
+### **3.3.3 Final Model**
+
+This was a longitudinal study involving multiple observations for each subject over time, and subjects are grouped into two categories (children with sickle cell disease and African-American children with asthma). Thus, in this final model, we modeled **`Group`** as a fixed effect since we were interested in the effect of the group itself on the outcome. **`Subject_ID`** should be a random effect to account for the repeated measures within subjects, and **`Observation_number`** was included as a random slope within **`Subject_ID`** (i.e., nested within Subject_ID). The same visualizations and tests were completed to assess the LMM assumptions (Figures 18-20). The residuals show a random pattern (Figure 18), the histogram is approximately normal (Figure 19), and the qq plot follows a straight line (Figure 20), indicating normality.
+
+```{r}
+
+model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + Group,
+                         data = x_clean_imputed,
+                         random = list(Subject_ID = pdIdent(~1 + Observation_number)),
+                         method = "REML")
+
+aic_lme_imputed_final <- AIC(model_lme_imputed_final)
+
+cat(sprintf("AIC for lme model: %f\n", aic_lme_imputed_final))
+
+# Extract residuals
+residuals_imputed <- resid(model_lme_imputed_final)
+
+# Residuals vs Fitted Values Plot
+ggplot(data = data.frame(Fitted = fitted(model_lme_imputed_final), Residuals = residuals_imputed), aes(x = Fitted, y = Residuals)) +
+  geom_point() +
+  geom_hline(yintercept = 0, color = "red") +
+  labs(x = "Fitted Values", y = "Residuals", title = "Figure 18. Residuals vs. Fitted Values")
+
+# Histogram of Residuals
+ggplot(data = data.frame(Residuals = residuals_imputed), aes(x = Residuals)) +
+  geom_histogram(binwidth = 1, fill = "blue", color = "black") +
+  labs(title = "Figure 19. Histogram of Residuals")
+
+# Q-Q Plot of Residuals
+qqPlot(residuals_imputed, main = "Figure 20. Q-Q Plot of Residuals")
+
+# Shapiro-Wilk Test for Normality of Residuals
+shapiro_test_results <- shapiro.test(residuals_imputed)
+print(shapiro_test_results)
+
+```
+
+The AIC was calculated as 1801.60, **an improvement on the initial model but not on the less complex imputed model, as shown in Figure 21.** The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number may not be sufficiently increasing model accuracy compared to complexity. However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
+
+```{r}
+
+# Model names
+model_names <- c("1. LME Model", "2. LME Imputed Model", "3. LME Imputed Final Model")
+
+# Combining into a dataframe
+aic_review <- data.frame(
+  Model = model_names,
+  AIC = c(aic_lme, aic_lme_imputed, aic_lme_imputed_final)
+)
+
+aic_review$Model <- as.factor(aic_review$Model)
+aic_review$AIC <- round(aic_review$AIC, 2)
+
+# Check the structure
+str(aic_review)
+
+ggplot(aic_review, aes(x = Model, y = AIC, fill = Model)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  theme_minimal() +
+  labs(title = "Figure 21. AIC Values for Different Models",
+       x = "Model",
+       y = "AIC Value") +
+  geom_text(aes(label = AIC), vjust = -0.3, size = 3.5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_flip()
+```
+
+The Shapiro-Wilk test was conducted on the residuals to formally test for normality.
+
+$H_o$: the residuals are normally distributed.
+
+$H_a$: the residuals are not normally distributed.
+
+$\alpha$ = 0.05
+
+In this case, P = 0.0529. P \>0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after median imputation. This final model also satisfies the assumptions of LMMs.
+
+### **3.3.4 Predictions**
+
+TBD
 
 ```{r}
 
@@ -694,7 +805,7 @@ print(shapiro_test_results)
 
 # **4 Conclusion**
 
-**\[PLACEHOLDER FOR CONCLUSION\]**
+**TBD**
 
 # **5 References**
 
