@@ -12,7 +12,6 @@ website:
       - literature.qmd
       - report.qmd
       - slides.qmd
-      - code.qmd
       - about.qmd
 
 format:

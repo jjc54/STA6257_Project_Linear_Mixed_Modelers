@@ -297,14 +297,14 @@ variables_table %>%
   
 plot_str(x)
 introduce(x)
-plot_intro(x) + labs(title="Figure 2. Structure of variables and missing observations.")
+plot_intro(x, title="Figure 2. Structure of variables and missing observations.") 
 ```
 
 ### **3.2.1 Missing Values**
 
 ```{r}
 
-plot_missing(x) + labs(title="Figure 3. Breakdown of missing observations.")
+plot_missing(x, title="Figure 3. Breakdown of missing observations.")
 ```
 
 Based on the missing values count in Figure 3, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation.
@@ -368,6 +368,8 @@ plot_prcomp(na.omit(x), title = "Figure 7. PCA to assess key principle component
 
 Based on the boxplots in Figure 8, it’s evident that all variables except “Age (months)” and “Height (cm)” contain outliers. Now, let’s pinpoint these outliers and calculate summary statistics (Table 3).
 
+Figure 8. Boxplots of numerical variables.
+
 ```{r}
 numeric_vars <- x_clean %>% 
   select_if(is.numeric)
@@ -379,7 +381,7 @@ for (col in colnames(numeric_vars)) {
 }
 
 # Adding a general title for the entire set of boxplots
-mtext("Figure 8. Box plots of numerical variables.", side=3, line=1, outer=TRUE, cex=1.5)
+#mtext("Figure 8. Box plots of numerical variables.", side=3, line=1, outer=TRUE, cex=1.5)
 ```
 
 ```{r}
@@ -635,6 +637,8 @@ In this case, P = 0.00001163. P \< 0.05, so the null hypothesis was rejected, su
 
 Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the median. The model was the regenerated and assessed using the same metrics as above (Figures 14-17).
 
+Figure 14. Box plots of numerical variables.
+
 ```{r}
 #| label: AddressingAssumptionsAndRandomEffects
 
@@ -656,10 +660,6 @@ numeric_vars <- names(x_clean_imputed %>% select_if(is.numeric))
 for (col in numeric_vars) {
   x_clean_imputed[[col]] <- winsorize(x_clean_imputed[[col]])
 }
-
-# Summary after correction
-cat("Summary after median imputation:\n")
-summary(x_clean_imputed)
 
 # Visualization with ggplot2
 # Plot boxplots for each numeric variable after imputation
