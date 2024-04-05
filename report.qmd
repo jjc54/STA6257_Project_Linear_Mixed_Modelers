@@ -538,6 +538,10 @@ model_lmer <- lmer(
 
 ### **3.3.1 Initial Model**
 
+$$
+\begin{equation}Y_{ij} = (\beta_0 + u_{0j}) + \beta_1(\text{BMI}_{ij}) + \beta_2(\text{AsthmaYes}_{ij}) + \beta_3(\text{ICSYes}_{ij}) + \beta_4(\text{LABA}_{ij}) + \beta_5(\text{Gender}_{ij}) + \beta_6(\text{Age_months}_{ij}) + \beta_7(\text{Height_cm}_{ij}) + \beta_8(\text{Weight_Kg}_{ij}) + \epsilon_{ij}\end{equation}
+$$\
+
 ```{r}
 #| label: InitialAIC
 
@@ -727,6 +731,7 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
                          data = x_clean_imputed,
                          random = list(Subject_ID = pdIdent(~1 + Observation_number)),
                          method = "REML")
+str(model_lme_imputed_final)
 
 aic_lme_imputed_final <- AIC(model_lme_imputed_final)
 
@@ -754,6 +759,10 @@ shapiro_test_results <- shapiro.test(residuals_imputed)
 print(shapiro_test_results)
 
 ```
+
+$$
+\begin{align*}Y_{ijk} = & (\beta_0 + u_{0j} + u_{1j} \times \text{Observation_number2}_{ijk} + \dots + u_{5j} \times \text{Observation\_number6}_{ijk}) \\& + \beta_1(\text{BMI}_{ijk}) + \beta_2(\text{AsthmaYes}_{ijk}) + \beta_3(\text{ICSYes}_{ijk}) + \beta_4(\text{LABA}_{ijk}) \\& + \beta_5(\text{Gender}_{ijk}) + \beta_6(\text{Age_months}_{ijk}) + \beta_7(\text{Height_cm}_{ijk}) + \beta_8(\text{Weight_Kg}_{ijk}) \\& + \beta_9(\text{Group}_{ijk}) + \epsilon_{ijk}\end{align*}
+$$
 
 The AIC was calculated as 1801.60, **an improvement on the initial model but not on the less complex imputed model, as shown in Figure 21.** The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number may not be sufficiently increasing model accuracy compared to complexity. However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
 
