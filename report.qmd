@@ -193,6 +193,7 @@ library(RefManageR)
 library(DataExplorer)
 library(Matrix)
 library(car)
+library(reshape2)
 
 #references <- ReadBib("references.bib")
 #summary(references)
@@ -215,6 +216,8 @@ library(car)
 -   `Matrix`: used for sparse and dense matrix classes and methods.
 
 -   `car`: for qq plots.
+
+-   `reshape2`: to reshape date
 
 ::: callout-warning
 ## An error was encountered with the Matrix and lme4 packages during model creation. If this error is encountered, please:
@@ -294,10 +297,10 @@ variables_table %>%
   tab_footnote(
     footnote = "Each variable in the dataset, accompanied by a qualitative description from the study team."
   )
-  
+
 plot_str(x)
 introduce(x)
-plot_intro(x, title="Figure 2. Structure of variables and missing observations.") 
+plot_intro(x, title="Figure 2. Structure of variables and missing observations.")
 ```
 
 ### **3.2.1 Missing Values**
@@ -806,9 +809,103 @@ In this case, P = 0.0529. P \>0.05, so we failed to reject the null hypothesis, 
 
 ### **3.3.4 Predictions**
 
-TBD
+```{r}
+# Sctter plot of predicted and actuals on y axis and most important category on x axis 
+# and split into groups 
+
+set.seed(43)
+
+
+lme_resids = residuals(model_lme)
+lme_imputed_resids = residuals(model_lme_imputed)
+lme_imputed_final_resids = residuals(model_lme_imputed_final)
+
+
+
+
+lme_mse = mean(lme_resids^2)
+lme_mae = mean(abs(lme_resids))
+
+lme_imputed_mse = mean(lme_imputed_resids^2)
+lme_imputed_mae = mean(abs(lme_imputed_resids))
+
+lme_imputed_final_mse = mean(lme_imputed_final_resids^2)
+lme_imputed_final_mae = mean(abs(lme_imputed_final_resids))
+
+
+mse_review <- data.frame(
+  Model = model_names,
+  MSE = c(lme_mse, lme_imputed_mse, lme_imputed_final_mse)
+)
+
+
+mse_review$MSE <- round(mse_review$MSE, digits = 2)
+
+mae_review <- data.frame(
+  Model = model_names,
+  MAE = c(lme_mae, lme_imputed_mae, lme_imputed_final_mae)
+)
+
+mae_review$MAE <- round(mae_review$MAE, digits = 2)
+
+```
+
+**MSE and MAE**
+
+Mean Sqaured Error (MSE) and Mean Absolute Error (MAE) are metrics asses the performance of a model. MSE is the mean of the individual residuals squared and MAE is the mean of the individual absolute value of the residuals. As shown in the grpahs below, the Imputed Final Model out performs the other two models by a signifciant margin. It is impotant to note that MSE is harsher to larger errors or outliers becuase sqaures the residuals
 
 ```{r}
+ggplot(mse_review, aes(x = Model, y = MSE, fill = Model)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  theme_minimal() +
+  labs(title = "Figure 22. MSE Values for Different Models",
+       x = "Model",
+       y = "MSE Value") +
+  geom_text(aes(label = MSE), vjust = -0.3, size = 3.5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_flip()
+
+```
+
+```{r}
+ggplot(mae_review, aes(x = Model, y = MAE, fill = Model)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  theme_minimal() +
+  labs(title = "Figure 23. MAE Values for Different Models",
+       x = "Model",
+       y = "MAE Value") +
+  geom_text(aes(label = MAE), vjust = -0.3, size = 3.5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  coord_flip()
+```
+
+**Sample Predictions vs Actual**
+
+The bar raph below compares the Actual R5Hz_PP of 10 random subjects. The difference in the bars for each subject is the residual error.
+
+```{r}
+lme_imputed_final_predictions = predict(model_lme_imputed_final)
+lme_imputed_fina_preds_actuals = data.frame(cbind(lme_imputed_final_predictions, x_clean_imputed$R5Hz_PP))
+
+colnames(lme_imputed_fina_preds_actuals) <- c("Predicted_R5Hz_PP", "Actual_R5Hz_PP" )
+
+set.seed(42)
+
+sample_indices <- sample(nrow(x_clean_imputed), 10)
+sample_pred_actuals = lme_imputed_fina_preds_actuals[sample_indices, ]
+sample_pred_actuals$row <-1:10
+
+
+sample_pred_actuals_melt <- melt(sample_pred_actuals, id.vars = "row")
+
+
+ggplot(sample_pred_actuals_melt, aes(x = factor(row), y = value, fill = variable)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(x = "Observation", y = "R5Hz_PP", fill = "") +
+  theme_minimal() +
+  theme(legend.position = "top") +
+  ggtitle("Fig 24. Sample Comparison of Predicted and Actual Values")
+
 
 ```
 
