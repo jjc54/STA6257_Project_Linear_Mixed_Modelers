@@ -852,7 +852,7 @@ mae_review$MAE <- round(mae_review$MAE, digits = 2)
 
 **MSE and MAE**
 
-Mean Sqaured Error (MSE) and Mean Absolute Error (MAE) are metrics asses the performance of a model. MSE is the mean of the individual residuals squared and MAE is the mean of the individual absolute value of the residuals. As shown in the grpahs below, the Imputed Final Model out performs the other two models by a signifciant margin. It is impotant to note that MSE is harsher to larger errors or outliers becuase sqaures the residuals
+Mean Squared Error (MSE) and Mean Absolute Error (MAE) are metrics asses the performance of a model. MSE is the mean of the individual residuals squared and MAE is the mean of the individual absolute value of the residuals. As shown in the graphs below, the Imputed Final Model out performs the other two models by a signifciant margin. It is important to note that MSE is harsher to larger errors or outliers because it squares the residuals
 
 ```{r}
 ggplot(mse_review, aes(x = Model, y = MSE, fill = Model)) +
@@ -881,7 +881,7 @@ ggplot(mae_review, aes(x = Model, y = MAE, fill = Model)) +
 
 **Sample Predictions vs Actual**
 
-The bar raph below compares the Actual R5Hz_PP of 10 random subjects. The difference in the bars for each subject is the residual error.
+The bar graph below compares the Actual R5Hz_PP to predicted R5Hz_PP of 10 random subjects. The difference in the bars for each subject is the residual error.
 
 ```{r}
 lme_imputed_final_predictions = predict(model_lme_imputed_final)
