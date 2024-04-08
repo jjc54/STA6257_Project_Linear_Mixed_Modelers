@@ -86,7 +86,7 @@ Adding random effects to the model also changes the size of the dimensions of th
 
 ### 2.1.1 Example
 
-Now let's go over an example with a 2-level longitudinal structure where we have 100 students with 10 test scores per student and the associated study time for those tests. In this case, the dependent variable is the test scores, the fixed effect is the study time and the random effect is the student. For the sake of simplicity, we will only consider a random intercepts model.
+Now let's go over an example with a 2-level longitudinal structure where we have 100 students with 10 test scores per student and the associated study time for those tests. In this case, the dependent variable is the variable concerning test scores, the fixed effect is the study time and the random effect is the student. For the sake of simplicity, we will only consider a random intercepts model.
 
 Variable Breakdown:
 
@@ -140,7 +140,7 @@ There are several techniques that can be utilized to overcome violations in the 
 
 ## **2.3 Sample Data Structure**
 
-LMMs require a tidy data set where each variables are columns and observations are rows. Smaller datasets are usually saved as CSV files and are often loaded from a database. The dataset can contain nulls but they still need to be handled whether they are omitted or imputed and depends on the amount and which columns are affected. The lmer() function in the lme4 library will automatically drop any null values so it is important that data is inspected and visualized before contstructing any models. Below is an example of tidy data.
+LMMs require a tidy data set where each variables are columns and observations are rows. Smaller datasets are usually saved as CSV files and are often loaded from a database. The dataset can contain nulls but they still need to be handled whether they are omitted or imputed and depends on the amount and which columns are affected. The lmer() function in the lme4 library will automatically drop any null values so it is important that data is inspected and visualized before constructing any models. Below is an example of tidy data.
 
 ![Figure 1. Tidy data, as defined by Wickham Et. Al.](images/tidy-4.png)
 
@@ -217,7 +217,7 @@ library(reshape2)
 
 -   `car`: for qq plots.
 
--   `reshape2`: to reshape date
+-   `reshape2`: to reshape date.
 
 ::: callout-warning
 ## An error was encountered with the Matrix and lme4 packages during model creation. If this error is encountered, please:
@@ -247,9 +247,9 @@ BMI$Observation_number <- as.factor(BMI$Observation_number)
 
 ### **`BMI` from Kaggle (**[Impact of BMI on IOS measures on children (kaggle.com)](https://www.kaggle.com/datasets/utkarshx27/impact-of-bmi-on-ios-measures))
 
--   **Description**: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD)
+-   **Description**: This dataset is from a retrospective study to assess the impact of BMI on impulse oscillometry (IOS) estimates of airway resistance and reactance in children with sickle cell disease (C-SCD).
 
--   **Detailed Description**: The dataset comprises various attributes and measurements across its columns. Categorical variables, such as Group, Subject ID, Observation_number, Hydroxyurea, Asthma, ICS, LABA, and Gender, denote different groupings, individual subjects, and attributes like medication usage and gender. Numerical variables like Age (months), Height (cm), Weight (Kg), BMI, R5Hz_PP, R20Hz_PP, X5Hz_PP, and Fres_PP provide quantitative data on subjects’ characteristics and test results. Notably, the summary also identifies missing values, such as the 14 instances in the Fres_PP variable, which warrant consideration in subsequent analysis.These columns provide measurements and estimates related to airway resistance and reactance obtained using impulse oscillometry (IOS), which is a non-invasive method for assessing respiratory function. These parameters are valuable in understanding the impact of BMI on respiratory measures in children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma) participating in the study.
+-   **Detailed Description**: The dataset comprises various attributes and measurements across its columns. Categorical variables, such as Group, Subject ID, Observation_number, Hydroxyurea, Asthma, ICS, LABA, and Gender, denote different groupings, individual subjects, and attributes like medication usage and gender. Numerical variables like Age (months), Height (cm), Weight (Kg), BMI, R5Hz_PP, R20Hz_PP, X5Hz_PP, and Fres_PP provide quantitative data on subjects’ characteristics and test results. Notably, the summary also identifies missing values, such as the 14 instances in the Fres_PP variable, which warrant consideration in subsequent analysis. These columns provide measurements and estimates related to airway resistance and reactance obtained using impulse oscillometry (IOS), which is a non-invasive method for assessing respiratory function. These parameters are valuable in understanding the impact of BMI on respiratory measures in children with sickle cell disease (C-SCD) and African-American children with asthma (C-Asthma) participating in the study.
 
 -   **Why suitable for LMMs**: The dataset has multiple observations, over time, for the same set of participants.
 
@@ -310,7 +310,7 @@ plot_intro(x, title="Figure 2. Structure of variables and missing observations."
 plot_missing(x, title="Figure 3. Breakdown of missing observations.")
 ```
 
-Based on the missing values count in Figure 3, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observation.
+Based on the missing values count in Figure 3, it appears that there are no missing values in most of the columns, except for Fres_PP, where there are 14 missing values (6.39%). In this case, omitting missing values for Fres_PP is reasonable, considering the small proportion of missing data compared to the total number of observations.
 
 ### 3.2.2 Cleaning Data
 
@@ -336,7 +336,7 @@ The bar plots in Figure 4 show frequency distributions for categories within a d
 
 -   Most cases have LABA (class imbalance).
 
--   Hydroxyurea, ICS, and Gender is relatively evenly distributed.
+-   Hydroxyurea, ICS, and Gender are relatively evenly distributed.
 
 ```{r}
 plot_bar(x_clean, title = "Figure 4. Frequency plots of categorical variables.")
@@ -352,7 +352,7 @@ plot_histogram(x_clean, title = "Figure 5. Histogram plots of numerical variable
 
 **Q-Q Plots**
 
-The QQ plots in Figure 6 serve as a visual aid to asses normality in the covariates. The closer the points are to the straight diagonal line, the more "normal" the data is distributed. Most of variables show a normal distribution. BMI has a substantial amount of points on the right corner of the plot that go off of the diagonal line potentially representing a non-normal distribution. Weight_Kg shows a similar skew.
+The QQ plots in Figure 6 serve as a visual aid to asses normality in the covariates. The closer the points are to the straight diagonal line, the more "normal" the data is distributed. Most of the variables show a normal distribution. BMI has a substantial amount of points on the right corner of the plot that go off of the diagonal line potentially representing a non-normal distribution. Weight_Kg shows a similar skew.
 
 ```{r}
 plot_qq(na.omit(x), title = "Figure 6. QQ plots to assess normality of numerical variables.")
@@ -640,7 +640,7 @@ In this case, P = 0.00001163. P \< 0.05, so the null hypothesis was rejected, su
 
 ### **3.3.2 Imputed Model**
 
-Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the median. The model was the regenerated and assessed using the same metrics as above (Figures 14-17).
+Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the median. The model was then regenerated and assessed using the same metrics as above (Figures 14-17).
 
 Figure 14. Box plots of numerical variables.
 
@@ -877,7 +877,7 @@ ggplot(mae_review, aes(x = Model, y = MAE, fill = Model)) +
 
 **Sample Predictions vs Actual**
 
-The bar graph below compares the [actual]{.underline} `R5Hz_PP` to [predicted]{.underline} `R5Hz_PP` (as a measure of airway resistance and reactance) for **10 random subjects**. The difference in the bars for each subject is the **residual error.** The small residual error present for each subject suggests that the model is accurate at predicting `R5Hz_PP` as a measure of airway resistance. and reactance.
+The bar graph below compares the [actual]{.underline} `R5Hz_PP` to [predicted]{.underline} `R5Hz_PP` (as a measure of airway resistance and reactance) for **10 random subjects**. The difference in the bars for each subject is the **residual error.** The small residual error present for each subject suggests that the model is accurate at predicting `R5Hz_PP` as a measure of airway resistance and reactance.
 
 ```{r}
 lme_imputed_final_predictions = predict(model_lme_imputed_final)
