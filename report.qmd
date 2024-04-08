@@ -541,9 +541,7 @@ model_lmer <- lmer(
 
 ### **3.3.1 Initial Model**
 
-$$
-\begin{equation}Y_{ij} = (\beta_0 + u_{0j}) + \beta_1(\text{BMI}_{ij}) + \beta_2(\text{AsthmaYes}_{ij}) + \beta_3(\text{ICSYes}_{ij}) + \beta_4(\text{LABA}_{ij}) + \beta_5(\text{Gender}_{ij}) + \beta_6(\text{Age_months}_{ij}) + \beta_7(\text{Height_cm}_{ij}) + \beta_8(\text{Weight_Kg}_{ij}) + \epsilon_{ij}\end{equation}
-$$\
+![Equation 1. The initial linear mixed model.](images/initial_model.png){fig-align="center"}{.lightbox}
 
 ```{r}
 #| label: InitialAIC
@@ -763,9 +761,7 @@ print(shapiro_test_results)
 
 ```
 
-$$
-\begin{align*}Y_{ijk} = & (\beta_0 + u_{0j} + u_{1j} \times \text{Observation_number2}_{ijk} + \dots + u_{5j} \times \text{Observation\_number6}_{ijk}) \\& + \beta_1(\text{BMI}_{ijk}) + \beta_2(\text{AsthmaYes}_{ijk}) + \beta_3(\text{ICSYes}_{ijk}) + \beta_4(\text{LABA}_{ijk}) \\& + \beta_5(\text{Gender}_{ijk}) + \beta_6(\text{Age_months}_{ijk}) + \beta_7(\text{Height_cm}_{ijk}) + \beta_8(\text{Weight_Kg}_{ijk}) \\& + \beta_9(\text{Group}_{ijk}) + \epsilon_{ijk}\end{align*}
-$$
+![Equation 2. The final linear mixed model.](images/final_model.png){fig-align="center"}{.lightbox}
 
 The AIC was calculated as 1801.60, **an improvement on the initial model but not on the less complex imputed model, as shown in Figure 21.** The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number may not be sufficiently increasing model accuracy compared to complexity. However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
 
@@ -852,7 +848,7 @@ mae_review$MAE <- round(mae_review$MAE, digits = 2)
 
 **MSE and MAE**
 
-Mean Squared Error (MSE) and Mean Absolute Error (MAE) are metrics asses the performance of a model. MSE is the mean of the individual residuals squared and MAE is the mean of the individual absolute value of the residuals. As shown in the graphs below, the Imputed Final Model out performs the other two models by a signifciant margin. It is important to note that MSE is harsher to larger errors or outliers because it squares the residuals
+**Mean Squared Error (MSE)** and **Mean Absolute Error (MAE)** are metrics used to asses the performance of a model. MSE is the mean of the individual residuals squared and MAE is the mean of the individual absolute value of the residuals. As shown in figures 22 and 23, the imputed final model out performs the other two models by a significant margin. It is important to note that MSE is impacted more by larger errors or outliers because it squares the residuals
 
 ```{r}
 ggplot(mse_review, aes(x = Model, y = MSE, fill = Model)) +
@@ -881,7 +877,7 @@ ggplot(mae_review, aes(x = Model, y = MAE, fill = Model)) +
 
 **Sample Predictions vs Actual**
 
-The bar graph below compares the Actual R5Hz_PP to predicted R5Hz_PP of 10 random subjects. The difference in the bars for each subject is the residual error.
+The bar graph below compares the [actual]{.underline} `R5Hz_PP` to [predicted]{.underline} `R5Hz_PP` (as a measure of airway resistance and reactance) for **10 random subjects**. The difference in the bars for each subject is the **residual error.** The small residual error present for each subject suggests that the model is accurate at predicting `R5Hz_PP` as a measure of airway resistance. and reactance.
 
 ```{r}
 lme_imputed_final_predictions = predict(model_lme_imputed_final)
@@ -904,14 +900,12 @@ ggplot(sample_pred_actuals_melt, aes(x = factor(row), y = value, fill = variable
   labs(x = "Observation", y = "R5Hz_PP", fill = "") +
   theme_minimal() +
   theme(legend.position = "top") +
-  ggtitle("Fig 24. Sample Comparison of Predicted and Actual Values")
-
-
+  ggtitle("Figure 24. Sample Comparison of Predicted and Actual Values")
 ```
 
 # **4 Conclusion**
 
-**TBD**
+Linear mixed models are versatile tools for modeling complex relations with multiple effects (fixed and random), as well as missing and non-independent data. For the given capstone dataset, the final linear mixed model can reliably predict measures of airway resistance and reactance given demographic and co-morbidity data. This model can be reliably used for both children with Sickle Cell Disease and those with asthma to provide insights into their respiratory function.
 
 # **5 References**
 
