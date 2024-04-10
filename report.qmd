@@ -640,7 +640,7 @@ In this case, P = 0.00001163. P \< 0.05, so the null hypothesis was rejected, su
 
 ### **3.3.2 Imputed Model**
 
-Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the median. The model was then regenerated and assessed using the same metrics as above (Figures 14-17).
+Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the the threshold values. The model was then regenerated and assessed using the same metrics as above (Figures 14-17).
 
 Figure 14. Box plots of numerical variables.
 
@@ -678,7 +678,7 @@ for (col in numeric_vars) {
 # Adding a general title for the entire set of boxplots
 #mtext("Figure 14. Box plots of numerical variables.", side=3, line=1, outer=TRUE, cex=1.5)
 
-# Modeling with Median Imputed Data
+# Modeling with Imputed Data
 # Refit the model using the lme function with the cleaned data
 model_lme_imputed <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg,
                        random = list(Subject_ID = pdIdent(~1)),
@@ -720,7 +720,7 @@ $H_a$: the residuals are not normally distributed.
 
 $\alpha$ = 0.05
 
-In this case, P = 0.05066. P \>0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after median imputation. This model now satisfies the assumptions of LMMs.
+In this case, P = 0.05066. P \>0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after threshold imputation. This model now satisfies the assumptions of LMMs.
 
 ### **3.3.3 Final Model**
 
@@ -801,7 +801,7 @@ $H_a$: the residuals are not normally distributed.
 
 $\alpha$ = 0.05
 
-In this case, P = 0.0529. P \>0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after median imputation. This final model also satisfies the assumptions of LMMs.
+In this case, P = 0.0529. P \>0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after threshold imputation. This final model also satisfies the assumptions of LMMs.
 
 ### **3.3.4 Predictions**
 
