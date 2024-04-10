@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.2.269">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S.">
-<meta name="dcterms.date" content="2024-04-08">
+<meta name="dcterms.date" content="2024-04-09">
 
 <title>The Linear Mixed Modelers - Report</title>
 <style>
@@ -19,10 +19,9 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -49,19 +48,48 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
+    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-/* CSS for citations */
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging-indent div.csl-entry {
+.hanging div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -75,7 +103,8 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}</style>
+}
+</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -112,18 +141,15 @@ div.csl-indent {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit",
-    "search-label": "Search"
+    "search-submit-button-title": "Submit"
   }
 }</script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="The Linear Mixed Modelers - Report">
-<meta property="og:description" content="Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes">
-<meta property="og:image" content="images/LMM_uses.png">
+<meta property="og:description" content="Inhale, Exhale, Analyze: BMI's Imprint on Impulse Oscillometry Outcomes">
 <meta property="og:site-name" content="The Linear Mixed Modelers">
 </head>
 
@@ -138,36 +164,36 @@ div.csl-indent {
     <span class="navbar-title">The Linear Mixed Modelers</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html" rel="" target="">
+    <a class="nav-link" href="./index.html">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./literature.html" rel="" target="">
+    <a class="nav-link" href="./literature.html">
  <span class="menu-text">Literature</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./report.html" rel="" target="" aria-current="page">
+    <a class="nav-link active" href="./report.html" aria-current="page">
  <span class="menu-text">Report</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./slides.html" rel="" target="">
+    <a class="nav-link" href="./slides.html">
  <span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html" rel="" target="">
+    <a class="nav-link" href="./about.html">
  <span class="menu-text">About Us</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-</div>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -248,7 +274,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 8, 2024</p>
+      <p class="date">April 9, 2024</p>
     </div>
   </div>
   
@@ -346,7 +372,7 @@ y=X\beta + Zu+ \epsilon
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/tidy-4.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure 1. Tidy data, as defined by Wickham Et. Al.</figcaption>
+<p></p><figcaption class="figure-caption">Figure 1. Tidy data, as defined by Wickham Et. Al.</figcaption><p></p>
 </figure>
 </div>
 <p>LMMs also require that the structure of both random and fixed effects be defined before the model is created. The variables that have random variation across groups and those that are fixed must be identified. There are different hierarchies in LMMs. First of all we have to distinguish between clustered and longitudinal data. With cluttered data, as the name suggests, groups the subjects or the unit of analysis into different groups. For a two level data set we can have students be the unit of analysis and the next level up is the classrooms. For a three level data set we can add schools as the third level. Regardless of the amount of levels, the first level is always the subject of the unit of analysis, In the example mentioned above, its students <span class="citation" data-cites="galecki_linear_2014">(<a href="#ref-galecki_linear_2014" role="doc-biblioref">Galecki 2014</a>)</span>.</p>
@@ -416,12 +442,12 @@ y=X\beta + Zu+ \epsilon
 <li><p><code>car</code>: for qq plots.</p></li>
 <li><p><code>reshape2</code>: to reshape date.</p></li>
 </ul>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout-warning callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
+<div class="callout-caption-container flex-fill">
 An error was encountered with the Matrix and lme4 packages during model creation. If this error is encountered, please:
 </div>
 </div>
@@ -551,23 +577,23 @@ An error was encountered with the Matrix and lme4 packages during model creation
 </details>
 <div class="cell-output-display">
 
-<div id="isjslkpeid" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#isjslkpeid table {
+<div id="rjtfzkqbfb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#rjtfzkqbfb table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#isjslkpeid thead, #isjslkpeid tbody, #isjslkpeid tfoot, #isjslkpeid tr, #isjslkpeid td, #isjslkpeid th {
+#rjtfzkqbfb thead, #rjtfzkqbfb tbody, #rjtfzkqbfb tfoot, #rjtfzkqbfb tr, #rjtfzkqbfb td, #rjtfzkqbfb th {
   border-style: none;
 }
 
-#isjslkpeid p {
+#rjtfzkqbfb p {
   margin: 0;
   padding: 0;
 }
 
-#isjslkpeid .gt_table {
+#rjtfzkqbfb .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -593,12 +619,12 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-left-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_caption {
+#rjtfzkqbfb .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#isjslkpeid .gt_title {
+#rjtfzkqbfb .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -610,7 +636,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-width: 0;
 }
 
-#isjslkpeid .gt_subtitle {
+#rjtfzkqbfb .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -622,7 +648,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-top-width: 0;
 }
 
-#isjslkpeid .gt_heading {
+#rjtfzkqbfb .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -634,13 +660,13 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_bottom_border {
+#rjtfzkqbfb .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_col_headings {
+#rjtfzkqbfb .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -655,7 +681,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_col_heading {
+#rjtfzkqbfb .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -675,7 +701,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   overflow-x: hidden;
 }
 
-#isjslkpeid .gt_column_spanner_outer {
+#rjtfzkqbfb .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -687,15 +713,15 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 4px;
 }
 
-#isjslkpeid .gt_column_spanner_outer:first-child {
+#rjtfzkqbfb .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#isjslkpeid .gt_column_spanner_outer:last-child {
+#rjtfzkqbfb .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#isjslkpeid .gt_column_spanner {
+#rjtfzkqbfb .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -707,11 +733,11 @@ An error was encountered with the Matrix and lme4 packages during model creation
   width: 100%;
 }
 
-#isjslkpeid .gt_spanner_row {
+#rjtfzkqbfb .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#isjslkpeid .gt_group_heading {
+#rjtfzkqbfb .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -737,7 +763,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   text-align: left;
 }
 
-#isjslkpeid .gt_empty_group_heading {
+#rjtfzkqbfb .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -752,15 +778,15 @@ An error was encountered with the Matrix and lme4 packages during model creation
   vertical-align: middle;
 }
 
-#isjslkpeid .gt_from_md > :first-child {
+#rjtfzkqbfb .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#isjslkpeid .gt_from_md > :last-child {
+#rjtfzkqbfb .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#isjslkpeid .gt_row {
+#rjtfzkqbfb .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -779,7 +805,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   overflow-x: hidden;
 }
 
-#isjslkpeid .gt_stub {
+#rjtfzkqbfb .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -792,7 +818,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#isjslkpeid .gt_stub_row_group {
+#rjtfzkqbfb .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -806,15 +832,15 @@ An error was encountered with the Matrix and lme4 packages during model creation
   vertical-align: top;
 }
 
-#isjslkpeid .gt_row_group_first td {
+#rjtfzkqbfb .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#isjslkpeid .gt_row_group_first th {
+#rjtfzkqbfb .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#isjslkpeid .gt_summary_row {
+#rjtfzkqbfb .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -824,16 +850,16 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#isjslkpeid .gt_first_summary_row {
+#rjtfzkqbfb .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_first_summary_row.thick {
+#rjtfzkqbfb .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#isjslkpeid .gt_last_summary_row {
+#rjtfzkqbfb .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -843,7 +869,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_grand_summary_row {
+#rjtfzkqbfb .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -853,7 +879,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#isjslkpeid .gt_first_grand_summary_row {
+#rjtfzkqbfb .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -863,7 +889,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-top-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_last_grand_summary_row_top {
+#rjtfzkqbfb .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -873,11 +899,11 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_striped {
+#rjtfzkqbfb .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#isjslkpeid .gt_table_body {
+#rjtfzkqbfb .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -886,7 +912,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_footnotes {
+#rjtfzkqbfb .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -900,7 +926,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_footnote {
+#rjtfzkqbfb .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -909,7 +935,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#isjslkpeid .gt_sourcenotes {
+#rjtfzkqbfb .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -923,7 +949,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#isjslkpeid .gt_sourcenote {
+#rjtfzkqbfb .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -931,63 +957,63 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#isjslkpeid .gt_left {
+#rjtfzkqbfb .gt_left {
   text-align: left;
 }
 
-#isjslkpeid .gt_center {
+#rjtfzkqbfb .gt_center {
   text-align: center;
 }
 
-#isjslkpeid .gt_right {
+#rjtfzkqbfb .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#isjslkpeid .gt_font_normal {
+#rjtfzkqbfb .gt_font_normal {
   font-weight: normal;
 }
 
-#isjslkpeid .gt_font_bold {
+#rjtfzkqbfb .gt_font_bold {
   font-weight: bold;
 }
 
-#isjslkpeid .gt_font_italic {
+#rjtfzkqbfb .gt_font_italic {
   font-style: italic;
 }
 
-#isjslkpeid .gt_super {
+#rjtfzkqbfb .gt_super {
   font-size: 65%;
 }
 
-#isjslkpeid .gt_footnote_marks {
+#rjtfzkqbfb .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#isjslkpeid .gt_asterisk {
+#rjtfzkqbfb .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#isjslkpeid .gt_indent_1 {
+#rjtfzkqbfb .gt_indent_1 {
   text-indent: 5px;
 }
 
-#isjslkpeid .gt_indent_2 {
+#rjtfzkqbfb .gt_indent_2 {
   text-indent: 10px;
 }
 
-#isjslkpeid .gt_indent_3 {
+#rjtfzkqbfb .gt_indent_3 {
   text-indent: 15px;
 }
 
-#isjslkpeid .gt_indent_4 {
+#rjtfzkqbfb .gt_indent_4 {
   text-indent: 20px;
 }
 
-#isjslkpeid .gt_indent_5 {
+#rjtfzkqbfb .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1273,23 +1299,23 @@ Outliers in X5Hz_PP :
 </details>
 <div class="cell-output-display">
 
-<div id="utejvfijhs" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#utejvfijhs table {
+<div id="xdietsipka" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#xdietsipka table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#utejvfijhs thead, #utejvfijhs tbody, #utejvfijhs tfoot, #utejvfijhs tr, #utejvfijhs td, #utejvfijhs th {
+#xdietsipka thead, #xdietsipka tbody, #xdietsipka tfoot, #xdietsipka tr, #xdietsipka td, #xdietsipka th {
   border-style: none;
 }
 
-#utejvfijhs p {
+#xdietsipka p {
   margin: 0;
   padding: 0;
 }
 
-#utejvfijhs .gt_table {
+#xdietsipka .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1315,12 +1341,12 @@ Outliers in X5Hz_PP :
   border-left-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_caption {
+#xdietsipka .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#utejvfijhs .gt_title {
+#xdietsipka .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1332,7 +1358,7 @@ Outliers in X5Hz_PP :
   border-bottom-width: 0;
 }
 
-#utejvfijhs .gt_subtitle {
+#xdietsipka .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1344,7 +1370,7 @@ Outliers in X5Hz_PP :
   border-top-width: 0;
 }
 
-#utejvfijhs .gt_heading {
+#xdietsipka .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1356,13 +1382,13 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_bottom_border {
+#xdietsipka .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_col_headings {
+#xdietsipka .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1377,7 +1403,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_col_heading {
+#xdietsipka .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1397,7 +1423,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#utejvfijhs .gt_column_spanner_outer {
+#xdietsipka .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1409,15 +1435,15 @@ Outliers in X5Hz_PP :
   padding-right: 4px;
 }
 
-#utejvfijhs .gt_column_spanner_outer:first-child {
+#xdietsipka .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#utejvfijhs .gt_column_spanner_outer:last-child {
+#xdietsipka .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#utejvfijhs .gt_column_spanner {
+#xdietsipka .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1429,11 +1455,11 @@ Outliers in X5Hz_PP :
   width: 100%;
 }
 
-#utejvfijhs .gt_spanner_row {
+#xdietsipka .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#utejvfijhs .gt_group_heading {
+#xdietsipka .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1459,7 +1485,7 @@ Outliers in X5Hz_PP :
   text-align: left;
 }
 
-#utejvfijhs .gt_empty_group_heading {
+#xdietsipka .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1474,15 +1500,15 @@ Outliers in X5Hz_PP :
   vertical-align: middle;
 }
 
-#utejvfijhs .gt_from_md > :first-child {
+#xdietsipka .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#utejvfijhs .gt_from_md > :last-child {
+#xdietsipka .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#utejvfijhs .gt_row {
+#xdietsipka .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1501,7 +1527,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#utejvfijhs .gt_stub {
+#xdietsipka .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1514,7 +1540,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#utejvfijhs .gt_stub_row_group {
+#xdietsipka .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1528,15 +1554,15 @@ Outliers in X5Hz_PP :
   vertical-align: top;
 }
 
-#utejvfijhs .gt_row_group_first td {
+#xdietsipka .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#utejvfijhs .gt_row_group_first th {
+#xdietsipka .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#utejvfijhs .gt_summary_row {
+#xdietsipka .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1546,16 +1572,16 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#utejvfijhs .gt_first_summary_row {
+#xdietsipka .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_first_summary_row.thick {
+#xdietsipka .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#utejvfijhs .gt_last_summary_row {
+#xdietsipka .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1565,7 +1591,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_grand_summary_row {
+#xdietsipka .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1575,7 +1601,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#utejvfijhs .gt_first_grand_summary_row {
+#xdietsipka .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1585,7 +1611,7 @@ Outliers in X5Hz_PP :
   border-top-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_last_grand_summary_row_top {
+#xdietsipka .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1595,11 +1621,11 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_striped {
+#xdietsipka .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#utejvfijhs .gt_table_body {
+#xdietsipka .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1608,7 +1634,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_footnotes {
+#xdietsipka .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1622,7 +1648,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_footnote {
+#xdietsipka .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1631,7 +1657,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#utejvfijhs .gt_sourcenotes {
+#xdietsipka .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1645,7 +1671,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#utejvfijhs .gt_sourcenote {
+#xdietsipka .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1653,63 +1679,63 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#utejvfijhs .gt_left {
+#xdietsipka .gt_left {
   text-align: left;
 }
 
-#utejvfijhs .gt_center {
+#xdietsipka .gt_center {
   text-align: center;
 }
 
-#utejvfijhs .gt_right {
+#xdietsipka .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#utejvfijhs .gt_font_normal {
+#xdietsipka .gt_font_normal {
   font-weight: normal;
 }
 
-#utejvfijhs .gt_font_bold {
+#xdietsipka .gt_font_bold {
   font-weight: bold;
 }
 
-#utejvfijhs .gt_font_italic {
+#xdietsipka .gt_font_italic {
   font-style: italic;
 }
 
-#utejvfijhs .gt_super {
+#xdietsipka .gt_super {
   font-size: 65%;
 }
 
-#utejvfijhs .gt_footnote_marks {
+#xdietsipka .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#utejvfijhs .gt_asterisk {
+#xdietsipka .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#utejvfijhs .gt_indent_1 {
+#xdietsipka .gt_indent_1 {
   text-indent: 5px;
 }
 
-#utejvfijhs .gt_indent_2 {
+#xdietsipka .gt_indent_2 {
   text-indent: 10px;
 }
 
-#utejvfijhs .gt_indent_3 {
+#xdietsipka .gt_indent_3 {
   text-indent: 15px;
 }
 
-#utejvfijhs .gt_indent_4 {
+#xdietsipka .gt_indent_4 {
   text-indent: 20px;
 }
 
-#utejvfijhs .gt_indent_5 {
+#xdietsipka .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1913,23 +1939,23 @@ Outliers in X5Hz_PP :
 </details>
 <div class="cell-output-display">
 
-<div id="lyeugohuru" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lyeugohuru table {
+<div id="bszvclcdvh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bszvclcdvh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lyeugohuru thead, #lyeugohuru tbody, #lyeugohuru tfoot, #lyeugohuru tr, #lyeugohuru td, #lyeugohuru th {
+#bszvclcdvh thead, #bszvclcdvh tbody, #bszvclcdvh tfoot, #bszvclcdvh tr, #bszvclcdvh td, #bszvclcdvh th {
   border-style: none;
 }
 
-#lyeugohuru p {
+#bszvclcdvh p {
   margin: 0;
   padding: 0;
 }
 
-#lyeugohuru .gt_table {
+#bszvclcdvh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1955,12 +1981,12 @@ Outliers in X5Hz_PP :
   border-left-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_caption {
+#bszvclcdvh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lyeugohuru .gt_title {
+#bszvclcdvh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1972,7 +1998,7 @@ Outliers in X5Hz_PP :
   border-bottom-width: 0;
 }
 
-#lyeugohuru .gt_subtitle {
+#bszvclcdvh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1984,7 +2010,7 @@ Outliers in X5Hz_PP :
   border-top-width: 0;
 }
 
-#lyeugohuru .gt_heading {
+#bszvclcdvh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1996,13 +2022,13 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_bottom_border {
+#bszvclcdvh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_col_headings {
+#bszvclcdvh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2017,7 +2043,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_col_heading {
+#bszvclcdvh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2037,7 +2063,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#lyeugohuru .gt_column_spanner_outer {
+#bszvclcdvh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2049,15 +2075,15 @@ Outliers in X5Hz_PP :
   padding-right: 4px;
 }
 
-#lyeugohuru .gt_column_spanner_outer:first-child {
+#bszvclcdvh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lyeugohuru .gt_column_spanner_outer:last-child {
+#bszvclcdvh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lyeugohuru .gt_column_spanner {
+#bszvclcdvh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2069,11 +2095,11 @@ Outliers in X5Hz_PP :
   width: 100%;
 }
 
-#lyeugohuru .gt_spanner_row {
+#bszvclcdvh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lyeugohuru .gt_group_heading {
+#bszvclcdvh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2099,7 +2125,7 @@ Outliers in X5Hz_PP :
   text-align: left;
 }
 
-#lyeugohuru .gt_empty_group_heading {
+#bszvclcdvh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2114,15 +2140,15 @@ Outliers in X5Hz_PP :
   vertical-align: middle;
 }
 
-#lyeugohuru .gt_from_md > :first-child {
+#bszvclcdvh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lyeugohuru .gt_from_md > :last-child {
+#bszvclcdvh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lyeugohuru .gt_row {
+#bszvclcdvh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2141,7 +2167,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#lyeugohuru .gt_stub {
+#bszvclcdvh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2154,7 +2180,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#lyeugohuru .gt_stub_row_group {
+#bszvclcdvh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2168,15 +2194,15 @@ Outliers in X5Hz_PP :
   vertical-align: top;
 }
 
-#lyeugohuru .gt_row_group_first td {
+#bszvclcdvh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lyeugohuru .gt_row_group_first th {
+#bszvclcdvh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lyeugohuru .gt_summary_row {
+#bszvclcdvh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2186,16 +2212,16 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#lyeugohuru .gt_first_summary_row {
+#bszvclcdvh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_first_summary_row.thick {
+#bszvclcdvh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lyeugohuru .gt_last_summary_row {
+#bszvclcdvh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2205,7 +2231,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_grand_summary_row {
+#bszvclcdvh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2215,7 +2241,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#lyeugohuru .gt_first_grand_summary_row {
+#bszvclcdvh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2225,7 +2251,7 @@ Outliers in X5Hz_PP :
   border-top-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_last_grand_summary_row_top {
+#bszvclcdvh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2235,11 +2261,11 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_striped {
+#bszvclcdvh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lyeugohuru .gt_table_body {
+#bszvclcdvh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2248,7 +2274,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_footnotes {
+#bszvclcdvh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2262,7 +2288,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_footnote {
+#bszvclcdvh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2271,7 +2297,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#lyeugohuru .gt_sourcenotes {
+#bszvclcdvh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2285,7 +2311,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#lyeugohuru .gt_sourcenote {
+#bszvclcdvh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2293,63 +2319,63 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#lyeugohuru .gt_left {
+#bszvclcdvh .gt_left {
   text-align: left;
 }
 
-#lyeugohuru .gt_center {
+#bszvclcdvh .gt_center {
   text-align: center;
 }
 
-#lyeugohuru .gt_right {
+#bszvclcdvh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lyeugohuru .gt_font_normal {
+#bszvclcdvh .gt_font_normal {
   font-weight: normal;
 }
 
-#lyeugohuru .gt_font_bold {
+#bszvclcdvh .gt_font_bold {
   font-weight: bold;
 }
 
-#lyeugohuru .gt_font_italic {
+#bszvclcdvh .gt_font_italic {
   font-style: italic;
 }
 
-#lyeugohuru .gt_super {
+#bszvclcdvh .gt_super {
   font-size: 65%;
 }
 
-#lyeugohuru .gt_footnote_marks {
+#bszvclcdvh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lyeugohuru .gt_asterisk {
+#bszvclcdvh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lyeugohuru .gt_indent_1 {
+#bszvclcdvh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lyeugohuru .gt_indent_2 {
+#bszvclcdvh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lyeugohuru .gt_indent_3 {
+#bszvclcdvh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lyeugohuru .gt_indent_4 {
+#bszvclcdvh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lyeugohuru .gt_indent_5 {
+#bszvclcdvh .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2469,23 +2495,23 @@ Fres_PP     0.50290470  1.00000000</code></pre>
 </details>
 <div class="cell-output-display">
 
-<div id="vtyockfmzv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vtyockfmzv table {
+<div id="kawhulyltr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kawhulyltr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vtyockfmzv thead, #vtyockfmzv tbody, #vtyockfmzv tfoot, #vtyockfmzv tr, #vtyockfmzv td, #vtyockfmzv th {
+#kawhulyltr thead, #kawhulyltr tbody, #kawhulyltr tfoot, #kawhulyltr tr, #kawhulyltr td, #kawhulyltr th {
   border-style: none;
 }
 
-#vtyockfmzv p {
+#kawhulyltr p {
   margin: 0;
   padding: 0;
 }
 
-#vtyockfmzv .gt_table {
+#kawhulyltr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2511,12 +2537,12 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_caption {
+#kawhulyltr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vtyockfmzv .gt_title {
+#kawhulyltr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2528,7 +2554,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-width: 0;
 }
 
-#vtyockfmzv .gt_subtitle {
+#kawhulyltr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2540,7 +2566,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-top-width: 0;
 }
 
-#vtyockfmzv .gt_heading {
+#kawhulyltr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2552,13 +2578,13 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_bottom_border {
+#kawhulyltr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_col_headings {
+#kawhulyltr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2573,7 +2599,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_col_heading {
+#kawhulyltr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2593,7 +2619,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   overflow-x: hidden;
 }
 
-#vtyockfmzv .gt_column_spanner_outer {
+#kawhulyltr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2605,15 +2631,15 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 4px;
 }
 
-#vtyockfmzv .gt_column_spanner_outer:first-child {
+#kawhulyltr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vtyockfmzv .gt_column_spanner_outer:last-child {
+#kawhulyltr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vtyockfmzv .gt_column_spanner {
+#kawhulyltr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2625,11 +2651,11 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   width: 100%;
 }
 
-#vtyockfmzv .gt_spanner_row {
+#kawhulyltr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vtyockfmzv .gt_group_heading {
+#kawhulyltr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2655,7 +2681,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   text-align: left;
 }
 
-#vtyockfmzv .gt_empty_group_heading {
+#kawhulyltr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2670,15 +2696,15 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   vertical-align: middle;
 }
 
-#vtyockfmzv .gt_from_md > :first-child {
+#kawhulyltr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vtyockfmzv .gt_from_md > :last-child {
+#kawhulyltr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vtyockfmzv .gt_row {
+#kawhulyltr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2697,7 +2723,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   overflow-x: hidden;
 }
 
-#vtyockfmzv .gt_stub {
+#kawhulyltr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2710,7 +2736,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#vtyockfmzv .gt_stub_row_group {
+#kawhulyltr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2724,15 +2750,15 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   vertical-align: top;
 }
 
-#vtyockfmzv .gt_row_group_first td {
+#kawhulyltr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vtyockfmzv .gt_row_group_first th {
+#kawhulyltr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vtyockfmzv .gt_summary_row {
+#kawhulyltr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2742,16 +2768,16 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#vtyockfmzv .gt_first_summary_row {
+#kawhulyltr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_first_summary_row.thick {
+#kawhulyltr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vtyockfmzv .gt_last_summary_row {
+#kawhulyltr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2761,7 +2787,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_grand_summary_row {
+#kawhulyltr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2771,7 +2797,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#vtyockfmzv .gt_first_grand_summary_row {
+#kawhulyltr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2781,7 +2807,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_last_grand_summary_row_top {
+#kawhulyltr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2791,11 +2817,11 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_striped {
+#kawhulyltr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vtyockfmzv .gt_table_body {
+#kawhulyltr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2804,7 +2830,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_footnotes {
+#kawhulyltr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2818,7 +2844,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_footnote {
+#kawhulyltr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2827,7 +2853,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#vtyockfmzv .gt_sourcenotes {
+#kawhulyltr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2841,7 +2867,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#vtyockfmzv .gt_sourcenote {
+#kawhulyltr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2849,63 +2875,63 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#vtyockfmzv .gt_left {
+#kawhulyltr .gt_left {
   text-align: left;
 }
 
-#vtyockfmzv .gt_center {
+#kawhulyltr .gt_center {
   text-align: center;
 }
 
-#vtyockfmzv .gt_right {
+#kawhulyltr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vtyockfmzv .gt_font_normal {
+#kawhulyltr .gt_font_normal {
   font-weight: normal;
 }
 
-#vtyockfmzv .gt_font_bold {
+#kawhulyltr .gt_font_bold {
   font-weight: bold;
 }
 
-#vtyockfmzv .gt_font_italic {
+#kawhulyltr .gt_font_italic {
   font-style: italic;
 }
 
-#vtyockfmzv .gt_super {
+#kawhulyltr .gt_super {
   font-size: 65%;
 }
 
-#vtyockfmzv .gt_footnote_marks {
+#kawhulyltr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vtyockfmzv .gt_asterisk {
+#kawhulyltr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vtyockfmzv .gt_indent_1 {
+#kawhulyltr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vtyockfmzv .gt_indent_2 {
+#kawhulyltr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vtyockfmzv .gt_indent_3 {
+#kawhulyltr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vtyockfmzv .gt_indent_4 {
+#kawhulyltr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vtyockfmzv .gt_indent_5 {
+#kawhulyltr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3036,19 +3062,19 @@ Fres_PP     0.50290470  1.00000000</code></pre>
 Random effects:
  Formula: ~1 | Subject_ID
         (Intercept) Residual
-StdDev:    20.45438 19.76739
+StdDev:    20.45439 19.76738
 
 Fixed effects:  cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS +      LABA + Gender + Age_months + Height_cm + Weight_Kg 
                 Value Std.Error  DF   t-value p-value
-(Intercept) 219.89254  86.92600 111  2.529652  0.0128
-BMI          -5.89676   2.67942 111 -2.200760  0.0298
+(Intercept) 219.89260  86.92601 111  2.529653  0.0128
+BMI          -5.89676   2.67942 111 -2.200761  0.0298
 AsthmaYes    16.70033   7.68459  85  2.173222  0.0325
-ICSYes       -4.93413   4.87163 111 -1.012829  0.3133
-LABAYes      -4.35652   6.08228 111 -0.716266  0.4753
-Gendermale   -5.68900   5.71803  85 -0.994924  0.3226
-Age_months    0.49796   0.13627 111  3.654089  0.0004
+ICSYes       -4.93414   4.87163 111 -1.012830  0.3133
+LABAYes      -4.35652   6.08228 111 -0.716265  0.4753
+Gendermale   -5.68901   5.71803  85 -0.994924  0.3226
+Age_months    0.49796   0.13627 111  3.654088  0.0004
 Height_cm    -1.04120   0.60384 111 -1.724307  0.0874
-Weight_Kg     1.65586   1.01041 111  1.638803  0.1041
+Weight_Kg     1.65587   1.01041 111  1.638804  0.1041
  Correlation: 
            (Intr) BMI    AsthmY ICSYes LABAYs Gndrml Ag_mnt Hght_c
 BMI        -0.927                                                 
@@ -3062,7 +3088,7 @@ Weight_Kg   0.938 -0.986 -0.082  0.087 -0.030 -0.122  0.087 -0.852
 
 Standardized Within-Group Residuals:
        Min         Q1        Med         Q3        Max 
--2.8899150 -0.4840091 -0.1223361  0.4272442  2.5859874 
+-2.8899152 -0.4840087 -0.1223361  0.4272441  2.5859876 
 
 Number of Observations: 205
 Number of Groups: 88 </code></pre>
@@ -3149,7 +3175,7 @@ W = 0.95883, p-value = 1.163e-05</code></pre>
 </section>
 <section id="imputed-model" class="level3">
 <h3 class="anchored" data-anchor-id="imputed-model"><strong>3.3.2 Imputed Model</strong></h3>
-<p>Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the median. The model was then regenerated and assessed using the same metrics as above (Figures 14-17).</p>
+<p>Outliers (as mentioned above) were present in most variables, and the residuals of the initial model were not normally distributed. To improve model performance, outliers were imputed using the the threshold values. The model was then regenerated and assessed using the same metrics as above (Figures 14-17).</p>
 <p>Figure 14. Box plots of numerical variables.</p>
 <div class="cell">
 <details>
@@ -3211,7 +3237,7 @@ W = 0.95883, p-value = 1.163e-05</code></pre>
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Adding a general title for the entire set of boxplots</span></span>
 <span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">#mtext("Figure 14. Box plots of numerical variables.", side=3, line=1, outer=TRUE, cex=1.5)</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeling with Median Imputed Data</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Modeling with Imputed Data</span></span>
 <span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Refit the model using the lme function with the cleaned data</span></span>
 <span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>model_lme_imputed <span class="ot">&lt;-</span> <span class="fu">lme</span>(<span class="at">fixed =</span> <span class="fu">cbind</span>(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) <span class="sc">~</span> BMI <span class="sc">+</span> Asthma <span class="sc">+</span> ICS <span class="sc">+</span> LABA <span class="sc">+</span> Gender <span class="sc">+</span> Age_months <span class="sc">+</span> Height_cm <span class="sc">+</span> Weight_Kg,</span>
 <span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">random =</span> <span class="fu">list</span>(<span class="at">Subject_ID =</span> <span class="fu">pdIdent</span>(<span class="sc">~</span><span class="dv">1</span>)),</span>
@@ -3279,7 +3305,7 @@ W = 0.98664, p-value = 0.05066</code></pre>
 <p><span class="math inline">\(H_o\)</span>: the residuals are normally distributed.</p>
 <p><span class="math inline">\(H_a\)</span>: the residuals are not normally distributed.</p>
 <p><span class="math inline">\(\alpha\)</span> = 0.05</p>
-<p>In this case, P = 0.05066. P &gt;0.05, so we failed to reject the null hypothesis, suggesting that the <strong>residuals were normally distributed</strong> after median imputation. This model now satisfies the assumptions of LMMs.</p>
+<p>In this case, P = 0.05066. P &gt;0.05, so we failed to reject the null hypothesis, suggesting that the <strong>residuals were normally distributed</strong> after threshold imputation. This model now satisfies the assumptions of LMMs.</p>
 </section>
 <section id="final-model" class="level3">
 <h3 class="anchored" data-anchor-id="final-model"><strong>3.3.3 Final Model</strong></h3>
@@ -3522,7 +3548,7 @@ W = 0.98676, p-value = 0.0529</code></pre>
 <p><span class="math inline">\(H_o\)</span>: the residuals are normally distributed.</p>
 <p><span class="math inline">\(H_a\)</span>: the residuals are not normally distributed.</p>
 <p><span class="math inline">\(\alpha\)</span> = 0.05</p>
-<p>In this case, P = 0.0529. P &gt;0.05, so we failed to reject the null hypothesis, suggesting that the <strong>residuals were normally distributed</strong> after median imputation. This final model also satisfies the assumptions of LMMs.</p>
+<p>In this case, P = 0.0529. P &gt;0.05, so we failed to reject the null hypothesis, suggesting that the <strong>residuals were normally distributed</strong> after threshold imputation. This final model also satisfies the assumptions of LMMs.</p>
 </section>
 <section id="predictions" class="level3">
 <h3 class="anchored" data-anchor-id="predictions"><strong>3.3.4 Predictions</strong></h3>
@@ -3644,80 +3670,80 @@ W = 0.98676, p-value = 0.0529</code></pre>
 </section>
 <section id="references" class="level1">
 <h1><strong>5 References</strong></h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-aarts_2015" class="csl-entry" role="listitem">
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-aarts_2015" class="csl-entry" role="doc-biblioentry">
 Aarts, E., Dolan, C. V., Verhage, M., and Sluis, S. van der (2015), <span>“Multilevel analysis quantifies variation in the experimental effect while optimizing power and preventing false positives,”</span> <em>BMC Neuroscience</em>, 16, 94. <a href="https://doi.org/10.1186/s12868-015-0228-5">https://doi.org/10.1186/s12868-015-0228-5</a>.
 </div>
-<div id="ref-barr_random_2013" class="csl-entry" role="listitem">
+<div id="ref-barr_random_2013" class="csl-entry" role="doc-biblioentry">
 Barr, D. J. (2013), <span>“Random effects structure for testing interactions in linear mixed-effects models,”</span> <em>Frontiers in Psychology</em>, 4, 328. <a href="https://doi.org/10.3389/fpsyg.2013.00328">https://doi.org/10.3389/fpsyg.2013.00328</a>.
 </div>
-<div id="ref-bates_fitting_2015" class="csl-entry" role="listitem">
+<div id="ref-bates_fitting_2015" class="csl-entry" role="doc-biblioentry">
 Bates, D., Mächler, M., Bolker, B., and Walker, S. (2015), <span>“Fitting <span>Linear</span> <span>Mixed</span>-<span>Effects</span> <span>Models</span> <span>Using</span> lme4,”</span> <em>Journal of Statistical Software</em>, 67, 1–48. <a href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>.
 </div>
-<div id="ref-bolker_generalized_2009" class="csl-entry" role="listitem">
+<div id="ref-bolker_generalized_2009" class="csl-entry" role="doc-biblioentry">
 Bolker, B. M., Brooks, M. E., Clark, C. J., Geange, S. W., Poulsen, J. R., Stevens, M. H. H., and White, J.-S. S. (2009), <span>“Generalized linear mixed models: A practical guide for ecology and evolution,”</span> <em>Trends in Ecology &amp; Evolution</em>, 24, 127–135. <a href="https://doi.org/10.1016/j.tree.2008.10.008">https://doi.org/10.1016/j.tree.2008.10.008</a>.
 </div>
-<div id="ref-brown_introduction_2021" class="csl-entry" role="listitem">
+<div id="ref-brown_introduction_2021" class="csl-entry" role="doc-biblioentry">
 Brown, V. A. (2021), <span>“An <span>Introduction</span> to <span>Linear</span> <span>Mixed</span>-<span>Effects</span> <span>Modeling</span> in <span>R</span>,”</span> <em>Advances in Methods and Practices in Psychological Science</em>, 4, 2515245920960351. <a href="https://doi.org/10.1177/2515245920960351">https://doi.org/10.1177/2515245920960351</a>.
 </div>
-<div id="ref-casals_methodological_2014" class="csl-entry" role="listitem">
+<div id="ref-casals_methodological_2014" class="csl-entry" role="doc-biblioentry">
 Casals, M., Girabent-Farrés, M., and Carrasco, J. L. (2014), <span>“Methodological quality and reporting of generalized linear mixed models in clinical medicine (2000-2012): A systematic review,”</span> <em>PloS One</em>, 9, e112653. <a href="https://doi.org/10.1371/journal.pone.0112653">https://doi.org/10.1371/journal.pone.0112653</a>.
 </div>
-<div id="ref-galecki_linear_2014" class="csl-entry" role="listitem">
+<div id="ref-galecki_linear_2014" class="csl-entry" role="doc-biblioentry">
 Galecki, A. T., Kathleen B. Welch (2014), <em>Linear <span>Mixed</span> <span>Models</span>: <span>A</span> <span>Practical</span> <span>Guide</span> <span>Using</span> <span>Statistical</span> <span>Software</span>, <span>Second</span> <span>Edition</span></em>, New York: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/b17198">https://doi.org/10.1201/b17198</a>.
 </div>
-<div id="ref-grueber_2011" class="csl-entry" role="listitem">
+<div id="ref-grueber_2011" class="csl-entry" role="doc-biblioentry">
 GRUEBER, C. E., NAKAGAWA, S., LAWS, R. J., and JAMIESON, I. G. (2011), <span>“Multimodel inference in ecology and evolution: Challenges and solutions,”</span> <em>Journal of Evolutionary Biology</em>, 24, 699–711. https://doi.org/<a href="https://doi.org/10.1111/j.1420-9101.2010.02210.x">https://doi.org/10.1111/j.1420-9101.2010.02210.x</a>.
 </div>
-<div id="ref-harrison_brief_2018" class="csl-entry" role="listitem">
+<div id="ref-harrison_brief_2018" class="csl-entry" role="doc-biblioentry">
 Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E. D., Robinson, B. S., Hodgson, D. J., and Inger, R. (2018), <span>“A brief introduction to mixed effects modelling and multi-model inference in ecology,”</span> <em>PeerJ</em>, 6, e4794. <a href="https://doi.org/10.7717/peerj.4794">https://doi.org/10.7717/peerj.4794</a>.
 </div>
-<div id="ref-jolly_pymer4_2018" class="csl-entry" role="listitem">
+<div id="ref-jolly_pymer4_2018" class="csl-entry" role="doc-biblioentry">
 Jolly, E. (2018), <span>“Pymer4: <span>Connecting</span> <span>R</span> and <span>Python</span> for <span>Linear</span> <span>Mixed</span> <span>Modeling</span>,”</span> <em>Journal of Open Source Software</em>, 3, 862. <a href="https://doi.org/10.21105/joss.00862">https://doi.org/10.21105/joss.00862</a>.
 </div>
-<div id="ref-lee_estimation_nodate" class="csl-entry" role="listitem">
+<div id="ref-lee_estimation_nodate" class="csl-entry" role="doc-biblioentry">
 Lee, Y.-C., and Shang, J. (n.d.), <span>“Estimation and selection in linear mixed models with missing data under compound symmetric structure,”</span> <em>Journal of Applied Statistics</em>, 49, 4003–4027. <a href="https://doi.org/10.1080/02664763.2021.1969342">https://doi.org/10.1080/02664763.2021.1969342</a>.
 </div>
-<div id="ref-lo_transform_2015" class="csl-entry" role="listitem">
+<div id="ref-lo_transform_2015" class="csl-entry" role="doc-biblioentry">
 Lo, S., and Andrews, S. (2015), <span>“<a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.01171">To transform or not to transform: Using generalized linear mixed models to analyse reaction time data</a>,”</span> <em>Frontiers in Psychology</em>, 6.
 </div>
-<div id="ref-magezi_linear_2015" class="csl-entry" role="listitem">
+<div id="ref-magezi_linear_2015" class="csl-entry" role="doc-biblioentry">
 Magezi, D. A. (2015), <span>“Linear mixed-effects models for within-participant psychology experiments: An introductory tutorial and free, graphical user interface (<span>LMMgui</span>),”</span> <em>Frontiers in Psychology</em>, 6, 2. <a href="https://doi.org/10.3389/fpsyg.2015.00002">https://doi.org/10.3389/fpsyg.2015.00002</a>.
 </div>
-<div id="ref-fokkema_generalized_2021" class="csl-entry" role="listitem">
+<div id="ref-fokkema_generalized_2021" class="csl-entry" role="doc-biblioentry">
 Marjolein Fokkema, J. E.-C., and Wolpert, M. (2021), <span>“Generalized linear mixed-model (GLMM) trees: A flexible decision-tree method for multilevel and longitudinal data,”</span> <em>Psychotherapy Research</em>, Routledge, 31, 329–341. <a href="https://doi.org/10.1080/10503307.2020.1785037">https://doi.org/10.1080/10503307.2020.1785037</a>.
 </div>
-<div id="ref-monsalves_level_2020" class="csl-entry" role="listitem">
+<div id="ref-monsalves_level_2020" class="csl-entry" role="doc-biblioentry">
 Monsalves, M. J., Bangdiwala, A. S., Thabane, A., and Bangdiwala, S. I. (2020), <span>“<span>LEVEL</span> (<span>Logical</span> <span>Explanations</span> &amp; <span>Visualizations</span> of <span>Estimates</span> in <span>Linear</span> mixed models): Recommendations for reporting multilevel data and analyses,”</span> <em>BMC Medical Research Methodology</em>, 20, 3. <a href="https://doi.org/10.1186/s12874-019-0876-8">https://doi.org/10.1186/s12874-019-0876-8</a>.
 </div>
-<div id="ref-peng_model_2012" class="csl-entry" role="listitem">
+<div id="ref-peng_model_2012" class="csl-entry" role="doc-biblioentry">
 Peng, H., and Lu, Y. (2012), <span>“Model selection in linear mixed effect models,”</span> <em>Journal of Multivariate Analysis</em>, 109, 109–129. <a href="https://doi.org/10.1016/j.jmva.2012.02.005">https://doi.org/10.1016/j.jmva.2012.02.005</a>.
 </div>
-<div id="ref-piepho_analysing_1999" class="csl-entry" role="listitem">
+<div id="ref-piepho_analysing_1999" class="csl-entry" role="doc-biblioentry">
 Piepho (1999), <span>“Analysing disease incidence data from designed experiments by generalized linear mixed models,”</span> <em>Plant Pathology</em>, 48, 668–674. https://doi.org/<a href="https://doi.org/10.1046/j.1365-3059.1999.00383.x">https://doi.org/10.1046/j.1365-3059.1999.00383.x</a>.
 </div>
-<div id="ref-pusponegoro_linear_2017" class="csl-entry" role="listitem">
+<div id="ref-pusponegoro_linear_2017" class="csl-entry" role="doc-biblioentry">
 Pusponegoro, N. H., Rachmawati, R. N., Notodiputro, K. A., and Sartono, B. (2017), <span>“Linear <span>Mixed</span> <span>Model</span> for <span>Analyzing</span> <span>Longitudinal</span> <span>Data</span>: <span>A</span> <span>Simulation</span> <span>Study</span> of <span>Children</span> <span>Growth</span> <span>Differences</span>,”</span> <em>Procedia Computer Science</em>, Discovery and innovation of computer science technology in artificial intelligence era: <span>The</span> 2nd <span>International</span> <span>Conference</span> on <span>Computer</span> <span>Science</span> and <span>Computational</span> <span>Intelligence</span> (<span>ICCSCI</span> 2017), 116, 284–291. <a href="https://doi.org/10.1016/j.procs.2017.10.071">https://doi.org/10.1016/j.procs.2017.10.071</a>.
 </div>
-<div id="ref-schielzeth_robustness_2020" class="csl-entry" role="listitem">
+<div id="ref-schielzeth_robustness_2020" class="csl-entry" role="doc-biblioentry">
 Schielzeth, H., Dingemanse, N. J., Nakagawa, S., Westneat, D. F., Allegue, H., Teplitsky, C., Réale, D., Dochtermann, N. A., Garamszegi, L. Z., and Araya-Ajoy, Y. G. (2020), <span>“Robustness of linear mixed-effects models to violations of distributional assumptions,”</span> <em>Methods in Ecology and Evolution</em>, 11, 1141–1152. https://doi.org/<a href="https://doi.org/10.1111/2041-210X.13434">https://doi.org/10.1111/2041-210X.13434</a>.
 </div>
-<div id="ref-steibel_powerful_2009" class="csl-entry" role="listitem">
+<div id="ref-steibel_powerful_2009" class="csl-entry" role="doc-biblioentry">
 Steibel, J. P., Poletto, R., Coussens, P. M., and Rosa, G. J. M. (2009), <span>“A powerful and flexible linear mixed model framework for the analysis of relative quantification <span>RT</span>-<span>PCR</span> data,”</span> <em>Genomics</em>, 94, 146–152. <a href="https://doi.org/10.1016/j.ygeno.2009.04.008">https://doi.org/10.1016/j.ygeno.2009.04.008</a>.
 </div>
-<div id="ref-touraine_when_2023" class="csl-entry" role="listitem">
+<div id="ref-touraine_when_2023" class="csl-entry" role="doc-biblioentry">
 Touraine, C., Cuer, B., Conroy, T., Juzyna, B., Gourgou, S., and Mollevi, C. (2023), <span>“When a joint model should be preferred over a linear mixed model for analysis of longitudinal health-related quality of life data in cancer clinical trials,”</span> <em>BMC medical research methodology</em>, 23, 36. <a href="https://doi.org/10.1186/s12874-023-01846-3">https://doi.org/10.1186/s12874-023-01846-3</a>.
 </div>
-<div id="ref-tu_using_2015" class="csl-entry" role="listitem">
+<div id="ref-tu_using_2015" class="csl-entry" role="doc-biblioentry">
 Tu, Y.-K. (2015), <span>“Using generalized linear mixed models to evaluate inconsistency within a network meta-analysis,”</span> <em>Value in Health</em>, 18, 1120–1125. https://doi.org/<a href="https://doi.org/10.1016/j.jval.2015.10.002">https://doi.org/10.1016/j.jval.2015.10.002</a>.
 </div>
-<div id="ref-verbeeck_linear_2023" class="csl-entry" role="listitem">
+<div id="ref-verbeeck_linear_2023" class="csl-entry" role="doc-biblioentry">
 Verbeeck, J., Faes, C., Neyens, T., Hens, N., Verbeke, G., Deboosere, P., and Molenberghs, G. (2023), <span>“A linear mixed model to estimate <span>COVID</span>-19-induced excess mortality,”</span> <em>Biometrics</em>, 79, 417–425. <a href="https://doi.org/10.1111/biom.13578">https://doi.org/10.1111/biom.13578</a>.
 </div>
-<div id="ref-wang_statistical_2022" class="csl-entry" role="listitem">
+<div id="ref-wang_statistical_2022" class="csl-entry" role="doc-biblioentry">
 Wang, X., Andrinopoulou, E.-R., Veen, K. M., Bogers, A. J. J. C., and Takkenberg, J. J. M. (2022), <span>“Statistical primer: An introduction to the application of linear mixed-effects models in cardiothoracic surgery outcomes research-a case study using homograft pulmonary valve replacement data,”</span> <em>European Journal of Cardio-Thoracic Surgery: Official Journal of the European Association for Cardio-Thoracic Surgery</em>, 62, ezac429. <a href="https://doi.org/10.1093/ejcts/ezac429">https://doi.org/10.1093/ejcts/ezac429</a>.
 </div>
-<div id="ref-zuur_2016" class="csl-entry" role="listitem">
+<div id="ref-zuur_2016" class="csl-entry" role="doc-biblioentry">
 Zuur, A. F., and Ieno, E. N. (2016), <span>“A protocol for conducting and presenting results of regression-type analyses,”</span> <em>Methods in Ecology and Evolution</em>, 7, 636–645. https://doi.org/<a href="https://doi.org/10.1111/2041-210X.12577">https://doi.org/10.1111/2041-210X.12577</a>.
 </div>
 </div>
@@ -3868,23 +3894,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
-  const isCodeAnnotation = (el) => {
-    for (const clz of el.classList) {
-      if (clz.startsWith('code-annotation-')) {                     
-        return true;
-      }
-    }
-    return false;
-  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
+    target: function(trigger) {
+      return trigger.previousElementSibling;
     }
   });
   clipboard.on('success', function(e) {
@@ -3949,92 +3961,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
-      let selectedAnnoteEl;
-      const selectorForAnnotation = ( cell, annotation) => {
-        let cellAttr = 'data-code-cell="' + cell + '"';
-        let lineAttr = 'data-code-annotation="' +  annotation + '"';
-        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
-        return selector;
-      }
-      const selectCodeLines = (annoteEl) => {
-        const doc = window.document;
-        const targetCell = annoteEl.getAttribute("data-target-cell");
-        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
-        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
-        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
-        const lineIds = lines.map((line) => {
-          return targetCell + "-" + line;
-        })
-        let top = null;
-        let height = null;
-        let parent = null;
-        if (lineIds.length > 0) {
-            //compute the position of the single el (top and bottom and make a div)
-            const el = window.document.getElementById(lineIds[0]);
-            top = el.offsetTop;
-            height = el.offsetHeight;
-            parent = el.parentElement.parentElement;
-          if (lineIds.length > 1) {
-            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-            height = bottom - top;
-          }
-          if (top !== null && height !== null && parent !== null) {
-            // cook up a div (if necessary) and position it 
-            let div = window.document.getElementById("code-annotation-line-highlight");
-            if (div === null) {
-              div = window.document.createElement("div");
-              div.setAttribute("id", "code-annotation-line-highlight");
-              div.style.position = 'absolute';
-              parent.appendChild(div);
-            }
-            div.style.top = top - 2 + "px";
-            div.style.height = height + 4 + "px";
-            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-            if (gutterDiv === null) {
-              gutterDiv = window.document.createElement("div");
-              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-              gutterDiv.style.position = 'absolute';
-              const codeCell = window.document.getElementById(targetCell);
-              const gutter = codeCell.querySelector('.code-annotation-gutter');
-              gutter.appendChild(gutterDiv);
-            }
-            gutterDiv.style.top = top - 2 + "px";
-            gutterDiv.style.height = height + 4 + "px";
-          }
-          selectedAnnoteEl = annoteEl;
-        }
-      };
-      const unselectCodeLines = () => {
-        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
-        elementsIds.forEach((elId) => {
-          const div = window.document.getElementById(elId);
-          if (div) {
-            div.remove();
-          }
-        });
-        selectedAnnoteEl = undefined;
-      };
-      // Attach click handler to the DT
-      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
-      for (const annoteDlNode of annoteDls) {
-        annoteDlNode.addEventListener('click', (event) => {
-          const clickedEl = event.target;
-          if (clickedEl !== selectedAnnoteEl) {
-            unselectCodeLines();
-            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
-            if (activeEl) {
-              activeEl.classList.remove('code-annotation-active');
-            }
-            selectCodeLines(clickedEl);
-            clickedEl.classList.add('code-annotation-active');
-          } else {
-            // Unselect the line
-            unselectCodeLines();
-            clickedEl.classList.remove('code-annotation-active');
-          }
-        });
-      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {
