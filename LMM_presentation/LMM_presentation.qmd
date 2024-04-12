@@ -1,0 +1,46 @@
+---
+title: "Inhale, Exhale, Analyze: BMI's Imprint on Impulse Oscillometry Outcomes"
+date: "today"
+author: "Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S." 
+bibliography: references.bib
+csl: asa.csl
+embed-resources: true
+format:
+  revealjs: 
+    theme: serif
+---
+
+# **Linear Mixed Models (LMMs)**
+
+-   Data structures & use cases
+-   Fixed v. random effects
+-   Strengths/weaknesses
+-   Implementation Methods
+
+# **Methods - Mathematical Foundations**
+
+-   Equation 1
+-   Linear algebra
+-   Assumptions
+-   Example
+-   Implementation in R
+
+# **The Capstone Project**
+
+-   Dataset
+-   R packages
+-   EDA & wrangling
+
+# **Results**
+
+-   Initial model
+-   Transformations
+-   Second model
+-   Final model
+
+# **Conclusion**
+
+-   Predictions/accuracy
+-   Conclusion
+
+# **References**
