@@ -10,6 +10,25 @@ format:
     theme: serif
 ---
 
+```{r}
+#| include: false
+
+if (!requireNamespace(c("tidyverse", "lme4", "nlme", "Matrix", "gt", "RefManageR", "DataExplorer", "gtsummary", "car"), quietly = TRUE)) {
+    install.packages(c("tidyverse", "lme4", "nlme", "Matrix", "gt", "RefManageR", "DataExplorer", "gtsummary", "car"))
+}
+
+library(tidyverse)
+library(lme4)
+library(nlme)
+library(gt)
+library(gtsummary)
+library(RefManageR)
+library(DataExplorer)
+library(Matrix)
+library(car)
+library(reshape2)
+```
+
 # **Linear Mixed Models (LMMs)**
 
 -   Data structures & use cases
@@ -19,7 +38,7 @@ format:
 
 # **Methods - Mathematical Foundations**
 
-## Linear Algebra
+## Linear Algebra {.smaller}
 
 LMMs leverage linear algebra and in our case we are explaining the mathematical concepts for a two-level longitudinal random intercepts model. Index i used to denote the participant and index t is used to denote the different time points of the observe
 
@@ -39,7 +58,7 @@ $$
 
 -   ϵ is the vector of residual errors. N x 1 vector
 
-## Assumptions
+## Assumptions {.smaller}
 
 1.  The relationship between the predictors and response variable is assumed to be linear, within each level of random effects.
 
@@ -55,7 +74,7 @@ $$
 
 5.  Homoscedasticity is assumed for the residuals across all levels of the independent variables.
 
-## Implementation in R
+## Implementation in R {.smaller}
 
 -   Data is loaded from a CSV file using the read.csv function
 
@@ -63,7 +82,7 @@ $$
 
     -   The lme() function from the `nlme` package has parameters to specify random effects structure and estimation method.
 
-    -    lmer() function from the `lme4` package has similar syntax to the lme() function but differs in how it handles random effects specifications
+    -   lmer() function from the `lme4` package has similar syntax to the lme() function but differs in how it handles random effects specifications
 
 -   Hypothesis Testing
 
@@ -77,10 +96,125 @@ $$
 
 # **Results**
 
--   Initial model
--   Transformations
--   Second model
--   Final model
+## The Initial Model {.smaller}
+
+In this dataset:
+
+-   Measures of airway resistance and reactance are the [**variables of interest**]{.underline}: `R5Hz_PP`, `R20Hz_PP`, `X5Hz_PP`, `Fres_PP`.
+
+-   Controlled variables are present such as `Group`, `Age`, `Weight`, `Height`, and other Co-morbidities. These are the [**fixed effects.**]{.underline}
+
+-   Random variability may exist between individual observations which are nested in each subject. These represent the [**random effects.**]{.underline} In the [**initial model**]{.underline}, `Subject_ID` was treated as the sole *random effect*.
+
+-   \[PLACEHOLDER FOR TABLE 5\]
+
+![Equation 2. The initial LMM.](images/initial_model.png){fig-align="center"}
+
+## Implementation {.smaller}
+
+```{r}
+#| eval: false
+#| echo: true
+
+#lme()
+
+# Fit models using a tidy and clear approach
+model_lme <- lme(
+  fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg,
+  random = list(Subject_ID = pdIdent(~1)),
+  data = x_clean,
+  method = "REML"
+)
+
+#lmer() 
+
+model_lmer <- lmer(
+  formula = R5Hz_PP + R20Hz_PP + X5Hz_PP + Fres_PP ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + (1 | Subject_ID),
+  data = x_clean
+)
+```
+
+## Evaluation {.smaller}
+
+-   Akaike Information Criterion (AIC) - indicator of model fit without unnecessary complexity.
+
+    -   AIC for lme = 1898.95 **(selected as initial model)**
+
+    -   AIC for lmer = 2517.37
+
+-   Assumptions Check - normality.
+
+    -   \[PLACEHOLDER FOR FIGURE 11\]
+
+    -   \[PLACEHOLDER FOR FIGURE 12\]
+
+    -   \[PLACEHOLDER FOR FIGURE 13\]
+
+-   Conclusion: the residuals [**were not**]{.underline} normally distributed, so this model does not satisfy the assumptions of LMMs.
+
+## The Imputed Model
+
+-   Upon further inspection, outliers were present in most variables. To improve model performance, these outliers were imputed using the threshold values.
+
+-   Confirmation of outlier removal was completed using boxplots.
+
+-   All metrics were then reevaluated.
+
+## Evaluation {.smaller}
+
+-   AIC for lme = 1790.91 (better!)
+
+-   \[PLACEHOLDER FOR FIGURE 15\]
+
+-   \[PLACEHOLDER FOR FIGURE 16\]
+
+-   \[PLACEHOLDER FOR FIGURE 17\]
+
+-   Conclusion: the residuals [were]{.underline} normally distributed, so this model does satisfies the assumptions of LMMs.
+
+## The Final Model {.smaller}
+
+This was a longitudinal study involving multiple observations for each subject over time, and subjects are grouped into two categories (children with sickle cell disease and African-American children with asthma).
+
+Thus, in this final model:
+
+-   we modeled **`Group`** as a *fixed effect* since we were interested in the effect of the group itself on the outcome.
+
+-   **`Subject_ID`** should be a *random effect* to account for the repeated measures within subjects.
+
+-   **`Observation_number`** was included as a *random slope* within **`Subject_ID`** (i.e., nested within Subject_ID).
+
+-   The same visualizations and tests were completed to assess the LMM assumptions.
+
+## The Final Model {.smaller}
+
+![Equation 3. The final LMM.](images/final_model.png){fig-align="center"}
+
+## Implementation {.smaller}
+
+```{r}
+#| eval: false
+#| echo: true
+
+model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + Group,
+                         data = x_clean_imputed,
+                         random = list(Subject_ID = pdIdent(~1 + Observation_number)),
+                         method = "REML")
+```
+
+## Evaluation {.smaller}
+
+-   AIC for lme = 1801.60 (better than initial, but worse than imputed?)
+
+-   \[PLACEHOLDER FOR FIGURE 21\]
+
+-   \[PLACEHOLDER FOR FIGURE 18\]
+
+-   \[PLACEHOLDER FOR FIGURE 19\]
+
+-   \[PLACEHOLDER FOR FIGURE 20\]
+
+-   Conclusion: the residuals [were]{.underline} normally distributed, so this model does satisfies the assumptions of LMMs. The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number may not be sufficiently increasing model accuracy compared to complexity. However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
 
 # **Conclusion**
 
