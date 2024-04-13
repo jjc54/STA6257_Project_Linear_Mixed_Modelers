@@ -80,9 +80,9 @@ Matrix and Vector Dimensions (Random Intercepts)
 
 -   ϵ is n x 1 vector
 
-For a model with a random intercept, the first column of the X matrix will be all 1s  and the first element in the β vector will pertain to that random intercept. The Z matrix in a random intercepts model block diagnol matrix with the block defined by Z~i~ matrices.
+For a model with a random intercept, the first column of the X matrix will be all 1s and the first element in the β vector will pertain to that random intercept. The Z matrix in a random intercepts model is a block diagonal matrix, with the block defined by Z~i~ matrices.
 
-Adding random effects to the model also changes the size of the dimensions of the Z. If one random effect is added to the matrix then the dimensions change to N x 2q which essentially doubles the columns of the Z matrix to account for the random intercept. γ will also double in length to be 2q x 1.
+Adding random effects to the model also changes the size of the dimensions of the Z. If one random effect is added to the matrix then the dimensions change to N x 2q which essentially doubles the columns of the Z matrix to account for the random intercept. *u* will also double in length to be 2q x 1.
 
 ### 2.1.1 Example
 
@@ -117,6 +117,10 @@ Level 2 (Student):
 $\beta_{0j} = \gamma_{00} + u_{0j}$
 
 Since this is a random intercepts model, only the intercept equation is needed. γ~00~ is the grand intercept mean an u~0j~ is the deviation of the j~th~ group, which in our case is the student. [@galecki_linear_2014].
+
+### 2.1.1 Parameter Estimation
+
+LMMs typically use a Maximum Likelihood estimation or variation called Restricted Maximum likelihood Estimation (REML). Both of these methods obtain parameters of β and θ by optimizing the likelihood function. β are the fixed effects parameters and θ are the covariance matrix parameters where θ depends on the number of random effects and the covariance matrix structure. Our model uses the REML method because it is less biased to the covariance parameters and better at modeling random effects [@galecki_linear_2014].
 
 ## **2.2 Assumptions**
 

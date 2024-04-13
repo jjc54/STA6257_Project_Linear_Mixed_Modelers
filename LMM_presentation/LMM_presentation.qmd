@@ -19,11 +19,55 @@ format:
 
 # **Methods - Mathematical Foundations**
 
--   Equation 1
--   Linear algebra
--   Assumptions
--   Example
--   Implementation in R
+## Linear Algebra
+
+LMMs leverage linear algebra and in our case we are explaining the mathematical concepts for a two-level longitudinal random intercepts model. Index i used to denote the participant and index t is used to denote the different time points of the observe
+
+$$
+y=X\beta + Zu+ \epsilon
+$$
+
+-   Y is the response vector. N x 1 matrix where N is the number of the number of repeated measures
+
+-   X is the design matrix for fixed effects. N x p matrix where p is the number of fixed effects covariates
+
+-   β is the vector of fixed effects. P x 1
+
+-   Z is the design matrix for random effects. N x J matrix where J number of subjects
+
+-   *u* is the vector of random effects. J x 1 vector
+
+-   ϵ is the vector of residual errors. N x 1 vector
+
+## Assumptions
+
+1.  The relationship between the predictors and response variable is assumed to be linear, within each level of random effects.
+
+2.  Random effects (*u*) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
+
+    $\gamma \sim N(0,G)$
+
+3.  Residual errors (ϵ ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix R.
+
+    $\epsilon \sim N(0,R)$
+
+4.  Random effects (*u*) and residual errors (ϵ ) are assumed to be independent.
+
+5.  Homoscedasticity is assumed for the residuals across all levels of the independent variables.
+
+## Implementation in R
+
+-   Data is loaded from a CSV file using the read.csv function
+
+-   Fitting Data to LMMS
+
+    -   The lme() function from the `nlme` package has parameters to specify random effects structure and estimation method.
+
+    -    lmer() function from the `lme4` package has similar syntax to the lme() function but differs in how it handles random effects specifications
+
+-   Hypothesis Testing
+
+    -   Evaluated using F-tests, Likelihood ratio test, and Shapiro-Wilks tests
 
 # **The Capstone Project**
 
