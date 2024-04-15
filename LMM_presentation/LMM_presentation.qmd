@@ -90,54 +90,9 @@ $$
 
 # **The Capstone Project**
 
-## Dataset Overview {.smaller}
-
--   Key attributes and measurements in the dataset
-
--   Categorical and numerical variables
-
--   Presence of missing values, especially in the Fres_PP variable
-
-
-## Why Linear Mixed Models (LMMs)? {.smaller}
-
--   Suitability of LMMs for the dataset
-
--   Multiple observations over time for the same participants
-
--   Handling unbalanced groups, as observed in participant dropout over time
-
-## EDA - Categorical Variables {.smaller}
-
--   PlaceHolder for Bar Plots
-
-## EDA - Numerical Variables {.smaller}
-
--   Placeholder for Histogram and QQ plots
-
-## Outlier Detection and Summary Statistics {.smaller}
-
--   Presence of outliers in variables and their implications
-
--   Placeholder for boxplot
-
-## Participant Dropout Analysis {.smaller}
-
--   Significance of participant dropout over time
-
--   Ability of LMMs to handle unbalanced groups
-
--   Placeholder for countplot
-
-## Linear Mixed Model Approach {.smaller}
-
--   Variable of interest (BMI) and controlled variables (fixed effects)
-
--   Random variability between individual observations (random effects)
-
--   Incorporation of random effects in the final model
-
-
+-   Dataset
+-   R packages
+-   EDA & wrangling
 
 # **Results**
 
@@ -263,7 +218,29 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
 
 # **Conclusion**
 
--   Predictions/accuracy
--   Conclusion
+## Overview of Model Evaluations {.smaller}
+
+-   In our analysis, we compared three Linear Mixed Models: the base model, the model with imputed values, and the final adjusted model, to predict airway resistance and reactance effectively.
+
+-   We focused on Mean Squared Error (MSE) and Mean Absolute Error (MAE) to assess model performance.
+
+-   \[PLACEHOLDER FOR FIGURE 22\]
+-   \[PLACEHOLDER FOR FIGURE 23\]
+
+-   Results Summary: The final imputed model achieved the lowest MSE and MAE, indicating superior performance over the other models.
+
+## Sample Predictions vs. Actual Data {.smaller}
+
+-   \[PLACEHOLDER FOR FIGURE 24\]
+
+-   Figure 24 illustrates a side-by-side comparison of the predicted versus actual values for R5Hz_PP, a measure of airway resistance and reactance, for 10 random subjects.
+
+-   The close alignment between predicted and actual values represents a low residual error, confirming the model's high accuracy in predicting R5Hz_PP.
+
+## Conclusion {.smaller}
+
+-   Our analysis demonstrates that linear mixed models are exceptionally versatile and can effectively handle complex datasets with multiple layers of correlation and missing data, incorporating both fixed and random effects seamlessly.
+
+-   Our final model accurately predicts airway resistance and reactance given demographic and co-morbidity data, which could aid in better understanding and managing respiratory functions in children with conditions such as Sickle Cell Disease and asthma.
 
 # **References**
