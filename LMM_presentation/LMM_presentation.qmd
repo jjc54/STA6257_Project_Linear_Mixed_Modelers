@@ -40,23 +40,23 @@ library(reshape2)
 
 ## Linear Algebra {.smaller}
 
-LMMs leverage linear algebra and in our case we are explaining the mathematical concepts for a two-level longitudinal random intercepts model. Index i used to denote the participant and index t is used to denote the different time points of the observe
+LMMs leverage linear algebra and in our case, we are explaining the mathematical concepts for a two-level longitudinal random intercepts model. Index i is used to denote the participant and index t is used to denote the different time points of the observation
 
 $$
 Y=X\beta + Zu+ \epsilon
 $$
 
--   Y is the response vector. N x 1 matrix where N is the number of the number of repeated measures
+-   Y is the response vector. Shape N x 1 where N is the number of the number of repeated measures
 
--   X is the design matrix for fixed effects. N x p matrix where p is the number of fixed effects covariates
+-   X is the design matrix for fixed effects. Shape N x p where p is the number of regression coefficients
 
--   β is the vector of fixed effects. P x 1
+-   β is the vector of regression coefficients. Shape P x 1
 
--   Z is the design matrix for random effects. N x J matrix where J number of subjects
+-   Z is the design matrix for random effects. Shape N x J where J number of subjects
 
--   *u* is the vector of random effects. J x 1 vector
+-   *u* is the vector of random effects. Shape J x 1 vector
 
--   ϵ is the vector of residual errors. N x 1 vector
+-   ϵ is the vector of residual errors. Shape N x 1 vector
 
 ## Assumptions {.smaller}
 
@@ -78,7 +78,7 @@ $$
 
 -   Data is loaded from a CSV file using the read.csv function
 
--   Fitting Data to LMMS
+-   Fitting Data to LMMs
 
     -   The lme() function from the `nlme` package has parameters to specify random effects structure and estimation method.
 
