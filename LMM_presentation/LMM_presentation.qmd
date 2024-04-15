@@ -90,9 +90,54 @@ $$
 
 # **The Capstone Project**
 
--   Dataset
--   R packages
--   EDA & wrangling
+## Dataset Overview {.smaller}
+
+-   Key attributes and measurements in the dataset
+
+-   Categorical and numerical variables
+
+-   Presence of missing values, especially in the Fres_PP variable
+
+
+## Why Linear Mixed Models (LMMs)? {.smaller}
+
+-   Suitability of LMMs for the dataset
+
+-   Multiple observations over time for the same participants
+
+-   Handling unbalanced groups, as observed in participant dropout over time
+
+## EDA - Categorical Variables {.smaller}
+
+-   PlaceHolder for Bar Plots
+
+## EDA - Numerical Variables {.smaller}
+
+-   Placeholder for Histogram and QQ plots
+
+## Outlier Detection and Summary Statistics {.smaller}
+
+-   Presence of outliers in variables and their implications
+
+-   Placeholder for boxplot
+
+## Participant Dropout Analysis {.smaller}
+
+-   Significance of participant dropout over time
+
+-   Ability of LMMs to handle unbalanced groups
+
+-   Placeholder for countplot
+
+## Linear Mixed Model Approach {.smaller}
+
+-   Variable of interest (BMI) and controlled variables (fixed effects)
+
+-   Random variability between individual observations (random effects)
+
+-   Incorporation of random effects in the final model
+
+
 
 # **Results**
 
