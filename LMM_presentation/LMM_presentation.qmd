@@ -43,7 +43,7 @@ library(reshape2)
 LMMs leverage linear algebra and in our case we are explaining the mathematical concepts for a two-level longitudinal random intercepts model. Index i used to denote the participant and index t is used to denote the different time points of the observe
 
 $$
-y=X\beta + Zu+ \epsilon
+Y=X\beta + Zu+ \epsilon
 $$
 
 -   Y is the response vector. N x 1 matrix where N is the number of the number of repeated measures
