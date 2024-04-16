@@ -49,11 +49,11 @@ library(reshape2)
 
 ### Understanding Linear Mixed-Effects Models (LMMs)
 
--   Linear mixed-effects models are advanced statistical tools designed to handle complex data structures.
+-   **Linear mixed-effects models** are advanced statistical tools designed to handle complex data structures.
 
--   These models are essential when dealing with hierarchical organization, repeated measures, and random effects in datasets.
+-   These models are essential when dealing with **hierarchical organization**, **repeated measures**, and **random effects** in datasets.
 
--   LMMs are particularly useful when traditional ANOVA or regression assumptions—like independence of observations, homoscedasticity, and normality of residuals—are not met.
+-   LMMs are particularly useful when traditional **ANOVA or regression assumptions**—like independence of observations, homoscedasticity, and normality of residuals—**are not met.**
 
 ## Software Tools and Resources for LMMs
 
@@ -61,23 +61,21 @@ library(reshape2)
 
 -   The development and use of LMMs are supported by several software packages and programming languages.
 
--   Key resources include the lme4 package in R, detailed by Bates et al. (2015), which simplifies the fitting of mixed models, especially those with crossed random effects.
+-   Key resources include the `lme4` package in **R**, detailed by Bates et al. (2015), which simplifies the fitting of mixed models, especially those with crossed random effects.
 
--   For Python users, Pymer4 developed by Jolly (2018) integrates Python with R's lme4 package, broadening accessibility to these advanced methods.
+-   For Python users, `Pymer4` developed by Jolly (2018) integrates **Python** with R's lme4 package, broadening accessibility to these advanced methods.
 
-## Applications of LMMs Across Disciplines 
+## Applications of LMMs Across Disciplines
 
 ### Broad Applications of LMMs
 
+-   LMMs find **diverse applications** across various scientific domains, addressing unique analytical challenges.
 
--   LMMs find diverse applications across various scientific domains, addressing unique analytical challenges.
+    -   In healthcare, LMMs model pandemic-related mortality changes (Verbeeck et al., 2023) and analyze longitudinal data in clinical trials (Touraine et al., 2023).
 
--   In healthcare, LMMs model pandemic-related mortality changes (Verbeeck et al., 2023) and analyze longitudinal data in clinical trials (Touraine et al., 2023).
+    -   In ecology, studies by Harrison et al. (2018) and Bolker et al. (2009) discuss their use in analyzing complex ecological data.
 
--   In ecology, studies by Harrison et al. (2018) and Bolker et al. (2009) discuss their use in analyzing complex ecological data.
-
--   In psychology and neuroscience, LMMs tackle the complexities of repeated measures and nested data structures (Magezi, 2015; Aarts et al., 2015).
-
+    -   In psychology and neuroscience, LMMs tackle the complexities of repeated measures and nested data structures (Magezi, 2015; Aarts et al., 2015).
 
 # Methods - Mathematical Foundations {background-color="#40666e"}
 
@@ -85,7 +83,7 @@ library(reshape2)
 
 ### Foundations
 
-LMMs leverage linear algebra and in our case, we are explaining the mathematical concepts for a two-level longitudinal random intercepts model. Index i is used to denote the participant and index t is used to denote the different time points of the observation
+LMMs leverage **linear algebra** and in our case, we are explaining the mathematical concepts for a **two-level longitudinal random intercepts model.** Index *i* is used to denote the participant and index *t* is used to denote the different time points of the observation
 
 $$
 Y=X\beta + Zu+ \epsilon
@@ -93,33 +91,33 @@ $$
 
 Equation 1: the base linear mixed model.
 
--   Y is the response vector. Shape N x 1 where N is the number of the number of repeated measures
+-   **Y** is the [response vector]{.underline}. Shape N x 1 where N is the number of the number of repeated measures
 
--   X is the design matrix for fixed effects. Shape N x p where p is the number of regression coefficients
+-   **X** is the design [matrix for fixed effects]{.underline}. Shape N x p where p is the number of regression coefficients
 
--   β is the vector of regression coefficients. Shape P x 1
+-   **β** is the [vector of regression coefficients.]{.underline} Shape P x 1
 
--   Z is the design matrix for random effects. Shape N x J where J number of subjects
+-   **Z** is the design [matrix for random effects]{.underline}. Shape N x J where J number of subjects
 
--   *u* is the vector of random effects. Shape J x 1 vector
+-   ***u*** is the [vector of random effects.]{.underline} Shape J x 1 vector
 
--   ϵ is the vector of residual errors. Shape N x 1 vector
+-   **ϵ i**s the [vector of residual errors]{.underline}. Shape N x 1 vector
 
 ## Assumptions {.smaller}
 
-1.  The relationship between the predictors and response variable is assumed to be linear, within each level of random effects.
+1.  The relationship between the **predictors and response** variable is assumed to be **linear**, within each level of random effects.
 
-2.  Random effects (*u*) are assumed to follow a normal distribution with mean zero and variance-covariance matrix G.
+2.  **Random effects** **(*u*)** are assumed to follow a **normal distribution** with mean zero and variance-covariance matrix G.
 
     $\gamma \sim N(0,G)$
 
-3.  Residual errors (ϵ ) are assumed to follow a normal distribution with mean zero and variance-covariance matrix R.
+3.  **Residual errors (ϵ )** are assumed to follow a **normal distribution** with mean zero and variance-covariance matrix R.
 
     $\epsilon \sim N(0,R)$
 
-4.  Random effects (*u*) and residual errors (ϵ ) are assumed to be independent.
+4.  **Random effects (*u*) and residual errors (ϵ ) are assumed to be independent.**
 
-5.  Homoscedasticity is assumed for the residuals across all levels of the independent variables.
+5.  **Homoscedasticity** is assumed for the residuals across all levels of the independent variables.
 
 ## Implementation in R {.smaller}
 
@@ -127,35 +125,35 @@ Equation 1: the base linear mixed model.
 
 -   Fitting Data to LMMs
 
-    -   The lme() function from the `nlme` package has parameters to specify random effects structure and estimation method.
+    -   The **lme()** function from the `nlme` package has parameters to specify random effects structure and estimation method.
 
-    -   lmer() function from the `lme4` package has similar syntax to the lme() function but differs in how it handles random effects specifications
+    -   **lmer()** function from the `lme4` package has similar syntax to the lme() function but differs in how it handles random effects specifications
 
 -   Hypothesis Testing
 
-    -   Evaluated using F-tests, Likelihood ratio test, and Shapiro-Wilks tests
+    -   Evaluated using **F-tests, Likelihood ratio test, and Shapiro-Wilks tests**
 
 # The Capstone Project Data {background-color="#40666e"}
 
-## Dataset Overview {.smaller}
+## Dataset Overview
 
--   Key attributes and measurements in the dataset
+-   Key attributes and measurements in the dataset.
 
--   Categorical and numerical variables
+-   Categorical and numerical variables.
 
--   Presence of missing values, especially in the Fres_PP variable
+-   Presence of **missing values**, espsecially in the `Fres_PP` variable.
 
-## Why Linear Mixed Models (LMMs)? {.smaller}
+## Why Linear Mixed Models (LMMs)?
 
--   Suitability of LMMs for the dataset
+-   Suitability of LMMs for the dataset.
 
--   Multiple observations over time for the same participants
+-   **Multiple observations over time** for the same participants.
 
--   Handling unbalanced groups, as observed in participant dropout over time
+-   Handling **unbalanced groups**, as observed in participant dropout over time.
 
 ## EDA - Categorical Variables {.smaller}
 
-![](images/Frequency_Plots.jpg) *Bar plots showing the distribution of categorical variables.*
+![](images/Frequency_Plots.jpg)
 
 ## EDA - Numerical Variables {.smaller}
 
@@ -163,15 +161,15 @@ Equation 1: the base linear mixed model.
 
 ## Outlier Detection and Summary Statistics {.smaller}
 
--   Presence of outliers in variables and their implications
+-   Presence of **outliers** in variables and their implications.
 
 ![](images/box_plot.jpg)
 
 ## Participant Dropout Analysis {.smaller}
 
--   Significance of participant dropout over time
+-   **Significance of participant dropout over time.**
 
--   Ability of LMMs to handle unbalanced groups
+-   Ability of LMMs to **handle unbalanced groups**
 
 ![](images/countplot.jpg)
 
@@ -258,7 +256,7 @@ model_lmer <- lmer(
 
 ## Evaluation {.smaller .scrollable}
 
-AIC for lme = 1790.91 **(better!)**
+**AIC** for lme = 1790.91 **(better!)**
 
 ![](images/clipboard-1896923212.png){width="446"}
 
@@ -303,7 +301,7 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
 
 ## Evaluation {.smaller .scrollable}
 
--   AIC for lme = 1801.60 (better than initial, but worse than imputed?)
+-   **AIC** for lme = 1801.60 (better than initial, but worse than imputed?)
 
 ![](images/clipboard-3999468873.png){width="432"}
 
@@ -325,32 +323,32 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
 
 ## Overview of Model Evaluations {.smaller .scrollable}
 
--   In our analysis, we compared three Linear Mixed Models: the base model, the model with imputed values, and the final adjusted model, to predict airway resistance and reactance effectively.
+-   In our analysis, we compared three Linear Mixed Models: the **base model**, the **model with imputed values**, and the **final adjusted model**, to [predict airway resistance and reactance effectively.]{.underline}
 
--   We focused on Mean Squared Error (MSE) and Mean Absolute Error (MAE) to assess model performance.
+-   We focused on **Mean Squared Error (MSE)** and **Mean Absolute Error (MAE)** to assess [model performance.]{.underline}
 
 ![](images/Figure22.png){width="432"}
 
 ![](images/Figure23.png){width="432"}
 
--   Results Summary: The final imputed model achieved the lowest MSE and MAE, indicating superior performance over the other models.
+-   **Findings:** The **final imputed model** achieved the [lowest MSE and MAE, indicating superior performance over the other models.]{.underline}
 
 ## Sample Predictions vs. Actual Data {.smaller}
 
 ![](images/Figure24.png){width="432"}
 
--   Figure 24 illustrates a side-by-side comparison of the predicted versus actual values for R5Hz_PP, a measure of airway resistance and reactance, for 10 random subjects.
+-   Figure 24 illustrates a side-by-side comparison of the **predicted versus actual values** for `R5Hz_PP`, a measure of airway resistance and reactance, for **10 random subjects.**
 
--   The close alignment between predicted and actual values represents a low residual error, confirming the model's high accuracy in predicting R5Hz_PP.
+-   The **close alignment** between predicted and actual values **represents a low residual error,** confirming the **model's high accuracy** in predicting `R5Hz_PP`.
 
-## Conclusion 
+## Conclusion
 
--   Our analysis demonstrates that linear mixed models are exceptionally versatile and can effectively handle complex datasets with multiple layers of correlation and missing data, incorporating both fixed and random effects seamlessly.
+-   Our analysis demonstrates that **linear mixed models are exceptionally versatile and can effectively handle complex datasets with multiple layers of correlation and missing data**, incorporating both [fixed]{.underline} and [random]{.underline} effects seamlessly.
 
--   Our final model accurately predicts airway resistance and reactance given demographic and co-morbidity data, which could aid in better understanding and managing respiratory functions in children with conditions such as Sickle Cell Disease and asthma.
+-   **Our final model accurately predicts airway resistance and reactance** given demographic and co-morbidity data, which could aid in better understanding and managing respiratory functions in children with conditions such as [Sickle Cell Disease]{.underline} and [asthma]{.underline}.
 
-## Acknowledgements {.smaller}
+## Acknowledgements
 
 The authors thank **Dr. Achraf Cohen**, for his ongoing mentorship and support.
 
-Questions are welcome and encouraged!
+[Questions are welcome and encouraged!]{.underline}

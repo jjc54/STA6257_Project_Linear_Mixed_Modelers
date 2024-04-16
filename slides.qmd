@@ -1,5 +1,354 @@
 ---
-title: "Slides"
+title: "Inhale, Exhale, Analyze: BMI's Imprint on Impulse Oscillometry Outcomes"
+subtitle: UWF STA 6257 Capstone Project on Linear Mixed Models (LMMs)
+format:
+  clean-revealjs:
+    self-contained: true
+    preview-links: true
+    slide-number: false
+    code-line-numbers: true
+    logo: images/logo.png
+    css: styles.css
+author:
+  - name: Joshua J. Cook, M.S., ACRP-PM, CCRC
+    orcid: 0000-0003-3508-7065
+    email: jcook0312@outlook.com
+  - name: Syed Ahzaz H. Shah, B.S.
+    email: shs17@students.uwf.edu
+  - name: Jacob Hernandez, B.S.
+    email: jacob.hernandez0830@gmail.com
+  - name: Sara Basili, M.S.
+    email: saraelizabethbasili@gmail.com
+date: last-modified
+bibliography: references.bib
+csl: asa.csl
 ---
 
-TBD
+```{r}
+#| include: false
+
+if (!requireNamespace(c("tidyverse", "lme4", "nlme", "Matrix", "gt", "RefManageR", "DataExplorer", "gtsummary", "car"), quietly = TRUE)) {
+    install.packages(c("tidyverse", "lme4", "nlme", "Matrix", "gt", "RefManageR", "DataExplorer", "gtsummary", "car"))
+}
+
+library(tidyverse)
+library(lme4)
+library(nlme)
+library(gt)
+library(gtsummary)
+library(RefManageR)
+library(DataExplorer)
+library(Matrix)
+library(car)
+library(reshape2)
+```
+
+# Introduction to Linear Mixed Models (LMMs) {background-color="#40666e"}
+
+## Introduction
+
+### Understanding Linear Mixed-Effects Models (LMMs)
+
+-   **Linear mixed-effects models** are advanced statistical tools designed to handle complex data structures.
+
+-   These models are essential when dealing with **hierarchical organization**, **repeated measures**, and **random effects** in datasets.
+
+-   LMMs are particularly useful when traditional **ANOVA or regression assumptions**—like independence of observations, homoscedasticity, and normality of residuals—**are not met.**
+
+## Software Tools and Resources for LMMs
+
+### Tools for Implementing LMMs
+
+-   The development and use of LMMs are supported by several software packages and programming languages.
+
+-   Key resources include the `lme4` package in **R**, detailed by Bates et al. (2015), which simplifies the fitting of mixed models, especially those with crossed random effects.
+
+-   For Python users, `Pymer4` developed by Jolly (2018) integrates **Python** with R's lme4 package, broadening accessibility to these advanced methods.
+
+## Applications of LMMs Across Disciplines
+
+### Broad Applications of LMMs
+
+-   LMMs find **diverse applications** across various scientific domains, addressing unique analytical challenges.
+
+    -   In healthcare, LMMs model pandemic-related mortality changes (Verbeeck et al., 2023) and analyze longitudinal data in clinical trials (Touraine et al., 2023).
+
+    -   In ecology, studies by Harrison et al. (2018) and Bolker et al. (2009) discuss their use in analyzing complex ecological data.
+
+    -   In psychology and neuroscience, LMMs tackle the complexities of repeated measures and nested data structures (Magezi, 2015; Aarts et al., 2015).
+
+# Methods - Mathematical Foundations {background-color="#40666e"}
+
+## Linear Algebra {.smaller}
+
+### Foundations
+
+LMMs leverage **linear algebra** and in our case, we are explaining the mathematical concepts for a **two-level longitudinal random intercepts model.** Index *i* is used to denote the participant and index *t* is used to denote the different time points of the observation
+
+$$
+Y=X\beta + Zu+ \epsilon
+$$
+
+Equation 1: the base linear mixed model.
+
+-   **Y** is the [response vector]{.underline}. Shape N x 1 where N is the number of the number of repeated measures
+
+-   **X** is the design [matrix for fixed effects]{.underline}. Shape N x p where p is the number of regression coefficients
+
+-   **β** is the [vector of regression coefficients.]{.underline} Shape P x 1
+
+-   **Z** is the design [matrix for random effects]{.underline}. Shape N x J where J number of subjects
+
+-   ***u*** is the [vector of random effects.]{.underline} Shape J x 1 vector
+
+-   **ϵ i**s the [vector of residual errors]{.underline}. Shape N x 1 vector
+
+## Assumptions {.smaller}
+
+1.  The relationship between the **predictors and response** variable is assumed to be **linear**, within each level of random effects.
+
+2.  **Random effects** **(*u*)** are assumed to follow a **normal distribution** with mean zero and variance-covariance matrix G.
+
+    $\gamma \sim N(0,G)$
+
+3.  **Residual errors (ϵ )** are assumed to follow a **normal distribution** with mean zero and variance-covariance matrix R.
+
+    $\epsilon \sim N(0,R)$
+
+4.  **Random effects (*u*) and residual errors (ϵ ) are assumed to be independent.**
+
+5.  **Homoscedasticity** is assumed for the residuals across all levels of the independent variables.
+
+## Implementation in R {.smaller}
+
+-   Data is loaded from a CSV file using the read.csv function
+
+-   Fitting Data to LMMs
+
+    -   The **lme()** function from the `nlme` package has parameters to specify random effects structure and estimation method.
+
+    -   **lmer()** function from the `lme4` package has similar syntax to the lme() function but differs in how it handles random effects specifications
+
+-   Hypothesis Testing
+
+    -   Evaluated using **F-tests, Likelihood ratio test, and Shapiro-Wilks tests**
+
+# The Capstone Project Data {background-color="#40666e"}
+
+## Dataset Overview
+
+-   Key attributes and measurements in the dataset.
+
+-   Categorical and numerical variables.
+
+-   Presence of **missing values**, espsecially in the `Fres_PP` variable.
+
+## Why Linear Mixed Models (LMMs)?
+
+-   Suitability of LMMs for the dataset.
+
+-   **Multiple observations over time** for the same participants.
+
+-   Handling **unbalanced groups**, as observed in participant dropout over time.
+
+## EDA - Categorical Variables {.smaller}
+
+![](images/Frequency_Plots.jpg)
+
+## EDA - Numerical Variables {.smaller}
+
+![](images/qq_plots.jpg)
+
+## Outlier Detection and Summary Statistics {.smaller}
+
+-   Presence of **outliers** in variables and their implications.
+
+![](images/box_plot.jpg)
+
+## Participant Dropout Analysis {.smaller}
+
+-   **Significance of participant dropout over time.**
+
+-   Ability of LMMs to **handle unbalanced groups**
+
+![](images/countplot.jpg)
+
+# Analysis & Results {background-color="#40666e"}
+
+## The Initial Model
+
+### One Random Effect
+
+In this dataset:
+
+-   Measures of airway resistance and reactance are the [**variables of interest**]{.underline}: `R5Hz_PP`, `R20Hz_PP`, `X5Hz_PP`, `Fres_PP`.
+
+-   Controlled variables are present such as `Group`, `Age`, `Weight`, `Height`, and other Co-morbidities. These are the [**fixed effects.**]{.underline}
+
+-   Random variability may exist between individual observations which are nested in each subject. These represent the [**random effects.**]{.underline} In the [**initial model**]{.underline}, `Subject_ID` was treated as the sole *random effect*.
+
+## The Initial Model {.scrollable}
+
+### One Random Effect
+
+![](images/clipboard-4283912119.png){width="1638"}
+
+## The Initial Model
+
+### One Random Effect
+
+![Equation 2. The initial LMM.](images/initial_model.png){fig-align="center"}
+
+## Implementation
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "1-9|5|6|8|11-16|14"
+
+#lme()
+
+# Fit models using a tidy and clear approach
+model_lme <- lme(
+  fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg,
+  random = list(Subject_ID = pdIdent(~1)),
+  data = x_clean,
+  method = "REML"
+)
+
+#lmer() 
+
+model_lmer <- lmer(
+  formula = R5Hz_PP + R20Hz_PP + X5Hz_PP + Fres_PP ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + (1 | Subject_ID),
+  data = x_clean
+)
+```
+
+## Evaluation {.smaller .scrollable}
+
+-   **Akaike Information Criterion (AIC)** - indicator of model fit without unnecessary complexity.
+
+    -   AIC for lme = 1898.95 **(selected as initial model)**
+
+    -   AIC for lmer = 2517.37
+
+-   Assumptions Check - **normality**.
+
+![](images/clipboard-1796225568.png){width="452"}
+
+![](images/clipboard-87669187.png){width="447"}
+
+![](images/clipboard-1829089058.png){width="450"}
+
+**Finding:** the residuals [**were not**]{.underline} normally distributed, so this model does not satisfy the assumptions of LMMs.
+
+## The Imputed Model
+
+### Satisfying Assumptions
+
+-   Upon further inspection, **outliers were present** in most variables.
+
+-   To improve model performance, these **outliers were imputed using the threshold values *(i.e., winsorization).***
+
+-   Confirmation of outlier removal was completed using **boxplots**.
+
+-   All metrics were then **reevaluated**.
+
+## Evaluation {.smaller .scrollable}
+
+**AIC** for lme = 1790.91 **(better!)**
+
+![](images/clipboard-1896923212.png){width="446"}
+
+![](images/clipboard-1410964575.png){width="445"}
+
+![](images/clipboard-3092760633.png){width="443"}
+
+**Finding:** the residuals [were]{.underline} normally distributed, so this **model does satisfies the assumptions of LMMs.**
+
+## The Final Model {.smaller}
+
+### Two Random Effects and Final Fixed Effect
+
+This was a **longitudinal study** involving multiple observations for each subject over time, and subjects are grouped into **two categories** (children with [sickle cell disease]{.underline} and African-American children with [asthma]{.underline}).
+
+Thus, in this final model:
+
+-   we modeled **`Group`** as a *fixed effect* since we were interested in the effect of the group itself on the outcome.
+
+-   **`Subject_ID`** should be a *random effect* to account for the repeated measures within subjects.
+
+-   **`Observation_number`** was included as a *random slope* within **`Subject_ID`** (i.e., nested within Subject_ID).
+
+-   The **same visualizations and tests** were completed to assess the LMM assumptions.
+
+## The Final Model
+
+![Equation 3. The final LMM.](images/final_model.png){fig-align="center"}
+
+## Implementation
+
+```{r}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "|1|3"
+
+model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + Group,
+                         data = x_clean_imputed,
+                         random = list(Subject_ID = pdIdent(~1 + Observation_number)),
+                         method = "REML")
+```
+
+## Evaluation {.smaller .scrollable}
+
+-   **AIC** for lme = 1801.60 (better than initial, but worse than imputed?)
+
+![](images/clipboard-3999468873.png){width="432"}
+
+![](images/clipboard-2247813014.png){width="430"}
+
+![](images/clipboard-4002798640.png){width="431"}
+
+![](images/clipboard-3825756155.png){width="429"}
+
+**Findings:**
+
+-   The residuals [were]{.underline} normally distributed, so this **model does satisfies the assumptions of LMMs.**
+
+-   The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number **may not be sufficiently increasing model accuracy compared to complexity.**
+
+-   However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
+
+# Conclusion {background-color="#40666e"}
+
+## Overview of Model Evaluations {.smaller .scrollable}
+
+-   In our analysis, we compared three Linear Mixed Models: the **base model**, the **model with imputed values**, and the **final adjusted model**, to [predict airway resistance and reactance effectively.]{.underline}
+
+-   We focused on **Mean Squared Error (MSE)** and **Mean Absolute Error (MAE)** to assess [model performance.]{.underline}
+
+![](images/Figure22.png){width="432"}
+
+![](images/Figure23.png){width="432"}
+
+-   **Findings:** The **final imputed model** achieved the [lowest MSE and MAE, indicating superior performance over the other models.]{.underline}
+
+## Sample Predictions vs. Actual Data {.smaller}
+
+![](images/Figure24.png){width="432"}
+
+-   Figure 24 illustrates a side-by-side comparison of the **predicted versus actual values** for `R5Hz_PP`, a measure of airway resistance and reactance, for **10 random subjects.**
+
+-   The **close alignment** between predicted and actual values **represents a low residual error,** confirming the **model's high accuracy** in predicting `R5Hz_PP`.
+
+## Conclusion
+
+-   Our analysis demonstrates that **linear mixed models are exceptionally versatile and can effectively handle complex datasets with multiple layers of correlation and missing data**, incorporating both [fixed]{.underline} and [random]{.underline} effects seamlessly.
+
+-   **Our final model accurately predicts airway resistance and reactance** given demographic and co-morbidity data, which could aid in better understanding and managing respiratory functions in children with conditions such as [Sickle Cell Disease]{.underline} and [asthma]{.underline}.
+
+## Acknowledgements
+
+The authors thank **Dr. Achraf Cohen**, for his ongoing mentorship and support.
+
+[Questions are welcome and encouraged!]{.underline}

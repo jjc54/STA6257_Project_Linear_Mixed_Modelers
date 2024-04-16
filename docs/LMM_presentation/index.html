@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.551">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC">
+<meta name="author" content="Syed Ahzaz H. Shah, B.S.">
+<meta name="author" content="Jacob Hernandez, B.S.">
+<meta name="author" content="Sara Basili, M.S.">
+<meta name="dcterms.date" content="2024-04-15">
+
+<title>The Linear Mixed Modelers - Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css">
+<meta property="og:title" content="The Linear Mixed Modelers - Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes">
+<meta property="og:description" content="UWF STA 6257 Capstone Project on Linear Mixed Models (LMMs)">
+<meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==">
+<meta property="og:site_name" content="The Linear Mixed Modelers">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">The Linear Mixed Modelers</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../literature.html"> 
+<span class="menu-text">Literature</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../report.html"> 
+<span class="menu-text">Report</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../slides.html"> 
+<span class="menu-text">Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../about.html"> 
+<span class="menu-text">About Us</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction-to-linear-mixed-models-lmms" id="toc-introduction-to-linear-mixed-models-lmms" class="nav-link active" data-scroll-target="#introduction-to-linear-mixed-models-lmms">Introduction to Linear Mixed Models (LMMs)</a>
+  <ul class="collapse">
+  <li><a href="#introduction" id="toc-introduction" class="nav-link" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#understanding-linear-mixed-effects-models-lmms" id="toc-understanding-linear-mixed-effects-models-lmms" class="nav-link" data-scroll-target="#understanding-linear-mixed-effects-models-lmms">Understanding Linear Mixed-Effects Models (LMMs)</a></li>
+  </ul></li>
+  <li><a href="#software-tools-and-resources-for-lmms" id="toc-software-tools-and-resources-for-lmms" class="nav-link" data-scroll-target="#software-tools-and-resources-for-lmms">Software Tools and Resources for LMMs</a>
+  <ul class="collapse">
+  <li><a href="#tools-for-implementing-lmms" id="toc-tools-for-implementing-lmms" class="nav-link" data-scroll-target="#tools-for-implementing-lmms">Tools for Implementing LMMs</a></li>
+  </ul></li>
+  <li><a href="#applications-of-lmms-across-disciplines" id="toc-applications-of-lmms-across-disciplines" class="nav-link" data-scroll-target="#applications-of-lmms-across-disciplines">Applications of LMMs Across Disciplines</a>
+  <ul class="collapse">
+  <li><a href="#broad-applications-of-lmms" id="toc-broad-applications-of-lmms" class="nav-link" data-scroll-target="#broad-applications-of-lmms">Broad Applications of LMMs</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#methods---mathematical-foundations" id="toc-methods---mathematical-foundations" class="nav-link" data-scroll-target="#methods---mathematical-foundations">Methods - Mathematical Foundations</a>
+  <ul class="collapse">
+  <li><a href="#linear-algebra" id="toc-linear-algebra" class="nav-link" data-scroll-target="#linear-algebra">Linear Algebra</a>
+  <ul class="collapse">
+  <li><a href="#foundations" id="toc-foundations" class="nav-link" data-scroll-target="#foundations">Foundations</a></li>
+  </ul></li>
+  <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions">Assumptions</a></li>
+  <li><a href="#implementation-in-r" id="toc-implementation-in-r" class="nav-link" data-scroll-target="#implementation-in-r">Implementation in R</a></li>
+  </ul></li>
+  <li><a href="#the-capstone-project-data" id="toc-the-capstone-project-data" class="nav-link" data-scroll-target="#the-capstone-project-data">The Capstone Project Data</a>
+  <ul class="collapse">
+  <li><a href="#dataset-overview" id="toc-dataset-overview" class="nav-link" data-scroll-target="#dataset-overview">Dataset Overview</a></li>
+  <li><a href="#why-linear-mixed-models-lmms" id="toc-why-linear-mixed-models-lmms" class="nav-link" data-scroll-target="#why-linear-mixed-models-lmms">Why Linear Mixed Models (LMMs)?</a></li>
+  <li><a href="#eda---categorical-variables" id="toc-eda---categorical-variables" class="nav-link" data-scroll-target="#eda---categorical-variables">EDA - Categorical Variables</a></li>
+  <li><a href="#eda---numerical-variables" id="toc-eda---numerical-variables" class="nav-link" data-scroll-target="#eda---numerical-variables">EDA - Numerical Variables</a></li>
+  <li><a href="#outlier-detection-and-summary-statistics" id="toc-outlier-detection-and-summary-statistics" class="nav-link" data-scroll-target="#outlier-detection-and-summary-statistics">Outlier Detection and Summary Statistics</a></li>
+  <li><a href="#participant-dropout-analysis" id="toc-participant-dropout-analysis" class="nav-link" data-scroll-target="#participant-dropout-analysis">Participant Dropout Analysis</a></li>
+  </ul></li>
+  <li><a href="#analysis-results" id="toc-analysis-results" class="nav-link" data-scroll-target="#analysis-results">Analysis &amp; Results</a>
+  <ul class="collapse">
+  <li><a href="#the-initial-model" id="toc-the-initial-model" class="nav-link" data-scroll-target="#the-initial-model">The Initial Model</a>
+  <ul class="collapse">
+  <li><a href="#one-random-effect" id="toc-one-random-effect" class="nav-link" data-scroll-target="#one-random-effect">One Random Effect</a></li>
+  </ul></li>
+  <li><a href="#the-initial-model-1" id="toc-the-initial-model-1" class="nav-link" data-scroll-target="#the-initial-model-1">The Initial Model</a>
+  <ul class="collapse">
+  <li><a href="#one-random-effect-1" id="toc-one-random-effect-1" class="nav-link" data-scroll-target="#one-random-effect-1">One Random Effect</a></li>
+  </ul></li>
+  <li><a href="#the-initial-model-2" id="toc-the-initial-model-2" class="nav-link" data-scroll-target="#the-initial-model-2">The Initial Model</a>
+  <ul class="collapse">
+  <li><a href="#one-random-effect-2" id="toc-one-random-effect-2" class="nav-link" data-scroll-target="#one-random-effect-2">One Random Effect</a></li>
+  </ul></li>
+  <li><a href="#implementation" id="toc-implementation" class="nav-link" data-scroll-target="#implementation">Implementation</a></li>
+  <li><a href="#evaluation" id="toc-evaluation" class="nav-link" data-scroll-target="#evaluation">Evaluation</a></li>
+  <li><a href="#the-imputed-model" id="toc-the-imputed-model" class="nav-link" data-scroll-target="#the-imputed-model">The Imputed Model</a>
+  <ul class="collapse">
+  <li><a href="#satisfying-assumptions" id="toc-satisfying-assumptions" class="nav-link" data-scroll-target="#satisfying-assumptions">Satisfying Assumptions</a></li>
+  </ul></li>
+  <li><a href="#evaluation-1" id="toc-evaluation-1" class="nav-link" data-scroll-target="#evaluation-1">Evaluation</a></li>
+  <li><a href="#the-final-model" id="toc-the-final-model" class="nav-link" data-scroll-target="#the-final-model">The Final Model</a>
+  <ul class="collapse">
+  <li><a href="#two-random-effects-and-final-fixed-effect" id="toc-two-random-effects-and-final-fixed-effect" class="nav-link" data-scroll-target="#two-random-effects-and-final-fixed-effect">Two Random Effects and Final Fixed Effect</a></li>
+  </ul></li>
+  <li><a href="#the-final-model-1" id="toc-the-final-model-1" class="nav-link" data-scroll-target="#the-final-model-1">The Final Model</a></li>
+  <li><a href="#implementation-1" id="toc-implementation-1" class="nav-link" data-scroll-target="#implementation-1">Implementation</a></li>
+  <li><a href="#evaluation-2" id="toc-evaluation-2" class="nav-link" data-scroll-target="#evaluation-2">Evaluation</a></li>
+  </ul></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a>
+  <ul class="collapse">
+  <li><a href="#overview-of-model-evaluations" id="toc-overview-of-model-evaluations" class="nav-link" data-scroll-target="#overview-of-model-evaluations">Overview of Model Evaluations</a></li>
+  <li><a href="#sample-predictions-vs.-actual-data" id="toc-sample-predictions-vs.-actual-data" class="nav-link" data-scroll-target="#sample-predictions-vs.-actual-data">Sample Predictions vs.&nbsp;Actual Data</a></li>
+  <li><a href="#conclusion-1" id="toc-conclusion-1" class="nav-link" data-scroll-target="#conclusion-1">Conclusion</a></li>
+  <li><a href="#acknowledgements" id="toc-acknowledgements" class="nav-link" data-scroll-target="#acknowledgements">Acknowledgements</a></li>
+  </ul></li>
+  </ul>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="index.html"><i class="bi bi-file-slides"></i>RevealJS (clean)</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes</h1>
+<p class="subtitle lead">UWF STA 6257 Capstone Project on Linear Mixed Models (LMMs)</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Joshua J. Cook, M.S., ACRP-PM, CCRC <a href="mailto:jcook0312@outlook.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <a href="https://orcid.org/0000-0003-3508-7065" class="quarto-title-author-orcid"> <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg=="></a></p>
+             <p>Syed Ahzaz H. Shah, B.S. <a href="mailto:shs17@students.uwf.edu" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Jacob Hernandez, B.S. <a href="mailto:jacob.hernandez0830@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+             <p>Sara Basili, M.S. <a href="mailto:saraelizabethbasili@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 15, 2024</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="introduction-to-linear-mixed-models-lmms" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Introduction to Linear Mixed Models (LMMs)</h1>
+<section id="introduction" class="level2">
+<h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<section id="understanding-linear-mixed-effects-models-lmms" class="level3">
+<h3 class="anchored" data-anchor-id="understanding-linear-mixed-effects-models-lmms">Understanding Linear Mixed-Effects Models (LMMs)</h3>
+<ul>
+<li><p><strong>Linear mixed-effects models</strong> are advanced statistical tools designed to handle complex data structures.</p></li>
+<li><p>These models are essential when dealing with <strong>hierarchical organization</strong>, <strong>repeated measures</strong>, and <strong>random effects</strong> in datasets.</p></li>
+<li><p>LMMs are particularly useful when traditional <strong>ANOVA or regression assumptions</strong>—like independence of observations, homoscedasticity, and normality of residuals—<strong>are not met.</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="software-tools-and-resources-for-lmms" class="level2">
+<h2 class="anchored" data-anchor-id="software-tools-and-resources-for-lmms">Software Tools and Resources for LMMs</h2>
+<section id="tools-for-implementing-lmms" class="level3">
+<h3 class="anchored" data-anchor-id="tools-for-implementing-lmms">Tools for Implementing LMMs</h3>
+<ul>
+<li><p>The development and use of LMMs are supported by several software packages and programming languages.</p></li>
+<li><p>Key resources include the <code>lme4</code> package in <strong>R</strong>, detailed by Bates et al.&nbsp;(2015), which simplifies the fitting of mixed models, especially those with crossed random effects.</p></li>
+<li><p>For Python users, <code>Pymer4</code> developed by Jolly (2018) integrates <strong>Python</strong> with R’s lme4 package, broadening accessibility to these advanced methods.</p></li>
+</ul>
+</section>
+</section>
+<section id="applications-of-lmms-across-disciplines" class="level2">
+<h2 class="anchored" data-anchor-id="applications-of-lmms-across-disciplines">Applications of LMMs Across Disciplines</h2>
+<section id="broad-applications-of-lmms" class="level3">
+<h3 class="anchored" data-anchor-id="broad-applications-of-lmms">Broad Applications of LMMs</h3>
+<ul>
+<li><p>LMMs find <strong>diverse applications</strong> across various scientific domains, addressing unique analytical challenges.</p>
+<ul>
+<li><p>In healthcare, LMMs model pandemic-related mortality changes (Verbeeck et al., 2023) and analyze longitudinal data in clinical trials (Touraine et al., 2023).</p></li>
+<li><p>In ecology, studies by Harrison et al.&nbsp;(2018) and Bolker et al.&nbsp;(2009) discuss their use in analyzing complex ecological data.</p></li>
+<li><p>In psychology and neuroscience, LMMs tackle the complexities of repeated measures and nested data structures (Magezi, 2015; Aarts et al., 2015).</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="methods---mathematical-foundations" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Methods - Mathematical Foundations</h1>
+<section id="linear-algebra" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="linear-algebra">Linear Algebra</h2>
+<section id="foundations" class="level3">
+<h3 class="anchored" data-anchor-id="foundations">Foundations</h3>
+<p>LMMs leverage <strong>linear algebra</strong> and in our case, we are explaining the mathematical concepts for a <strong>two-level longitudinal random intercepts model.</strong> Index <em>i</em> is used to denote the participant and index <em>t</em> is used to denote the different time points of the observation</p>
+<p><span class="math display">\[
+Y=X\beta + Zu+ \epsilon
+\]</span></p>
+<p>Equation 1: the base linear mixed model.</p>
+<ul>
+<li><p><strong>Y</strong> is the <u>response vector</u>. Shape N x 1 where N is the number of the number of repeated measures</p></li>
+<li><p><strong>X</strong> is the design <u>matrix for fixed effects</u>. Shape N x p where p is the number of regression coefficients</p></li>
+<li><p><strong>β</strong> is the <u>vector of regression coefficients.</u> Shape P x 1</p></li>
+<li><p><strong>Z</strong> is the design <u>matrix for random effects</u>. Shape N x J where J number of subjects</p></li>
+<li><p><strong><em>u</em></strong> is the <u>vector of random effects.</u> Shape J x 1 vector</p></li>
+<li><p><strong>ϵ i</strong>s the <u>vector of residual errors</u>. Shape N x 1 vector</p></li>
+</ul>
+</section>
+</section>
+<section id="assumptions" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="assumptions">Assumptions</h2>
+<ol type="1">
+<li><p>The relationship between the <strong>predictors and response</strong> variable is assumed to be <strong>linear</strong>, within each level of random effects.</p></li>
+<li><p><strong>Random effects</strong> <strong>(<em>u</em>)</strong> are assumed to follow a <strong>normal distribution</strong> with mean zero and variance-covariance matrix G.</p>
+<p><span class="math inline">\(\gamma \sim N(0,G)\)</span></p></li>
+<li><p><strong>Residual errors (ϵ )</strong> are assumed to follow a <strong>normal distribution</strong> with mean zero and variance-covariance matrix R.</p>
+<p><span class="math inline">\(\epsilon \sim N(0,R)\)</span></p></li>
+<li><p><strong>Random effects (<em>u</em>) and residual errors (ϵ ) are assumed to be independent.</strong></p></li>
+<li><p><strong>Homoscedasticity</strong> is assumed for the residuals across all levels of the independent variables.</p></li>
+</ol>
+</section>
+<section id="implementation-in-r" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="implementation-in-r">Implementation in R</h2>
+<ul>
+<li><p>Data is loaded from a CSV file using the read.csv function</p></li>
+<li><p>Fitting Data to LMMs</p>
+<ul>
+<li><p>The <strong>lme()</strong> function from the <code>nlme</code> package has parameters to specify random effects structure and estimation method.</p></li>
+<li><p><strong>lmer()</strong> function from the <code>lme4</code> package has similar syntax to the lme() function but differs in how it handles random effects specifications</p></li>
+</ul></li>
+<li><p>Hypothesis Testing</p>
+<ul>
+<li>Evaluated using <strong>F-tests, Likelihood ratio test, and Shapiro-Wilks tests</strong></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="the-capstone-project-data" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">The Capstone Project Data</h1>
+<section id="dataset-overview" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-overview">Dataset Overview</h2>
+<ul>
+<li><p>Key attributes and measurements in the dataset.</p></li>
+<li><p>Categorical and numerical variables.</p></li>
+<li><p>Presence of <strong>missing values</strong>, espsecially in the <code>Fres_PP</code> variable.</p></li>
+</ul>
+</section>
+<section id="why-linear-mixed-models-lmms" class="level2">
+<h2 class="anchored" data-anchor-id="why-linear-mixed-models-lmms">Why Linear Mixed Models (LMMs)?</h2>
+<ul>
+<li><p>Suitability of LMMs for the dataset.</p></li>
+<li><p><strong>Multiple observations over time</strong> for the same participants.</p></li>
+<li><p>Handling <strong>unbalanced groups</strong>, as observed in participant dropout over time.</p></li>
+</ul>
+</section>
+<section id="eda---categorical-variables" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="eda---categorical-variables">EDA - Categorical Variables</h2>
+<p><img src="images/Frequency_Plots.jpg" class="img-fluid"></p>
+</section>
+<section id="eda---numerical-variables" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="eda---numerical-variables">EDA - Numerical Variables</h2>
+<p><img src="images/qq_plots.jpg" class="img-fluid"></p>
+</section>
+<section id="outlier-detection-and-summary-statistics" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="outlier-detection-and-summary-statistics">Outlier Detection and Summary Statistics</h2>
+<ul>
+<li>Presence of <strong>outliers</strong> in variables and their implications.</li>
+</ul>
+<p><img src="images/box_plot.jpg" class="img-fluid"></p>
+</section>
+<section id="participant-dropout-analysis" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="participant-dropout-analysis">Participant Dropout Analysis</h2>
+<ul>
+<li><p><strong>Significance of participant dropout over time.</strong></p></li>
+<li><p>Ability of LMMs to <strong>handle unbalanced groups</strong></p></li>
+</ul>
+<p><img src="images/countplot.jpg" class="img-fluid"></p>
+</section>
+</section>
+<section id="analysis-results" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Analysis &amp; Results</h1>
+<section id="the-initial-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-initial-model">The Initial Model</h2>
+<section id="one-random-effect" class="level3">
+<h3 class="anchored" data-anchor-id="one-random-effect">One Random Effect</h3>
+<p>In this dataset:</p>
+<ul>
+<li><p>Measures of airway resistance and reactance are the <u><strong>variables of interest</strong></u>: <code>R5Hz_PP</code>, <code>R20Hz_PP</code>, <code>X5Hz_PP</code>, <code>Fres_PP</code>.</p></li>
+<li><p>Controlled variables are present such as <code>Group</code>, <code>Age</code>, <code>Weight</code>, <code>Height</code>, and other Co-morbidities. These are the <u><strong>fixed effects.</strong></u></p></li>
+<li><p>Random variability may exist between individual observations which are nested in each subject. These represent the <u><strong>random effects.</strong></u> In the <u><strong>initial model</strong></u>, <code>Subject_ID</code> was treated as the sole <em>random effect</em>.</p></li>
+</ul>
+</section>
+</section>
+<section id="the-initial-model-1" class="level2 scrollable">
+<h2 class="scrollable anchored" data-anchor-id="the-initial-model-1">The Initial Model</h2>
+<section id="one-random-effect-1" class="level3">
+<h3 class="anchored" data-anchor-id="one-random-effect-1">One Random Effect</h3>
+<p><img src="images/clipboard-4283912119.png" class="img-fluid" width="1638"></p>
+</section>
+</section>
+<section id="the-initial-model-2" class="level2">
+<h2 class="anchored" data-anchor-id="the-initial-model-2">The Initial Model</h2>
+<section id="one-random-effect-2" class="level3">
+<h3 class="anchored" data-anchor-id="one-random-effect-2">One Random Effect</h3>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/initial_model.png" class="img-fluid figure-img"></p>
+<figcaption>Equation 2. The initial LMM.</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="implementation" class="level2">
+<h2 class="anchored" data-anchor-id="implementation">Implementation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co">#lme()</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Fit models using a tidy and clear approach</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a>model_lme <span class="ot">&lt;-</span> <span class="fu">lme</span>(</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="at">fixed =</span> <span class="fu">cbind</span>(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) <span class="sc">~</span> BMI <span class="sc">+</span> Asthma <span class="sc">+</span> ICS <span class="sc">+</span> LABA <span class="sc">+</span> Gender <span class="sc">+</span> Age_months <span class="sc">+</span> Height_cm <span class="sc">+</span> Weight_Kg,</span>
+<span id="cb1-6"><a href="#cb1-6"></a>  <span class="at">random =</span> <span class="fu">list</span>(<span class="at">Subject_ID =</span> <span class="fu">pdIdent</span>(<span class="sc">~</span><span class="dv">1</span>)),</span>
+<span id="cb1-7"><a href="#cb1-7"></a>  <span class="at">data =</span> x_clean,</span>
+<span id="cb1-8"><a href="#cb1-8"></a>  <span class="at">method =</span> <span class="st">"REML"</span></span>
+<span id="cb1-9"><a href="#cb1-9"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10"></a></span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="co">#lmer() </span></span>
+<span id="cb1-12"><a href="#cb1-12"></a></span>
+<span id="cb1-13"><a href="#cb1-13"></a>model_lmer <span class="ot">&lt;-</span> <span class="fu">lmer</span>(</span>
+<span id="cb1-14"><a href="#cb1-14"></a>  <span class="at">formula =</span> R5Hz_PP <span class="sc">+</span> R20Hz_PP <span class="sc">+</span> X5Hz_PP <span class="sc">+</span> Fres_PP <span class="sc">~</span> BMI <span class="sc">+</span> Asthma <span class="sc">+</span> ICS <span class="sc">+</span> LABA <span class="sc">+</span> Gender <span class="sc">+</span> Age_months <span class="sc">+</span> Height_cm <span class="sc">+</span> Weight_Kg <span class="sc">+</span> (<span class="dv">1</span> <span class="sc">|</span> Subject_ID),</span>
+<span id="cb1-15"><a href="#cb1-15"></a>  <span class="at">data =</span> x_clean</span>
+<span id="cb1-16"><a href="#cb1-16"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="evaluation" class="level2 smaller scrollable">
+<h2 class="smaller scrollable anchored" data-anchor-id="evaluation">Evaluation</h2>
+<ul>
+<li><p><strong>Akaike Information Criterion (AIC)</strong> - indicator of model fit without unnecessary complexity.</p>
+<ul>
+<li><p>AIC for lme = 1898.95 <strong>(selected as initial model)</strong></p></li>
+<li><p>AIC for lmer = 2517.37</p></li>
+</ul></li>
+<li><p>Assumptions Check - <strong>normality</strong>.</p></li>
+</ul>
+<p><img src="images/clipboard-1796225568.png" class="img-fluid" width="452"></p>
+<p><img src="images/clipboard-87669187.png" class="img-fluid" width="447"></p>
+<p><img src="images/clipboard-1829089058.png" class="img-fluid" width="450"></p>
+<p><strong>Finding:</strong> the residuals <u><strong>were not</strong></u> normally distributed, so this model does not satisfy the assumptions of LMMs.</p>
+</section>
+<section id="the-imputed-model" class="level2">
+<h2 class="anchored" data-anchor-id="the-imputed-model">The Imputed Model</h2>
+<section id="satisfying-assumptions" class="level3">
+<h3 class="anchored" data-anchor-id="satisfying-assumptions">Satisfying Assumptions</h3>
+<ul>
+<li><p>Upon further inspection, <strong>outliers were present</strong> in most variables.</p></li>
+<li><p>To improve model performance, these <strong>outliers were imputed using the threshold values <em>(i.e., winsorization).</em></strong></p></li>
+<li><p>Confirmation of outlier removal was completed using <strong>boxplots</strong>.</p></li>
+<li><p>All metrics were then <strong>reevaluated</strong>.</p></li>
+</ul>
+</section>
+</section>
+<section id="evaluation-1" class="level2 smaller scrollable">
+<h2 class="smaller scrollable anchored" data-anchor-id="evaluation-1">Evaluation</h2>
+<p><strong>AIC</strong> for lme = 1790.91 <strong>(better!)</strong></p>
+<p><img src="images/clipboard-1896923212.png" class="img-fluid" width="446"></p>
+<p><img src="images/clipboard-1410964575.png" class="img-fluid" width="445"></p>
+<p><img src="images/clipboard-3092760633.png" class="img-fluid" width="443"></p>
+<p><strong>Finding:</strong> the residuals <u>were</u> normally distributed, so this <strong>model does satisfies the assumptions of LMMs.</strong></p>
+</section>
+<section id="the-final-model" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="the-final-model">The Final Model</h2>
+<section id="two-random-effects-and-final-fixed-effect" class="level3">
+<h3 class="anchored" data-anchor-id="two-random-effects-and-final-fixed-effect">Two Random Effects and Final Fixed Effect</h3>
+<p>This was a <strong>longitudinal study</strong> involving multiple observations for each subject over time, and subjects are grouped into <strong>two categories</strong> (children with <u>sickle cell disease</u> and African-American children with <u>asthma</u>).</p>
+<p>Thus, in this final model:</p>
+<ul>
+<li><p>we modeled <strong><code>Group</code></strong> as a <em>fixed effect</em> since we were interested in the effect of the group itself on the outcome.</p></li>
+<li><p><strong><code>Subject_ID</code></strong> should be a <em>random effect</em> to account for the repeated measures within subjects.</p></li>
+<li><p><strong><code>Observation_number</code></strong> was included as a <em>random slope</em> within <strong><code>Subject_ID</code></strong> (i.e., nested within Subject_ID).</p></li>
+<li><p>The <strong>same visualizations and tests</strong> were completed to assess the LMM assumptions.</p></li>
+</ul>
+</section>
+</section>
+<section id="the-final-model-1" class="level2">
+<h2 class="anchored" data-anchor-id="the-final-model-1">The Final Model</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/final_model.png" class="img-fluid figure-img"></p>
+<figcaption>Equation 3. The final LMM.</figcaption>
+</figure>
+</div>
+</section>
+<section id="implementation-1" class="level2">
+<h2 class="anchored" data-anchor-id="implementation-1">Implementation</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>model_lme_imputed_final <span class="ot">&lt;-</span> <span class="fu">lme</span>(<span class="at">fixed =</span> <span class="fu">cbind</span>(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) <span class="sc">~</span> BMI <span class="sc">+</span> Asthma <span class="sc">+</span> ICS <span class="sc">+</span> LABA <span class="sc">+</span> Gender <span class="sc">+</span> Age_months <span class="sc">+</span> Height_cm <span class="sc">+</span> Weight_Kg <span class="sc">+</span> Group,</span>
+<span id="cb2-2"><a href="#cb2-2"></a>                         <span class="at">data =</span> x_clean_imputed,</span>
+<span id="cb2-3"><a href="#cb2-3"></a>                         <span class="at">random =</span> <span class="fu">list</span>(<span class="at">Subject_ID =</span> <span class="fu">pdIdent</span>(<span class="sc">~</span><span class="dv">1</span> <span class="sc">+</span> Observation_number)),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>                         <span class="at">method =</span> <span class="st">"REML"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="evaluation-2" class="level2 smaller scrollable">
+<h2 class="smaller scrollable anchored" data-anchor-id="evaluation-2">Evaluation</h2>
+<ul>
+<li><strong>AIC</strong> for lme = 1801.60 (better than initial, but worse than imputed?)</li>
+</ul>
+<p><img src="images/clipboard-3999468873.png" class="img-fluid" width="432"></p>
+<p><img src="images/clipboard-2247813014.png" class="img-fluid" width="430"></p>
+<p><img src="images/clipboard-4002798640.png" class="img-fluid" width="431"></p>
+<p><img src="images/clipboard-3825756155.png" class="img-fluid" width="429"></p>
+<p><strong>Findings:</strong></p>
+<ul>
+<li><p>The residuals <u>were</u> normally distributed, so this <strong>model does satisfies the assumptions of LMMs.</strong></p></li>
+<li><p>The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number <strong>may not be sufficiently increasing model accuracy compared to complexity.</strong></p></li>
+<li><p>However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, <strong>and thus will be left in the final model.</strong></p></li>
+</ul>
+</section>
+</section>
+<section id="conclusion" class="level1" data-background-color="#40666e">
+<h1 data-background-color="#40666e">Conclusion</h1>
+<section id="overview-of-model-evaluations" class="level2 smaller scrollable">
+<h2 class="smaller scrollable anchored" data-anchor-id="overview-of-model-evaluations">Overview of Model Evaluations</h2>
+<ul>
+<li><p>In our analysis, we compared three Linear Mixed Models: the <strong>base model</strong>, the <strong>model with imputed values</strong>, and the <strong>final adjusted model</strong>, to <u>predict airway resistance and reactance effectively.</u></p></li>
+<li><p>We focused on <strong>Mean Squared Error (MSE)</strong> and <strong>Mean Absolute Error (MAE)</strong> to assess <u>model performance.</u></p></li>
+</ul>
+<p><img src="images/Figure22.png" class="img-fluid" width="432"></p>
+<p><img src="images/Figure23.png" class="img-fluid" width="432"></p>
+<ul>
+<li><strong>Findings:</strong> The <strong>final imputed model</strong> achieved the <u>lowest MSE and MAE, indicating superior performance over the other models.</u></li>
+</ul>
+</section>
+<section id="sample-predictions-vs.-actual-data" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="sample-predictions-vs.-actual-data">Sample Predictions vs.&nbsp;Actual Data</h2>
+<p><img src="images/Figure24.png" class="img-fluid" width="432"></p>
+<ul>
+<li><p>Figure 24 illustrates a side-by-side comparison of the <strong>predicted versus actual values</strong> for <code>R5Hz_PP</code>, a measure of airway resistance and reactance, for <strong>10 random subjects.</strong></p></li>
+<li><p>The <strong>close alignment</strong> between predicted and actual values <strong>represents a low residual error,</strong> confirming the <strong>model’s high accuracy</strong> in predicting <code>R5Hz_PP</code>.</p></li>
+</ul>
+</section>
+<section id="conclusion-1" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-1">Conclusion</h2>
+<ul>
+<li><p>Our analysis demonstrates that <strong>linear mixed models are exceptionally versatile and can effectively handle complex datasets with multiple layers of correlation and missing data</strong>, incorporating both <u>fixed</u> and <u>random</u> effects seamlessly.</p></li>
+<li><p><strong>Our final model accurately predicts airway resistance and reactance</strong> given demographic and co-morbidity data, which could aid in better understanding and managing respiratory functions in children with conditions such as <u>Sickle Cell Disease</u> and <u>asthma</u>.</p></li>
+</ul>
+</section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p>The authors thank <strong>Dr.&nbsp;Achraf Cohen</strong>, for his ongoing mentorship and support.</p>
+<p><u>Questions are welcome and encouraged!</u></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
