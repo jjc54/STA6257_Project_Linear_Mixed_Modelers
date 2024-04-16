@@ -98,7 +98,6 @@ $$
 
 -   Presence of missing values, especially in the Fres_PP variable
 
-
 ## Why Linear Mixed Models (LMMs)? {.smaller}
 
 -   Suitability of LMMs for the dataset
@@ -109,8 +108,7 @@ $$
 
 ## EDA - Categorical Variables {.smaller}
 
-![](images/Frequency_Plots.jpg)
-*Bar plots showing the distribution of categorical variables.*
+![](images/Frequency_Plots.jpg) *Bar plots showing the distribution of categorical variables.*
 
 ## EDA - Numerical Variables {.smaller}
 
@@ -129,7 +127,6 @@ $$
 -   Ability of LMMs to handle unbalanced groups
 
 ![](images/countplot.jpg)
-
 
 # **Results**
 
@@ -262,6 +259,7 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
 -   We focused on Mean Squared Error (MSE) and Mean Absolute Error (MAE) to assess model performance.
 
 -   \[PLACEHOLDER FOR FIGURE 22\]
+
 -   \[PLACEHOLDER FOR FIGURE 23\]
 
 -   Results Summary: The final imputed model achieved the lowest MSE and MAE, indicating superior performance over the other models.
