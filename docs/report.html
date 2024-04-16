@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.269">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Joshua J. Cook, M.S., ACRP-PM, CCRC, Syed Ahzaz H. Shah, B.S., Jacob Hernandez, B.S., Sara Basili, M.S.">
-<meta name="dcterms.date" content="2024-04-09">
+<meta name="dcterms.date" content="2024-04-15">
 
 <title>The Linear Mixed Modelers - Report</title>
 <style>
@@ -19,9 +19,10 @@ div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
   width: 0.8em;
-  margin: 0 0.8em 0.2em -1.6em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -48,48 +49,19 @@ pre.numberSource code > span > a:first-child::before
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
     padding: 0 4px; width: 4em;
-    color: #aaaaaa;
   }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
 div.sourceCode
   {   }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -103,8 +75,7 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
 
 <script src="site_libs/quarto-nav/quarto-nav.js"></script>
@@ -141,15 +112,18 @@ div.csl-indent {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <link rel="stylesheet" href="styles.css">
 <meta property="og:title" content="The Linear Mixed Modelers - Report">
-<meta property="og:description" content="Inhale, Exhale, Analyze: BMI's Imprint on Impulse Oscillometry Outcomes">
+<meta property="og:description" content="Inhale, Exhale, Analyze: BMI’s Imprint on Impulse Oscillometry Outcomes">
+<meta property="og:image" content="images/LMM_uses.png">
 <meta property="og:site-name" content="The Linear Mixed Modelers">
 </head>
 
@@ -164,36 +138,36 @@ div.csl-indent {
     <span class="navbar-title">The Linear Mixed Modelers</span>
     </a>
   </div>
+            <div id="quarto-search" class="" title="Search"></div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./index.html">
+    <a class="nav-link" href="./index.html" rel="" target="">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./literature.html">
+    <a class="nav-link" href="./literature.html" rel="" target="">
  <span class="menu-text">Literature</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./report.html" aria-current="page">
+    <a class="nav-link active" href="./report.html" rel="" target="" aria-current="page">
  <span class="menu-text">Report</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./slides.html">
+    <a class="nav-link" href="./slides.html" rel="" target="">
  <span class="menu-text">Slides</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about.html">
+    <a class="nav-link" href="./about.html" rel="" target="">
  <span class="menu-text">About Us</span></a>
   </li>  
 </ul>
-              <div class="quarto-toggle-container">
-                  <a href="" class="quarto-color-scheme-toggle nav-link" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
-              </div>
-              <div id="quarto-search" class="" title="Search"></div>
+            <div class="quarto-navbar-tools ms-auto">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
           </div> <!-- /navcollapse -->
       </div> <!-- /container-fluid -->
     </nav>
@@ -213,6 +187,7 @@ div.csl-indent {
   <li><a href="#mathematical-foundations" id="toc-mathematical-foundations" class="nav-link" data-scroll-target="#mathematical-foundations"><strong>2.1 Mathematical Foundations</strong></a>
   <ul class="collapse">
   <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">2.1.1 Example</a></li>
+  <li><a href="#parameter-estimation" id="toc-parameter-estimation" class="nav-link" data-scroll-target="#parameter-estimation">2.1.1 Parameter Estimation</a></li>
   </ul></li>
   <li><a href="#assumptions" id="toc-assumptions" class="nav-link" data-scroll-target="#assumptions"><strong>2.2 Assumptions</strong></a></li>
   <li><a href="#sample-data-structure" id="toc-sample-data-structure" class="nav-link" data-scroll-target="#sample-data-structure"><strong>2.3 Sample Data Structure</strong></a></li>
@@ -274,7 +249,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 9, 2024</p>
+      <p class="date">April 15, 2024</p>
     </div>
   </div>
   
@@ -328,8 +303,8 @@ y=X\beta + Zu+ \epsilon
 <li><p><em>u</em> is J x 1 vector</p></li>
 <li><p>ϵ is n x 1 vector</p></li>
 </ul>
-<p>For a model with a random intercept, the first column of the X matrix will be all 1s&nbsp; and the first element in the β vector will pertain to that random intercept. The Z matrix in a random intercepts model block diagnol matrix with the block defined by Z<sub>i</sub> matrices.</p>
-<p>Adding random effects to the model also changes the size of the dimensions of the Z. If one random effect is added to the matrix then the dimensions change to N x 2q which essentially doubles the columns of the Z matrix to account for the random intercept. γ will also double in length to be 2q x 1.</p>
+<p>For a model with a random intercept, the first column of the X matrix will be all 1s&nbsp;and the first element in the β vector will pertain to that random intercept. The Z matrix in a random intercepts model is a block diagonal matrix, with the block defined by Z<sub>i</sub> matrices.</p>
+<p>Adding random effects to the model also changes the size of the dimensions of the Z. If one random effect is added to the matrix then the dimensions change to N x 2q which essentially doubles the columns of the Z matrix to account for the random intercept. <em>u</em> will also double in length to be 2q x 1.</p>
 <section id="example" class="level3">
 <h3 class="anchored" data-anchor-id="example">2.1.1 Example</h3>
 <p>Now let’s go over an example with a 2-level longitudinal structure where we have 100 students with 10 test scores per student and the associated study time for those tests. In this case, the dependent variable is the variable concerning test scores, the fixed effect is the study time and the random effect is the student. For the sake of simplicity, we will only consider a random intercepts model.</p>
@@ -350,6 +325,10 @@ y=X\beta + Zu+ \epsilon
 <p>Level 2 (Student):</p>
 <p><span class="math inline">\(\beta_{0j} = \gamma_{00} + u_{0j}\)</span></p>
 <p>Since this is a random intercepts model, only the intercept equation is needed. γ<sub>00</sub> is the grand intercept mean an u<sub>0j</sub> is the deviation of the j<sub>th</sub> group, which in our case is the student. <span class="citation" data-cites="galecki_linear_2014">(<a href="#ref-galecki_linear_2014" role="doc-biblioref">Galecki 2014</a>)</span>.</p>
+</section>
+<section id="parameter-estimation" class="level3">
+<h3 class="anchored" data-anchor-id="parameter-estimation">2.1.1 Parameter Estimation</h3>
+<p>LMMs typically use a Maximum Likelihood estimation or variation called Restricted Maximum likelihood Estimation (REML). Both of these methods obtain parameters of β and θ by optimizing the likelihood function. β are the fixed effects parameters and θ are the covariance matrix parameters where θ depends on the number of random effects and the covariance matrix structure. Our model uses the REML method because it is less biased to the covariance parameters and better at modeling random effects <span class="citation" data-cites="galecki_linear_2014">(<a href="#ref-galecki_linear_2014" role="doc-biblioref">Galecki 2014</a>)</span>.</p>
 </section>
 </section>
 <section id="assumptions" class="level2">
@@ -372,7 +351,7 @@ y=X\beta + Zu+ \epsilon
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/tidy-4.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure 1. Tidy data, as defined by Wickham Et. Al.</figcaption><p></p>
+<figcaption class="figure-caption">Figure 1. Tidy data, as defined by Wickham Et. Al.</figcaption>
 </figure>
 </div>
 <p>LMMs also require that the structure of both random and fixed effects be defined before the model is created. The variables that have random variation across groups and those that are fixed must be identified. There are different hierarchies in LMMs. First of all we have to distinguish between clustered and longitudinal data. With cluttered data, as the name suggests, groups the subjects or the unit of analysis into different groups. For a two level data set we can have students be the unit of analysis and the next level up is the classrooms. For a three level data set we can add schools as the third level. Regardless of the amount of levels, the first level is always the subject of the unit of analysis, In the example mentioned above, its students <span class="citation" data-cites="galecki_linear_2014">(<a href="#ref-galecki_linear_2014" role="doc-biblioref">Galecki 2014</a>)</span>.</p>
@@ -442,12 +421,12 @@ y=X\beta + Zu+ \epsilon
 <li><p><code>car</code>: for qq plots.</p></li>
 <li><p><code>reshape2</code>: to reshape date.</p></li>
 </ul>
-<div class="callout-warning callout callout-style-default callout-captioned">
+<div class="callout callout-style-default callout-warning callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-caption-container flex-fill">
+<div class="callout-title-container flex-fill">
 An error was encountered with the Matrix and lme4 packages during model creation. If this error is encountered, please:
 </div>
 </div>
@@ -577,23 +556,23 @@ An error was encountered with the Matrix and lme4 packages during model creation
 </details>
 <div class="cell-output-display">
 
-<div id="rjtfzkqbfb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rjtfzkqbfb table {
+<div id="bpstkgjslz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bpstkgjslz table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rjtfzkqbfb thead, #rjtfzkqbfb tbody, #rjtfzkqbfb tfoot, #rjtfzkqbfb tr, #rjtfzkqbfb td, #rjtfzkqbfb th {
+#bpstkgjslz thead, #bpstkgjslz tbody, #bpstkgjslz tfoot, #bpstkgjslz tr, #bpstkgjslz td, #bpstkgjslz th {
   border-style: none;
 }
 
-#rjtfzkqbfb p {
+#bpstkgjslz p {
   margin: 0;
   padding: 0;
 }
 
-#rjtfzkqbfb .gt_table {
+#bpstkgjslz .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -619,12 +598,12 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-left-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_caption {
+#bpstkgjslz .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rjtfzkqbfb .gt_title {
+#bpstkgjslz .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -636,7 +615,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-width: 0;
 }
 
-#rjtfzkqbfb .gt_subtitle {
+#bpstkgjslz .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -648,7 +627,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-top-width: 0;
 }
 
-#rjtfzkqbfb .gt_heading {
+#bpstkgjslz .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -660,13 +639,13 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_bottom_border {
+#bpstkgjslz .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_col_headings {
+#bpstkgjslz .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -681,7 +660,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_col_heading {
+#bpstkgjslz .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -701,7 +680,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   overflow-x: hidden;
 }
 
-#rjtfzkqbfb .gt_column_spanner_outer {
+#bpstkgjslz .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -713,15 +692,15 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 4px;
 }
 
-#rjtfzkqbfb .gt_column_spanner_outer:first-child {
+#bpstkgjslz .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rjtfzkqbfb .gt_column_spanner_outer:last-child {
+#bpstkgjslz .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rjtfzkqbfb .gt_column_spanner {
+#bpstkgjslz .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -733,11 +712,11 @@ An error was encountered with the Matrix and lme4 packages during model creation
   width: 100%;
 }
 
-#rjtfzkqbfb .gt_spanner_row {
+#bpstkgjslz .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rjtfzkqbfb .gt_group_heading {
+#bpstkgjslz .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -763,7 +742,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   text-align: left;
 }
 
-#rjtfzkqbfb .gt_empty_group_heading {
+#bpstkgjslz .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -778,15 +757,15 @@ An error was encountered with the Matrix and lme4 packages during model creation
   vertical-align: middle;
 }
 
-#rjtfzkqbfb .gt_from_md > :first-child {
+#bpstkgjslz .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rjtfzkqbfb .gt_from_md > :last-child {
+#bpstkgjslz .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rjtfzkqbfb .gt_row {
+#bpstkgjslz .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -805,7 +784,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   overflow-x: hidden;
 }
 
-#rjtfzkqbfb .gt_stub {
+#bpstkgjslz .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -818,7 +797,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#rjtfzkqbfb .gt_stub_row_group {
+#bpstkgjslz .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -832,15 +811,15 @@ An error was encountered with the Matrix and lme4 packages during model creation
   vertical-align: top;
 }
 
-#rjtfzkqbfb .gt_row_group_first td {
+#bpstkgjslz .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rjtfzkqbfb .gt_row_group_first th {
+#bpstkgjslz .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rjtfzkqbfb .gt_summary_row {
+#bpstkgjslz .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -850,16 +829,16 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#rjtfzkqbfb .gt_first_summary_row {
+#bpstkgjslz .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_first_summary_row.thick {
+#bpstkgjslz .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rjtfzkqbfb .gt_last_summary_row {
+#bpstkgjslz .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -869,7 +848,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_grand_summary_row {
+#bpstkgjslz .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -879,7 +858,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#rjtfzkqbfb .gt_first_grand_summary_row {
+#bpstkgjslz .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -889,7 +868,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-top-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_last_grand_summary_row_top {
+#bpstkgjslz .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -899,11 +878,11 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_striped {
+#bpstkgjslz .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rjtfzkqbfb .gt_table_body {
+#bpstkgjslz .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -912,7 +891,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-bottom-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_footnotes {
+#bpstkgjslz .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -926,7 +905,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_footnote {
+#bpstkgjslz .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -935,7 +914,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#rjtfzkqbfb .gt_sourcenotes {
+#bpstkgjslz .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -949,7 +928,7 @@ An error was encountered with the Matrix and lme4 packages during model creation
   border-right-color: #D3D3D3;
 }
 
-#rjtfzkqbfb .gt_sourcenote {
+#bpstkgjslz .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -957,63 +936,63 @@ An error was encountered with the Matrix and lme4 packages during model creation
   padding-right: 5px;
 }
 
-#rjtfzkqbfb .gt_left {
+#bpstkgjslz .gt_left {
   text-align: left;
 }
 
-#rjtfzkqbfb .gt_center {
+#bpstkgjslz .gt_center {
   text-align: center;
 }
 
-#rjtfzkqbfb .gt_right {
+#bpstkgjslz .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rjtfzkqbfb .gt_font_normal {
+#bpstkgjslz .gt_font_normal {
   font-weight: normal;
 }
 
-#rjtfzkqbfb .gt_font_bold {
+#bpstkgjslz .gt_font_bold {
   font-weight: bold;
 }
 
-#rjtfzkqbfb .gt_font_italic {
+#bpstkgjslz .gt_font_italic {
   font-style: italic;
 }
 
-#rjtfzkqbfb .gt_super {
+#bpstkgjslz .gt_super {
   font-size: 65%;
 }
 
-#rjtfzkqbfb .gt_footnote_marks {
+#bpstkgjslz .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rjtfzkqbfb .gt_asterisk {
+#bpstkgjslz .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rjtfzkqbfb .gt_indent_1 {
+#bpstkgjslz .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rjtfzkqbfb .gt_indent_2 {
+#bpstkgjslz .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rjtfzkqbfb .gt_indent_3 {
+#bpstkgjslz .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rjtfzkqbfb .gt_indent_4 {
+#bpstkgjslz .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rjtfzkqbfb .gt_indent_5 {
+#bpstkgjslz .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1299,23 +1278,23 @@ Outliers in X5Hz_PP :
 </details>
 <div class="cell-output-display">
 
-<div id="xdietsipka" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xdietsipka table {
+<div id="yenjjhlkph" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#yenjjhlkph table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xdietsipka thead, #xdietsipka tbody, #xdietsipka tfoot, #xdietsipka tr, #xdietsipka td, #xdietsipka th {
+#yenjjhlkph thead, #yenjjhlkph tbody, #yenjjhlkph tfoot, #yenjjhlkph tr, #yenjjhlkph td, #yenjjhlkph th {
   border-style: none;
 }
 
-#xdietsipka p {
+#yenjjhlkph p {
   margin: 0;
   padding: 0;
 }
 
-#xdietsipka .gt_table {
+#yenjjhlkph .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1341,12 +1320,12 @@ Outliers in X5Hz_PP :
   border-left-color: #D3D3D3;
 }
 
-#xdietsipka .gt_caption {
+#yenjjhlkph .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xdietsipka .gt_title {
+#yenjjhlkph .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1358,7 +1337,7 @@ Outliers in X5Hz_PP :
   border-bottom-width: 0;
 }
 
-#xdietsipka .gt_subtitle {
+#yenjjhlkph .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1370,7 +1349,7 @@ Outliers in X5Hz_PP :
   border-top-width: 0;
 }
 
-#xdietsipka .gt_heading {
+#yenjjhlkph .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1382,13 +1361,13 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#xdietsipka .gt_bottom_border {
+#yenjjhlkph .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xdietsipka .gt_col_headings {
+#yenjjhlkph .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1403,7 +1382,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#xdietsipka .gt_col_heading {
+#yenjjhlkph .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1423,7 +1402,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#xdietsipka .gt_column_spanner_outer {
+#yenjjhlkph .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1435,15 +1414,15 @@ Outliers in X5Hz_PP :
   padding-right: 4px;
 }
 
-#xdietsipka .gt_column_spanner_outer:first-child {
+#yenjjhlkph .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xdietsipka .gt_column_spanner_outer:last-child {
+#yenjjhlkph .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xdietsipka .gt_column_spanner {
+#yenjjhlkph .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1455,11 +1434,11 @@ Outliers in X5Hz_PP :
   width: 100%;
 }
 
-#xdietsipka .gt_spanner_row {
+#yenjjhlkph .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xdietsipka .gt_group_heading {
+#yenjjhlkph .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1485,7 +1464,7 @@ Outliers in X5Hz_PP :
   text-align: left;
 }
 
-#xdietsipka .gt_empty_group_heading {
+#yenjjhlkph .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1500,15 +1479,15 @@ Outliers in X5Hz_PP :
   vertical-align: middle;
 }
 
-#xdietsipka .gt_from_md > :first-child {
+#yenjjhlkph .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xdietsipka .gt_from_md > :last-child {
+#yenjjhlkph .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xdietsipka .gt_row {
+#yenjjhlkph .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1527,7 +1506,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#xdietsipka .gt_stub {
+#yenjjhlkph .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1540,7 +1519,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#xdietsipka .gt_stub_row_group {
+#yenjjhlkph .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1554,15 +1533,15 @@ Outliers in X5Hz_PP :
   vertical-align: top;
 }
 
-#xdietsipka .gt_row_group_first td {
+#yenjjhlkph .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xdietsipka .gt_row_group_first th {
+#yenjjhlkph .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xdietsipka .gt_summary_row {
+#yenjjhlkph .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1572,16 +1551,16 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#xdietsipka .gt_first_summary_row {
+#yenjjhlkph .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xdietsipka .gt_first_summary_row.thick {
+#yenjjhlkph .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xdietsipka .gt_last_summary_row {
+#yenjjhlkph .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1591,7 +1570,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#xdietsipka .gt_grand_summary_row {
+#yenjjhlkph .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1601,7 +1580,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#xdietsipka .gt_first_grand_summary_row {
+#yenjjhlkph .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1611,7 +1590,7 @@ Outliers in X5Hz_PP :
   border-top-color: #D3D3D3;
 }
 
-#xdietsipka .gt_last_grand_summary_row_top {
+#yenjjhlkph .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1621,11 +1600,11 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#xdietsipka .gt_striped {
+#yenjjhlkph .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xdietsipka .gt_table_body {
+#yenjjhlkph .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1634,7 +1613,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#xdietsipka .gt_footnotes {
+#yenjjhlkph .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1648,7 +1627,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#xdietsipka .gt_footnote {
+#yenjjhlkph .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1657,7 +1636,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#xdietsipka .gt_sourcenotes {
+#yenjjhlkph .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1671,7 +1650,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#xdietsipka .gt_sourcenote {
+#yenjjhlkph .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1679,63 +1658,63 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#xdietsipka .gt_left {
+#yenjjhlkph .gt_left {
   text-align: left;
 }
 
-#xdietsipka .gt_center {
+#yenjjhlkph .gt_center {
   text-align: center;
 }
 
-#xdietsipka .gt_right {
+#yenjjhlkph .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xdietsipka .gt_font_normal {
+#yenjjhlkph .gt_font_normal {
   font-weight: normal;
 }
 
-#xdietsipka .gt_font_bold {
+#yenjjhlkph .gt_font_bold {
   font-weight: bold;
 }
 
-#xdietsipka .gt_font_italic {
+#yenjjhlkph .gt_font_italic {
   font-style: italic;
 }
 
-#xdietsipka .gt_super {
+#yenjjhlkph .gt_super {
   font-size: 65%;
 }
 
-#xdietsipka .gt_footnote_marks {
+#yenjjhlkph .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xdietsipka .gt_asterisk {
+#yenjjhlkph .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xdietsipka .gt_indent_1 {
+#yenjjhlkph .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xdietsipka .gt_indent_2 {
+#yenjjhlkph .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xdietsipka .gt_indent_3 {
+#yenjjhlkph .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xdietsipka .gt_indent_4 {
+#yenjjhlkph .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xdietsipka .gt_indent_5 {
+#yenjjhlkph .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1939,23 +1918,23 @@ Outliers in X5Hz_PP :
 </details>
 <div class="cell-output-display">
 
-<div id="bszvclcdvh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#bszvclcdvh table {
+<div id="ybuasfchyj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ybuasfchyj table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#bszvclcdvh thead, #bszvclcdvh tbody, #bszvclcdvh tfoot, #bszvclcdvh tr, #bszvclcdvh td, #bszvclcdvh th {
+#ybuasfchyj thead, #ybuasfchyj tbody, #ybuasfchyj tfoot, #ybuasfchyj tr, #ybuasfchyj td, #ybuasfchyj th {
   border-style: none;
 }
 
-#bszvclcdvh p {
+#ybuasfchyj p {
   margin: 0;
   padding: 0;
 }
 
-#bszvclcdvh .gt_table {
+#ybuasfchyj .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1981,12 +1960,12 @@ Outliers in X5Hz_PP :
   border-left-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_caption {
+#ybuasfchyj .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#bszvclcdvh .gt_title {
+#ybuasfchyj .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1998,7 +1977,7 @@ Outliers in X5Hz_PP :
   border-bottom-width: 0;
 }
 
-#bszvclcdvh .gt_subtitle {
+#ybuasfchyj .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2010,7 +1989,7 @@ Outliers in X5Hz_PP :
   border-top-width: 0;
 }
 
-#bszvclcdvh .gt_heading {
+#ybuasfchyj .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2022,13 +2001,13 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_bottom_border {
+#ybuasfchyj .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_col_headings {
+#ybuasfchyj .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2043,7 +2022,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_col_heading {
+#ybuasfchyj .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2063,7 +2042,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#bszvclcdvh .gt_column_spanner_outer {
+#ybuasfchyj .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2075,15 +2054,15 @@ Outliers in X5Hz_PP :
   padding-right: 4px;
 }
 
-#bszvclcdvh .gt_column_spanner_outer:first-child {
+#ybuasfchyj .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#bszvclcdvh .gt_column_spanner_outer:last-child {
+#ybuasfchyj .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#bszvclcdvh .gt_column_spanner {
+#ybuasfchyj .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2095,11 +2074,11 @@ Outliers in X5Hz_PP :
   width: 100%;
 }
 
-#bszvclcdvh .gt_spanner_row {
+#ybuasfchyj .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#bszvclcdvh .gt_group_heading {
+#ybuasfchyj .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2125,7 +2104,7 @@ Outliers in X5Hz_PP :
   text-align: left;
 }
 
-#bszvclcdvh .gt_empty_group_heading {
+#ybuasfchyj .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2140,15 +2119,15 @@ Outliers in X5Hz_PP :
   vertical-align: middle;
 }
 
-#bszvclcdvh .gt_from_md > :first-child {
+#ybuasfchyj .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#bszvclcdvh .gt_from_md > :last-child {
+#ybuasfchyj .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#bszvclcdvh .gt_row {
+#ybuasfchyj .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2167,7 +2146,7 @@ Outliers in X5Hz_PP :
   overflow-x: hidden;
 }
 
-#bszvclcdvh .gt_stub {
+#ybuasfchyj .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2180,7 +2159,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#bszvclcdvh .gt_stub_row_group {
+#ybuasfchyj .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2194,15 +2173,15 @@ Outliers in X5Hz_PP :
   vertical-align: top;
 }
 
-#bszvclcdvh .gt_row_group_first td {
+#ybuasfchyj .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#bszvclcdvh .gt_row_group_first th {
+#ybuasfchyj .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#bszvclcdvh .gt_summary_row {
+#ybuasfchyj .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2212,16 +2191,16 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#bszvclcdvh .gt_first_summary_row {
+#ybuasfchyj .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_first_summary_row.thick {
+#ybuasfchyj .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#bszvclcdvh .gt_last_summary_row {
+#ybuasfchyj .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2231,7 +2210,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_grand_summary_row {
+#ybuasfchyj .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2241,7 +2220,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#bszvclcdvh .gt_first_grand_summary_row {
+#ybuasfchyj .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2251,7 +2230,7 @@ Outliers in X5Hz_PP :
   border-top-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_last_grand_summary_row_top {
+#ybuasfchyj .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2261,11 +2240,11 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_striped {
+#ybuasfchyj .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#bszvclcdvh .gt_table_body {
+#ybuasfchyj .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2274,7 +2253,7 @@ Outliers in X5Hz_PP :
   border-bottom-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_footnotes {
+#ybuasfchyj .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2288,7 +2267,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_footnote {
+#ybuasfchyj .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2297,7 +2276,7 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#bszvclcdvh .gt_sourcenotes {
+#ybuasfchyj .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2311,7 +2290,7 @@ Outliers in X5Hz_PP :
   border-right-color: #D3D3D3;
 }
 
-#bszvclcdvh .gt_sourcenote {
+#ybuasfchyj .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2319,63 +2298,63 @@ Outliers in X5Hz_PP :
   padding-right: 5px;
 }
 
-#bszvclcdvh .gt_left {
+#ybuasfchyj .gt_left {
   text-align: left;
 }
 
-#bszvclcdvh .gt_center {
+#ybuasfchyj .gt_center {
   text-align: center;
 }
 
-#bszvclcdvh .gt_right {
+#ybuasfchyj .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#bszvclcdvh .gt_font_normal {
+#ybuasfchyj .gt_font_normal {
   font-weight: normal;
 }
 
-#bszvclcdvh .gt_font_bold {
+#ybuasfchyj .gt_font_bold {
   font-weight: bold;
 }
 
-#bszvclcdvh .gt_font_italic {
+#ybuasfchyj .gt_font_italic {
   font-style: italic;
 }
 
-#bszvclcdvh .gt_super {
+#ybuasfchyj .gt_super {
   font-size: 65%;
 }
 
-#bszvclcdvh .gt_footnote_marks {
+#ybuasfchyj .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#bszvclcdvh .gt_asterisk {
+#ybuasfchyj .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#bszvclcdvh .gt_indent_1 {
+#ybuasfchyj .gt_indent_1 {
   text-indent: 5px;
 }
 
-#bszvclcdvh .gt_indent_2 {
+#ybuasfchyj .gt_indent_2 {
   text-indent: 10px;
 }
 
-#bszvclcdvh .gt_indent_3 {
+#ybuasfchyj .gt_indent_3 {
   text-indent: 15px;
 }
 
-#bszvclcdvh .gt_indent_4 {
+#ybuasfchyj .gt_indent_4 {
   text-indent: 20px;
 }
 
-#bszvclcdvh .gt_indent_5 {
+#ybuasfchyj .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2495,23 +2474,23 @@ Fres_PP     0.50290470  1.00000000</code></pre>
 </details>
 <div class="cell-output-display">
 
-<div id="kawhulyltr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kawhulyltr table {
+<div id="nvsnkdhnzr" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#nvsnkdhnzr table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#kawhulyltr thead, #kawhulyltr tbody, #kawhulyltr tfoot, #kawhulyltr tr, #kawhulyltr td, #kawhulyltr th {
+#nvsnkdhnzr thead, #nvsnkdhnzr tbody, #nvsnkdhnzr tfoot, #nvsnkdhnzr tr, #nvsnkdhnzr td, #nvsnkdhnzr th {
   border-style: none;
 }
 
-#kawhulyltr p {
+#nvsnkdhnzr p {
   margin: 0;
   padding: 0;
 }
 
-#kawhulyltr .gt_table {
+#nvsnkdhnzr .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2537,12 +2516,12 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-left-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_caption {
+#nvsnkdhnzr .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#kawhulyltr .gt_title {
+#nvsnkdhnzr .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2554,7 +2533,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-width: 0;
 }
 
-#kawhulyltr .gt_subtitle {
+#nvsnkdhnzr .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2566,7 +2545,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-top-width: 0;
 }
 
-#kawhulyltr .gt_heading {
+#nvsnkdhnzr .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2578,13 +2557,13 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_bottom_border {
+#nvsnkdhnzr .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_col_headings {
+#nvsnkdhnzr .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2599,7 +2578,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_col_heading {
+#nvsnkdhnzr .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2619,7 +2598,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   overflow-x: hidden;
 }
 
-#kawhulyltr .gt_column_spanner_outer {
+#nvsnkdhnzr .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2631,15 +2610,15 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 4px;
 }
 
-#kawhulyltr .gt_column_spanner_outer:first-child {
+#nvsnkdhnzr .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#kawhulyltr .gt_column_spanner_outer:last-child {
+#nvsnkdhnzr .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#kawhulyltr .gt_column_spanner {
+#nvsnkdhnzr .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2651,11 +2630,11 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   width: 100%;
 }
 
-#kawhulyltr .gt_spanner_row {
+#nvsnkdhnzr .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#kawhulyltr .gt_group_heading {
+#nvsnkdhnzr .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2681,7 +2660,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   text-align: left;
 }
 
-#kawhulyltr .gt_empty_group_heading {
+#nvsnkdhnzr .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2696,15 +2675,15 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   vertical-align: middle;
 }
 
-#kawhulyltr .gt_from_md > :first-child {
+#nvsnkdhnzr .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#kawhulyltr .gt_from_md > :last-child {
+#nvsnkdhnzr .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#kawhulyltr .gt_row {
+#nvsnkdhnzr .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2723,7 +2702,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   overflow-x: hidden;
 }
 
-#kawhulyltr .gt_stub {
+#nvsnkdhnzr .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2736,7 +2715,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#kawhulyltr .gt_stub_row_group {
+#nvsnkdhnzr .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2750,15 +2729,15 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   vertical-align: top;
 }
 
-#kawhulyltr .gt_row_group_first td {
+#nvsnkdhnzr .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#kawhulyltr .gt_row_group_first th {
+#nvsnkdhnzr .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#kawhulyltr .gt_summary_row {
+#nvsnkdhnzr .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2768,16 +2747,16 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#kawhulyltr .gt_first_summary_row {
+#nvsnkdhnzr .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_first_summary_row.thick {
+#nvsnkdhnzr .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#kawhulyltr .gt_last_summary_row {
+#nvsnkdhnzr .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2787,7 +2766,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_grand_summary_row {
+#nvsnkdhnzr .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2797,7 +2776,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#kawhulyltr .gt_first_grand_summary_row {
+#nvsnkdhnzr .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2807,7 +2786,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-top-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_last_grand_summary_row_top {
+#nvsnkdhnzr .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2817,11 +2796,11 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_striped {
+#nvsnkdhnzr .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#kawhulyltr .gt_table_body {
+#nvsnkdhnzr .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2830,7 +2809,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-bottom-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_footnotes {
+#nvsnkdhnzr .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2844,7 +2823,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_footnote {
+#nvsnkdhnzr .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2853,7 +2832,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#kawhulyltr .gt_sourcenotes {
+#nvsnkdhnzr .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2867,7 +2846,7 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   border-right-color: #D3D3D3;
 }
 
-#kawhulyltr .gt_sourcenote {
+#nvsnkdhnzr .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2875,63 +2854,63 @@ Fres_PP     0.50290470  1.00000000</code></pre>
   padding-right: 5px;
 }
 
-#kawhulyltr .gt_left {
+#nvsnkdhnzr .gt_left {
   text-align: left;
 }
 
-#kawhulyltr .gt_center {
+#nvsnkdhnzr .gt_center {
   text-align: center;
 }
 
-#kawhulyltr .gt_right {
+#nvsnkdhnzr .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#kawhulyltr .gt_font_normal {
+#nvsnkdhnzr .gt_font_normal {
   font-weight: normal;
 }
 
-#kawhulyltr .gt_font_bold {
+#nvsnkdhnzr .gt_font_bold {
   font-weight: bold;
 }
 
-#kawhulyltr .gt_font_italic {
+#nvsnkdhnzr .gt_font_italic {
   font-style: italic;
 }
 
-#kawhulyltr .gt_super {
+#nvsnkdhnzr .gt_super {
   font-size: 65%;
 }
 
-#kawhulyltr .gt_footnote_marks {
+#nvsnkdhnzr .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#kawhulyltr .gt_asterisk {
+#nvsnkdhnzr .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#kawhulyltr .gt_indent_1 {
+#nvsnkdhnzr .gt_indent_1 {
   text-indent: 5px;
 }
 
-#kawhulyltr .gt_indent_2 {
+#nvsnkdhnzr .gt_indent_2 {
   text-indent: 10px;
 }
 
-#kawhulyltr .gt_indent_3 {
+#nvsnkdhnzr .gt_indent_3 {
   text-indent: 15px;
 }
 
-#kawhulyltr .gt_indent_4 {
+#nvsnkdhnzr .gt_indent_4 {
   text-indent: 20px;
 }
 
-#kawhulyltr .gt_indent_5 {
+#nvsnkdhnzr .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3062,19 +3041,19 @@ Fres_PP     0.50290470  1.00000000</code></pre>
 Random effects:
  Formula: ~1 | Subject_ID
         (Intercept) Residual
-StdDev:    20.45439 19.76738
+StdDev:    20.45438 19.76739
 
 Fixed effects:  cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS +      LABA + Gender + Age_months + Height_cm + Weight_Kg 
                 Value Std.Error  DF   t-value p-value
-(Intercept) 219.89260  86.92601 111  2.529653  0.0128
-BMI          -5.89676   2.67942 111 -2.200761  0.0298
+(Intercept) 219.89254  86.92600 111  2.529652  0.0128
+BMI          -5.89676   2.67942 111 -2.200760  0.0298
 AsthmaYes    16.70033   7.68459  85  2.173222  0.0325
-ICSYes       -4.93414   4.87163 111 -1.012830  0.3133
-LABAYes      -4.35652   6.08228 111 -0.716265  0.4753
-Gendermale   -5.68901   5.71803  85 -0.994924  0.3226
-Age_months    0.49796   0.13627 111  3.654088  0.0004
+ICSYes       -4.93413   4.87163 111 -1.012829  0.3133
+LABAYes      -4.35652   6.08228 111 -0.716266  0.4753
+Gendermale   -5.68900   5.71803  85 -0.994924  0.3226
+Age_months    0.49796   0.13627 111  3.654089  0.0004
 Height_cm    -1.04120   0.60384 111 -1.724307  0.0874
-Weight_Kg     1.65587   1.01041 111  1.638804  0.1041
+Weight_Kg     1.65586   1.01041 111  1.638803  0.1041
  Correlation: 
            (Intr) BMI    AsthmY ICSYes LABAYs Gndrml Ag_mnt Hght_c
 BMI        -0.927                                                 
@@ -3088,7 +3067,7 @@ Weight_Kg   0.938 -0.986 -0.082  0.087 -0.030 -0.122  0.087 -0.852
 
 Standardized Within-Group Residuals:
        Min         Q1        Med         Q3        Max 
--2.8899152 -0.4840087 -0.1223361  0.4272441  2.5859876 
+-2.8899150 -0.4840091 -0.1223361  0.4272442  2.5859874 
 
 Number of Observations: 205
 Number of Groups: 88 </code></pre>
@@ -3670,80 +3649,80 @@ W = 0.98676, p-value = 0.0529</code></pre>
 </section>
 <section id="references" class="level1">
 <h1><strong>5 References</strong></h1>
-<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
-<div id="ref-aarts_2015" class="csl-entry" role="doc-biblioentry">
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-aarts_2015" class="csl-entry" role="listitem">
 Aarts, E., Dolan, C. V., Verhage, M., and Sluis, S. van der (2015), <span>“Multilevel analysis quantifies variation in the experimental effect while optimizing power and preventing false positives,”</span> <em>BMC Neuroscience</em>, 16, 94. <a href="https://doi.org/10.1186/s12868-015-0228-5">https://doi.org/10.1186/s12868-015-0228-5</a>.
 </div>
-<div id="ref-barr_random_2013" class="csl-entry" role="doc-biblioentry">
+<div id="ref-barr_random_2013" class="csl-entry" role="listitem">
 Barr, D. J. (2013), <span>“Random effects structure for testing interactions in linear mixed-effects models,”</span> <em>Frontiers in Psychology</em>, 4, 328. <a href="https://doi.org/10.3389/fpsyg.2013.00328">https://doi.org/10.3389/fpsyg.2013.00328</a>.
 </div>
-<div id="ref-bates_fitting_2015" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bates_fitting_2015" class="csl-entry" role="listitem">
 Bates, D., Mächler, M., Bolker, B., and Walker, S. (2015), <span>“Fitting <span>Linear</span> <span>Mixed</span>-<span>Effects</span> <span>Models</span> <span>Using</span> lme4,”</span> <em>Journal of Statistical Software</em>, 67, 1–48. <a href="https://doi.org/10.18637/jss.v067.i01">https://doi.org/10.18637/jss.v067.i01</a>.
 </div>
-<div id="ref-bolker_generalized_2009" class="csl-entry" role="doc-biblioentry">
+<div id="ref-bolker_generalized_2009" class="csl-entry" role="listitem">
 Bolker, B. M., Brooks, M. E., Clark, C. J., Geange, S. W., Poulsen, J. R., Stevens, M. H. H., and White, J.-S. S. (2009), <span>“Generalized linear mixed models: A practical guide for ecology and evolution,”</span> <em>Trends in Ecology &amp; Evolution</em>, 24, 127–135. <a href="https://doi.org/10.1016/j.tree.2008.10.008">https://doi.org/10.1016/j.tree.2008.10.008</a>.
 </div>
-<div id="ref-brown_introduction_2021" class="csl-entry" role="doc-biblioentry">
+<div id="ref-brown_introduction_2021" class="csl-entry" role="listitem">
 Brown, V. A. (2021), <span>“An <span>Introduction</span> to <span>Linear</span> <span>Mixed</span>-<span>Effects</span> <span>Modeling</span> in <span>R</span>,”</span> <em>Advances in Methods and Practices in Psychological Science</em>, 4, 2515245920960351. <a href="https://doi.org/10.1177/2515245920960351">https://doi.org/10.1177/2515245920960351</a>.
 </div>
-<div id="ref-casals_methodological_2014" class="csl-entry" role="doc-biblioentry">
+<div id="ref-casals_methodological_2014" class="csl-entry" role="listitem">
 Casals, M., Girabent-Farrés, M., and Carrasco, J. L. (2014), <span>“Methodological quality and reporting of generalized linear mixed models in clinical medicine (2000-2012): A systematic review,”</span> <em>PloS One</em>, 9, e112653. <a href="https://doi.org/10.1371/journal.pone.0112653">https://doi.org/10.1371/journal.pone.0112653</a>.
 </div>
-<div id="ref-galecki_linear_2014" class="csl-entry" role="doc-biblioentry">
+<div id="ref-galecki_linear_2014" class="csl-entry" role="listitem">
 Galecki, A. T., Kathleen B. Welch (2014), <em>Linear <span>Mixed</span> <span>Models</span>: <span>A</span> <span>Practical</span> <span>Guide</span> <span>Using</span> <span>Statistical</span> <span>Software</span>, <span>Second</span> <span>Edition</span></em>, New York: Chapman; Hall/CRC. <a href="https://doi.org/10.1201/b17198">https://doi.org/10.1201/b17198</a>.
 </div>
-<div id="ref-grueber_2011" class="csl-entry" role="doc-biblioentry">
+<div id="ref-grueber_2011" class="csl-entry" role="listitem">
 GRUEBER, C. E., NAKAGAWA, S., LAWS, R. J., and JAMIESON, I. G. (2011), <span>“Multimodel inference in ecology and evolution: Challenges and solutions,”</span> <em>Journal of Evolutionary Biology</em>, 24, 699–711. https://doi.org/<a href="https://doi.org/10.1111/j.1420-9101.2010.02210.x">https://doi.org/10.1111/j.1420-9101.2010.02210.x</a>.
 </div>
-<div id="ref-harrison_brief_2018" class="csl-entry" role="doc-biblioentry">
+<div id="ref-harrison_brief_2018" class="csl-entry" role="listitem">
 Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E. D., Robinson, B. S., Hodgson, D. J., and Inger, R. (2018), <span>“A brief introduction to mixed effects modelling and multi-model inference in ecology,”</span> <em>PeerJ</em>, 6, e4794. <a href="https://doi.org/10.7717/peerj.4794">https://doi.org/10.7717/peerj.4794</a>.
 </div>
-<div id="ref-jolly_pymer4_2018" class="csl-entry" role="doc-biblioentry">
+<div id="ref-jolly_pymer4_2018" class="csl-entry" role="listitem">
 Jolly, E. (2018), <span>“Pymer4: <span>Connecting</span> <span>R</span> and <span>Python</span> for <span>Linear</span> <span>Mixed</span> <span>Modeling</span>,”</span> <em>Journal of Open Source Software</em>, 3, 862. <a href="https://doi.org/10.21105/joss.00862">https://doi.org/10.21105/joss.00862</a>.
 </div>
-<div id="ref-lee_estimation_nodate" class="csl-entry" role="doc-biblioentry">
+<div id="ref-lee_estimation_nodate" class="csl-entry" role="listitem">
 Lee, Y.-C., and Shang, J. (n.d.), <span>“Estimation and selection in linear mixed models with missing data under compound symmetric structure,”</span> <em>Journal of Applied Statistics</em>, 49, 4003–4027. <a href="https://doi.org/10.1080/02664763.2021.1969342">https://doi.org/10.1080/02664763.2021.1969342</a>.
 </div>
-<div id="ref-lo_transform_2015" class="csl-entry" role="doc-biblioentry">
+<div id="ref-lo_transform_2015" class="csl-entry" role="listitem">
 Lo, S., and Andrews, S. (2015), <span>“<a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2015.01171">To transform or not to transform: Using generalized linear mixed models to analyse reaction time data</a>,”</span> <em>Frontiers in Psychology</em>, 6.
 </div>
-<div id="ref-magezi_linear_2015" class="csl-entry" role="doc-biblioentry">
+<div id="ref-magezi_linear_2015" class="csl-entry" role="listitem">
 Magezi, D. A. (2015), <span>“Linear mixed-effects models for within-participant psychology experiments: An introductory tutorial and free, graphical user interface (<span>LMMgui</span>),”</span> <em>Frontiers in Psychology</em>, 6, 2. <a href="https://doi.org/10.3389/fpsyg.2015.00002">https://doi.org/10.3389/fpsyg.2015.00002</a>.
 </div>
-<div id="ref-fokkema_generalized_2021" class="csl-entry" role="doc-biblioentry">
+<div id="ref-fokkema_generalized_2021" class="csl-entry" role="listitem">
 Marjolein Fokkema, J. E.-C., and Wolpert, M. (2021), <span>“Generalized linear mixed-model (GLMM) trees: A flexible decision-tree method for multilevel and longitudinal data,”</span> <em>Psychotherapy Research</em>, Routledge, 31, 329–341. <a href="https://doi.org/10.1080/10503307.2020.1785037">https://doi.org/10.1080/10503307.2020.1785037</a>.
 </div>
-<div id="ref-monsalves_level_2020" class="csl-entry" role="doc-biblioentry">
+<div id="ref-monsalves_level_2020" class="csl-entry" role="listitem">
 Monsalves, M. J., Bangdiwala, A. S., Thabane, A., and Bangdiwala, S. I. (2020), <span>“<span>LEVEL</span> (<span>Logical</span> <span>Explanations</span> &amp; <span>Visualizations</span> of <span>Estimates</span> in <span>Linear</span> mixed models): Recommendations for reporting multilevel data and analyses,”</span> <em>BMC Medical Research Methodology</em>, 20, 3. <a href="https://doi.org/10.1186/s12874-019-0876-8">https://doi.org/10.1186/s12874-019-0876-8</a>.
 </div>
-<div id="ref-peng_model_2012" class="csl-entry" role="doc-biblioentry">
+<div id="ref-peng_model_2012" class="csl-entry" role="listitem">
 Peng, H., and Lu, Y. (2012), <span>“Model selection in linear mixed effect models,”</span> <em>Journal of Multivariate Analysis</em>, 109, 109–129. <a href="https://doi.org/10.1016/j.jmva.2012.02.005">https://doi.org/10.1016/j.jmva.2012.02.005</a>.
 </div>
-<div id="ref-piepho_analysing_1999" class="csl-entry" role="doc-biblioentry">
+<div id="ref-piepho_analysing_1999" class="csl-entry" role="listitem">
 Piepho (1999), <span>“Analysing disease incidence data from designed experiments by generalized linear mixed models,”</span> <em>Plant Pathology</em>, 48, 668–674. https://doi.org/<a href="https://doi.org/10.1046/j.1365-3059.1999.00383.x">https://doi.org/10.1046/j.1365-3059.1999.00383.x</a>.
 </div>
-<div id="ref-pusponegoro_linear_2017" class="csl-entry" role="doc-biblioentry">
+<div id="ref-pusponegoro_linear_2017" class="csl-entry" role="listitem">
 Pusponegoro, N. H., Rachmawati, R. N., Notodiputro, K. A., and Sartono, B. (2017), <span>“Linear <span>Mixed</span> <span>Model</span> for <span>Analyzing</span> <span>Longitudinal</span> <span>Data</span>: <span>A</span> <span>Simulation</span> <span>Study</span> of <span>Children</span> <span>Growth</span> <span>Differences</span>,”</span> <em>Procedia Computer Science</em>, Discovery and innovation of computer science technology in artificial intelligence era: <span>The</span> 2nd <span>International</span> <span>Conference</span> on <span>Computer</span> <span>Science</span> and <span>Computational</span> <span>Intelligence</span> (<span>ICCSCI</span> 2017), 116, 284–291. <a href="https://doi.org/10.1016/j.procs.2017.10.071">https://doi.org/10.1016/j.procs.2017.10.071</a>.
 </div>
-<div id="ref-schielzeth_robustness_2020" class="csl-entry" role="doc-biblioentry">
+<div id="ref-schielzeth_robustness_2020" class="csl-entry" role="listitem">
 Schielzeth, H., Dingemanse, N. J., Nakagawa, S., Westneat, D. F., Allegue, H., Teplitsky, C., Réale, D., Dochtermann, N. A., Garamszegi, L. Z., and Araya-Ajoy, Y. G. (2020), <span>“Robustness of linear mixed-effects models to violations of distributional assumptions,”</span> <em>Methods in Ecology and Evolution</em>, 11, 1141–1152. https://doi.org/<a href="https://doi.org/10.1111/2041-210X.13434">https://doi.org/10.1111/2041-210X.13434</a>.
 </div>
-<div id="ref-steibel_powerful_2009" class="csl-entry" role="doc-biblioentry">
+<div id="ref-steibel_powerful_2009" class="csl-entry" role="listitem">
 Steibel, J. P., Poletto, R., Coussens, P. M., and Rosa, G. J. M. (2009), <span>“A powerful and flexible linear mixed model framework for the analysis of relative quantification <span>RT</span>-<span>PCR</span> data,”</span> <em>Genomics</em>, 94, 146–152. <a href="https://doi.org/10.1016/j.ygeno.2009.04.008">https://doi.org/10.1016/j.ygeno.2009.04.008</a>.
 </div>
-<div id="ref-touraine_when_2023" class="csl-entry" role="doc-biblioentry">
+<div id="ref-touraine_when_2023" class="csl-entry" role="listitem">
 Touraine, C., Cuer, B., Conroy, T., Juzyna, B., Gourgou, S., and Mollevi, C. (2023), <span>“When a joint model should be preferred over a linear mixed model for analysis of longitudinal health-related quality of life data in cancer clinical trials,”</span> <em>BMC medical research methodology</em>, 23, 36. <a href="https://doi.org/10.1186/s12874-023-01846-3">https://doi.org/10.1186/s12874-023-01846-3</a>.
 </div>
-<div id="ref-tu_using_2015" class="csl-entry" role="doc-biblioentry">
+<div id="ref-tu_using_2015" class="csl-entry" role="listitem">
 Tu, Y.-K. (2015), <span>“Using generalized linear mixed models to evaluate inconsistency within a network meta-analysis,”</span> <em>Value in Health</em>, 18, 1120–1125. https://doi.org/<a href="https://doi.org/10.1016/j.jval.2015.10.002">https://doi.org/10.1016/j.jval.2015.10.002</a>.
 </div>
-<div id="ref-verbeeck_linear_2023" class="csl-entry" role="doc-biblioentry">
+<div id="ref-verbeeck_linear_2023" class="csl-entry" role="listitem">
 Verbeeck, J., Faes, C., Neyens, T., Hens, N., Verbeke, G., Deboosere, P., and Molenberghs, G. (2023), <span>“A linear mixed model to estimate <span>COVID</span>-19-induced excess mortality,”</span> <em>Biometrics</em>, 79, 417–425. <a href="https://doi.org/10.1111/biom.13578">https://doi.org/10.1111/biom.13578</a>.
 </div>
-<div id="ref-wang_statistical_2022" class="csl-entry" role="doc-biblioentry">
+<div id="ref-wang_statistical_2022" class="csl-entry" role="listitem">
 Wang, X., Andrinopoulou, E.-R., Veen, K. M., Bogers, A. J. J. C., and Takkenberg, J. J. M. (2022), <span>“Statistical primer: An introduction to the application of linear mixed-effects models in cardiothoracic surgery outcomes research-a case study using homograft pulmonary valve replacement data,”</span> <em>European Journal of Cardio-Thoracic Surgery: Official Journal of the European Association for Cardio-Thoracic Surgery</em>, 62, ezac429. <a href="https://doi.org/10.1093/ejcts/ezac429">https://doi.org/10.1093/ejcts/ezac429</a>.
 </div>
-<div id="ref-zuur_2016" class="csl-entry" role="doc-biblioentry">
+<div id="ref-zuur_2016" class="csl-entry" role="listitem">
 Zuur, A. F., and Ieno, E. N. (2016), <span>“A protocol for conducting and presenting results of regression-type analyses,”</span> <em>Methods in Ecology and Evolution</em>, 7, 636–645. https://doi.org/<a href="https://doi.org/10.1111/2041-210X.12577">https://doi.org/10.1111/2041-210X.12577</a>.
 </div>
 </div>
@@ -3894,9 +3873,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     icon: icon
   };
   anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
   const clipboard = new window.ClipboardJS('.code-copy-button', {
-    target: function(trigger) {
-      return trigger.previousElementSibling;
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
     }
   });
   clipboard.on('success', function(e) {
@@ -3961,6 +3954,92 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
   const findCites = (el) => {
     const parentEl = el.parentElement;
     if (parentEl) {

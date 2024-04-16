@@ -47,10 +47,37 @@ library(reshape2)
 
 ## Introduction
 
--   Data structures & use cases
--   Fixed v. random effects
--   Strengths/weaknesses
--   Implementation Methods
+### Understanding Linear Mixed-Effects Models (LMMs)
+
+-   Linear mixed-effects models are advanced statistical tools designed to handle complex data structures.
+
+-   These models are essential when dealing with hierarchical organization, repeated measures, and random effects in datasets.
+
+-   LMMs are particularly useful when traditional ANOVA or regression assumptions—like independence of observations, homoscedasticity, and normality of residuals—are not met.
+
+## Software Tools and Resources for LMMs
+
+### Tools for Implementing LMMs
+
+-   The development and use of LMMs are supported by several software packages and programming languages.
+
+-   Key resources include the lme4 package in R, detailed by Bates et al. (2015), which simplifies the fitting of mixed models, especially those with crossed random effects.
+
+-   For Python users, Pymer4 developed by Jolly (2018) integrates Python with R's lme4 package, broadening accessibility to these advanced methods.
+
+## Applications of LMMs Across Disciplines 
+
+### Broad Applications of LMMs
+
+
+-   LMMs find diverse applications across various scientific domains, addressing unique analytical challenges.
+
+-   In healthcare, LMMs model pandemic-related mortality changes (Verbeeck et al., 2023) and analyze longitudinal data in clinical trials (Touraine et al., 2023).
+
+-   In ecology, studies by Harrison et al. (2018) and Bolker et al. (2009) discuss their use in analyzing complex ecological data.
+
+-   In psychology and neuroscience, LMMs tackle the complexities of repeated measures and nested data structures (Magezi, 2015; Aarts et al., 2015).
+
 
 # Methods - Mathematical Foundations {background-color="#40666e"}
 
@@ -296,27 +323,27 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
 
 # Conclusion {background-color="#40666e"}
 
-## Overview of Model Evaluations {.smaller}
+## Overview of Model Evaluations {.smaller .scrollable}
 
 -   In our analysis, we compared three Linear Mixed Models: the base model, the model with imputed values, and the final adjusted model, to predict airway resistance and reactance effectively.
 
 -   We focused on Mean Squared Error (MSE) and Mean Absolute Error (MAE) to assess model performance.
 
--   \[PLACEHOLDER FOR FIGURE 22\]
+![](images/Figure22.png){width="432"}
 
--   \[PLACEHOLDER FOR FIGURE 23\]
+![](images/Figure23.png){width="432"}
 
 -   Results Summary: The final imputed model achieved the lowest MSE and MAE, indicating superior performance over the other models.
 
 ## Sample Predictions vs. Actual Data {.smaller}
 
--   \[PLACEHOLDER FOR FIGURE 24\]
+![](images/Figure24.png){width="432"}
 
 -   Figure 24 illustrates a side-by-side comparison of the predicted versus actual values for R5Hz_PP, a measure of airway resistance and reactance, for 10 random subjects.
 
 -   The close alignment between predicted and actual values represents a low residual error, confirming the model's high accuracy in predicting R5Hz_PP.
 
-## Conclusion {.smaller}
+## Conclusion 
 
 -   Our analysis demonstrates that linear mixed models are exceptionally versatile and can effectively handle complex datasets with multiple layers of correlation and missing data, incorporating both fixed and random effects seamlessly.
 
