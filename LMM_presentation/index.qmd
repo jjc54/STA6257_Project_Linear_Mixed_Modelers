@@ -43,22 +43,28 @@ library(car)
 library(reshape2)
 ```
 
-# **Linear Mixed Models (LMMs)**
+# Introduction to Linear Mixed Models (LMMs) {background-color="#40666e"}
+
+## Introduction
 
 -   Data structures & use cases
 -   Fixed v. random effects
 -   Strengths/weaknesses
 -   Implementation Methods
 
-# **Methods - Mathematical Foundations**
+# Methods - Mathematical Foundations {background-color="#40666e"}
 
 ## Linear Algebra {.smaller}
+
+### Foundations
 
 LMMs leverage linear algebra and in our case, we are explaining the mathematical concepts for a two-level longitudinal random intercepts model. Index i is used to denote the participant and index t is used to denote the different time points of the observation
 
 $$
 Y=X\beta + Zu+ \epsilon
 $$
+
+Equation 1: the base linear mixed model.
 
 -   Y is the response vector. Shape N x 1 where N is the number of the number of repeated measures
 
@@ -102,7 +108,7 @@ $$
 
     -   Evaluated using F-tests, Likelihood ratio test, and Shapiro-Wilks tests
 
-# **The Capstone Project**
+# The Capstone Project Data {background-color="#40666e"}
 
 ## Dataset Overview {.smaller}
 
@@ -142,9 +148,11 @@ $$
 
 ![](images/countplot.jpg)
 
-# **Results**
+# Analysis & Results {background-color="#40666e"}
 
-## The Initial Model {.smaller}
+## The Initial Model
+
+### One Random Effect
 
 In this dataset:
 
@@ -154,15 +162,24 @@ In this dataset:
 
 -   Random variability may exist between individual observations which are nested in each subject. These represent the [**random effects.**]{.underline} In the [**initial model**]{.underline}, `Subject_ID` was treated as the sole *random effect*.
 
--   \[PLACEHOLDER FOR TABLE 5\]
+## The Initial Model {.scrollable}
+
+### One Random Effect
+
+![](images/clipboard-4283912119.png){width="1638"}
+
+## The Initial Model
+
+### One Random Effect
 
 ![Equation 2. The initial LMM.](images/initial_model.png){fig-align="center"}
 
-## Implementation {.smaller}
+## Implementation
 
 ```{r}
 #| eval: false
 #| echo: true
+#| code-line-numbers: "1-9|5|6|8|11-16|14"
 
 #lme()
 
@@ -182,47 +199,53 @@ model_lmer <- lmer(
 )
 ```
 
-## Evaluation {.smaller}
+## Evaluation {.smaller .scrollable}
 
--   Akaike Information Criterion (AIC) - indicator of model fit without unnecessary complexity.
+-   **Akaike Information Criterion (AIC)** - indicator of model fit without unnecessary complexity.
 
     -   AIC for lme = 1898.95 **(selected as initial model)**
 
     -   AIC for lmer = 2517.37
 
--   Assumptions Check - normality.
+-   Assumptions Check - **normality**.
 
-    -   \[PLACEHOLDER FOR FIGURE 11\]
+![](images/clipboard-1796225568.png){width="452"}
 
-    -   \[PLACEHOLDER FOR FIGURE 12\]
+![](images/clipboard-87669187.png){width="447"}
 
-    -   \[PLACEHOLDER FOR FIGURE 13\]
+![](images/clipboard-1829089058.png){width="450"}
 
--   Conclusion: the residuals [**were not**]{.underline} normally distributed, so this model does not satisfy the assumptions of LMMs.
+**Finding:** the residuals [**were not**]{.underline} normally distributed, so this model does not satisfy the assumptions of LMMs.
 
 ## The Imputed Model
 
--   Upon further inspection, outliers were present in most variables. To improve model performance, these outliers were imputed using the threshold values.
+### Satisfying Assumptions
 
--   Confirmation of outlier removal was completed using boxplots.
+-   Upon further inspection, **outliers were present** in most variables.
 
--   All metrics were then reevaluated.
+-   To improve model performance, these **outliers were imputed using the threshold values *(i.e., winsorization).***
 
-## Evaluation {.smaller}
+-   Confirmation of outlier removal was completed using **boxplots**.
 
--   AIC for lme = 1790.91 (better!)
+-   All metrics were then **reevaluated**.
 
--   \[PLACEHOLDER FOR FIGURE 15\]
+## Evaluation {.smaller .scrollable}
 
--   \[PLACEHOLDER FOR FIGURE 16\]
+AIC for lme = 1790.91 **(better!)**
 
--   \[PLACEHOLDER FOR FIGURE 17\]
+![](images/clipboard-1896923212.png){width="446"}
 
--   Conclusion: the residuals [were]{.underline} normally distributed, so this model does satisfies the assumptions of LMMs.
+![](images/clipboard-1410964575.png){width="445"}
+
+![](images/clipboard-3092760633.png){width="443"}
+
+**Finding:** the residuals [were]{.underline} normally distributed, so this **model does satisfies the assumptions of LMMs.**
 
 ## The Final Model {.smaller}
 
-This was a longitudinal study involving multiple observations for each subject over time, and subjects are grouped into two categories (children with sickle cell disease and African-American children with asthma).
+### Two Random Effects and Final Fixed Effect
+
+This was a **longitudinal study** involving multiple observations for each subject over time, and subjects are grouped into **two categories** (children with [sickle cell disease]{.underline} and African-American children with [asthma]{.underline}).
 
 Thus, in this final model:
 
@@ -232,17 +255,18 @@ Thus, in this final model:
 
 -   **`Observation_number`** was included as a *random slope* within **`Subject_ID`** (i.e., nested within Subject_ID).
 
--   The same visualizations and tests were completed to assess the LMM assumptions.
+-   The **same visualizations and tests** were completed to assess the LMM assumptions.
 
-## The Final Model {.smaller}
+## The Final Model
 
 ![Equation 3. The final LMM.](images/final_model.png){fig-align="center"}
 
-## Implementation {.smaller}
+## Implementation
 
 ```{r}
 #| eval: false
 #| echo: true
+#| code-line-numbers: "|1|3"
 
 model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP) ~ BMI + Asthma + ICS + LABA + Gender + Age_months + Height_cm + Weight_Kg + Group,
                          data = x_clean_imputed,
@@ -250,21 +274,27 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
                          method = "REML")
 ```
 
-## Evaluation {.smaller}
+## Evaluation {.smaller .scrollable}
 
 -   AIC for lme = 1801.60 (better than initial, but worse than imputed?)
 
--   \[PLACEHOLDER FOR FIGURE 21\]
+![](images/clipboard-3999468873.png){width="432"}
 
--   \[PLACEHOLDER FOR FIGURE 18\]
+![](images/clipboard-2247813014.png){width="430"}
 
--   \[PLACEHOLDER FOR FIGURE 19\]
+![](images/clipboard-4002798640.png){width="431"}
 
--   \[PLACEHOLDER FOR FIGURE 20\]
+![](images/clipboard-3825756155.png){width="429"}
 
--   Conclusion: the residuals [were]{.underline} normally distributed, so this model does satisfies the assumptions of LMMs. The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number may not be sufficiently increasing model accuracy compared to complexity. However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
+**Findings:**
 
-# **Conclusion**
+-   The residuals [were]{.underline} normally distributed, so this **model does satisfies the assumptions of LMMs.**
+
+-   The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number **may not be sufficiently increasing model accuracy compared to complexity.**
+
+-   However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
+
+# Conclusion {background-color="#40666e"}
 
 ## Overview of Model Evaluations {.smaller}
 
@@ -291,3 +321,9 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
 -   Our analysis demonstrates that linear mixed models are exceptionally versatile and can effectively handle complex datasets with multiple layers of correlation and missing data, incorporating both fixed and random effects seamlessly.
 
 -   Our final model accurately predicts airway resistance and reactance given demographic and co-morbidity data, which could aid in better understanding and managing respiratory functions in children with conditions such as Sickle Cell Disease and asthma.
+
+## Acknowledgements {.smaller}
+
+The authors thank **Dr. Achraf Cohen**, for his ongoing mentorship and support.
+
+Questions are welcome and encouraged!
