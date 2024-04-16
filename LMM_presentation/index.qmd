@@ -240,7 +240,9 @@ model_lmer <- lmer(
 
 ![](images/clipboard-1829089058.png){width="450"}
 
-**Finding:** the residuals [**were not**]{.underline} normally distributed, so this model does not satisfy the assumptions of LMMs.
+![](images/clipboard-2493036116.png){width="462"}
+
+**Finding:** in this case, P = 0.00001163. P \< 0.05, so the null hypothesis was rejected, suggesting that the **residuals were not normally distributed.** [This model did not satisfy the assumptions of LMMs.]{.underline}
 
 ## The Imputed Model
 
@@ -264,7 +266,9 @@ model_lmer <- lmer(
 
 ![](images/clipboard-3092760633.png){width="443"}
 
-**Finding:** the residuals [were]{.underline} normally distributed, so this **model does satisfies the assumptions of LMMs.**
+![](images/clipboard-2266059545.png){width="450"}
+
+**Finding:** in this case, P = 0.05066. P \> 0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after threshold imputation. [This model now satisfies the assumptions of LMMs.]{.underline}
 
 ## The Final Model {.smaller}
 
@@ -311,13 +315,17 @@ model_lme_imputed_final <- lme(fixed = cbind(R5Hz_PP, R20Hz_PP, X5Hz_PP, Fres_PP
 
 ![](images/clipboard-3825756155.png){width="429"}
 
+![](images/clipboard-501720430.png){width="428"}
+
+![](images/clipboard-975744365.png){width="432"}
+
 **Findings:**
 
--   The residuals [were]{.underline} normally distributed, so this **model does satisfies the assumptions of LMMs.**
+-   In this case, P = 0.0529. P \> 0.05, so we failed to reject the null hypothesis, suggesting that the **residuals were normally distributed** after threshold imputation. T[his final model also satisfies the assumptions of LMMs.]{.underline}
 
--   The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number **may not be sufficiently increasing model accuracy compared to complexity.**
+-   The AIC [penalizes model complexity]{.underline} to [avoid overfitting,]{.underline} suggesting that the added effects of `Group` and `Observation_number` **may not be sufficiently increasing model accuracy compared to complexity.**
 
--   However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
+-   However, these [effects may still be relevant given the research goal]{.underline} of the project despite the slight increase in AIC, **and thus were left in the final model.**
 
 # Conclusion {background-color="#40666e"}
 
