@@ -92,13 +92,13 @@ Variable Breakdown:
 
 -   N=1000: the number of observations which is the number of students multiplied by  the number of test scores 
 
--   J = 10: the number of students 
+-   J = 100: the number of students 
 
 -   p = 2: the random intercept and the fixed effect 
 
 Matrix Notations and Dimension laid out:
 
-$Y_{1000\times1} = X_{1000\times 2} \; \beta_{2\times1} + Z_{1000\times10}\;u_{10\times1} + \epsilon_{1000\times1}$
+$Y_{1000\times1} = X_{1000\times 2} \; \beta_{2\times1} + Z_{1000\times100}\;u_{100\times1} + \epsilon_{1000\times1}$
 
 Example Matrices:
 
