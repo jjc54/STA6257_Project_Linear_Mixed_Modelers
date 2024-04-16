@@ -1,5 +1,5 @@
 ---
-title: "Inhale, Exhale, Analyze: BMI's Imprint on Impulse Oscillometry Outcomes"
+title: "Inhale, Exhale, Analyze: Using Linear Mixed Models to Predict Airway Resistance and Reactance Measures"
 subtitle: UWF STA 6257 Capstone Project on Linear Mixed Models (LMMs)
 format:
   clean-revealjs:
