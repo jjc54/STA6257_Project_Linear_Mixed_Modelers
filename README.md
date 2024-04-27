@@ -2,7 +2,7 @@ Linear mixed models (LMMs) are statistical models that account for both fixed an
 
 As part of Spring 2024 Advanced Statistical Modeling (STA 6257) Capstone Project at the University of West Florida, our team critically analyzed, assessed, and produced a LMM and elaborated on potential applications in a professional report. This website was built using R/Quarto as was the entire project.
 
-This project was completed under the guidance of Dr. Achraf Cohen (Achraf Cohen | Dr. Achraf Cohen).
+This project was completed under the guidance of Dr. Achraf Cohen. 
 
 Here’s a snapshot of the capstone project:
 
