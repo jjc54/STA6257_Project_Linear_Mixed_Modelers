@@ -2,16 +2,14 @@
 title: "About Us"
 ---
 
-This is the directory for the UWF STA 6257 group: **The Linear Mixed Modelers**. Thank you for stopping by our page!
+This is the directory for the UWF STA 6257 Capstone group: **The Linear Mixed Modelers**. Thank you for stopping by our page!
 
 ::: {layout-ncol="2"}
 ![](images/josh.JPG){.lightbox}
 
 ### Joshua J. Cook, M.S., ACRP-PM, CCRC
 
-Joshua J. Cook, M.S., ACRP-PM, CCRC is a recent graduate of Wake Forest University (WFU) where he earned his Master of Science for Clinical Research Management. He is a current graduate student at the University of West Florida (UWF) studying Data Science while working at the university as an Adjunct Professor. Joshua worked in the field of clinical research for nearly three years, starting in neurology clinical trials and then specializing in orthopedic regenerative medicine as a Research Quality Analyst. He has published his undergraduate honors thesis, entitled "Endurance exercise-mediated metabolic reshuffle attenuates high-caloric diet-induced non-alcoholic fatty liver disease" in the Annals of Hepatology and has recently submitted several orthopedic research papers to various journals. He has also presented his research at over ten unique conferences at the local, state, and national levels with topics spanning from the impact of blood sugar on Alzheimer's Disease to publication metric tracking with R and Microsoft Power BI®. Joshua has developed a passion for bench-to-bedside research and aims to synthesize his knowledge of the biomedical sciences, clinical research, and data science to become a physician-scientist capable of integrating clinical care with clinical research in a way that maximizes evidence-based care options for his patients.
-
-<a href="mailto:jcook0312@outlook.com">Contact Josh</a>
+Joshua J. Cook, M.S., ACRP-PM, CCRC is a recent graduate of Wake Forest University (WFU) where he earned his Master of Science for Clinical Research Management. He is a current graduate student at the University of West Florida (UWF) studying Data Science while working at the university as an Adjunct Professor. Joshua worked in the field of clinical research for nearly three years, starting in neurology clinical trials and then specializing in orthopedic regenerative medicine as a Research Quality Analyst. He has published his undergraduate honors thesis, entitled "Endurance exercise-mediated metabolic reshuffle attenuates high-caloric diet-induced non-alcoholic fatty liver disease" in the Annals of Hepatology and has recently submitted several orthopedic research papers to various journals. He has also presented his research at over ten unique conferences at the local, state, and national levels with topics spanning from the impact of blood sugar on Alzheimer's Disease to publication metric tracking with R and Microsoft Power BI®. Joshua has developed a passion for bench-to-bedside research and aims to synthesize his knowledge of the biomedical sciences, clinical research, and data science to become a physician-scientist capable of integrating clinical care with clinical research in a way that maximizes evidence-based care options for his patients. <a href="mailto:jcook0312@outlook.com">Contact Josh.</a>
 
 :::
 
@@ -20,9 +18,7 @@ Joshua J. Cook, M.S., ACRP-PM, CCRC is a recent graduate of Wake Forest Universi
 
 ### Syed Ahzaz H. Shah, B.S.
 
-Syed Ahzaz Shah, a skilled Software Engineer, excels in developing scalable solutions using Python, SQL, Java, and more. Currently working as software engineer, he contributes to API design, debugging, and deployment, showcasing a commitment to engineering best practices. Syed holds a Bachelor's in Computer Science, complemented by certifications in AWS Cloud Practitioner and Google Data Analytics.
-
-<a href="mailto:shs17@students.uwf.edu">Contact Syed</a>
+Syed Ahzaz Shah, a skilled Software Engineer, excels in developing scalable solutions using Python, SQL, Java, and more. Currently working as software engineer, he contributes to API design, debugging, and deployment, showcasing a commitment to engineering best practices. Syed holds a Bachelor's in Computer Science, complemented by certifications in AWS Cloud Practitioner and Google Data Analytics. <a href="mailto:shs17@students.uwf.edu">Contact Syed.</a>
 
 :::
 
@@ -31,9 +27,7 @@ Syed Ahzaz Shah, a skilled Software Engineer, excels in developing scalable solu
 
 ### Jacob Hernandez, B.S.
 
-Jacob Hernadnez graduated from the California State University of Long Beach with a degree in Chemical Engineering. Currently, he is Data Analyst for an Aeronautics and Defense Company in California where he uses Python, SQL and Tableau to deliver high quality data products to important stake holders. He has recieved his Google Cloud Data Engineering Certifications and TensorFlow Developer Certification which has helped him produce and deploy machine learning projects for his personal portfolio.
-
-<a href="mailto:jacob.hernandez0830@gmail.com">Contact Jacob</a>
+Jacob Hernadnez graduated from the California State University of Long Beach with a degree in Chemical Engineering. Currently, he is Data Analyst for an Aeronautics and Defense Company in California where he uses Python, SQL and Tableau to deliver high quality data products to important stake holders. He has recieved his Google Cloud Data Engineering Certifications and TensorFlow Developer Certification which has helped him produce and deploy machine learning projects for his personal portfolio. <a href="mailto:jacob.hernandez0830@gmail.com">Contact Jacob.</a>
 
 :::
 
@@ -42,8 +36,6 @@ Jacob Hernadnez graduated from the California State University of Long Beach wit
 
 ### Sara Basili, M.S.
 
-Sara Basili obtained her Master of Science in Computer Science with a concentration in Artificial Intelligence from the University of New Orleans (UNO) in December 2023. She is currently pursuing her Master of Science in Data Science at the University of West Florida (UWF), while working as an AI researcher and directing operations at an Artificial Intelligence company based in New Orleans. Prior to her current roles, she gained over a year of insightful experience working as a Crime Analyst for the District Attorney's office in New Orleans. Sara earned her B.S. in Statistics from Università degli Studi di Roma "La Sapienza" in March 2021, where she authored a thesis entitled "The Social Impact of Gallup Polls to Measure Public Opinion: An Empirical Analysis of the Knight Communities." She is proficient in a variety of programming languages, including SQL, R, Python, SAS, and Java, which are central to her work in both artificial intelligence and data science.
-
-<a href="mailto:saraelizabethbasili@gmail.com">Contact Sara</a>
+Sara Basili obtained her Master of Science in Computer Science with a concentration in Artificial Intelligence from the University of New Orleans (UNO) in December 2023. She is currently pursuing her Master of Science in Data Science at the University of West Florida (UWF), while working as an AI researcher and directing operations at an Artificial Intelligence company based in New Orleans. Prior to her current roles, she gained over a year of insightful experience working as a Crime Analyst for the District Attorney's office in New Orleans. Sara earned her B.S. in Statistics from Università degli Studi di Roma "La Sapienza" in March 2021, where she authored a thesis entitled "The Social Impact of Gallup Polls to Measure Public Opinion: An Empirical Analysis of the Knight Communities." She is proficient in a variety of programming languages, including SQL, R, Python, SAS, and Java, which are central to her work in both artificial intelligence and data science. <a href="mailto:saraelizabethbasili@gmail.com">Contact Sara.</a>
 
 :::
