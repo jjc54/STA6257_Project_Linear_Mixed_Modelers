@@ -474,7 +474,7 @@ Figure 10 highlights correlations between variables that should be assessed befo
 
 Weight (Kg) and BMI: There is a strong positive correlation (0.927) between Weight (Kg) and BMI. This suggests that as weight increases, BMI (Body Mass Index) tends to increase as well. This correlation is expected because BMI is calculated using weight and height measurements.
 
-R5Hz_PP and Fres_PP: There is a strong positive correlation (0.754) between R5Hz_PP and Fres_PP.
+Airway Resistance and Reactance: There is a strong positive correlation (0.754) between R5Hz_PP and Fres_PP.
 
 ```{r}
 plot_correlation(na.omit(x), maxcat=5L, title = "Figure 10. Correlation matrix of all variables.")
@@ -485,7 +485,7 @@ print(correlation_matrix)
 
 ## **3.3 Linear Mixed Modeling**
 
-In this dataset, the variable of interest is body mass index (BMI). Additionally, controlled variables are present such as group, age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations which are nested in each subject. These represent the random effects, as shown in Table 5. In the [**initial model**]{.underline}, Subject_ID was treated as the sole random effect. In the [**final model**]{.underline}, both random effects were incorporated (Subject_ID, Observation_Number).
+In this dataset, the variables of interest are the measures of airway resistance and reactance. Additionally, controlled variables are present such as group, age, weight, height, and other co-morbidities. These are the fixed effects. On the other hand, random variability may exist between individual observations which are nested in each subject. These represent the random effects, as shown in Table 5. In the [**initial model**]{.underline}, Subject_ID was treated as the sole random effect. In the [**final model**]{.underline}, both random effects were incorporated (Subject_ID, Observation_Number).
 
 ```{r}
 #| label: FixedOrRandom
@@ -714,7 +714,7 @@ shapiro_test_results <- shapiro.test(residuals_imputed)
 print(shapiro_test_results)
 ```
 
-The AIC was calculated as 1790.91, **an improvement on the initial model.**
+The AIC was calculated as 1790.91, but cannot be used as a direct comparison to the original model due to imputation. 
 
 The Shapiro-Wilk test was conducted on the residuals to formally test for normality.
 
@@ -767,7 +767,7 @@ print(shapiro_test_results)
 
 ![Equation 2. The final linear mixed model.](images/final_model.png){fig-align="center"}{.lightbox}
 
-The AIC was calculated as 1801.60, **an improvement on the initial model but not on the less complex imputed model, as shown in Figure 21.** The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number may not be sufficiently increasing model accuracy compared to complexity. However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
+The AIC was calculated as 1801.60, **not exactly an improvment on the less complex imputed model, as shown in Figure 21.** The AIC penalizes model complexity to avoid overfitting, suggesting that the added effects of Group and Observation_number may not be sufficiently increasing model accuracy compared to complexity. However, these effects may still be relevant given the research goal of the project despite the slight increase in AIC, **and thus will be left in the final model.**
 
 ```{r}
 

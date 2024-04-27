@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "The Linear Mixed Modelers",
     "section": "",
-    "text": "Linear mixed models (LMMs) are statistical models that account for both fixed and random effects. Please follow along as we provide a systematic review of LMMs, their applications, their limitations, and more. Importantly, we will develop a report and by-example analysis of LMMs in R.\nHere’s a snapshot of the analysis process our team is currently going through:\n\nFeel free to meet our team, The Linear Mixed Modelers, on the About tab and review our individual literature contributions on the Literature tab. Our overall report is on the Report tab with code and slides extracted for general use."
+    "text": "Linear mixed models (LMMs) are statistical models that account for both fixed and random effects. In this report, we provided a systematic review of LMMs, their applications, their limitations, and more. Importantly, we developed this report and by-example analysis of LMMs in R.\nAs part of Advanced Statistical Modeling (STA 6257) at the University of West Florida, our team critically analyzed, assessed, and produced a LMM and elaborated on potential applications in a professional report. This website was built using R/Quarto as was the entire project.\nThis project was completed under the guidance of Dr. Ahcraf Cohen (Achraf Cohen | Dr. Achraf Cohen).\nHere’s a snapshot of the capstone project:\n\n\n\n\n\nFeel free to meet our team, The Linear Mixed Modelers, on the About tab and review our individual literature contributions on the Literature tab. Our overall report is on the Report tab with slides and poster presentation extracted for general use."
   },
   {
     "objectID": "about.html",

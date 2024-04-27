@@ -11,6 +11,7 @@ website:
         text: Home
       - literature.qmd
       - report.qmd
+      - resources.qmd
       - about.qmd
 
 format:

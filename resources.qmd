@@ -1,0 +1,15 @@
+---
+title: "Resources"
+---
+
+## Final Presentation Slides
+
+Presented as a final deliverable to Dr. Cohen on April 16th, 2024.
+
+[Download Slides](./slides.html)
+
+## Research Presentation Poster
+
+Presented at the 2024 UWF Symposium on April 18th, 2024.
+
+[Download Poster](./LMM.pdf)
